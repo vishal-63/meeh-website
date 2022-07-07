@@ -2,7 +2,10 @@ const mongoose = require("mongoose");
 
 const reivewSchema = new mongoose.schema({
   user_id: {
-    type: mongoose.SchemaTypes.ObjectId,
+    type: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "User",
+    },
     required: true,
   },
   rating: {
