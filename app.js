@@ -9,16 +9,13 @@ const app = express();
 
 app.use(bodyParser);
 
-mongoose.connect(process.env.MONGODBURI)
-.then(()=>{
-    const port=process.env.PORT || 5000
+mongoose
+  .connect(process.env.MONGODBURI)
+  .then(() => {
+    const port = process.env.PORT || 5000;
     app.listen(port);
     console.log(`listening on port ${port}`);
-})
-.then(async ()=>{
-    console.log("meeh")
-    let list = await User.find();
-    console.log(list);
-})
-.catch((err)=>{console.log(err.message);})
-
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
