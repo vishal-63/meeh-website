@@ -1,6 +1,34 @@
 const mongoose = require("mongoose");
 const {isEmail} = require("validator");
 
+const addressSchema = new mongoose.schema({
+    state:{
+        type:String,
+        required:true,
+    },
+    city:{
+        type:String,
+        required:true,
+    },
+    street:{
+        type:String,
+        required:true,
+    },
+    house_no:{
+        type:String,
+        required:true,
+    },
+    landmark:{
+        type:String,
+    },
+    pincode:{
+        type:Number,
+        min:6,
+        max:6,
+        required:true
+    }
+})
+
 const userSchema = new mongoose.Schema({
     
     first_name:{
@@ -25,37 +53,11 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
-    adresses:{
-        type:[{
-            state:{
-                type:String,
-                required:true,
-            },
-            city:{
-                type:String,
-                required:true,
-            },
-            street:{
-                type:String,
-                required:true,
-            },
-            house_no:{
-                type:String,
-                required:true,
-            },
-            landmark:{
-                type:String,
-            },
-            pincode:{
-                type:Number,
-                min:6,
-                max:6,
-                required:true
-            }
-        }],
+    addresses:{
+        type:[addressSchema],
     },
     is_deleted:{
-        type:boolean,
+        type:Boolean,
         default:false,
     },
     

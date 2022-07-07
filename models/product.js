@@ -24,7 +24,8 @@ const productSchema = new mongoose.Schema({
         required:true,
     },
     image:{
-        type:mongoose.SchemaTypes.ObjectId,       
+        type:mongoose.SchemaTypes.ObjectId,     
+        required:true,  
     },
     size:{
         type:[String],
@@ -57,7 +58,7 @@ const productSchema = new mongoose.Schema({
         type:reivewSchema,
     },
     is_deleted:{
-        type:boolean,
+        type:Boolean,
         default:false,
     }
 })
