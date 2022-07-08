@@ -9,6 +9,8 @@ dotenv.config();
 const loginRouter = require("./routes/login");
 const cartRouter = require("./routes/cart");
 const productRouter = require("./routes/products");
+const wishlistRouter = require("./routes/wishlist");
+const registerRouter = require("./routes/register");
 const profileRouter = require("./routes/profile");
 const contactRouter = require("./routes/contact");
 const checkoutRouter = require("./routes/checkout");
@@ -35,6 +37,13 @@ app.use("/products", productRouter);
 app.use("/profile", profileRouter);
 app.use("/contact", contactRouter);
 app.use("/checkout", checkoutRouter);
+app.use("/wishlist", wishlistRouter);
+app.use("/register", registerRouter);
+
+//about us route
+app.get("/about",(req,res)=>{
+  res.render('about');
+})
 
 // 404 page
 app.get("*", (req, res) => {
