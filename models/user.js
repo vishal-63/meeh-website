@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { isEmail } = require("validator");
 
-const addressSchema = new mongoose.schema({
+const addressSchema = new mongoose.Schema({
     state:{
         type:String,
         required:true,
@@ -27,7 +27,7 @@ const addressSchema = new mongoose.schema({
         max:6,
         required:true
     }
-})
+});
 
 const userSchema = new mongoose.Schema({
   first_name: {
