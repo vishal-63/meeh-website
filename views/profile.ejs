@@ -8,10 +8,10 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
     />
 
-    <title>Meeh - Login</title>
+    <title>Castro - HTML 5 Template Preview</title>
 
     <!-- Fav Icon -->
-    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon" />
 
     <!-- Google Fonts -->
     <link
@@ -24,21 +24,18 @@
     />
 
     <!-- Stylesheets -->
-    <link href="../assets/css/font-awesome-all.css" rel="stylesheet" />
-    <link href="../assets/css/flaticon.css" rel="stylesheet" />
-    <link href="../assets/css/owl.css" rel="stylesheet" />
-    <link href="../assets/css/bootstrap.css" rel="stylesheet" />
-    <link href="../assets/css/jquery.fancybox.min.css" rel="stylesheet" />
-    <link href="../assets/css/animate.css" rel="stylesheet" />
-    <link href="../assets/css/jquery-ui.css" rel="stylesheet" />
-    <link
-      href="../assets/css/jquery.bootstrap-touchspin.css"
-      rel="stylesheet"
-    />
-    <link href="../assets/css/nice-select.css" rel="stylesheet" />
-    <link href="../assets/css/color.css" rel="stylesheet" />
-    <link href="../assets/css/style.css" rel="stylesheet" />
-    <link href="../assets/css/responsive.css" rel="stylesheet" />
+    <link href="assets/css/font-awesome-all.css" rel="stylesheet" />
+    <link href="assets/css/flaticon.css" rel="stylesheet" />
+    <link href="assets/css/owl.css" rel="stylesheet" />
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/jquery.fancybox.min.css" rel="stylesheet" />
+    <link href="assets/css/animate.css" rel="stylesheet" />
+    <link href="assets/css/jquery-ui.css" rel="stylesheet" />
+    <link href="assets/css/jquery.bootstrap-touchspin.css" rel="stylesheet" />
+    <link href="assets/css/nice-select.css" rel="stylesheet" />
+    <link href="assets/css/color.css" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+    <link href="assets/css/responsive.css" rel="stylesheet" />
   </head>
 
   <!-- page wrapper -->
@@ -132,7 +129,7 @@
                   <div class="lang-btn">
                     <span class="flag"
                       ><img
-                        src="../assets/images/icons/icon-lang.png"
+                        src="assets/images/icons/icon-lang.png"
                         alt=""
                         title="English"
                     /></span>
@@ -166,7 +163,7 @@
             <div class="outer-box">
               <figure class="logo-box">
                 <a href="index.html"
-                  ><img src="../assets/images/logo.png" alt=""
+                  ><img src="assets/images/logo.png" alt=""
                 /></a>
               </figure>
               <div class="menu-area">
@@ -418,7 +415,7 @@
               <div class="logo-box pull-left">
                 <figure class="logo">
                   <a href="index.html"
-                    ><img src="../assets/images/small-logo.png" alt=""
+                    ><img src="assets/images/small-logo.png" alt=""
                   /></a>
                 </figure>
               </div>
@@ -440,7 +437,7 @@
         <nav class="menu-box">
           <div class="nav-logo">
             <a href="index.html"
-              ><img src="../assets/images/logo-2.png" alt="" title=""
+              ><img src="assets/images/logo-2.png" alt="" title=""
             /></a>
           </div>
           <div class="menu-outer">
@@ -485,9 +482,7 @@
       <section class="page-title centred">
         <div
           class="pattern-layer"
-          style="
-            background-image: url(../assets/images/background/page-title.jpg);
-          "
+          style="background-image: url(assets/images/background/page-title.jpg)"
         ></div>
         <div class="auto-container">
           <div class="content-box">
@@ -506,14 +501,18 @@
       <!-- myaccount-section -->
       <section class="myaccount-section">
         <div class="auto-container">
-          <div class="row clearfix justify-content-center">
+          <div class="row clearfix">
             <div class="col-lg-6 col-md-12 col-sm-12 inner-column">
               <div class="inner-box login-inner">
                 <div class="upper-inner">
                   <h3>Log in</h3>
                   <p>Log in to access all your resources</p>
                 </div>
-                <form action="/login" method="POST" class="default-form">
+                <form
+                  action="my-account.html"
+                  method="post"
+                  class="default-form"
+                >
                   <div class="form-group">
                     <label>Email address</label>
                     <input type="email" name="email" required="" />
@@ -561,48 +560,67 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="col-lg-6 col-md-12 col-sm-12 inner-column">
-                        <div class="inner-box signup-inner">
-                            <div class="upper-inner">
-                                <h3>Create An Account</h3>
-                                <p>Log in to access all your resources</p>
-                            </div>
-                            <form action="my-account.html" method="post" class="default-form">
-                                <div class="form-group">
-                                    <label>Your name</label>
-                                    <input type="text" name="name" required="">
-                                </div>
-                                <div class="form-group">
-                                    <label>Email address</label>
-                                    <input type="email" name="email" required="">
-                                </div>
-                                <div class="form-group">
-                                    <label>Password</label>
-                                    <input type="password" name="password" required="">
-                                </div>
-                                <div class="form-group">
-                                    <div class="custom-controls-stacked">
-                                        <label class="custom-control material-checkbox">
-                                            <input type="checkbox" class="material-control-input">
-                                            <span class="material-control-indicator"></span>
-                                            <span class="description">I agree to terms & Policy.</span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="theme-btn-two">Sign Up<i class="flaticon-right-1"></i></button>
-                                </div>
-                            </form>
-                            <div class="lower-inner centred">
-                                <span>or</span>
-                                <ul class="social-links clearfix">
-                                    <li><a href="my-account.html"><i class="fab fa-facebook-f"></i>Facebook</a></li>
-                                    <li><a href="my-account.html"><i class="fab fa-google-plus-g"></i>Google</a></li>
-                                </ul>
-                                <p>Already have an account? <a href="my-account.html">Log In Now</a></p>
-                            </div>
-                        </div>
-                    </div> -->
+            <div class="col-lg-6 col-md-12 col-sm-12 inner-column">
+              <div class="inner-box signup-inner">
+                <div class="upper-inner">
+                  <h3>Create An Account</h3>
+                  <p>Log in to access all your resources</p>
+                </div>
+                <form
+                  action="my-account.html"
+                  method="post"
+                  class="default-form"
+                >
+                  <div class="form-group">
+                    <label>Your name</label>
+                    <input type="text" name="name" required="" />
+                  </div>
+                  <div class="form-group">
+                    <label>Email address</label>
+                    <input type="email" name="email" required="" />
+                  </div>
+                  <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" required="" />
+                  </div>
+                  <div class="form-group">
+                    <div class="custom-controls-stacked">
+                      <label class="custom-control material-checkbox">
+                        <input type="checkbox" class="material-control-input" />
+                        <span class="material-control-indicator"></span>
+                        <span class="description"
+                          >I agree to terms & Policy.</span
+                        >
+                      </label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" class="theme-btn-two">
+                      Sign Up<i class="flaticon-right-1"></i>
+                    </button>
+                  </div>
+                </form>
+                <div class="lower-inner centred">
+                  <span>or</span>
+                  <ul class="social-links clearfix">
+                    <li>
+                      <a href="my-account.html"
+                        ><i class="fab fa-facebook-f"></i>Facebook</a
+                      >
+                    </li>
+                    <li>
+                      <a href="my-account.html"
+                        ><i class="fab fa-google-plus-g"></i>Google</a
+                      >
+                    </li>
+                  </ul>
+                  <p>
+                    Already have an account?
+                    <a href="my-account.html">Log In Now</a>
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -619,7 +637,7 @@
                     <div class="footer-widget logo-widget">
                       <figure class="footer-logo">
                         <a href="index.html"
-                          ><img src="../assets/images/footer-logo-2.png" alt=""
+                          ><img src="assets/images/footer-logo-2.png" alt=""
                         /></a>
                       </figure>
                     </div>
@@ -720,22 +738,22 @@
             <ul class="cart-list pull-left clearfix">
               <li>
                 <a href="index.html"
-                  ><img src="../assets/images/resource/card-1.png" alt=""
+                  ><img src="assets/images/resource/card-1.png" alt=""
                 /></a>
               </li>
               <li>
                 <a href="index.html"
-                  ><img src="../assets/images/resource/card-2.png" alt=""
+                  ><img src="assets/images/resource/card-2.png" alt=""
                 /></a>
               </li>
               <li>
                 <a href="index.html"
-                  ><img src="../assets/images/resource/card-3.png" alt=""
+                  ><img src="assets/images/resource/card-3.png" alt=""
                 /></a>
               </li>
               <li>
                 <a href="index.html"
-                  ><img src="../assets/images/resource/card-4.png" alt=""
+                  ><img src="assets/images/resource/card-4.png" alt=""
                 /></a>
               </li>
             </ul>
@@ -770,23 +788,23 @@
     </div>
 
     <!-- jequery plugins -->
-    <script src="../assets/js/jquery.js"></script>
-    <script src="../assets/js/popper.min.js"></script>
-    <script src="../assets/js/bootstrap.min.js"></script>
-    <script src="../assets/js/owl.js"></script>
-    <script src="../assets/js/wow.js"></script>
-    <script src="../assets/js/validation.js"></script>
-    <script src="../assets/js/jquery.fancybox.js"></script>
-    <script src="../assets/js/TweenMax.min.js"></script>
-    <script src="../assets/js/appear.js"></script>
-    <script src="../assets/js/scrollbar.js"></script>
-    <script src="../assets/js/jquery.nice-select.min.js"></script>
-    <script src="../assets/js/isotope.js"></script>
-    <script src="../assets/js/jquery-ui.js"></script>
-    <script src="../assets/js/jquery.bootstrap-touchspin.js"></script>
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/owl.js"></script>
+    <script src="assets/js/wow.js"></script>
+    <script src="assets/js/validation.js"></script>
+    <script src="assets/js/jquery.fancybox.js"></script>
+    <script src="assets/js/TweenMax.min.js"></script>
+    <script src="assets/js/appear.js"></script>
+    <script src="assets/js/scrollbar.js"></script>
+    <script src="assets/js/jquery.nice-select.min.js"></script>
+    <script src="assets/js/isotope.js"></script>
+    <script src="assets/js/jquery-ui.js"></script>
+    <script src="assets/js/jquery.bootstrap-touchspin.js"></script>
 
     <!-- main-js -->
-    <script src="../assets/js/script.js"></script>
+    <script src="assets/js/script.js"></script>
   </body>
   <!-- End of .page_wrapper -->
 </html>
