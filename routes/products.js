@@ -4,7 +4,7 @@ const router = Router();
 
 //route to get all products or 
 //products of a category or subcategory
-router.get("/products",(req,res)=>{
+router.get("/",(req,res)=>{
     const response={};
     if(req.query.category ){
         response.category=req.query.category;
@@ -17,7 +17,7 @@ router.get("/products",(req,res)=>{
 })
 
 //get single product based on product id
-router.get("/product/:id",(req,res)=>{
+router.get("/:id",(req,res)=>{
     res.json(`product with id ${req.params.id}`);
 });
 
