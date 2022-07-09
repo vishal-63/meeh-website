@@ -24,6 +24,14 @@ const checkoutRouter = require("./routes/checkout");
 const blogRouter = require("./routes/blogs");
 
 
+// Models
+const User = require("./models/user");
+const Blog = require("./models/blog");
+const Coupon = require("./models/coupon");
+const Product = require("./models/product");
+const Order = require("./models/order");
+const Cart = require("./models/cart");
+
 const app = express();
 
 // Ejs view engine
@@ -48,9 +56,9 @@ app.use("/register", registerRouter);
 app.use("/blogs",blogRouter);
 
 //about us route
-app.get("/about",(req,res)=>{
-  res.render('about');
-})
+app.get("/about", (req, res) => {
+  res.render("about");
+});
 
 // 404 page
 app.get("*", (req, res) => {
@@ -67,8 +75,6 @@ mongoose
   .catch((err) => {
     console.log(err.message);
   });
-
-
 
 
 // async function addProducts(){
@@ -114,3 +120,14 @@ mongoose
 //   console.log(wishlist);
 // }
 // test()
+
+// user ids
+// 62c8106e13a9e64fac4dcffe
+// 62c81015651761a1db0feeeb
+// 62c810dcfd35fb6554585b2b
+
+// product ids
+// 62c87554d1e70669ca1b4499
+// 62c875ab28503cb136482c0c
+// 62c875eba93d01aa26e5a4b8
+// 62c8763f78b5e02a4a99f1dc

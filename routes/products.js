@@ -1,4 +1,6 @@
-const {Router} = require("express");
+
+const { Router } = require("express");
+
 const router = Router();
 const productController = require("../controllers/productController");
 
@@ -35,6 +37,7 @@ router.get("/",productController.products_get);
 //     await test.populate('test1_id');
 //     console.log(test);
 
+
 //     // const wishlist = await Wishlist.findOne();
 //     // await wishlist.populate('user_id');
 //     // console.log(wishlist);
@@ -42,4 +45,5 @@ router.get("/",productController.products_get);
 //     res.json("hii");
 // });
 
-module.exports=router;
+
+module.exports = router;
