@@ -28,7 +28,6 @@ const contactRouter = require("./routes/contact");
 const checkoutRouter = require("./routes/checkout");
 const blogRouter = require("./routes/blogs");
 
-
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -46,6 +45,9 @@ mongoose
   .catch((err) => {
     console.log(err.message);
 });
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Ejs view engine
 app.set("view engine", "ejs");
@@ -65,7 +67,7 @@ app.use("/contact", contactRouter);
 app.use("/checkout", checkoutRouter);
 app.use("/wishlist", wishlistRouter);
 app.use("/register", registerRouter);
-app.use("/blogs",blogRouter);
+app.use("/blogs", blogRouter);
 
 //about us route
 app.get("/about", (req, res) => {
@@ -76,7 +78,6 @@ app.get("/about", (req, res) => {
 app.get("*", (req, res) => {
   res.render("not-found");
 });
-
 
 
 // async function addProducts(){
@@ -100,18 +101,18 @@ app.get("*", (req, res) => {
 //     }
 //   })
 
-  // const product1 = await Product.findById("62c819e5d42faf96057817fa");
-  // product1.reviews[0].user_id ="62c81015651761a1db0feeeb";
-  // console.log(mongoose.Types.ObjectId("62c81015651761a1db0feeeb"));
-  // product1.save((err,result)=>{
-  //   if(err){
-  //     console.log(err.message);
-  //   }
-  //   else{
-  //     console.log(result);
-  //   }
-  // });
-  // console.log(product1.reviews[0]);
+// const product1 = await Product.findById("62c819e5d42faf96057817fa");
+// product1.reviews[0].user_id ="62c81015651761a1db0feeeb";
+// console.log(mongoose.Types.ObjectId("62c81015651761a1db0feeeb"));
+// product1.save((err,result)=>{
+//   if(err){
+//     console.log(err.message);
+//   }
+//   else{
+//     console.log(result);
+//   }
+// });
+// console.log(product1.reviews[0]);
 // }
 // addProducts();
 // addUsers();
