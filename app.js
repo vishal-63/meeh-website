@@ -1,7 +1,8 @@
 // Packages
 const mongoose = require("mongoose");
 const express = require("express");
-// const bodyParser = require("body-parser");
+const cookieParse = require('cookie-parser');
+const bodyParser = require('body-parser');
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -11,6 +12,10 @@ const User = require("./models/User");
 const Product = require("./models/product");
 const Wishlist = require("./models/wishlist");
 const Test = require("./models/test1");
+const Blog = require("./models/blog");
+const Coupon = require("./models/coupon");
+const Order = require("./models/order");
+const Cart = require("./models/cart");
 
 // Routes
 const loginRouter = require("./routes/login");
@@ -24,27 +29,34 @@ const checkoutRouter = require("./routes/checkout");
 const blogRouter = require("./routes/blogs");
 
 
-// Models
-const User = require("./models/user");
-const Blog = require("./models/blog");
-const Coupon = require("./models/coupon");
-const Product = require("./models/product");
-const Order = require("./models/order");
-const Cart = require("./models/cart");
-
 const app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(cookieParse());
+//declaring public directory to get assets from
+app.use(express.static(__dirname + "/public"));
+
+mongoose
+  .connect(process.env.MONGODBURI)
+  .then(() => {
+    const port = process.env.PORT || 5000;
+    app.listen(port);
+    console.log(`listening on port ${port}`);
+  })
+  .catch((err) => {
+    console.log(err.message);
+});
 
 // Ejs view engine
 app.set("view engine", "ejs");
 
-//declaring public directory to get assets from
-app.use(express.static(__dirname + "/public"));
 
 // Base route
 app.get("/", (req, res) => {
   res.render("index");
 });
 
+//setting routes for each path
 app.use("/login", loginRouter);
 app.use("/cart", cartRouter);
 app.use("/products", productRouter);
@@ -65,16 +77,6 @@ app.get("*", (req, res) => {
   res.render("not-found");
 });
 
-mongoose
-  .connect(process.env.MONGODBURI)
-  .then(() => {
-    const port = process.env.PORT || 5000;
-    app.listen(port);
-    console.log(`listening on port ${port}`);
-  })
-  .catch((err) => {
-    console.log(err.message);
-  });
 
 
 // async function addProducts(){

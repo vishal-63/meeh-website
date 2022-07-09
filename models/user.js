@@ -62,6 +62,17 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-const Users = mongoose.model("Users", userSchema);
+userSchema.statics.login = async (email,password)=>{
+  const user = await Users.findOne({email:email});
+  if(user){
+    if(user.password == password){
+      return user;
+    }
+    throw Error("Incorrect Password");
+  }
+  throw Error("No user found");
+}
+
+const Users = mongoose.model("users", userSchema);
 
 module.exports = Users;
