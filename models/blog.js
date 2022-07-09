@@ -7,7 +7,7 @@ const blogSchema = new mongoose.Schema({
   },
   published_at: {
     type: Date,
-    default: new Date().toLocaleDateString(),
+    default: new Date(),
   },
   content: {
     type: String,
@@ -15,7 +15,11 @@ const blogSchema = new mongoose.Schema({
   },
   image: {
     type: mongoose.SchemaTypes.ObjectId,
-    required: true,
+    // required: true,
+  },
+  tags: {
+    type: [String],
+    minlength: 1,
   },
   is_deleted: {
     type: Boolean,
