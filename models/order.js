@@ -1,27 +1,34 @@
 const mongoose = require("mongoose");
 
+const productSchema = new mongoose.Schema({
+  product_id: {
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "Product",
+  },
+  quantity: Number,
+  total_amt: Number,
+})
+
 const orderSchema = new mongoose.Schema({
   user_id: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: "User",
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "User",
     required: true,
   },
   products: {
-    type: [
-      {
-        product_id: {
-          type: mongoose.SchemaTypes.ObjectId,
-          ref: "Product",
-        },
-        quantity: Number,
-        total_amt: Number,
+    type: [{
+      product_id: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Product",
       },
-    ],
+      quantity: Number,
+      total_amt: Number,}],
+    minlength: 1,
     required: true,
   },
   order_date: {
     type: Date,
-    default: new Date().toLocaleDateString(),
+    default: new Date(),
   },
   sub_total: {
     type: Number,
