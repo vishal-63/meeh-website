@@ -54,9 +54,9 @@ const productSchema = new mongoose.Schema({
   discount: {
     type: Number,
   },
-  reviews: {
+  reviews: [{
     type: reivewSchema,
-  },
+  }],
   is_deleted: {
     type: Boolean,
     default: false,

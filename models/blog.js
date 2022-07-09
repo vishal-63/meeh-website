@@ -21,6 +21,10 @@ const blogSchema = new mongoose.Schema({
     type: [String],
     minlength: 1,
   },
+  tags:{
+    type:[String],
+    minlength:1,
+  },
   is_deleted: {
     type: Boolean,
     default: false,

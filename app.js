@@ -5,6 +5,13 @@ const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config();
 
+
+// Models
+const User = require("./models/User");
+const Product = require("./models/product");
+const Wishlist = require("./models/wishlist");
+const Test = require("./models/test1");
+
 // Routes
 const loginRouter = require("./routes/login");
 const cartRouter = require("./routes/cart");
@@ -14,6 +21,8 @@ const registerRouter = require("./routes/register");
 const profileRouter = require("./routes/profile");
 const contactRouter = require("./routes/contact");
 const checkoutRouter = require("./routes/checkout");
+const blogRouter = require("./routes/blogs");
+
 
 // Models
 const User = require("./models/user");
@@ -44,6 +53,7 @@ app.use("/contact", contactRouter);
 app.use("/checkout", checkoutRouter);
 app.use("/wishlist", wishlistRouter);
 app.use("/register", registerRouter);
+app.use("/blogs",blogRouter);
 
 //about us route
 app.get("/about", (req, res) => {
@@ -65,6 +75,51 @@ mongoose
   .catch((err) => {
     console.log(err.message);
   });
+
+
+// async function addProducts(){
+//   const userData = await User.findById("62c810f418e0554c9d174bf5");
+//   const productData0 = await Product.findById("62c876ddd9c721e9b84472e1");
+//   const productData1 = await Product.findById("62c8763f78b5e02a4a99f1dc");
+//   const productData2 = await Product.findById("62c87554d1e70669ca1b4499");
+//   // console.log(userData._id);
+//   const wishlistData={
+//     user_id:userData._id,
+//     products:[productData1._id,productData2]
+//   }
+
+//   const wishlist = new Wishlist(wishlistData);
+//   wishlist.save((err,result)=>{
+//     if(err){
+//       console.log(err.message);
+//     }
+//     else{
+//       console.log(result);
+//     }
+//   })
+
+  // const product1 = await Product.findById("62c819e5d42faf96057817fa");
+  // product1.reviews[0].user_id ="62c81015651761a1db0feeeb";
+  // console.log(mongoose.Types.ObjectId("62c81015651761a1db0feeeb"));
+  // product1.save((err,result)=>{
+  //   if(err){
+  //     console.log(err.message);
+  //   }
+  //   else{
+  //     console.log(result);
+  //   }
+  // });
+  // console.log(product1.reviews[0]);
+// }
+// addProducts();
+// addUsers();
+
+// async function test(){
+//   const wishlist = await Wishlist.findOne();
+//   await wishlist.populate('user_id');
+//   console.log(wishlist);
+// }
+// test()
 
 // user ids
 // 62c8106e13a9e64fac4dcffe
