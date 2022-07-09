@@ -1,27 +1,45 @@
 const {Router} = require("express");
-
 const router = Router();
+const productController = require("../controllers/productController");
 
-//route to get all products or 
-//products of a category or subcategory
+require("../models/User");
+const Wishlist = require("../models/wishlist");
+const Test1= require("../models/test1");
+const Test = require("../models/test");
 
-//get single product based on product id
-router.get("/:id",(req,res)=>{
-    console.log(`product with id ${req.params.id}`);
-    res.render('productdetails')
-});
+// route to get all products or 
+// products of a category or subcategory
 
-router.get("/",(req,res)=>{
-    const response={};
-    if(req.query.category ){
-        response.category=req.query.category;
-    }
-    if(req.query.subcategory){
-        response.subcategory=req.query.subcategory;
-    }
-    console.log(response);
-    res.render('products');
-})
+// get single product based on product id
+router.get("/:id",productController.single_product_get);
 
+router.get("/",productController.products_get);
+
+// router.get("/",(req,res)=>{
+//     const response={};
+//     if(req.query.category ){
+//         response.category=req.query.category;
+//     }
+//     if(req.query.subcategory){
+//         response.subcategory=req.query.subcategory;
+//     }
+//     console.log(response);
+//     res.render('products');
+// })
+
+
+// router.get("/test",async (req,res)=>{
+
+
+//     const test = await Test.findOne();
+//     await test.populate('test1_id');
+//     console.log(test);
+
+//     // const wishlist = await Wishlist.findOne();
+//     // await wishlist.populate('user_id');
+//     // console.log(wishlist);
+
+//     res.json("hii");
+// });
 
 module.exports=router;

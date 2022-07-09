@@ -1,12 +1,9 @@
 const mongoose = require("mongoose");
 
-const reivewSchema = new mongoose.schema({
+const reivewSchema = new mongoose.Schema({
   user_id: {
-    type: {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: "User",
-    },
-    required: true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
   },
   rating: {
     type: Number,
@@ -56,9 +53,9 @@ const productSchema = new mongoose.Schema({
   discount: {
     type: Number,
   },
-  reviews: {
+  reviews: [{
     type: reivewSchema,
-  },
+  }],
   is_deleted: {
     type: Boolean,
     default: false,

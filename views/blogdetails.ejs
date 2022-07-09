@@ -160,7 +160,7 @@
                                                 <li><a href="error.html">404</a></li>
                                             </ul>
                                         </li>
-                                        <li class="current dropdown"><a href="index.html">Shop<span>Hot</span></a>
+                                        <li class="dropdown"><a href="index.html">Shop<span>Hot</span></a>
                                             <div class="megamenu">
                                                 <div class="row clearfix">
                                                     <div class="col-lg-4 column">
@@ -229,7 +229,7 @@
                                                 </div>                                           
                                             </div>
                                         </li>    
-                                        <li class="dropdown"><a href="index.html">Blog</a>
+                                        <li class="current dropdown"><a href="index.html">Blog</a>
                                             <ul>
                                                 <li><a href="blog.html">Blog 01</a></li>
                                                 <li><a href="blog-2.html">Blog 02</a></li>
@@ -312,10 +312,10 @@
             <div class="pattern-layer" style="background-image: url(/assets/images/background/page-title.jpg);"></div>
             <div class="auto-container">
                 <div class="content-box">
-                    <h1>Product Details 02</h1>
+                    <h1>Blog Details 2</h1>
                     <ul class="bread-crumb clearfix">
                         <li><i class="flaticon-home-1"></i><a href="index.html">Home</a></li>
-                        <li>Product Details 02</li>
+                        <li>Blog Details 2</li>
                     </ul>
                 </div>
             </div>
@@ -323,310 +323,248 @@
         <!-- page-title end -->
 
 
-        <!-- product-details -->
-        <section class="product-details product-details-2">
+        <!-- blog-details -->
+        <section class="blog-details sidebar-page-container">
             <div class="auto-container">
-                <div class="product-details-content">
-                    <div class="row align-items-center clearfix">
-                        <div class="col-lg-6 col-md-12 col-sm-12 image-column">
-                            <div class="bxslider">
-                                <div class="slider-content">
-                                    <div class="slider-pager">
-                                        <ul class="thumb-box">
-                                            <li>
-                                                <a class="active" data-slide-index="0" href="#"><figure><img src="/assets/images/resource/shop/single-thumb-1.jpg" alt=""></figure></a>
-                                            </li>
-                                            <li>
-                                                <a data-slide-index="1" href="#"><figure><img src="/assets/images/resource/shop/single-thumb-2.jpg" alt=""></figure></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="product-image">
-                                        <figure class="image">
-                                            <img src="/assets/images/resource/shop/product-details-2.jpg" alt="">
-                                            <a href="/assets/images/resource/shop/product-details-2.jpg" class="lightbox-image"><i class="flaticon-search-2"></i></a>
-                                        </figure>
-                                    </div>
-                                </div>
-                                <div class="slider-content">
-                                    <div class="slider-pager">
-                                        <ul class="thumb-box">
-                                            <li>
-                                                <a class="active" data-slide-index="0" href="#"><figure><img src="/assets/images/resource/shop/single-thumb-1.jpg" alt=""></figure></a>
-                                            </li>
-                                            <li>
-                                                <a data-slide-index="1" href="#"><figure><img src="/assets/images/resource/shop/single-thumb-2.jpg" alt=""></figure></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="product-image">
-                                        <figure class="image">
-                                            <img src="/assets/images/resource/shop/product-details-3.jpg" alt="">
-                                            <a href="/assets/images/resource/shop/product-details-3.jpg" class="lightbox-image"><i class="flaticon-search-2"></i></a>
-                                        </figure>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-12 col-sm-12 content-column">
-                            <div class="product-info">
-                                <h3><%= product.product_name %></h3>
-                                <div class="customer-review clearfix">
-                                    <ul class="rating-box clearfix">
-                                        <li><i class="flaticon-star"></i></li>
-                                        <li><i class="flaticon-star"></i></li>
-                                        <li><i class="flaticon-star"></i></li>
-                                        <li><i class="flaticon-star"></i></li>
-                                        <li><i class="flaticon-star"></i></li>
-                                    </ul>
-                                    <div class="reviews"><a href="product-single.html">(<%= product.reviews.length %> Review)</a></div>
-                                </div>
-                                <span class="item-price">$<%= product.price %></span>
-                                <div class="text">
-                                    <p><%= product.description %></p>
-                                </div>
-                                <div class="size-box">
-                                    <% if(product.size.length!=0){ %>
-                                        <% if(product.size[0]!=''){ %>
-                                            <h5>Size:</h5>
-                                            <% for(let i=0;i<product.size.length;i++) { %>
-                                                <div class="custom-control custom-radio">
-                                                    <input type="radio" name="customRadio" checked="" id="<%= product.size[i] %>" class="custom-control-input">
-                                                    <label class="custom-control-label" for="customRadio1"><%= product.size[i] %></label>
-                                                </div>
-                                            <%}%>
-                                        <%}%>
-                                    <%}%>
-                                </div>
-                                     <!-- <h5>Size:</h5> -->
-                                     <!-- <div class="custom-control custom-radio"> -->
-                                         <!-- <input type="radio" name="customRadio" checked="" id="customRadio1" class="custom-control-input"> -->
-                                         <!-- <label class="custom-control-label" for="customRadio1">L</label> -->
-                                     <!-- </div> -->
-                                     <!-- <div class="custom-control custom-radio"> -->
-                                         <!-- <input type="radio" name="customRadio" checked="" id="customRadio2" class="custom-control-input"> -->
-                                         <!-- <label class="custom-control-label" for="customRadio2">XL</label> -->
-                                     <!-- </div> -->
-                                     <!-- <div class="custom-control custom-radio"> -->
-                                         <!-- <input type="radio" name="customRadio" checked="" id="customRadio3" class="custom-control-input"> -->
-                                         <!-- <label class="custom-control-label" for="customRadio3">M</label> -->
-                                     <!-- </div> -->
-                                     <!-- <div class="custom-control custom-radio"> -->
-                                         <!-- <input type="radio" name="customRadio" checked="" id="customRadio4" class="custom-control-input"> -->
-                                         <!-- <label class="custom-control-label" for="customRadio4">S</label> -->
-                                     <!-- </div> -->
-                                     <!-- <div class="custom-control custom-radio"> -->
-                                         <!-- <input type="radio" name="customRadio" checked="" id="customRadio5" class="custom-control-input"> -->
-                                         <!-- <label class="custom-control-label" for="customRadio5">XS</label> -->
-                                     <!-- </div> -->
-                                
-                                <div class="color-box">
-                                    <h5>Color:</h5>
-                                    <div class="color-inner">
-                                        <div class="color-block black">
-                                            <input type="radio" id="test1" name="radio-group" checked>
-                                            <label for="test1"></label>
-                                        </div>
-                                        <div class="color-block blue">
-                                            <input type="radio" id="test2" name="radio-group">
-                                            <label for="test2"></label>
-                                        </div>
-                                        <div class="color-block brown">
-                                            <input type="radio" id="test3" name="radio-group">
-                                            <label for="test3"></label>
-                                        </div>
-                                        <div class="color-block gray">
-                                            <input type="radio" id="test4" name="radio-group">
-                                            <label for="test4"></label>
-                                        </div>
-                                        <div class="color-block purple">
-                                            <input type="radio" id="test5" name="radio-group">
-                                            <label for="test5"></label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="othre-options clearfix">
-                                    <div class="item-quantity">
-                                        <input class="quantity-spinner" type="text" value="1" name="quantity">
-                                    </div>
-                                    <div class="btn-box"><button type="button" class="theme-btn-two">Add to cart</button></div>
-                                    <ul class="info clearfix">
-                                        <li><a href="product-details.html"><i class="flaticon-heart"></i></a></li>
-                                        <li><a href="product-details.html"><i class="flaticon-search"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="other-links">
-                                    <ul class="clearfix">
-                                        <li>SKU: 05</li>
-                                        <li>Category: <a href="product-details.html"><%= product.category%></a></li>
-                                        <li>Sub Category: <a href="product-details.html"><%= product.sub_category%></a></li>
-                                    </ul>
-                                </div>
-                                <ul class="share-option clearfix">
-                                    <li><h5>Follow Us:</h5></li>
-                                    <li><a href="shop-details.html"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="shop-details.html"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="shop-details.html"><i class="fab fa-vimeo-v"></i></a></li>
-                                    <li><a href="shop-details.html"><i class="fab fa-google-plus-g"></i></a></li>
+                <div class="row clearfix">
+                    <div class="col-lg-8 col-md-12 col-sm-12 content-side">
+                        <div class="blog-details-content">
+                            <figure class="image-box"><img src="/assets/images/news/blog-details-1.jpg" alt=""></figure>
+                            <div class="inner-box">
+                                <ul class="post-info clearfix">
+                                    <li>May 5, 2020</li>
+                                    <li><a href="blog-details.html">by admin</a></li>
+                                    <li><a href="blog-details.html">03 Comments</a></li>
                                 </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-discription">
-                    <div class="tabs-box">
-                        <div class="tab-btn-box">
-                            <ul class="tab-btns tab-buttons clearfix">
-                                <li class="tab-btn active-btn" data-tab="#tab-1">Description</li>
-                                <li class="tab-btn" data-tab="#tab-2">Reviews(<%= product.reviews.length %>)</li>
-                            </ul>
-                        </div>
-                        <div class="tabs-content">
-                            <div class="tab active-tab" id="tab-1">
                                 <div class="text">
-                                    <p><%= product.description %></p>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                                    <h3>The biebers just switched up their couple style.</h3>
+                                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.consectetur.</p>
                                 </div>
-                            </div>
-                            <div class="tab" id="tab-2">
-                                <div class="review-box">
-                                    <h5><%= product.reviews.length %> Review for <%= product.product_name %></h5>
-                                    <div class="review-inner">
-                                        <figure class="image-box"><img src="/assets/images/resource/review-1.png" alt=""></figure>
-                                        <div class="inner">
-                                            <ul class="rating clearfix">
-                                                <li><i class="flaticon-star"></i></li>
-                                                <li><i class="flaticon-star"></i></li>
-                                                <li><i class="flaticon-star"></i></li>
-                                                <li><i class="flaticon-star"></i></li>
-                                                <li><i class="flaticon-star-1"></i></li>
-                                            </ul>
-                                            <h6>Eileen Alene <span>- May 1, 2020</span></h6>
-                                            <p>Excepteur sint occaecat cupidatat non proident sunt in culpa  qui officia deserunt mollit anim  est laborum. Sed perspiciatis unde omnis natus error sit voluptatem accusa dolore mque laudant totam rem aperiam eaque ipsa quae ab illo inventore veritatis et quasi arch tecto beatae vitae dicta.</p>
+                                <div class="image-box">
+                                    <div class="row clearfix">
+                                        <div class="col-lg-6 col-md-6 col-sm-12 image-column">
+                                            <figure class="image"><img src="/assets/images/news/blog-details-2.jpg" alt=""></figure>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 image-column">
+                                            <figure class="image"><img src="/assets/images/news/blog-details-3.jpg" alt=""></figure>
                                         </div>
                                     </div>
-                                    <div class="replay-inner">
-                                        <h5>Be First to Review For “Multi-Way Ultra Crop Top”</h5>
-                                        <div class="rating-box clearfix">
-                                            <h6>Your Rating</h6>
-                                            <ul class="rating clearfix">
-                                                <li><i class="flaticon-star-1"></i></li>
-                                                <li><i class="flaticon-star-1"></i></li>
-                                                <li><i class="flaticon-star-1"></i></li>
-                                                <li><i class="flaticon-star-1"></i></li>
-                                                <li><i class="flaticon-star-1"></i></li>
-                                            </ul>
-                                        </div>
-                                        <form action="contact.html" method="post" class="review-form">
-                                            <div class="row clearfix">
-                                                <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                                    <label>Your Review</label>
-                                                    <textarea name="message"></textarea>
-                                                </div>
-                                                <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                                    <label>Your Name</label>
-                                                    <input type="text" name="name" required="">
-                                                </div>
-                                                <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                                    <label>Your Emai</label>
-                                                    <input type="email" name="email" required="">
-                                                </div>
-                                                <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                                    <div class="custom-controls-stacked">
-                                                        <label class="custom-control material-checkbox">
-                                                            <input type="checkbox" class="material-control-input">
-                                                            <span class="material-control-indicator"></span>
-                                                            <span class="description">Save my name, email, and website in this browser for the next time I comment</span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-12 col-md-12 col-sm-12 form-group message-btn">
-                                                    <button type="submit" class="theme-btn-two">Submit Your Review<i class="flaticon-right-1"></i></button>
-                                                </div>
+                                </div>
+                                <div class="text">
+                                    <h3>Why is a ticket to lagos so expensive?</h3>
+                                    <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamo laboris nisi ut aliquip ex ea commodo consequat. duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dolore que laudantium totam rem aperiam eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                                    <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit fugit sed quia consequuntur magni dolore eos qui ratione voluptatem sequi nesciunt. Neque poro quisquam est, qui dolore ipsum quia dolor sit amet.consectetur adipisci velit, sed quia non numquam eius modi tempora.</p>
+                                </div>
+                                <div class="post-share-option clearfix">
+                                    <div class="tags-box pull-left">
+                                        <h4>Tags:</h4>
+                                        <ul class="tags-list clearfix">
+                                            <li><a href="blog-details.html">Retail</a></li>
+                                            <li><a href="blog-details.html">Fashion</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="social-box pull-right">
+                                        <h4>Follow Us:</h4>
+                                        <ul class="social-links clearfix">
+                                            <li><a href="blog-details.html"><i class="fab fa-twitter"></i></a></li>
+                                            <li><a href="blog-details.html"><i class="fab fa-linkedin-in"></i></a></li>
+                                            <li><a href="blog-details.html"><i class="fab fa-facebook-f"></i></a></li>
+                                            <li><a href="blog-details.html"><i class="fab fa-skype"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="comments-area">
+                                    <div class="group-title">
+                                        <h3>2 Comments</h3>
+                                    </div>
+                                    <div class="comment-box">
+                                        <div class="comment">
+                                            <figure class="thumb-box">
+                                                <img src="/assets/images/news/comment-1.png" alt="">
+                                            </figure>
+                                            <div class="comment-inner">
+                                                <h6>Eileen Alene <span>- May 2, 2020</span></h6>
+                                                <p>Excepteur sint occaecat cupidatat non proident sunt in culpa  qui officia deserunt mollit anim  est laborum. Sed perspiciatis unde omnis natus error sit voluptatem.</p>
+                                                <a href="blog-single.html">Reply<i class="flaticon-right-1"></i></a>
                                             </div>
-                                        </form>
+                                        </div>
+                                        <div class="comment replay-comment">
+                                            <figure class="thumb-box">
+                                                <img src="/assets/images/news/comment-2.png" alt="">
+                                            </figure>
+                                            <div class="comment-inner">
+                                                <h6>Eileen Alene <span>- May 2, 2020</span></h6>
+                                                <p>Excepteur sint occaecat cupidatat non proident sunt in culpa  qui officia deserunt mollit anim  laborum. Sed perspiciatis unde omnis natus error sit voluptam accusa.</p>
+                                                <a href="blog-single.html">Reply<i class="flaticon-right-1"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="comment replay-comment">
+                                            <figure class="thumb-box">
+                                                <img src="/assets/images/news/comment-3.png" alt="">
+                                            </figure>
+                                            <div class="comment-inner">
+                                                <h6>Eileen Alene <span>- May 2, 2020</span></h6>
+                                                <p>Excepteur sint occaecat cupidatat non proident sunt in culpa  qui officia deserunt mollit anim  est laborum perspiciatis.</p>
+                                                <a href="blog-single.html">Reply<i class="flaticon-right-1"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="comment">
+                                            <figure class="thumb-box">
+                                                <img src="/assets/images/news/comment-4.png" alt="">
+                                            </figure>
+                                            <div class="comment-inner">
+                                                <h6>Eileen Alene <span>- May 1, 2020</span></h6>
+                                                <p>Excepteur sint occaecat cupidatat non proident sunt in culpa  qui officia deserunt mollit anim  est laborum. Sed perspiciatis unde omnis.</p>
+                                                <a href="blog-single.html">Reply<i class="flaticon-right-1"></i></a>
+                                            </div>
+                                        </div>
                                     </div>
+                                </div>
+                                <div class="comments-form-area">
+                                    <div class="group-title">
+                                        <h3>Leave A Comments</h3>
+                                    </div>
+                                    <form action="blog-details.html" method="post" class="comment-form">
+                                        <div class="row clearfix">
+                                            <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                                <input type="text" name="name" placeholder="Name" required="">
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-12 form-group">
+                                                <input type="email" name="email" placeholder="Email" required="">
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 form-group">
+                                                <textarea name="message" placeholder="Message"></textarea>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 form-group message-btn">
+                                                <button type="submit" class="theme-btn-two">Submit Comment<i class="flaticon-right-1"></i></button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="related-product">
-                    <div class="sec-title style-two">
-                        <h2>Related Products</h2>
-                        <p>There are some product that we featured for choose your best</p>
-                        <span class="separator" style="background-image: url(/assets/images/icons/separator-2.png);"></span>
-                    </div>
-                    <div class="row clearfix">
-                        <div class="col-lg-3 col-md-6 col-sm-12 shop-block">
-                            <div class="shop-block-one">
-                                <div class="inner-box">
-                                    <figure class="image-box">
-                                        <img src="/assets/images/resource/shop/shop-1.jpg" alt="">
-                                        <ul class="info-list clearfix">
-                                            <li><a href="index.html"><i class="flaticon-heart"></i></a></li>
-                                            <li><a href="product-details.html">Add to cart</a></li>
-                                            <li><a href="/assets/images/resource/shop/shop-1.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-search"></i></a></li>
-                                        </ul>
-                                    </figure>
-                                    <div class="lower-content">
-                                        <a href="product-details.html">Cold Crewneck Sweater</a>
-                                        <span class="price">$70.30</span>
+                    <div class="col-lg-4 col-md-12 col-sm-12 sidebar-side">
+                        <div class="sidebar blog-sidebar">
+                            <div class="sidebar-widget search-widget">
+                                <div class="widget-title">
+                                    <h3>Search</h3>
+                                </div>
+                                <div class="widget-content">
+                                    <form action="index.html" method="post" class="search-form">
+                                        <div class="form-group">
+                                            <input type="search" name="search-field" placeholder="Search..." required="">
+                                            <button type="submit"><i class="flaticon-search"></i></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="sidebar-widget categories-widget">
+                                <div class="widget-title">
+                                    <h3>Categories</h3>
+                                </div>
+                                <div class="widget-content">
+                                    <ul class="categories-list clearfix">
+                                        <li><a href="product-details.html">Women’s Clothing (9)</a></li>
+                                        <li><a href="product-details.html">Man Fashion (1)</a></li>
+                                        <li><a href="product-details.html">Kid’s Clothing (5)</a></li>
+                                        <li><a href="product-details.html">Jewelry &amp; Watches (3)</a></li>
+                                        <li><a href="product-details.html">Bags &amp; Shoes (7)</a></li>
+                                        <li><a href="product-details.html">Toys &amp; Kids (2)</a></li>
+                                        <li><a href="product-details.html">Electronics (6)</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="sidebar-widget post-widget">
+                                <div class="widget-title">
+                                    <h3>Popular Posts</h3>
+                                </div>
+                                <div class="post-inner">
+                                    <div class="post">
+                                        <figure class="post-thumb"><a href="blog-details.html"><img src="/assets/images/news/post-1.jpg" alt=""></a></figure>
+                                        <h4><a href="blog-details.html">Problem with typefaces on the web.</a></h4>
+                                        <span class="post-date">June 06, 2020</span>
+                                    </div>
+                                    <div class="post">
+                                        <figure class="post-thumb"><a href="blog-details.html"><img src="/assets/images/news/post-2.jpg" alt=""></a></figure>
+                                        <h4><a href="blog-details.html">Why is a ticket to lagos so expensive?</a></h4>
+                                        <span class="post-date">June 05, 2020</span>
+                                    </div>
+                                    <div class="post">
+                                        <figure class="post-thumb"><a href="blog-details.html"><img src="/assets/images/news/post-3.jpg" alt=""></a></figure>
+                                        <h4><a href="blog-details.html">The biebers just up their couple style.</a></h4>
+                                        <span class="post-date">June 04, 2020</span>
+                                    </div>
+                                    <div class="post">
+                                        <figure class="post-thumb"><a href="blog-details.html"><img src="/assets/images/news/post-4.jpg" alt=""></a></figure>
+                                        <h4><a href="blog-details.html">Anna wintour shares her milan fashion.</a></h4>
+                                        <span class="post-date">June 03, 2020</span>
+                                    </div>
+                                    <div class="post">
+                                        <figure class="post-thumb"><a href="blog-details.html"><img src="/assets/images/news/post-5.jpg" alt=""></a></figure>
+                                        <h4><a href="blog-details.html">Problem with typefaces on the web.</a></h4>
+                                        <span class="post-date">June 02, 2020</span>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-12 shop-block">
-                            <div class="shop-block-one">
-                                <div class="inner-box">
-                                    <figure class="image-box">
-                                        <img src="/assets/images/resource/shop/shop-2.jpg" alt="">
-                                        <span class="category green-bg">New</span>
-                                        <ul class="info-list clearfix">
-                                            <li><a href="index.html"><i class="flaticon-heart"></i></a></li>
-                                            <li><a href="product-details.html">Add to cart</a></li>
-                                            <li><a href="/assets/images/resource/shop/shop-2.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-search"></i></a></li>
-                                        </ul>
-                                    </figure>
-                                    <div class="lower-content">
-                                        <a href="product-details.html">Multi-Way Ultra Crop Top</a>
-                                        <span class="price">$50.00</span>
-                                    </div>
+                            <div class="sidebar-widget archives-widget">
+                                <div class="widget-title">
+                                    <h3>Archives</h3>
+                                </div>
+                                <div class="widget-content">
+                                    <ul class="archives-list clearfix">
+                                        <li><a href="blog-2.html">April 2020</a></li>
+                                        <li><a href="blog-2.html">May 2019</a></li>
+                                        <li><a href="blog-2.html">June 2018</a></li>
+                                        <li><a href="blog-2.html">July 2017</a></li>
+                                        <li><a href="blog-2.html">Augost 2016</a></li>
+                                    </ul>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-12 shop-block">
-                            <div class="shop-block-one">
-                                <div class="inner-box">
-                                    <figure class="image-box">
-                                        <img src="/assets/images/resource/shop/shop-3.jpg" alt="">
-                                        <ul class="info-list clearfix">
-                                            <li><a href="index.html"><i class="flaticon-heart"></i></a></li>
-                                            <li><a href="product-details.html">Add to cart</a></li>
-                                            <li><a href="/assets/images/resource/shop/shop-3.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-search"></i></a></li>
-                                        </ul>
-                                    </figure>
-                                    <div class="lower-content">
-                                        <a href="product-details.html">Side-Tie Tank</a>
-                                        <span class="price">$40.00</span>
-                                    </div>
+                            <div class="sidebar-widget instagram-widget">
+                                <div class="widget-title">
+                                    <h3>Instagram</h3>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-12 shop-block">
-                            <div class="shop-block-one">
-                                <div class="inner-box">
-                                    <figure class="image-box">
-                                        <img src="/assets/images/resource/shop/shop-4.jpg" alt="">
-                                        <ul class="info-list clearfix">
-                                            <li><a href="index.html"><i class="flaticon-heart"></i></a></li>
-                                            <li><a href="product-details.html">Add to cart</a></li>
-                                            <li><a href="/assets/images/resource/shop/shop-4.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-search"></i></a></li>
-                                        </ul>
-                                    </figure>
-                                    <div class="lower-content">
-                                        <a href="product-details.html">Cold Crewneck Sweater</a>
-                                        <span class="price">$60.30</span>
-                                    </div>
+                                <div class="widget-content">
+                                    <ul class="image-list clearfix">
+                                        <li>
+                                            <figure class="image-box">
+                                                <img src="/assets/images/news/instagram-1.jpg" alt="">
+                                                <a href="/assets/images/news/instagram-1.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-plus-1"></i></a>
+                                            </figure>
+                                        </li>
+                                        <li>
+                                            <figure class="image-box">
+                                                <img src="/assets/images/news/instagram-2.jpg" alt="">
+                                                <a href="/assets/images/news/instagram-2.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-plus-1"></i></a>
+                                            </figure>
+                                        </li>
+                                        <li>
+                                            <figure class="image-box">
+                                                <img src="/assets/images/news/instagram-3.jpg" alt="">
+                                                <a href="/assets/images/news/instagram-3.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-plus-1"></i></a>
+                                            </figure>
+                                        </li>
+                                        <li>
+                                            <figure class="image-box">
+                                                <img src="/assets/images/news/instagram-4.jpg" alt="">
+                                                <a href="/assets/images/news/instagram-4.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-plus-1"></i></a>
+                                            </figure>
+                                        </li>
+                                        <li>
+                                            <figure class="image-box">
+                                                <img src="/assets/images/news/instagram-5.jpg" alt="">
+                                                <a href="/assets/images/news/instagram-5.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-plus-1"></i></a>
+                                            </figure>
+                                        </li>
+                                        <li>
+                                            <figure class="image-box">
+                                                <img src="/assets/images/news/instagram-6.jpg" alt="">
+                                                <a href="/assets/images/news/instagram-6.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-plus-1"></i></a>
+                                            </figure>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -634,7 +572,7 @@
                 </div>
             </div>
         </section>
-        <!-- product-details end -->
+        <!-- blog-details end -->
 
 
         <!-- main-footer -->
@@ -763,7 +701,6 @@
     <script src="/assets/js/isotope.js"></script>
     <script src="/assets/js/jquery-ui.js"></script>
     <script src="/assets/js/jquery.bootstrap-touchspin.js"></script>
-    <script src="/assets/js/bxslider.js"></script>
 
     <!-- main-js -->
     <script src="/assets/js/script.js"></script>

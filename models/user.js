@@ -23,8 +23,8 @@ const addressSchema = new mongoose.Schema({
   },
   pincode: {
     type: Number,
-    min: 6,
-    max: 6,
+    minlength: 6,
+    maxlength: 6,
     required: true,
   },
 });
@@ -42,6 +42,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     validate: isEmail,
+    lowercase:true,
   },
   password: {
     type: String,
@@ -61,6 +62,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-const User = mongoose.model("users", userSchema);
+const Users = mongoose.model("Users", userSchema);
 
-module.exports = User;
+module.exports = Users;
