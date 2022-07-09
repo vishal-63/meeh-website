@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { isEmail } = require("validator");
+const { isEmail, isStrongPassword } = require("validator");
 
 const addressSchema = new mongoose.Schema({
   state: {
@@ -32,29 +32,34 @@ const addressSchema = new mongoose.Schema({
 const userSchema = new mongoose.Schema({
   first_name: {
     type: String,
-    required: true,
+    required: [true, "Please enter a first name"],
   },
   last_name: {
     type: String,
-    required: true,
+    required: [true, "Please enter a last name"],
   },
   email: {
     type: String,
-    required: true,
-    validate: isEmail,
-    lowercase:true,
+    unique: true,
+    required: [true, "Please enter an email"],
+    validate: [isEmail, "Please provide a valid email address"],
+    lowercase: true,
   },
   password: {
     type: String,
-    required: true,
+    required: [true, "Please enter a password"],
+    validate: [isStrongPassword, "Please provide a valid password"],
     minlength: 8,
   },
   phone_no: {
     type: String,
-    required: true,
+    minlength: [10, "Phone number must be 10 digits"],
+    maxlength: [10, "Phone number must be 10 digits"],
+    required: [true, "Please enter a phone number"],
   },
   adresses: {
     type: [addressSchema],
+    required: false,
   },
   is_deleted: {
     type: Boolean,
@@ -62,6 +67,11 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-const Users = mongoose.model("Users", userSchema);
+// fire a function before a document is saved in the database
+userSchema.pre("save", function (next) {
+  next(); // do not remove this
+});
+
+const Users = mongoose.model("user", userSchema);
 
 module.exports = Users;

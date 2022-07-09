@@ -1,16 +1,9 @@
 // Packages
 const mongoose = require("mongoose");
 const express = require("express");
-// const bodyParser = require("body-parser");
+const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 dotenv.config();
-
-
-// Models
-const User = require("./models/User");
-const Product = require("./models/product");
-const Wishlist = require("./models/wishlist");
-const Test = require("./models/test1");
 
 // Routes
 const loginRouter = require("./routes/login");
@@ -23,16 +16,20 @@ const contactRouter = require("./routes/contact");
 const checkoutRouter = require("./routes/checkout");
 const blogRouter = require("./routes/blogs");
 
-
 // Models
 const User = require("./models/user");
 const Blog = require("./models/blog");
 const Coupon = require("./models/coupon");
 const Product = require("./models/product");
+const Wishlist = require("./models/wishlist");
+const Test = require("./models/test1");
 const Order = require("./models/order");
 const Cart = require("./models/cart");
 
 const app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Ejs view engine
 app.set("view engine", "ejs");
@@ -53,7 +50,7 @@ app.use("/contact", contactRouter);
 app.use("/checkout", checkoutRouter);
 app.use("/wishlist", wishlistRouter);
 app.use("/register", registerRouter);
-app.use("/blogs",blogRouter);
+app.use("/blogs", blogRouter);
 
 //about us route
 app.get("/about", (req, res) => {
@@ -76,7 +73,6 @@ mongoose
     console.log(err.message);
   });
 
-
 // async function addProducts(){
 //   const userData = await User.findById("62c810f418e0554c9d174bf5");
 //   const productData0 = await Product.findById("62c876ddd9c721e9b84472e1");
@@ -98,18 +94,18 @@ mongoose
 //     }
 //   })
 
-  // const product1 = await Product.findById("62c819e5d42faf96057817fa");
-  // product1.reviews[0].user_id ="62c81015651761a1db0feeeb";
-  // console.log(mongoose.Types.ObjectId("62c81015651761a1db0feeeb"));
-  // product1.save((err,result)=>{
-  //   if(err){
-  //     console.log(err.message);
-  //   }
-  //   else{
-  //     console.log(result);
-  //   }
-  // });
-  // console.log(product1.reviews[0]);
+// const product1 = await Product.findById("62c819e5d42faf96057817fa");
+// product1.reviews[0].user_id ="62c81015651761a1db0feeeb";
+// console.log(mongoose.Types.ObjectId("62c81015651761a1db0feeeb"));
+// product1.save((err,result)=>{
+//   if(err){
+//     console.log(err.message);
+//   }
+//   else{
+//     console.log(result);
+//   }
+// });
+// console.log(product1.reviews[0]);
 // }
 // addProducts();
 // addUsers();
