@@ -4,7 +4,7 @@ const router = Router();
 const productController = require("../controllers/productController");
 
 require("../models/user");
-const Wishlist = require("../models/wishlist");
+// const Wishlist = require("../models/wishlist");
 const Test1 = require("../models/test1");
 const Test = require("../models/test");
 

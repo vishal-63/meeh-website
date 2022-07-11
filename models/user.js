@@ -66,6 +66,23 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  cart:{
+    type: [
+      {
+        product_id: {
+          type: mongoose.SchemaTypes.ObjectId,
+          ref: "Product",
+        },
+        quantity: Number,
+      },
+    ],
+    minlength: 1,
+  },
+  wishlist:{
+    type: [mongoose.SchemaTypes.ObjectId],
+    ref: "Product",
+    minlength: 1,
+  }
 });
 
 userSchema.statics.login = async (email, password) => {
