@@ -65,6 +65,23 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  cart:{
+    type: [
+      {
+        product_id: {
+          type: mongoose.SchemaTypes.ObjectId,
+          ref: "Product",
+        },
+        quantity: Number,
+      },
+    ],
+    minlength: 1,
+  },
+  wishlist:{
+    type: [mongoose.SchemaTypes.ObjectId],
+    ref: "Product",
+    minlength: 1,
+  }
 });
 
 userSchema.statics.login = async (email,password)=>{
@@ -78,7 +95,6 @@ userSchema.statics.login = async (email,password)=>{
   throw Error("No user found");
 }
 
-=======
 // fire a function before a document is saved in the database
 userSchema.pre("save", function (next) {
   next(); // do not remove this

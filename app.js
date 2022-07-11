@@ -1,21 +1,34 @@
+'use strict';
 // Packages
 const mongoose = require("mongoose");
 const express = require("express");
 const cookieParse = require('cookie-parser');
 const bodyParser = require('body-parser');
 const dotenv = require("dotenv");
+const fs = require('fs');
+const join = require('path').join;
+const models = join(__dirname, 'models');
 dotenv.config();
 
 
+//require models
+require("./models/product");
+
+fs.readdirSync(models)
+  .filter(file => ~file.search(/^[^.].*\.js$/))
+  .forEach(file => require(join(models, file)));
+
+
 // Models
-const User = require("./models/User");
 const Product = require("./models/product");
-const Wishlist = require("./models/wishlist");
+const User = require("./models/user");
+// const Wishlist = require("./models/wishlist");
 const Test = require("./models/test1");
 const Blog = require("./models/blog");
 const Coupon = require("./models/coupon");
 const Order = require("./models/order");
-const Cart = require("./models/cart");
+// const Cart = require("./models/cart");
+
 
 // Routes
 const loginRouter = require("./routes/login");
@@ -28,10 +41,12 @@ const contactRouter = require("./routes/contact");
 const checkoutRouter = require("./routes/checkout");
 const blogRouter = require("./routes/blogs");
 
+
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParse());
+
 //declaring public directory to get assets from
 app.use(express.static(__dirname + "/public"));
 
@@ -72,6 +87,25 @@ app.use("/blogs", blogRouter);
 //about us route
 app.get("/about", (req, res) => {
   res.render("about");
+});
+
+app.get('/updateUser',async (req,res)=>{
+  
+  try{
+    const id="62c9b688592b0b4307609127";
+    const userCheck = await User.findById(id);
+    await userCheck.populate({
+      path: 'wishlist',
+      model: Product,
+    });
+    console.log(userCheck);
+  
+    res.json("hello");
+  }
+  catch(err){
+    console.log(err);
+  }
+  
 });
 
 // 404 page
@@ -134,3 +168,4 @@ app.get("*", (req, res) => {
 // 62c875ab28503cb136482c0c
 // 62c875eba93d01aa26e5a4b8
 // 62c8763f78b5e02a4a99f1dc
+
