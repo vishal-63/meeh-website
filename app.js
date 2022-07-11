@@ -2,14 +2,13 @@
 // Packages
 const mongoose = require("mongoose");
 const express = require("express");
-const cookieParse = require('cookie-parser');
-const bodyParser = require('body-parser');
+const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const fs = require('fs');
 const join = require('path').join;
 const models = join(__dirname, 'models');
 dotenv.config();
-
 
 //require models
 require("./models/product");
@@ -18,8 +17,8 @@ fs.readdirSync(models)
   .filter(file => ~file.search(/^[^.].*\.js$/))
   .forEach(file => require(join(models, file)));
 
-
 // Models
+const User = require("./models/user");
 const Product = require("./models/product");
 const User = require("./models/user");
 // const Wishlist = require("./models/wishlist");
@@ -43,13 +42,15 @@ const blogRouter = require("./routes/blogs");
 
 
 const app = express();
+
+// Middlewares
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cookieParse());
-
+app.use(cookieParser());
 //declaring public directory to get assets from
 app.use(express.static(__dirname + "/public"));
 
+// Database connection
 mongoose
   .connect(process.env.MONGODBURI)
   .then(() => {
@@ -59,14 +60,10 @@ mongoose
   })
   .catch((err) => {
     console.log(err.message);
-});
-
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+  });
 
 // Ejs view engine
 app.set("view engine", "ejs");
-
 
 // Base route
 app.get("/", (req, res) => {
@@ -112,7 +109,6 @@ app.get('/updateUser',async (req,res)=>{
 app.get("*", (req, res) => {
   res.render("not-found");
 });
-
 
 // async function addProducts(){
 //   const userData = await User.findById("62c810f418e0554c9d174bf5");
