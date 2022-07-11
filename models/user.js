@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { isEmail, isStrongPassword } = require("validator");
+const bcrypt = require("bcrypt");
 
 const addressSchema = new mongoose.Schema({
   state: {
@@ -67,20 +68,21 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-userSchema.statics.login = async (email,password)=>{
-  const user = await Users.findOne({email:email});
-  if(user){
-    if(user.password == password){
+userSchema.statics.login = async (email, password) => {
+  const user = await Users.findOne({ email: email });
+  if (user) {
+    if (user.password == password) {
       return user;
     }
     throw Error("Incorrect Password");
   }
   throw Error("No user found");
-}
+};
 
-=======
 // fire a function before a document is saved in the database
-userSchema.pre("save", function (next) {
+userSchema.pre("save", async function (next) {
+  const salt = await bcrypt.genSalt();
+  this.password = await bcrypt.hash(this.password, salt);
   next(); // do not remove this
 });
 
