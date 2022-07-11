@@ -1,14 +1,13 @@
 // Packages
 const mongoose = require("mongoose");
 const express = require("express");
-const cookieParse = require('cookie-parser');
-const bodyParser = require('body-parser');
+const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 dotenv.config();
 
-
 // Models
-const User = require("./models/User");
+const User = require("./models/user");
 const Product = require("./models/product");
 const Wishlist = require("./models/wishlist");
 const Test = require("./models/test1");
@@ -29,12 +28,15 @@ const checkoutRouter = require("./routes/checkout");
 const blogRouter = require("./routes/blogs");
 
 const app = express();
+
+// Middlewares
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cookieParse());
+app.use(cookieParser());
 //declaring public directory to get assets from
 app.use(express.static(__dirname + "/public"));
 
+// Database connection
 mongoose
   .connect(process.env.MONGODBURI)
   .then(() => {
@@ -44,14 +46,10 @@ mongoose
   })
   .catch((err) => {
     console.log(err.message);
-});
-
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+  });
 
 // Ejs view engine
 app.set("view engine", "ejs");
-
 
 // Base route
 app.get("/", (req, res) => {
@@ -78,7 +76,6 @@ app.get("/about", (req, res) => {
 app.get("*", (req, res) => {
   res.render("not-found");
 });
-
 
 // async function addProducts(){
 //   const userData = await User.findById("62c810f418e0554c9d174bf5");
