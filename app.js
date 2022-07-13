@@ -18,14 +18,13 @@ fs.readdirSync(models)
   .forEach((file) => require(join(models, file)));
 
 // Models
-const User = require("./models/user");
 const Product = require("./models/product");
+const User = require("./models/user");
 // const Wishlist = require("./models/wishlist");
 const Test = require("./models/test1");
 const Blog = require("./models/blog");
 const Coupon = require("./models/coupon");
 const Order = require("./models/order");
-// const Cart = require("./models/cart");
 
 // Routes
 const loginRouter = require("./routes/login");
