@@ -144,7 +144,7 @@
                                     <div class="item-quantity">
                                         <input class="quantity-spinner" type="text" value="1" name="quantity">
                                     </div>
-                                    <div class="btn-box"><button type="button" class="theme-btn-two">Add to cart</button></div>
+                                    <div class="btn-box"><button type="button" class="theme-btn-two" disabled onClick="addToCart('<%= product._id %>')" >Add to cart</button></div>
                                     <ul class="info clearfix">
                                         <li onClick="addWishlist('<%= product._id %>')"><a><i class="flaticon-heart"></i></a></li>
                                         <li><a href="product-details.html"><i class="flaticon-search"></i></a></li>
@@ -334,15 +334,21 @@
 
         <%- include('footer')%>
 
-        <script>
-            let size;
-            let color;
-            function changeSelection(el) {
-                // console.log(el, el.childNodes)
-                const radioButton = el.childNodes[1]
-                radioButton.checked = true
-                el.classList.contains("size-select") ? size = el.dataset.size : color = el.dataset.color
+    <script>
+        let size=null;
+        let color=null;
+        
+        const button = document.getElementsByClassName("theme-btn-two")[0];
+        function changeSelection(el) {
+            // console.log(el, el.childNodes)
+            const radioButton = el.childNodes[1]
+            radioButton.checked = true
+            el.classList.contains("size-select") ? size = el.dataset.size : color = el.dataset.color;
+            
+            if(size != null && color != null){
+                button.disabled=false;
             }
+        }
 
             
         async function addWishlist(id){
@@ -363,7 +369,7 @@
         
         async function addToCart(id){
             console.log(id);
-            const data={id,quantity:1,selected_size:"large",selected_color:"f6f6f6"};
+            const data={id,quantity:1,selected_size:size,selected_color:color};
             const url="/cart/addToCart";
             const options = {
                 method:'POST',
@@ -374,7 +380,7 @@
             }
             await fetch(url,options);
         }
-        </script>
+    </script>
 
     <!-- jequery plugins -->
     <script src="/assets/js/jquery.js"></script>
