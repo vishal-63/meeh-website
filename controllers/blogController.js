@@ -1,8 +1,8 @@
-const Product = require("../models/product");
+const Blog = require("../models/blog");
 
-module.exports.products_get = async (req, res) => {
-  const productList = await Product.find();
-  res.render("products", { productList });
+module.exports.blogs_get = async (req, res) => {
+  const blogList = await Blog.find();
+  res.render("blogs", { blogList });
 };
 
 module.exports.single_product_get = async (req, res) => {

@@ -8279,6 +8279,7 @@ div#mCSB_1_container {
   background: #fff;
   -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;
+  background-color: inherit;
 }
 
 .color-box [type="radio"]:checked + label:before {
@@ -8290,7 +8291,6 @@ div#mCSB_1_container {
 
 .color-box .color-block.black [type="radio"]:checked + label:before,
 .color-box .color-block.black [type="radio"]:not(:checked) + label:before {
-  background: #222;
 }
 
 .color-box .color-block.blue [type="radio"]:checked + label:before,

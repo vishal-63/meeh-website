@@ -111,37 +111,35 @@
                                 </div>
                                 <span class="item-price">$<%= product.price %></span>
                                 <div class="text">
-                                    <p><%= product.description %><br><%= product._id%></p>
+                                    <p><%= product.description %></p>
                                 </div>
-                                <div class="size-box">
-                                    <% if(product.size.length!=0){ %>
+                                <% if(product.size.length!=0){ %>
+                                    <div class="size-box">
                                         <h5>Size:</h5>
-                                        <% for(let i=0;i<product.size.length;i++) { %>
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" name="size" checked="" id="<%= product.size[i] %>" class="custom-control-input">
-                                                <label class="custom-control-label" for="customRadio1"><%= product.size[i] %></label>
+                                        <% for(let i=0; i<product.size.length; i++) { %>
+                                            <div class="custom-control custom-radio size-select" data-size="<%= product.size[i] %>" onclick="changeSelection(this)">
+                                                <input type="radio" name="size" id="<%= product.size[i] %>" class="custom-control-input">
+                                                <label class="custom-control-label" for="<%= product.size[i] %>"><%= product.size[i] %></label>
                                             </div>
                                         <%}%>
+                                    </div>
                                     <%}%>
-                                </div>
                                 
                                 <div class="color-box">
                                     <h5>Color:</h5>
                                     <div class="color-inner">
                                         
                                         <% if(product.color.length != 0){%>
-                                            <% for(let i=0;i<product.color.length;i++) {%>
-                                                <!-- <div class="color-block" style="background:#
-                                                    ;"> -->
-                                                <div class="color-block black">
-                                                    <input type="radio" id="<%= product.color[i]%>" name="radio-group" checked>
-                                                    <label for="test1"></label>
+                                            <% for(let i=0; i<product.color.length; i++) {%>
+                                                <div class="color-block" data-color="<%= product.color[i]%>" onclick="changeSelection(this)">
+                                                    <input type="radio" id="<%= product.color[i]%>" name="radio-group">
+                                                    <label for="<%= product.color[i]%>" style="background-color: #<%= product.color[i] %>"></label>
                                                 </div>
                                             <%}%>
                                         <%}%>
 
                                     
-                                        <div class="color-block blue">
+                                        <!-- <div class="color-block blue">
                                             <input type="radio" id="test2" name="radio-group">
                                             <label for="test2"></label>
                                         </div>
@@ -156,7 +154,7 @@
                                         <div class="color-block purple">
                                             <input type="radio" id="test5" name="radio-group">
                                             <label for="test5"></label>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                                 <div class="othre-options clearfix">
@@ -353,6 +351,33 @@
 
         <%- include('footer')%>
 
+        <script>
+            let size;
+            let color;
+            function changeSelection(el) {
+                // console.log(el, el.childNodes)
+                const radioButton = el.childNodes[1]
+                radioButton.checked = true
+                el.classList.contains("size-select") ? size = el.dataset.size : color = el.dataset.color
+            }
+
+            
+        async function addWishlist(id){
+            console.log(id);
+            const data={id:id};
+            const url="/wishlist/addWishlist";
+            const options={
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: JSON.stringify(data),
+            }
+            await fetch(url,options);
+        }
+        </script>
+
     <!-- jequery plugins -->
     <script src="/assets/js/jquery.js"></script>
     <script src="/assets/js/popper.min.js"></script>
@@ -372,21 +397,5 @@
 
     <!-- main-js -->
     <script src="/assets/js/script.js"></script>
-    <script>
-        async function addWishlist(id){
-            console.log(id);
-            const data={id:id};
-            const url="/wishlist/addWishlist";
-            const options={
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                // 'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: JSON.stringify(data),
-            }
-            await fetch(url,options);
-        }
-    </script>
 </body><!-- End of .page_wrapper -->
 </html>
