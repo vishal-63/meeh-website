@@ -30,6 +30,16 @@ const addressSchema = new mongoose.Schema({
   },
 });
 
+const cartSchema = new mongoose.Schema({
+  product_id:{
+    type:mongoose.SchemaTypes.ObjectId,
+    ref:'Product'
+  },
+  quantity:Number,
+  selected_size:String,
+  selected_color:String,
+})
+
 const userSchema = new mongoose.Schema({
   first_name: {
     type: String,
@@ -66,18 +76,8 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  cart:{
-    type: [
-      {
-        product_id: {
-          type: mongoose.SchemaTypes.ObjectId,
-          ref: "Product",
-        },
-        quantity: Number,
-      },
-    ],
-    minlength: 1,
-  },
+  cart:[cartSchema],
+  
   wishlist:{
     type: [mongoose.SchemaTypes.ObjectId],
     ref: "Product",

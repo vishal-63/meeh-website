@@ -6,6 +6,8 @@ const router = Router();
 
 router.get("/",requireAuth,requireAuth,wishlistController.wishlist_get);
 
-router.get("/updateWishlist",requireAuth,wishlistController.wishlist_get);
+router.post("/deleteWishlist",requireAuth,wishlistController.delete_wishlist_post);
+
+router.post("/addWishlist",requireAuth,wishlistController.add_wishlist_post);
 
 module.exports = router;
