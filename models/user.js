@@ -58,15 +58,14 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: [true, "Please enter a password"],
     validate: [isStrongPassword, "Please provide a valid password"],
     minlength: 8,
   },
+  googleId: String,
   phone_no: {
     type: String,
     minlength: [10, "Phone number must be 10 digits"],
     maxlength: [10, "Phone number must be 10 digits"],
-    required: [true, "Please enter a phone number"],
   },
   adresses: {
     type: [addressSchema],
@@ -82,27 +81,32 @@ const userSchema = new mongoose.Schema({
     type: [mongoose.SchemaTypes.ObjectId],
     ref: "Product",
     minlength: 1,
-  }
+  },
 });
 
+// static method to login user
 userSchema.statics.login = async (email, password) => {
-  const user = await Users.findOne({ email: email });
+  const user = await User.findOne({ email });
   if (user) {
-    if (user.password == password) {
+    const passwordMatched = await bcrypt.compare(password, user.password);
+    if (passwordMatched) {
       return user;
     }
     throw Error("Incorrect Password");
   }
-  throw Error("No user found");
+  throw Error("This email address does not exist");
 };
 
 // fire a function before a document is saved in the database
 userSchema.pre("save", async function (next) {
-  const salt = await bcrypt.genSalt();
-  this.password = await bcrypt.hash(this.password, salt);
+  if (this.password != undefined) {
+    console.log(this.password);
+    const salt = await bcrypt.genSalt();
+    this.password = await bcrypt.hash(this.password, salt);
+  }
   next(); // do not remove this
 });
 
-const Users = mongoose.model("user", userSchema);
+const User = mongoose.model("user", userSchema);
 
-module.exports = Users;
+module.exports = User;

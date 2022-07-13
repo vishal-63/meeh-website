@@ -9,4 +9,6 @@ router.get("/", (req, res) => {
 
 router.post("/", userController.signup_post);
 
+// router.post("/google-sign-up", userController.googleSignUp);
+
 module.exports = router;
