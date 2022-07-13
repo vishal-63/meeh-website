@@ -138,23 +138,6 @@
                                             <%}%>
                                         <%}%>
 
-                                    
-                                        <!-- <div class="color-block blue">
-                                            <input type="radio" id="test2" name="radio-group">
-                                            <label for="test2"></label>
-                                        </div>
-                                        <div class="color-block brown">
-                                            <input type="radio" id="test3" name="radio-group">
-                                            <label for="test3"></label>
-                                        </div>
-                                        <div class="color-block gray">
-                                            <input type="radio" id="test4" name="radio-group">
-                                            <label for="test4"></label>
-                                        </div>
-                                        <div class="color-block purple">
-                                            <input type="radio" id="test5" name="radio-group">
-                                            <label for="test5"></label>
-                                        </div> -->
                                     </div>
                                 </div>
                                 <div class="othre-options clearfix">
@@ -376,6 +359,21 @@
             }
             await fetch(url,options);
         }
+        
+        
+        async function addToCart(id){
+            console.log(id);
+            const data={id,quantity:1,selected_size:"large",selected_color:"f6f6f6"};
+            const url="/cart/addToCart";
+            const options = {
+                method:'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data),
+            }
+            await fetch(url,options);
+        }
         </script>
 
     <!-- jequery plugins -->
@@ -397,5 +395,6 @@
 
     <!-- main-js -->
     <script src="/assets/js/script.js"></script>
+
 </body><!-- End of .page_wrapper -->
 </html>

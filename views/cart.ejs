@@ -101,17 +101,21 @@
                                 /></a>
                               </div>
                               <div class="prod-title"><%= cart[i].product_id.product_name%></div>
+                              <div><%= cart[i].selected_size%></div>
+                              <div><%= cart[i].selected_color%></div>
                             </div>
                           </td>
                           <td class="price">$<%= cart[i].product_id.price %></td>
                           <td class="qty">
                             <div class="item-quantity">
+                              <div onClick="updateCart('<%= cart[i]._id%>',-1)">Minus</div>
                               <input
                                 class="quantity-spinner"
                                 type="text"
                                 value="<%= cart[i].quantity %>"
                                 name="quantity"
                               />
+                              <div onClick="updateCart('<%= cart[i]._id%>',1)">Plus</div>
                             </div>
                           </td>
                           <td class="sub-total">$<%= cart[i].quantity * cart[i].product_id.price %></td>
@@ -177,7 +181,7 @@
     <script src="/assets/js/script.js"></script>
     <script>
 
-      function deleteFromCart(id){
+      async function deleteFromCart(id){
         console.log(id);
         const data={id:id};
         const url="/cart/deleteFromCart";
@@ -189,7 +193,23 @@
           },
           body: JSON.stringify(data)
         }
-        fetch(url,options);
+        await fetch(url,options);
+        location.reload();
+      }
+
+      async function updateCart(id,quantity){
+        const data={id:id,quantity:quantity};
+        const url="/cart/updateCart";
+        const options={
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: JSON.stringify(data)
+        }
+        await fetch(url,options);
+        location.reload();
       }
 
     </script>

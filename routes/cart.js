@@ -6,6 +6,7 @@ const {requireAuth} = require("../middleware/authMiddleware");
 router.get("/",requireAuth,cartController.cart_get);
 router.post("/addToCart",requireAuth,cartController.cart_add_product);
 router.post("/deleteFromCart",requireAuth,cartController.cart_delete_product);
+router.post("/updateCart",requireAuth,cartController.cart_update_product);
 
 // router.get("/");
 

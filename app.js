@@ -93,26 +93,33 @@ app.get("/logout", (req, res) => {
   res.render("index", { userLoggedIn: false });
 });
 
-app.get("/updateUser", async (req, res) => {
-  try {
-    const id = "62c9b688592b0b4307609127";
-    const userCheck = await User.findById(id);
-    await userCheck.populate({
-      path: "wishlist",
-      model: Product,
-    });
-    console.log(userCheck);
+// app.get("/productUpdate",async (req,res)=>{
 
-    res.json("hello");
-  } catch (err) {
-    console.log(err);
-  }
-});
+//   const product= await Product.findOne({product_name:"Eraser"});
+//   product.color=["f6f6f6","333333"];
+//   product.size=["S","M","L"];
+//   product.stock={};
+//   for(let s=0;s<product.size.length;s++){
+//     for(let c=0;c<product.color.length;c++){
+//       product.stock[ product.size[s] + "_" + product.color[c] ]=20;
+//     }  
+//   }
 
-// 404 page
-app.get("*", (req, res) => {
-  res.render("not-found");
-});
+//   product.save((err,result)=>{
+//     if(err){
+//       console.log(err);
+//     }
+//     else{
+//       console.log(result);
+//     }
+//   })
+//   res.json(product);
+// })
+
+// // 404 page
+// app.get("*", (req, res) => {
+//   res.render("not-found");
+// });
 
 // async function addProducts(){
 //   const userData = await User.findById("62c810f418e0554c9d174bf5");
