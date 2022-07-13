@@ -231,9 +231,10 @@
             }
             await fetch(url,options);
         }
+
         async function addToCart(id){
             console.log(id);
-            const data={id,quantity:1};
+            const data={id,quantity:1,selected_size:"large",selected_color:"f6f6f6"};
             const url="/cart/addToCart";
             const options = {
                 method:'POST',

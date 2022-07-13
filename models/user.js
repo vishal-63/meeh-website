@@ -100,7 +100,6 @@ userSchema.statics.login = async (email, password) => {
 // fire a function before a document is saved in the database
 userSchema.pre("save", async function (next) {
   if (this.password != undefined) {
-    console.log(this.password);
     const salt = await bcrypt.genSalt();
     this.password = await bcrypt.hash(this.password, salt);
   }
