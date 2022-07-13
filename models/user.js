@@ -31,14 +31,14 @@ const addressSchema = new mongoose.Schema({
 });
 
 const cartSchema = new mongoose.Schema({
-  product_id:{
-    type:mongoose.SchemaTypes.ObjectId,
-    ref:'Product'
+  product_id: {
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "Product",
   },
-  quantity:Number,
-  selected_size:String,
-  selected_color:String,
-})
+  quantity: Number,
+  selected_size: String,
+  selected_color: String,
+});
 
 const userSchema = new mongoose.Schema({
   first_name: {
@@ -75,9 +75,9 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  cart:[cartSchema],
-  
-  wishlist:{
+  cart: [cartSchema],
+
+  wishlist: {
     type: [mongoose.SchemaTypes.ObjectId],
     ref: "Product",
     minlength: 1,
@@ -100,7 +100,6 @@ userSchema.statics.login = async (email, password) => {
 // fire a function before a document is saved in the database
 userSchema.pre("save", async function (next) {
   if (this.password != undefined) {
-    console.log(this.password);
     const salt = await bcrypt.genSalt();
     this.password = await bcrypt.hash(this.password, salt);
   }
