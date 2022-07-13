@@ -1,33 +1,31 @@
-'use strict';
+"use strict";
 // Packages
 const mongoose = require("mongoose");
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
-const fs = require('fs');
-const join = require('path').join;
-const models = join(__dirname, 'models');
+const fs = require("fs");
+const join = require("path").join;
+const models = join(__dirname, "models");
 dotenv.config();
 
 //require models
 require("./models/product");
 
 fs.readdirSync(models)
-  .filter(file => ~file.search(/^[^.].*\.js$/))
-  .forEach(file => require(join(models, file)));
+  .filter((file) => ~file.search(/^[^.].*\.js$/))
+  .forEach((file) => require(join(models, file)));
 
 // Models
 const User = require("./models/user");
 const Product = require("./models/product");
-const User = require("./models/user");
 // const Wishlist = require("./models/wishlist");
 const Test = require("./models/test1");
 const Blog = require("./models/blog");
 const Coupon = require("./models/coupon");
 const Order = require("./models/order");
 // const Cart = require("./models/cart");
-
 
 // Routes
 const loginRouter = require("./routes/login");
@@ -39,7 +37,7 @@ const profileRouter = require("./routes/profile");
 const contactRouter = require("./routes/contact");
 const checkoutRouter = require("./routes/checkout");
 const blogRouter = require("./routes/blogs");
-
+const googleAuthRouter = require("./routes/googleAuth");
 
 const app = express();
 
@@ -67,7 +65,11 @@ app.set("view engine", "ejs");
 
 // Base route
 app.get("/", (req, res) => {
-  res.render("index");
+  let userLoggedIn = false;
+  if (req.cookies.jwt) {
+    userLoggedIn = true;
+  }
+  res.render("index", { userLoggedIn });
 });
 
 //setting routes for each path
@@ -80,29 +82,32 @@ app.use("/checkout", checkoutRouter);
 app.use("/wishlist", wishlistRouter);
 app.use("/register", registerRouter);
 app.use("/blogs", blogRouter);
+app.use("/auth/google", googleAuthRouter);
 
 //about us route
 app.get("/about", (req, res) => {
   res.render("about");
 });
 
-app.get('/updateUser',async (req,res)=>{
-  
-  try{
-    const id="62c9b688592b0b4307609127";
+app.get("/logout", (req, res) => {
+  res.clearCookie("jwt");
+  res.render("index", { userLoggedIn: false });
+});
+
+app.get("/updateUser", async (req, res) => {
+  try {
+    const id = "62c9b688592b0b4307609127";
     const userCheck = await User.findById(id);
     await userCheck.populate({
-      path: 'wishlist',
+      path: "wishlist",
       model: Product,
     });
     console.log(userCheck);
-  
+
     res.json("hello");
-  }
-  catch(err){
+  } catch (err) {
     console.log(err);
   }
-  
 });
 
 // 404 page
@@ -164,4 +169,3 @@ app.get("*", (req, res) => {
 // 62c875ab28503cb136482c0c
 // 62c875eba93d01aa26e5a4b8
 // 62c8763f78b5e02a4a99f1dc
-

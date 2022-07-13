@@ -7,8 +7,16 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
     />
+    <meta
+      name="Content-Security-Policy-Report-Only"
+      content="script-src https://accounts.google.com/gsi/client; frame-src https://accounts.google.com/gsi/; connect-src https://accounts.google.com/gsi/;"
+    />
+    <meta
+      name="google-signin-client_id"
+      content="649922066604-90k8n6au857isf9oo7og9nhp9f0nhb8a.apps.googleusercontent.com"
+    />
 
-    <title>Meeh - Login</title>
+    <title>Meehh - Login</title>
 
     <!-- Fav Icon -->
     <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon" />
@@ -31,105 +39,174 @@
     <link href="/assets/css/jquery.fancybox.min.css" rel="stylesheet" />
     <link href="/assets/css/animate.css" rel="stylesheet" />
     <link href="/assets/css/jquery-ui.css" rel="stylesheet" />
-    <link
-      href="/assets/css/jquery.bootstrap-touchspin.css"
-      rel="stylesheet"
-    />
+    <link href="/assets/css/jquery.bootstrap-touchspin.css" rel="stylesheet" />
     <link href="/assets/css/nice-select.css" rel="stylesheet" />
     <link href="/assets/css/color.css" rel="stylesheet" />
     <link href="/assets/css/style.css" rel="stylesheet" />
     <link href="/assets/css/responsive.css" rel="stylesheet" />
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
   </head>
 
   <!-- page wrapper -->
   <body>
     <%- include('header')%>
-      <!-- page-title -->
-      <section class="page-title centred">
-        <div
-          class="pattern-layer"
-          style="
-            background-image: url(/assets/images/background/page-title.jpg);
-          "
-        ></div>
-        <div class="auto-container">
-          <div class="content-box">
-            <h1>My Account</h1>
-            <ul class="bread-crumb clearfix">
-              <li>
-                <i class="flaticon-home-1"></i><a href="index.html">Home</a>
-              </li>
-              <li>My Account</li>
-            </ul>
-          </div>
+    <!-- page-title -->
+    <section class="page-title centred">
+      <div
+        class="pattern-layer"
+        style="background-image: url(/assets/images/background/page-title.jpg)"
+      ></div>
+      <div class="auto-container">
+        <div class="content-box">
+          <h1>Login</h1>
+          <ul class="bread-crumb clearfix">
+            <li>
+              <i class="flaticon-home-1"></i><a href="index.html">Home</a>
+            </li>
+            <li>Login</li>
+          </ul>
         </div>
-      </section>
-      <!-- page-title end -->
+      </div>
+    </section>
+    <!-- page-title end -->
 
-      <!-- myaccount-section -->
-      <section class="myaccount-section">
-        <div class="auto-container">
-          <div class="row clearfix justify-content-center">
-            <div class="col-lg-6 col-md-12 col-sm-12 inner-column">
-              <div class="inner-box login-inner">
-                <div class="upper-inner">
-                  <h3>Log in</h3>
-                  <p>Log in to snatch our product!</p>
+    <!-- myaccount-section -->
+    <section class="myaccount-section">
+      <div class="auto-container">
+        <div class="row clearfix justify-content-center">
+          <div class="col-lg-6 col-md-12 col-sm-12 inner-column">
+            <div class="inner-box login-inner p-3 py-4 p-sm-4 p-lg-5">
+              <div class="upper-inner">
+                <h3>Log in</h3>
+                <p>Log in to snatch our product!</p>
+              </div>
+              <div class="hide login-error" role="alert"></div>
+              <form class="default-form login-form">
+                <div class="form-group">
+                  <label>Email address</label>
+                  <input type="email" name="email" required />
+                  <div class="email-error"></div>
                 </div>
-                <form action="/login" method="POST" class="default-form">
-                  <div class="form-group">
-                    <label>Email address</label>
-                    <input type="email" name="email" required="" />
-                  </div>
-                  <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" name="password" required="" />
-                  </div>
-                  <div class="form-group">
-                    <div class="custom-controls-stacked">
-                      <label class="custom-control material-checkbox">
-                        <input type="checkbox" class="material-control-input" />
-                        <span class="material-control-indicator"></span>
-                        <span class="description">Remember me</span>
-                      </label>
-                    </div>
-                    <a href="my-account.html" class="recover-password"
-                      >Lost your password?</a
-                    >
-                  </div>
-                  <div class="form-group">
-                    <input type="submit" class="theme-btn-two">
-                      Log In<i class="flaticon-right-1"></i>
-                    </button>
-                  </div>
-                </form>
-                <div class="lower-inner centred">
-                  <span>or</span>
-                  <ul class="social-links clearfix">
-                    <li>
-                      <a href="my-account.html"
-                        ><i class="fab fa-facebook-f"></i>Facebook</a
-                      >
-                    </li>
-                    <li>
-                      <a href="my-account.html"
-                        ><i class="fab fa-google-plus-g"></i>Google</a
-                      >
-                    </li>
-                  </ul>
-                  <p>
-                    Don't Have an Account?
-                    <a href="my-account.html">Sign up Now</a>
-                  </p>
+                <div class="form-group">
+                  <label>Password</label>
+                  <input type="password" name="password" required />
+                  <div class="password-error"></div>
                 </div>
+                <div class="form-group">
+                  <div class="custom-controls-stacked">
+                    <label class="custom-control material-checkbox">
+                      <input type="checkbox" class="material-control-input" />
+                      <span class="material-control-indicator"></span>
+                      <span class="description">Remember me</span>
+                    </label>
+                  </div>
+                  <a href="#" class="recover-password">Lost your password?</a>
+                </div>
+                <div class="form-group col-12 col-sm-4 col-lg-12 pl-0">
+                  <button class="theme-btn-two">
+                    Log In<i class="flaticon-right-1"></i>
+                  </button>
+                </div>
+              </form>
+              <div class="lower-inner centred">
+                <span>or</span>
+                <ul class="social-links clearfix">
+                  <li>
+                    <div id="google-login-btn"></div>
+                  </li>
+                </ul>
+                <p>
+                  Don't Have an Account?
+                  <a href="/register" class="text-primary">Sign up Now</a>
+                </p>
               </div>
             </div>
-            
           </div>
         </div>
-      </section>
-      <!-- myaccount-section end -->
-      <%- include('footer')%>
+      </div>
+    </section>
+    <!-- myaccount-section end -->
+    <%- include('footer')%>
+
+    <script>
+      // send token recieved from google after user sign up to server to create user
+      async function handleCredentialResponse(response) {
+        const token = response.credential;
+        console.log(token);
+        const res = await fetch("/auth/google/sign-up", {
+          method: "POST",
+          body: JSON.stringify({ token: token }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (res.ok) {
+          location.assign("/products");
+        } else {
+          const data = await res.json();
+          console.log(data);
+        }
+      }
+
+      // inititalize google login button
+      window.onload = function () {
+        google.accounts.id.initialize({
+          client_id:
+            "649922066604-90k8n6au857isf9oo7og9nhp9f0nhb8a.apps.googleusercontent.com",
+          callback: handleCredentialResponse,
+        });
+        google.accounts.id.renderButton(
+          document.getElementById("google-login-btn"),
+          { theme: "filled_blue", size: "large", text: "signin_with" } // customization attributes
+        );
+        google.accounts.id.prompt(); // also display the One Tap dialog
+      };
+
+      // handle user login
+      const form = document.querySelector("form.login-form");
+      const loginError = document.querySelector("div.login-error");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        // clear the errors
+        loginError.textContent = "";
+
+        // get the input values
+        const email = form.email.value;
+        const password = form.password.value;
+
+        try {
+          const res = await fetch("/login", {
+            method: "POST",
+            body: JSON.stringify({ email, password }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          console.log(res);
+          const data = await res.json();
+          console.log(data);
+          if (res.ok) {
+            loginError.textContent = data.message;
+            loginError.classList.remove("hide");
+            loginError.classList.add("alert");
+            loginError.classList.add("alert-success");
+            setTimeout(() => location.assign("/products"), 1000);
+          } else {
+            loginError.textContent = data.error;
+            loginError.classList.remove("hide");
+            loginError.classList.add("alert");
+            loginError.classList.add("alert-danger");
+            console.log(data.error);
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      });
+    </script>
+
     <!-- jequery plugins -->
     <script src="/assets/js/jquery.js"></script>
     <script src="/assets/js/popper.min.js"></script>

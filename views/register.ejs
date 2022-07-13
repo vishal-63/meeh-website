@@ -7,8 +7,16 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
     />
+    <meta
+      name="Content-Security-Policy-Report-Only"
+      content="script-src https://accounts.google.com/gsi/client; frame-src https://accounts.google.com/gsi/; connect-src https://accounts.google.com/gsi/;"
+    />
+    <meta
+      name="google-signin-client_id"
+      content="649922066604-90k8n6au857isf9oo7og9nhp9f0nhb8a.apps.googleusercontent.com"
+    />
 
-    <title>Castro - HTML 5 Template Preview</title>
+    <title>Meehh - Signup</title>
 
     <!-- Fav Icon -->
     <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon" />
@@ -36,126 +44,222 @@
     <link href="assets/css/color.css" rel="stylesheet" />
     <link href="assets/css/style.css" rel="stylesheet" />
     <link href="assets/css/responsive.css" rel="stylesheet" />
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
   </head>
 
   <!-- page wrapper -->
   <body>
     <%- include('header')%>
-      <!-- page-title -->
-      <section class="page-title centred">
-        <div
-          class="pattern-layer"
-          style="background-image: url(assets/images/background/page-title.jpg)"
-        ></div>
-        <div class="auto-container">
-          <div class="content-box">
-            <h1>My Account</h1>
-            <ul class="bread-crumb clearfix">
-              <li>
-                <i class="flaticon-home-1"></i><a href="index.html">Home</a>
-              </li>
-              <li>My Account</li>
-            </ul>
-          </div>
+    <!-- page-title -->
+    <section class="page-title centred">
+      <div
+        class="pattern-layer"
+        style="background-image: url(assets/images/background/page-title.jpg)"
+      ></div>
+      <div class="auto-container">
+        <div class="content-box">
+          <h1>Sign Up</h1>
+          <ul class="bread-crumb clearfix">
+            <li>
+              <i class="flaticon-home-1"></i><a href="index.html">Home</a>
+            </li>
+            <li>Sign Up</li>
+          </ul>
         </div>
-      </section>
-      <!-- page-title end -->
+      </div>
+    </section>
+    <!-- page-title end -->
 
-      <!-- myaccount-section -->
-      <section class="myaccount-section">
-        <div class="auto-container">
-          <div class="row clearfix justify-content-center">
-            <div class="col-lg-12 col-md-12 col-sm-12 inner-column">
-              <div class="inner-box signup-inner">
-                <div class="upper-inner">
-                  <h3>Create An Account</h3>
-                  <p>Log in to access all your resources</p>
+    <!-- myaccount-section -->
+    <section class="myaccount-section">
+      <div class="auto-container">
+        <div class="row clearfix justify-content-center">
+          <div class="col-lg-12 col-md-12 col-sm-12 inner-column">
+            <div class="inner-box signup-inner p-3 py-4 p-sm-4 p-lg-5">
+              <div class="upper-inner">
+                <h3>Create An Account</h3>
+                <p>Log in to access all your resources</p>
+              </div>
+              <div class="signup-alert"></div>
+              <form class="default-form row g-6 signup-form">
+                <div class="form-group col-md-6">
+                  <label>First name</label>
+                  <input type="text" name="first_name" required />
+
+                  <span class="text-danger fname-message"> </span>
                 </div>
-                <form
-                  action="/register"
-                  method="POST"
-                  class="default-form row g-6"
-                >
-                  <div class="form-group col-md-6">
-                    <label>First name</label>
-                    <input type="text" name="first_name" required />
-                    <% if(typeof(errors) !=="undefined") { %> <%=
-                    errors.first_name %> <% } %>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label>Last name</label>
-                    <input type="text" name="last_name" required />
-                    <% if(typeof(errors) !=="undefined") { %> <%=
-                    errors.last_name %> <% } %>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label>Email address</label>
-                    <input type="email" name="email" required />
-                    <% if(typeof(errors) !=="undefined") { %> <%= errors.email
-                    %> <% } %>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label>Phone Number</label>
-                    <input type="text" name="phone_no" required />
-                    <% if(typeof(errors) !=="undefined") { %> <%=
-                    errors.phone_no %> <% } %>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label>Password</label>
-                    <input type="password" name="password" required />
-                    <% if(typeof(errors) !=="undefined") { %> <%=
-                    errors.password %> <% } %>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label>Confirm Password</label>
-                    <input type="password" name="confirm_password" required />
-                    <% if(typeof(errors) !=="undefined") { %> <%=
-                    errors.confirm_password %> <% } %>
-                  </div>
-                  <div class="form-group col-md-12">
-                    <div class="custom-controls-stacked">
-                      <label class="custom-control material-checkbox">
-                        <input type="checkbox" class="material-control-input" />
-                        <span class="material-control-indicator"></span>
-                        <span class="description"
-                          >I agree to terms & Policy.</span
-                        >
-                      </label>
-                    </div>
-                  </div>
-                  <div class="form-group col-3">
-                    <button type="submit" class="theme-btn-two">
-                      Sign Up<i class="flaticon-right-1"></i>
-                    </button>
-                  </div>
-                </form>
-                <div class="lower-inner centred">
-                  <span>or</span>
-                  <ul class="social-links clearfix">
-                    <li>
-                      <a href="my-account.html"
-                        ><i class="fab fa-facebook-f"></i>Facebook</a
-                      >
-                    </li>
-                    <li>
-                      <a href="my-account.html"
-                        ><i class="fab fa-google-plus-g"></i>Google</a
-                      >
-                    </li>
-                  </ul>
-                  <p>
-                    Already have an account?
-                    <a href="my-account.html">Log In Now</a>
-                  </p>
+                <div class="form-group col-md-6">
+                  <label>Last name</label>
+                  <input type="text" name="last_name" required />
+
+                  <span class="text-danger lname-message"> </span>
                 </div>
+                <div class="form-group col-md-6">
+                  <label>Email address</label>
+                  <input type="email" name="email" required />
+
+                  <span class="text-danger email-message"> </span>
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Phone Number</label>
+                  <input type="text" name="phone_no" required />
+
+                  <span class="text-danger phone-message"> </span>
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Password</label>
+                  <input type="password" name="password" required />
+
+                  <span class="text-danger password-message"> </span>
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Confirm Password</label>
+                  <input type="password" name="confirm_password" required />
+
+                  <span class="text-danger confirm_password-message"> </span>
+                </div>
+                <div class="form-group col-md-12">
+                  <div class="custom-controls-stacked">
+                    <label class="custom-control material-checkbox">
+                      <input type="checkbox" class="material-control-input" />
+                      <span class="material-control-indicator"></span>
+                      <span class="description"
+                        >I agree to terms & Policy.</span
+                      >
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group col-12 col-sm-4 col-lg-3">
+                  <button type="submit" class="theme-btn-two">
+                    Sign Up<i class="flaticon-right-1"></i>
+                  </button>
+                </div>
+              </form>
+              <div class="lower-inner centred">
+                <span>or</span>
+                <ul class="social-links clearfix">
+                  <li>
+                    <div id="google-login-btn"></div>
+                  </li>
+                </ul>
+                <p>
+                  Already have an account?
+                  <a href="/login" class="text-primary">Log In Now</a>
+                </p>
               </div>
             </div>
           </div>
         </div>
-      </section>
-      <!-- myaccount-section end -->
+      </div>
+    </section>
+    <!-- myaccount-section end -->
 
-      <%- include('footer')%>
+    <%- include('footer')%>
+
+    <script>
+      // send token recieved from google after user sign up to server to create user
+      async function handleCredentialResponse(response) {
+        const token = response.credential;
+
+        const res = await fetch("/auth/google/sign-up", {
+          method: "POST",
+          body: JSON.stringify({ token: token }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (res.ok) {
+          location.assign("/products");
+        } else {
+          const data = await res.json();
+          console.log(data);
+        }
+      }
+
+      // inititalize google signup button
+      window.onload = function () {
+        google.accounts.id.initialize({
+          client_id:
+            "649922066604-90k8n6au857isf9oo7og9nhp9f0nhb8a.apps.googleusercontent.com",
+          callback: handleCredentialResponse,
+        });
+        google.accounts.id.renderButton(
+          document.getElementById("google-login-btn"),
+          { theme: "filled_blue", size: "large", text: "signup_with" } // customization attributes
+        );
+        google.accounts.id.prompt(); // also display the One Tap dialog
+      };
+
+      // handle user registration
+      const form = document.querySelector("form.signup-form");
+      const alert = document.querySelector("div.signup-alert");
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        // get the input values
+        const first_name = form.first_name.value;
+        const last_name = form.last_name.value;
+        const email = form.email.value;
+        const phone_no = form.phone_no.value;
+        const password = form.password.value;
+        const confirm_password = form.confirm_password.value;
+
+        console.log(
+          first_name,
+          last_name,
+          phone_no,
+          password,
+          confirm_password,
+          email
+        );
+
+        const body = {
+          first_name,
+          last_name,
+          phone_no,
+          email,
+          password,
+          confirm_password,
+        };
+
+        try {
+          console.log(body);
+          const res = await fetch("/register", {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          const data = await res.json();
+          console.log(data);
+          if (res.ok) {
+            alert.textContent = "User registration successful!";
+            alert.classList.remove("hide");
+            alert.classList.add("alert");
+            alert.classList.add("alert-success");
+            setTimeout(() => location.assign("/products"), 1000);
+          } else {
+            document.querySelector("span.fname-message").textContent =
+              data.errors.first_name;
+            document.querySelector("span.lname-message").textContent =
+              data.errors.last_name;
+            document.querySelector("span.email-message").textContent =
+              data.errors.email;
+            document.querySelector("span.phone-message").textContent =
+              data.errors.phone_no;
+            document.querySelector("span.password-message").textContent =
+              data.errors.password;
+            document.querySelector(
+              "span.confirm_password-message"
+            ).textContent = data.errors.confirm_password;
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      });
+    </script>
 
     <!-- jequery plugins -->
     <script src="assets/js/jquery.js"></script>
