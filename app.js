@@ -81,9 +81,15 @@ app.get("/about", (req, res) => {
   res.render("about");
 });
 
+// logout route
 app.get("/logout", (req, res) => {
   res.clearCookie("jwt");
-  res.render("index", { userLoggedIn: false });
+  res.redirect(req.header("Referer") || "/");
+});
+
+// 404 page
+app.get("*", (req, res) => {
+  res.render("not-found");
 });
 
 // app.get("/productUpdate",async (req,res)=>{
@@ -95,7 +101,7 @@ app.get("/logout", (req, res) => {
 //   for(let s=0;s<product.size.length;s++){
 //     for(let c=0;c<product.color.length;c++){
 //       product.stock[ product.size[s] + "_" + product.color[c] ]=20;
-//     }  
+//     }
 //   }
 
 //   product.save((err,result)=>{
@@ -108,11 +114,6 @@ app.get("/logout", (req, res) => {
 //   })
 //   res.json(product);
 // })
-
-// 404 page
-app.get("*", (req, res) => {
-  res.render("not-found");
-});
 
 // async function addProducts(){
 //   const userData = await User.findById("62c810f418e0554c9d174bf5");

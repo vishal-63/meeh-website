@@ -39,9 +39,13 @@ const handleErrors = (err) => {
   return errors;
 };
 
-
 module.exports.login_get = (req, res) => {
-  res.render("login");
+  let userLoggedIn = false;
+  if (req.cookies.jwt) {
+    userLoggedIn = true;
+  }
+
+  res.render("login", { userLoggedIn });
 };
 
 module.exports.login_post = async (req, res) => {
@@ -62,7 +66,6 @@ module.exports.login_post = async (req, res) => {
 module.exports.singup_get = (req, res) => {
   res.render("register");
 };
-
 
 //controlles signup / register post request from unregistered users.
 module.exports.signup_post = async (req, res) => {
@@ -93,39 +96,97 @@ module.exports.signup_post = async (req, res) => {
 };
 
 //controlles get request to account/ profile page for users
-module.exports.profile_get = async (req,res)=>{
+module.exports.profile_get = async (req, res) => {
   res.render("about");
-}
+};
 
 //controlles post request to change account / profile for users
-module.exports.profile_post = async (req,res)=>{
-  const { first_name, last_name, phone, state, city, street, house_no, landmark, pincode } = req.body;
+module.exports.profile_post = async (req, res) => {
+  const {
+    first_name,
+    last_name,
+    phone,
+    state,
+    city,
+    street,
+    house_no,
+    landmark,
+    pincode,
+  } = req.body;
   console.log(req.body.userDetails);
-  try{
-
-      const user = User.findById(res.user.id);
-      user.first_name = first_name;
-      user.last_name = last_name;
-      user.phone_no = phone;
-      user.adresses.state = state;
-      user.adresses.city = city;
-      user.adresses.street = street;
-      user.adresses.house_no = house_no;
-      user.adresses.landmark = landmark;
-      user.adresses.pincode = pincode;
-      user.save((err,result)=>{
-        if(err){
-          console.log(err.message);
-          throw new Error("Could no save user details!");
-        }
-        else{
-          console.log(result);
-          res.redirect("userAccount");
-        }
-      })
-  }
-  catch(err){
+  try {
+    const user = User.findById(res.user.id);
+    user.first_name = first_name;
+    user.last_name = last_name;
+    user.phone_no = phone;
+    user.adresses.state = state;
+    user.adresses.city = city;
+    user.adresses.street = street;
+    user.adresses.house_no = house_no;
+    user.adresses.landmark = landmark;
+    user.adresses.pincode = pincode;
+    user.save((err, result) => {
+      if (err) {
+        console.log(err.message);
+        throw new Error("Could not save user details!");
+      } else {
+        console.log(result);
+        res.redirect("userAccount");
+      }
+    });
+  } catch (err) {
     console.log(err.message);
     res.status(400).send(err.message);
   }
-}
+};
+
+//controlles get request for when user has forgot password
+module.exports.forgot_password_get = async (req, res) => {
+  res.render("forgotPassword.ejs");
+};
+
+module.exports.forgot_password_post = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (user != null && user != undefined) {
+      //send top to email
+      const OTP = Math.floor(100000 + Math.random() * 900000);
+      let forgotPassword = await ForgotPassword.findOne({ email: user.email });
+
+      if (forgotPassword != null) {
+        await forgotPassword.delete();
+      }
+
+      forgotPassword = new ForgotPassword({
+        email: user.email,
+        otp: OTP,
+      });
+
+      forgotPassword.save((err, result) => {
+        if (err) {
+          throw new Error("Error while saving new otp!");
+        } else {
+          console.log(result);
+          res.send(result);
+        }
+      });
+      // res.send(forgotPassword);
+    } else {
+      res.status(400).send("user not found");
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(400).send(err.message);
+  }
+};
+
+module.exports.forgot_password_verify_get = (req, res) => {
+  res.render("forgotpasswordverify");
+};
+
+module.exports.forgot_password_verify_post = async (req, res) => {
+  if (req.password == req.confirm_password) {
+  } else {
+    res.status(400).send("Password do not match!");
+  }
+};
