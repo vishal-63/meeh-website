@@ -1,9 +1,7 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
-const { OAuth2Client } = require("google-auth-library");
-const { google } = require("googleapis");
-const client = new OAuth2Client(process.env.GOOGLE_OATH_CLIENT_ID);
 const ForgotPassword = require("../models/forgotPassword");
+
 
 const maxAge = 3 * 24 * 60 * 60;
 
@@ -107,6 +105,7 @@ module.exports.profile_post = async (req, res) => {
   const {
     first_name,
     last_name,
+    phone,
     state,
     city,
     street,
@@ -119,6 +118,7 @@ module.exports.profile_post = async (req, res) => {
     const user = User.findById(res.user.id);
     user.first_name = first_name;
     user.last_name = last_name;
+    user.phone_no = phone;
     user.adresses.state = state;
     user.adresses.city = city;
     user.adresses.street = street;
