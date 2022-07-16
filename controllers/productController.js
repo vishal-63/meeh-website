@@ -1,15 +1,21 @@
 const Product = require("../models/product");
 
 module.exports.products_get = async (req, res) => {
+  let userLoggedIn = false;
+  if (req.cookies.jwt) {
+    userLoggedIn = true;
+  }
+
   const productList = await Product.find();
-  res.render("products", { productList });
+  res.render("products", { productList, userLoggedIn });
 };
 
 module.exports.single_product_get = async (req, res) => {
+  let userLoggedIn = false;
+  if (req.cookies.jwt) {
+    userLoggedIn = true;
+  }
+
   const product = await Product.findById(req.params.id);
-  // for(let i=0;i<product.reviews.length;i++){
-  //     await product.populate(`reviews[${i}].user_id`);
-  // }
-  // console.log(product);
-  res.render("productdetails", { product });
+  res.render("productdetails", { product, userLoggedIn });
 };

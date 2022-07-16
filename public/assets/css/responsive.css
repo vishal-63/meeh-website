@@ -408,7 +408,7 @@
     flex: 0 0 100%;
     max-width: 100%;
     margin: 0;
-  } 
+  }
 
   .blog-page-3 .blog-content {
     margin-bottom: 30px;
@@ -924,6 +924,10 @@
     max-width: 100%;
   }
 
+  .empty-cart img.icon {
+    max-width: 100%;
+  }
+
   .rtl .footer-bottom .cart-list {
     float: none;
   }
@@ -1065,11 +1069,11 @@
   }
 
   .myaccount-section .form-group input[type="text"],
-.myaccount-section .form-group input[type="email"],
-.myaccount-section .form-group input[type="password"] {
-  padding: 8px 14px;
-  height: auto;
-}
+  .myaccount-section .form-group input[type="email"],
+  .myaccount-section .form-group input[type="password"] {
+    padding: 8px 14px;
+    height: auto;
+  }
 
   .myaccount-section .inner-box .lower-inner .social-links li:last-child {
     margin-bottom: 0px;
@@ -1077,6 +1081,11 @@
 
   .myaccount-section .inner-box .default-form .form-group .recover-password {
     position: relative;
+  }
+
+  .myaccount-section .auto-container .col-lg-6 {
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .blog-details-content .post-share-option .tags-box,
@@ -1132,7 +1141,7 @@
   }
 
   .myaccount-section .nav.nav-tabs .nav-link {
-    padding: 0.5rem .65rem;
+    padding: 0.5rem 0.65rem;
   }
 
   .shop-page-section .item-shorting .filter-box {

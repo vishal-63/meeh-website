@@ -295,6 +295,11 @@ img {
   border: 2px solid #222;
   padding: 14px 39px;
   z-index: 1;
+  cursor: pointer;
+}
+
+.theme-btn-one a {
+  color: inherit;
 }
 
 .theme-btn-one:hover,
@@ -309,6 +314,18 @@ img {
   margin-left: 15px;
   top: 1px;
   transform: rotate(-30deg);
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+
+.theme-btn-one:hover i {
+  transform: rotate(0deg);
+  transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
+  -webkit-transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
 }
 
 .theme-btn-one:hover:after,
@@ -355,6 +372,10 @@ img {
   cursor: pointer;
 }
 
+.theme-btn-two a {
+  color: inherit;
+}
+
 .theme-btn-two:disabled {
   opacity: 0.65;
   cursor: not-allowed;
@@ -368,6 +389,18 @@ img {
   top: 1px;
   font-weight: 400;
   transform: rotate(-30deg);
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+
+.theme-btn-two:hover i {
+  transform: rotate(0deg);
+  transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
+  -webkit-transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
 }
 
 .theme-btn-two:hover:after,
@@ -409,6 +442,11 @@ img {
   text-align: center;
   padding: 12px 35px;
   z-index: 1;
+  cursor: pointer;
+}
+
+.theme-btn-three a {
+  color: inherit;
 }
 
 .theme-btn-three i {
@@ -419,6 +457,18 @@ img {
   top: 1px;
   font-weight: 400;
   transform: rotate(-30deg);
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+
+.theme-btn-three:hover i {
+  transform: rotate(0deg);
+  transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
+  -webkit-transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
 }
 
 .theme-btn-three:hover:after,
@@ -7938,8 +7988,9 @@ div#mCSB_1_container {
   left: 0px;
   width: 15px;
   height: 15px;
-  border: 1px solid #e6e6e6;
+  border: 1px solid #dadada;
   cursor: pointer;
+  transition: border 300ms;
 }
 
 .custom-control.material-checkbox
@@ -7948,11 +7999,12 @@ div#mCSB_1_container {
   -webkit-transform: rotateZ(45deg) translate(1px, -5px);
   transform: rotateZ(45deg) translate(1px, -5px);
   width: 8px;
-  border: 2px solid #e6e6e6;
+  border: 2px solid var(--gray-dark);
   border-top: 0px;
   border-left: 0px;
   background: transparent;
   border-radius: 0px;
+  transition: border 300ms;
 }
 
 .custom-controls-stacked .description {
@@ -8703,6 +8755,62 @@ div#mCSB_1_container {
   padding: 16px 35px;
 }
 
+.empty-cart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.empty-cart img.icon {
+  max-width: 400px;
+  margin-bottom: 20px;
+}
+
+.empty-cart .text {
+  color: #222;
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+/*** 
+
+====================================================================
+                        Wishlist-Page
+====================================================================
+
+***/
+
+.wishlist-section {
+  position: relative;
+  display: block;
+  padding: 120px 0px;
+}
+
+.wishlist-section .card .remove-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #dadada;
+  background-color: #666;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 200ms ease-in-out;
+}
+
+.wishlist-section .card:hover .remove-icon {
+  opacity: 1;
+  transition: opacity 200ms ease-in-out;
+}
+
 /*** 
 
 ====================================================================
@@ -9188,7 +9296,6 @@ div#mCSB_1_container {
   transform: translateY(-50%);
 }
 
-
 .myaccount-section .inner-box {
   position: relative;
   display: block;
@@ -9210,7 +9317,7 @@ div#mCSB_1_container {
 }
 
 .myaccount-section .default-form.profile-form {
-  flex: 0 0 75%; 
+  flex: 0 0 75%;
   max-width: 75%;
 }
 
@@ -9222,8 +9329,8 @@ div#mCSB_1_container {
 .myaccount-section .form-group label {
   position: relative;
   display: block;
-  font-size: 15px;
-  color: #848484;
+  color: var(--gray-dark);
+  font-size: 0.8rem;
   margin-bottom: 7px;
 }
 
@@ -9241,11 +9348,6 @@ div#mCSB_1_container {
   transition: all 500ms ease;
 }
 
-.myaccount-section .form-group span {
-  color: #ff4135;
-  font-size: .8rem;
-}
-
 .myaccount-section .form-group input:focus {
 }
 
@@ -9261,7 +9363,9 @@ div#mCSB_1_container {
 }
 
 .myaccount-section .form-group .recover-password {
-  top: 8px;
+  position: relative;
+  top: 0;
+  right: inherit;
 }
 .myaccount-section .form-group .change-password {
   padding-top: 10px;
@@ -9317,6 +9421,8 @@ div#mCSB_1_container {
   .custom-controls-stacked
   .description {
   margin-left: 28px;
+  color: var(--gray-dark);
+  font-size: 0.8rem;
 }
 
 .myaccount-section .inner-box .lower-inner {
@@ -9385,6 +9491,15 @@ div#mCSB_1_container {
 }
 
 .myaccount-section .inner-box .lower-inner p a:hover {
+}
+
+#recoverPasswordModal .modal-content .modal-body .modal-text {
+  color: #2a2a2a;
+  font-size: 1rem;
+}
+
+#recoverPasswordModal .modal-content .modal-body .text-muted {
+  font-size: 0.8rem;
 }
 
 /*** 
