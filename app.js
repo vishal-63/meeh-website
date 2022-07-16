@@ -116,10 +116,10 @@ app.get("/logout", (req, res) => {
 //   res.json(product);
 // })
 
-// // 404 page
-// app.get("*", (req, res) => {
-//   res.render("not-found");
-// });
+// 404 page
+app.get("*", (req, res) => {
+  res.render("not-found");
+});
 
 // async function addProducts(){
 //   const userData = await User.findById("62c810f418e0554c9d174bf5");

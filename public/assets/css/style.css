@@ -352,6 +352,12 @@ img {
   background: #222;
   padding: 12px 35px;
   z-index: 1;
+  cursor: pointer;
+}
+
+.theme-btn-two:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
 }
 
 .theme-btn-two i {
@@ -5916,7 +5922,7 @@ div#mCSB_1_container {
 .page-title {
   position: relative;
   background: #edf0f5;
-  padding: 95px 0px 88px 0px;
+  padding: 64px 0px 58px 0px;
 }
 
 .page-title .pattern-layer {
@@ -8480,7 +8486,6 @@ div#mCSB_1_container {
 }
 
 .cart-section .cart-table {
-  min-width: 1170px;
   width: 100%;
 }
 
@@ -8522,9 +8527,9 @@ div#mCSB_1_container {
 .cart-section .cart-table tbody tr .prod-column .column-box .prod-thumb {
   position: absolute;
   left: 120px;
-  top: 0px;
+  top: 50%;
+  transform: translateY(-50%);
   width: 100px;
-  height: 125px;
   overflow: hidden;
   background: #fff;
   transition: all 500ms ease;
@@ -9078,8 +9083,111 @@ div#mCSB_1_container {
 
 .myaccount-section {
   position: relative;
-  padding: 120px 0px;
+  padding: 80px 0px;
+  min-height: calc(100vh - 546.8px - 120px - 209px);
 }
+
+.myaccount-section .nav.nav-tabs,
+.myaccount-section .nav.nav-tabs .nav-item:last-child {
+  border: none;
+}
+
+.myaccount-section .nav.nav-tabs .nav-item {
+  font-size: 1.1rem;
+  border-right: 1px solid #dee2e6;
+}
+
+.myaccount-section .nav.nav-tabs .nav-link {
+  border: none;
+  border-radius: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.myaccount-section .nav.nav-tabs:last-child .nav-link {
+  border-right: none;
+}
+
+.myaccount-section .nav.nav-tabs .nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  height: 4px;
+  width: 0;
+  background-color: #ff4135;
+  transform: translateX(-50%);
+  transition: width 300ms;
+}
+
+.myaccount-section .nav.nav-tabs .nav-link.active::after {
+  width: 65%;
+}
+
+.myaccount-section .tab-content > .tab-pane {
+  padding: 3rem 0;
+}
+
+.myaccount-section .input-group > .input-group-prepend > .input-group-text {
+  font-size: 15px;
+  padding: 8px 12px;
+}
+
+.myaccount-section .tab-content > .tab-pane .card.add-new-address a {
+  height: 100%;
+}
+
+.myaccount-section .tab-content > .tab-pane .card.add-new-address .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100%;
+}
+
+.myaccount-section .card .card-body .flaticon-plus {
+  font-size: 2rem;
+  color: #409aff;
+}
+
+.myaccount-section .order-card .order-item {
+  display: flex;
+  position: relative;
+  cursor: pointer;
+}
+
+.myaccount-section .order-card .order-item:last-child {
+  border: none;
+}
+
+.myaccount-section .order-card .order-item .item-details {
+  font-size: 12px;
+}
+
+.myaccount-section .order-card .order-item .order-item-status {
+  color: var(--gray);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  line-height: 1;
+  margin-top: 8px;
+}
+
+.myaccount-section .order-card .order-item .order-item-status span.status-icon {
+  height: 12px;
+  width: 12px;
+  border-radius: 100%;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.myaccount-section .order-card .order-item .flaticon-right-chevron {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 
 .myaccount-section .inner-box {
   position: relative;
@@ -9101,12 +9209,17 @@ div#mCSB_1_container {
   margin-bottom: 36px;
 }
 
-.myaccount-section .inner-box .default-form .form-group {
+.myaccount-section .default-form.profile-form {
+  flex: 0 0 75%; 
+  max-width: 75%;
+}
+
+.myaccount-section .form-group {
   position: relative;
   margin-bottom: 23px;
 }
 
-.myaccount-section .inner-box .default-form .form-group label {
+.myaccount-section .form-group label {
   position: relative;
   display: block;
   font-size: 15px;
@@ -9114,9 +9227,9 @@ div#mCSB_1_container {
   margin-bottom: 7px;
 }
 
-.myaccount-section .inner-box .default-form .form-group input[type="text"],
-.myaccount-section .inner-box .default-form .form-group input[type="email"],
-.myaccount-section .inner-box .default-form .form-group input[type="password"] {
+.myaccount-section .form-group input[type="text"],
+.myaccount-section .form-group input[type="email"],
+.myaccount-section .form-group input[type="password"] {
   position: relative;
   display: block;
   width: 100%;
@@ -9124,22 +9237,35 @@ div#mCSB_1_container {
   border: 1px solid #e6e6e6;
   padding: 10px 20px;
   font-size: 15px;
-  color: #848484;
+  color: var(--gray-dark);
   transition: all 500ms ease;
 }
 
-.myaccount-section .inner-box .default-form .form-group input:focus {
+.myaccount-section .form-group span {
+  color: #ff4135;
+  font-size: .8rem;
 }
 
-.myaccount-section .inner-box .default-form .form-group .recover-password {
+.myaccount-section .form-group input:focus {
+}
+
+.myaccount-section .form-group .recover-password,
+.myaccount-section .form-group .change-password {
   position: absolute;
   display: inline-block;
-  top: 8px;
   right: 0px;
-  font-size: 15px;
+  font-size: 12px;
   font-family: "Poppins", sans-serif;
   line-height: 18px;
   z-index: 1;
+}
+
+.myaccount-section .form-group .recover-password {
+  top: 8px;
+}
+.myaccount-section .form-group .change-password {
+  padding-top: 10px;
+  padding-right: 15px;
 }
 
 .myaccount-section
@@ -9160,7 +9286,7 @@ div#mCSB_1_container {
   padding-top: 4px;
 }
 
-.myaccount-section .inner-box .default-form .form-group button {
+.myaccount-section .form-group button {
   display: block;
   width: 100%;
   padding: 16px 35px;
