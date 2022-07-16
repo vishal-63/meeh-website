@@ -89,21 +89,28 @@ module.exports.cart_update_product = async (req,res)=>{
 
   try{
     console.log("request = ",req.body);
+    
     user.cart.map( item => {
-      if(item._id == req.body.id) {
-        console.log(item);
-        item.quantity = item.quantity + req.body.quantity;
-        console.log(item);
+      if(item._id == req.body.id){
+        item.quantity = item.quantity+ req.body.quantity;
       }
     });
+
+    const newCart = user.cart.filter( item => {
+      // console.log(item);
+      return item.quantity > 0 ;
+    } );
+    
+    console.log(newCart);
+    user.cart = newCart;
 
     user.save((err,result)=>{
       if (err) {
         console.log(err.message);
-        res.status(200).send(err.message);
-      } else {
-        console.log(user.cart);
-        res.status(200).send(result.cart);
+        res.status(500).send(err.message);
+      } else{
+        // console.log(user.cart);
+        res.status(200).send("success!");
       }
     })
     

@@ -82,6 +82,19 @@ const userSchema = new mongoose.Schema({
     ref: "Product",
     minlength: 1,
   },
+  // forgot_password:{
+  //   type:{
+  //     otp:{
+  //       type:Number,
+  //       required:true,
+  //     },
+  //     expires_at:{
+  //       type:Date,
+  //       default:Date.now,
+  //       expires:60,
+  //     }
+  //   }
+  // }
 });
 
 // static method to login user
