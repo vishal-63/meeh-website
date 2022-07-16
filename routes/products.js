@@ -5,8 +5,8 @@ const productController = require("../controllers/productController");
 
 require("../models/user");
 // const Wishlist = require("../models/wishlist");
-const Test1 = require("../models/test1");
-const Test = require("../models/test");
+// const Test1 = require("../models/test1");
+// const Test = require("../models/test");
 
 // route to get all products or
 // products of a category or subcategory

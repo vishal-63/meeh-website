@@ -1,4 +1,3 @@
-"use strict";
 // Packages
 const mongoose = require("mongoose");
 const express = require("express");
@@ -21,7 +20,7 @@ fs.readdirSync(models)
 const Product = require("./models/product");
 const User = require("./models/user");
 // const Wishlist = require("./models/wishlist");
-const Test = require("./models/test1");
+// const Test = require("./models/test1");
 const Blog = require("./models/blog");
 const Coupon = require("./models/coupon");
 const Order = require("./models/order");
