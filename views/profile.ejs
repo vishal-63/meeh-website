@@ -11,7 +11,7 @@
     <title>Castro - HTML 5 Template Preview</title>
 
     <!-- Fav Icon -->
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon" />
 
     <!-- Google Fonts -->
     <link
@@ -24,18 +24,18 @@
     />
 
     <!-- Stylesheets -->
-    <link href="assets/css/font-awesome-all.css" rel="stylesheet" />
-    <link href="assets/css/flaticon.css" rel="stylesheet" />
-    <link href="assets/css/owl.css" rel="stylesheet" />
-    <link href="assets/css/bootstrap.css" rel="stylesheet" />
-    <link href="assets/css/jquery.fancybox.min.css" rel="stylesheet" />
-    <link href="assets/css/animate.css" rel="stylesheet" />
-    <link href="assets/css/jquery-ui.css" rel="stylesheet" />
-    <link href="assets/css/jquery.bootstrap-touchspin.css" rel="stylesheet" />
-    <link href="assets/css/nice-select.css" rel="stylesheet" />
-    <link href="assets/css/color.css" rel="stylesheet" />
-    <link href="assets/css/style.css" rel="stylesheet" />
-    <link href="assets/css/responsive.css" rel="stylesheet" />
+    <link href="/assets/css/font-awesome-all.css" rel="stylesheet" />
+    <link href="/assets/css/flaticon.css" rel="stylesheet" />
+    <link href="/assets/css/owl.css" rel="stylesheet" />
+    <link href="/assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="/assets/css/jquery.fancybox.min.css" rel="stylesheet" />
+    <link href="/assets/css/animate.css" rel="stylesheet" />
+    <link href="/assets/css/jquery-ui.css" rel="stylesheet" />
+    <link href="/assets/css/jquery.bootstrap-touchspin.css" rel="stylesheet" />
+    <link href="/assets/css/nice-select.css" rel="stylesheet" />
+    <link href="/assets/css/color.css" rel="stylesheet" />
+    <link href="/assets/css/style.css" rel="stylesheet" />
+    <link href="/assets/css/responsive.css" rel="stylesheet" />
   </head>
 
   <!-- page wrapper -->
@@ -45,7 +45,7 @@
     <section class="page-title centred">
       <div
         class="pattern-layer"
-        style="background-image: url(assets/images/background/page-title.jpg)"
+        style="background-image: url(/assets/images/background/page-title.jpg)"
       ></div>
       <div class="auto-container">
         <div class="content-box">
@@ -63,116 +63,201 @@
 
     <!-- myaccount-section -->
     <section class="myaccount-section">
-      <div class="auto-container">
-        <div class="row clearfix">
-          <div class="col-lg-6 col-md-12 col-sm-12 inner-column">
-            <div class="inner-box login-inner">
-              <div class="upper-inner">
-                <h3>Log in</h3>
-                <p>Log in to access all your resources</p>
+      <div class="container">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a
+              class="nav-link px-md-5 active"
+              id="profile-tab"
+              data-toggle="tab"
+              href="#profile"
+              role="tab"
+              aria-controls="profile"
+              aria-selected="true"
+              >My Profile</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link px-md-5"
+              id="addresses-tab"
+              data-toggle="tab"
+              href="#addresses"
+              role="tab"
+              aria-controls="addresses"
+              aria-selected="false"
+              >My Addresses</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link px-md-5"
+              id="orders-tab"
+              data-toggle="tab"
+              href="#orders"
+              role="tab"
+              aria-controls="orders"
+              aria-selected="false"
+              >My Orders</a
+            >
+          </li>
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+          <div
+            class="tab-pane fade show active"
+            id="profile"
+            role="tabpanel"
+            aria-labelledby="profile-tab"
+          >
+
+          <!-- Your Profile -->
+            <form class="default-form profile-form">
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label>Email</label>
+                  <input type="text" name="email" class="form-control" value="shahvishal662@gmail.com" disabled/>
+                </div>
               </div>
-              <form action="my-account.html" method="post" class="default-form">
-                <div class="form-group">
-                  <label>Email address</label>
-                  <input type="email" name="email" required="" />
+              <div class="change-password"><a href="#">Change Password</a></div>
+
+              <hr>
+
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label>First Name <span>*</span></label>
+                  <input type="text" name="first_name" class="form-control" value="Vishal" required />
+                  <span class="text-danger first_name-message"> </span>
                 </div>
-                <div class="form-group">
-                  <label>Password</label>
-                  <input type="password" name="password" required="" />
+
+                <div class="form-group col-md-6">
+                  <label>Last Name <span>*</span></label>
+                  <input type="text" name="last_name" class="form-control" value="Shah" required />
+                  <span class="text-danger phone-message"> </span>
                 </div>
-                <div class="form-group">
-                  <div class="custom-controls-stacked">
-                    <label class="custom-control material-checkbox">
-                      <input type="checkbox" class="material-control-input" />
-                      <span class="material-control-indicator"></span>
-                      <span class="description">Remember me</span>
-                    </label>
+
+                <div class="form-group col-md-6">
+                  <label>Phone No <span>*</span></label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">+91</div>
+                    </div>
+                    <input type="text" name="phone_no" class="form-control" value="9687312209" required />
                   </div>
-                  <a href="my-account.html" class="recover-password"
-                    >Lost your password?</a
-                  >
+                  <span class="text-danger password-message"> </span>
                 </div>
-                <div class="form-group">
+                <div class="col-md-6"></div>
+                <div class="form-group col-6 col-sm-5 col-md-4 col-lg-3 mt-3">
                   <button type="submit" class="theme-btn-two">
-                    Log In<i class="flaticon-right-1"></i>
+                    Save<i class="flaticon-right-1"></i>
                   </button>
                 </div>
-              </form>
-              <div class="lower-inner centred">
-                <span>or</span>
-                <ul class="social-links clearfix">
-                  <li>
-                    <a href="my-account.html"
-                      ><i class="fab fa-facebook-f"></i>Facebook</a
-                    >
-                  </li>
-                  <li>
-                    <a href="my-account.html"
-                      ><i class="fab fa-google-plus-g"></i>Google</a
-                    >
-                  </li>
-                </ul>
-                <p>
-                  Don't Have an Account?
-                  <a href="my-account.html">Sign up Now</a>
-                </p>
+              </div>
+            </form>
+          </div>
+
+          <!-- Your Addresses -->
+          <div
+            class="tab-pane fade"
+            id="addresses"
+            role="tabpanel"
+            aria-labelledby="addresses-tab"
+          >
+            <div class="card-columns">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Vishal Shah</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">+91-9687312209</h6>
+                  <p class="card-text">202, Kanak Residency, Bh. Jalaram Mandir, Paldi, Ahmedabad, Gujarat, India - 380006</p>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Vishal Shah</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">+91-9687312209</h6>
+                  <p class="card-text">202, Kanak Residency, Bh. Jalaram Mandir, Paldi, Ahmedabad, Gujarat, India - 380006</p>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Vishal Shah</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">+91-9687312209</h6>
+                  <p class="card-text">202, Kanak Residency, Bh. Jalaram Mandir, Paldi, Ahmedabad, Gujarat, India - 380006</p>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Vishal Shah</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">+91-9687312209</h6>
+                  <p class="card-text">202, Kanak Residency, Bh. Jalaram Mandir, Paldi, Ahmedabad, Gujarat, India - 380006</p>
+                </div>
+              </div>
+
+              <div class="card add-new-address">
+                <a href="#">
+                  <div class="card-body">
+                    <div class="flaticon-plus"></div>
+                    <div class="card-title">Add new address</div>
+                  </div>
+                </a>
               </div>
             </div>
           </div>
-          <div class="col-lg-6 col-md-12 col-sm-12 inner-column">
-            <div class="inner-box signup-inner">
-              <div class="upper-inner">
-                <h3>Create An Account</h3>
-                <p>Log in to access all your resources</p>
+
+          <!-- Your Orders -->
+          <div
+            class="tab-pane fade"
+            id="orders"
+            role="tabpanel"
+            aria-labelledby="orders-tab"
+          >
+          <!-- Card 1 -->
+            <div class="card order-card mb-4">
+              <div class="card-header d-flex justify-content-between">
+                <div>Order Id: 899013</div>
+                <div>10 Jul, 2022</div>
               </div>
-              <form action="my-account.html" method="post" class="default-form">
-                <div class="form-group">
-                  <label>Your name</label>
-                  <input type="text" name="name" required="" />
-                </div>
-                <div class="form-group">
-                  <label>Email address</label>
-                  <input type="email" name="email" required="" />
-                </div>
-                <div class="form-group">
-                  <label>Password</label>
-                  <input type="password" name="password" required="" />
-                </div>
-                <div class="form-group">
-                  <div class="custom-controls-stacked">
-                    <label class="custom-control material-checkbox">
-                      <input type="checkbox" class="material-control-input" />
-                      <span class="material-control-indicator"></span>
-                      <span class="description"
-                        >I agree to terms & Policy.</span
-                      >
-                    </label>
+              <div class="card-body py-0">
+                <div class="order-item py-4 border-bottom">
+                  <img src="/assets/images/resource/shop/single-thumb-1.jpg" alt="Product image" class="item-img rounded mr-3">
+                  <div class="item-description">
+                    <div class="item-name">Bookmark</div>
+                    <div class="item-details">Size: M | Qty: 1</div>
+                    <div class="order-item-status"><span class="status-icon shipping"></span><span>Shipping</span></div>
                   </div>
+                  <div class="flaticon-right-chevron"></div>
                 </div>
-                <div class="form-group">
-                  <button type="submit" class="theme-btn-two">
-                    Sign Up<i class="flaticon-right-1"></i>
-                  </button>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="card order-card">
+              <div class="card-header d-flex justify-content-between">
+                <div>Order Id: 899012</div>
+                <div>09 Jul, 2022</div>
+              </div>
+              <div class="card-body py-0">
+                <div class="order-item py-4 border-bottom">
+                  <img src="/assets/images/resource/shop/single-thumb-1.jpg" alt="Product image" class="item-img rounded mr-3">
+                  <div class="item-description">
+                    <div class="item-name">Pen</div>
+                    <div class="item-details">Size: S | Qty: 1</div>
+                    <div class="order-item-status"><span class="status-icon delivered"></span><span>Item Delivered</span></div>
+                  </div>
+                  <div class="flaticon-right-chevron"></div>
                 </div>
-              </form>
-              <div class="lower-inner centred">
-                <span>or</span>
-                <ul class="social-links clearfix">
-                  <li>
-                    <a href="my-account.html"
-                      ><i class="fab fa-facebook-f"></i>Facebook</a
-                    >
-                  </li>
-                  <li>
-                    <a href="my-account.html"
-                      ><i class="fab fa-google-plus-g"></i>Google</a
-                    >
-                  </li>
-                </ul>
-                <p>
-                  Already have an account?
-                  <a href="my-account.html">Log In Now</a>
-                </p>
+                <div class="order-item py-4 border-bottom">
+                  <img src="/assets/images/resource/shop/single-thumb-2.jpg" alt="Product image" class="item-img rounded mr-3">
+                  <div class="item-description">
+                    <div class="item-name">Pencil</div>
+                    <div class="item-details">Size: S | Qty: 1</div>
+                    <div class="order-item-status"><span class="status-icon delivered"></span><span>Item Delivered</span></div>
+                  </div>
+                  <div class="flaticon-right-chevron"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -184,23 +269,23 @@
     <%- include('footer') %>
 
     <!-- jequery plugins -->
-    <script src="assets/js/jquery.js"></script>
-    <script src="assets/js/popper.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/owl.js"></script>
-    <script src="assets/js/wow.js"></script>
-    <script src="assets/js/validation.js"></script>
-    <script src="assets/js/jquery.fancybox.js"></script>
-    <script src="assets/js/TweenMax.min.js"></script>
-    <script src="assets/js/appear.js"></script>
-    <script src="assets/js/scrollbar.js"></script>
-    <script src="assets/js/jquery.nice-select.min.js"></script>
-    <script src="assets/js/isotope.js"></script>
-    <script src="assets/js/jquery-ui.js"></script>
-    <script src="assets/js/jquery.bootstrap-touchspin.js"></script>
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/popper.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/owl.js"></script>
+    <script src="/assets/js/wow.js"></script>
+    <script src="/assets/js/validation.js"></script>
+    <script src="/assets/js/jquery.fancybox.js"></script>
+    <script src="/assets/js/TweenMax.min.js"></script>
+    <script src="/assets/js/appear.js"></script>
+    <script src="/assets/js/scrollbar.js"></script>
+    <script src="/assets/js/jquery.nice-select.min.js"></script>
+    <script src="/assets/js/isotope.js"></script>
+    <script src="/assets/js/jquery-ui.js"></script>
+    <script src="/assets/js/jquery.bootstrap-touchspin.js"></script>
 
     <!-- main-js -->
-    <script src="assets/js/script.js"></script>
+    <script src="/assets/js/script.js"></script>
   </body>
   <!-- End of .page_wrapper -->
 </html>

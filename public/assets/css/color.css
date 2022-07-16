@@ -670,10 +670,39 @@ ul.menu-right-content > li > a {
   border-color: #ff4135 !important;
 }
 
+.myaccount-section .nav.nav-tabs .nav-link {
+  color: #495057;
+}
+
+.myaccount-section .nav.nav-tabs .nav-link:hover,
+.myaccount-section .nav.nav-tabs .nav-link.active {
+  color: #ff4135;
+}
+
+.myaccount-section .nav.nav-tabs .nav-link::after {
+  background-color: #ff4135;
+}
+
+.myaccount-section .inner-box .default-form .form-group input {
+  color: var(--gray);
+}
+
 .myaccount-section .inner-box .default-form .form-group .recover-password {
   color: #ff4135;
   border-bottom: 1px solid #ff8880;
 }
+
+.myaccount-section .order-card .order-item .item-name {
+  color: #222;
+}
+
+.myaccount-section .order-card .order-item .order-item-status span.delivered {
+  background-color: var(--green);
+} 
+
+.myaccount-section .order-card .order-item .order-item-status span.shipping {
+  background-color: var(--orange);
+} 
 
 .myaccount-section .inner-box .lower-inner .social-links li:first-child a {
   background: #3b5998;

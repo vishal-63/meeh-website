@@ -60,18 +60,19 @@ module.exports.cart_delete_product = async (req,res)=>{
   const user = await User.findById(res.user.id);
 
   try{
-
     const newCart = user.cart.filter((item)=>{
       return item._id != req.body.id;
     });
+
     user.cart = newCart;
     await user.save();
+    
     user.populate({
       path:'cart.product_id',
       model:Product,
     });
+    
     const cart = user.cart;
-    console.log(cart);
     res.status(200).send({message:"Product deleted from cart"});
 
   }catch(err){
@@ -84,6 +85,7 @@ module.exports.cart_delete_product = async (req,res)=>{
 module.exports.cart_update_product = async (req,res)=>{
 
   const user = await User.findById(res.user.id);
+  console.log(user)
 
   try{
     console.log("request = ",req.body);
@@ -103,17 +105,16 @@ module.exports.cart_update_product = async (req,res)=>{
     user.cart = newCart;
 
     user.save((err,result)=>{
-      if(err){
+      if (err) {
         console.log(err.message);
-        res.status(200).send(err.message);
-      }
-      else{
+        res.status(500).send(err.message);
+      } else{
         // console.log(user.cart);
         res.status(200).send("success!");
       }
     })
     
-  }catch(err){
+  } catch (err) {
     console.log(err.message);
     res.status(400).send(err.message);
   }
