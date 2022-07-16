@@ -1,9 +1,7 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
-const { OAuth2Client } = require("google-auth-library");
-const { google } = require("googleapis");
-const client = new OAuth2Client(process.env.GOOGLE_OATH_CLIENT_ID);
 const ForgotPassword = require("../models/forgotPassword");
+
 
 const maxAge = 3 * 24 * 60 * 60;
 
@@ -101,13 +99,14 @@ module.exports.profile_get = async (req,res)=>{
 
 //controlles post request to change account / profile for users
 module.exports.profile_post = async (req,res)=>{
-  const { first_name, last_name, state, city, street, house_no, landmark, pincode } = req.body;
+  const { first_name, last_name, phone, state, city, street, house_no, landmark, pincode } = req.body;
   console.log(req.body.userDetails);
   try{
 
       const user = User.findById(res.user.id);
       user.first_name = first_name;
       user.last_name = last_name;
+      user.phone_no = phone;
       user.adresses.state = state;
       user.adresses.city = city;
       user.adresses.street = street;
@@ -128,62 +127,5 @@ module.exports.profile_post = async (req,res)=>{
   catch(err){
     console.log(err.message);
     res.status(400).send(err.message);
-  }
-}
-
-//controlles get request for when user has forgot password
-module.exports.forgot_password_get = async (req,res) => {
-  res.render('forgotPassword.ejs');
-}
-
-module.exports.forgot_password_post = async (req,res) => {
-  try{
-
-    const user = await User.findOne({email:req.body.email});
-    if(user!=null && user != undefined){
-      //send top to email
-      const OTP = Math.floor(100000 + Math.random() * 900000) ;
-      let forgotPassword = await ForgotPassword.findOne({email:user.email});
-
-      if(forgotPassword != null ){
-        await forgotPassword.delete();
-      }
-
-      forgotPassword=new ForgotPassword({
-        email:user.email,
-        otp:OTP,
-      });
-
-      forgotPassword.save((err,result)=>{
-        if(err){
-          throw new Error("Error while saving new otp!");
-        }else{
-          console.log(result);
-          res.send(result);
-        }
-      });
-      // res.send(forgotPassword);
-
-    }else{
-      res.status(400).send("user not found");
-    }
-
-  }catch(err){
-    console.log(err);
-    res.status(400).send(err.message);
-  }
-}
-
-
-module.exports.forgot_password_verify_get = (req,res) => {
-  res.render("forgotpasswordverify");
-}
-
-module.exports.forgot_password_verify_post = async (req,res) => {
-  if(req.password == req.confirm_password){
-    
-  }
-  else{
-    res.status(400).send("Password do not match!");
   }
 }

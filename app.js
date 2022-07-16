@@ -4,17 +4,11 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
-const fs = require("fs");
-const join = require("path").join;
-const models = join(__dirname, "models");
 dotenv.config();
 
 //require models
 require("./models/product");
 
-fs.readdirSync(models)
-  .filter((file) => ~file.search(/^[^.].*\.js$/))
-  .forEach((file) => require(join(models, file)));
 
 // Models
 const Product = require("./models/product");
