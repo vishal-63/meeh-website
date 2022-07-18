@@ -4,7 +4,12 @@ const userController = require("../controllers/userController");
 const router = Router();
 
 router.get("/", (req, res) => {
-  res.render("register");
+  let userLoggedIn = false;
+  if (req.cookies.jwt) {
+    userLoggedIn = true;
+  }
+
+  res.render("register", { userLoggedIn });
 });
 
 router.post("/", userController.signup_post);

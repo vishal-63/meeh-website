@@ -83,42 +83,39 @@ app.get("/about", (req, res) => {
   res.render("about");
 });
 
+// logout route
 app.get("/logout", (req, res) => {
   res.clearCookie("jwt");
-  res.render("index", { userLoggedIn: false });
+  res.redirect(req.header("Referer") || "/");
 });
-
-app.get("/productUpdate",async (req,res)=>{
-
-  const product= await Product.findOne({product_name:"Eraser"});
-  product.color=["f6f6f6","333333"];
-  product.size=["S","M","L"];
-  product.stock={};
-  for(let s=0;s<product.size.length;s++){
-    for(let c=0;c<product.color.length;c++){
-      product.inventory.push({
-        color_id:product.size[s]+"_"+product.color[c],
-        stock:20,
-        images:[]
-      });
-    }  
-  }
-
-  product.save((err,result)=>{
-    if(err){
-      console.log(err);
-    }
-    else{
-      console.log(result);
-    }
-  })
-  res.json(product);
-})
 
 // 404 page
 app.get("*", (req, res) => {
   res.render("not-found");
 });
+
+// app.get("/productUpdate",async (req,res)=>{
+
+//   const product= await Product.findOne({product_name:"Eraser"});
+//   product.color=["f6f6f6","333333"];
+//   product.size=["S","M","L"];
+//   product.stock={};
+//   for(let s=0;s<product.size.length;s++){
+//     for(let c=0;c<product.color.length;c++){
+//       product.stock[ product.size[s] + "_" + product.color[c] ]=20;
+//     }
+//   }
+
+//   product.save((err,result)=>{
+//     if(err){
+//       console.log(err);
+//     }
+//     else{
+//       console.log(result);
+//     }
+//   })
+//   res.json(product);
+// })
 
 // async function addProducts(){
 //   const userData = await User.findById("62c810f418e0554c9d174bf5");
