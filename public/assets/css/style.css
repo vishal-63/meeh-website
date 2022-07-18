@@ -9502,6 +9502,17 @@ div#mCSB_1_container {
   font-size: 0.8rem;
 }
 
+.myaccount-section.change-password h3.title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #ff4135;
+}
+
+.myaccount-section.change-password .subtitle {
+  font-size: 0.85rem;
+  color: #4a4a4a;
+}
+
 /*** 
 
 ====================================================================

@@ -4,8 +4,8 @@ const path = require('path');
 const bcrypt = require("bcrypt");
 
 //for mailing apis;
-const hbs = require('nodemailer-express-handlebars');
-const nodemailer = require('nodemailer');
+const hbs = require("nodemailer-express-handlebars");
+const nodemailer = require("nodemailer");
 
 
 const createJWT = (id) => {
@@ -50,10 +50,7 @@ module.exports.change_password_post = async (req,res)=>{
 
 
 //controlles get request for when user has forgot password
-module.exports.forgot_password_get = async (req,res) => {
-    res.render('forgotPassword');
-  }
-  
+
 module.exports.forgot_password_post = async (req,res) => {
     try{
 
@@ -66,12 +63,11 @@ module.exports.forgot_password_post = async (req,res) => {
             const transporter = nodemailer.createTransport(
                 {
                     service: 'outlook',
-                    auth:{
-                        user: 'sdkm7016816547@gmail.com',
-                        pass: 'K!ngkongde@dp00l'
-                    }
-                }
-            );
+                    auth: {
+          user: "shahvishal662@gmail.com",
+          pass: "eaajehtruffoslze",
+        },
+      });
 
             const handlebarOptions = {
                 viewEngine: {
@@ -87,8 +83,16 @@ module.exports.forgot_password_post = async (req,res) => {
                 from: '"Meehh.com" <sdkm7016816547@gmail.com>', // sender address
                 to: req.body.email, // list of receivers
                 subject: 'Welcome!',
-                template: 'email', // the name of the template file i.e email.handlebars
-                context:{
+                template: 'email', // the name of the template file i.e email.handlebars,
+        attachments: [
+          {
+            filename: "logo.png",
+            path: process.cwd() + "/public/assets/images/logo.png",
+            cid: "logo",
+          },
+        ],
+        context: {
+          name: user.first_name,
                     link:"localhost:5000/profile/resetForgottenPassword?token="+emailToken // replace {{company}} with My Company
                 }
             };
@@ -145,8 +149,8 @@ module.exports.reset_forgotten_password_post = async (req,res) => {
             });
         }
     }
-    catch(err){
-        console.log(err);
-        res.status(400).send(err.message);
-    }
-}
+  } catch (err) {
+    console.log(err);
+    res.status(400).send(err.message);
+  }
+};
