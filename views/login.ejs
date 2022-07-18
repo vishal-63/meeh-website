@@ -399,16 +399,14 @@
           <div class="modal-body">
             <div class="modal-text">Enter your registered email address.</div>
             <span class="text-muted">A link to reset your password will be sent to this email address</span>
-            <form>
               <div class="form-group">
                 <label for="email" class="col-form-label">Email:</label>
-                <input type="email" class="form-control" id="email">
+                <input type="email" class="form-control" id="forgot-password-email">
                 <span class="text-dangered error"></span>
               </div>
-            </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="theme-btn-two">Submit</button>
+            <button type="button" class="theme-btn-two" onclick="forgotPassword()">Submit</button>
           </div>
         </div>
       </div>
@@ -449,18 +447,18 @@
       };
 
       // handle user login
-      const form = document.querySelector("form.login-form");
+      const loginForm = document.querySelector("form.login-form");
       const loginError = document.querySelector("div.login-error");
 
-      form.addEventListener("submit", async (e) => {
+      loginForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
         // clear the errors
         loginError.textContent = "";
 
         // get the input values
-        const email = form.email.value;
-        const password = form.password.value;
+        const email = loginForm.email.value;
+        const password = loginForm.password.value;
 
         try {
           const res = await fetch("/login", {
@@ -490,6 +488,21 @@
           console.log(err);
         }
       });
+    
+
+      const forgotPasswordForm = document.querySelector("form.for-password-form")
+
+      async function forgotPassword (emailInput) {
+        const email = document.querySelector("input#forgot-password-email").value
+        const res = await fetch("/profile/forgotPassword", {
+          method: "POST",
+          body: JSON.stringify({email}),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+        console.log(await res.json);
+      }
     </script>
 
     <!-- jequery plugins -->

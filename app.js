@@ -9,7 +9,6 @@ dotenv.config();
 //require models
 require("./models/product");
 
-
 // Models
 const Product = require("./models/product");
 const User = require("./models/user");
@@ -78,7 +77,12 @@ app.use("/auth/google", googleAuthRouter);
 
 //about us route
 app.get("/about", (req, res) => {
-  res.render("about");
+  let userLoggedIn = false;
+  if (req.cookies.jwt) {
+    userLoggedIn = true;
+  }
+
+  res.render("about", { userLoggedIn });
 });
 
 // logout route
@@ -169,3 +173,10 @@ app.get("*", (req, res) => {
 // 62c875ab28503cb136482c0c
 // 62c875eba93d01aa26e5a4b8
 // 62c8763f78b5e02a4a99f1dc
+
+// async function printUsers() {
+//   const users = await User.find();
+//   console.log(users);
+// }
+
+// printUsers();
