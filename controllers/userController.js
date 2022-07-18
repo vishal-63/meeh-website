@@ -2,7 +2,6 @@ const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const ForgotPassword = require("../models/forgotPassword");
 
-
 const maxAge = 3 * 24 * 60 * 60;
 
 const createJWT = (id) => {
@@ -97,7 +96,22 @@ module.exports.signup_post = async (req, res) => {
 
 //controlles get request to account/ profile page for users
 module.exports.profile_get = async (req, res) => {
-  res.render("about");
+  let userLoggedIn = false;
+  if (req.cookies.jwt) {
+    userLoggedIn = true;
+  }
+  const user = await User.findById(res.user.id);
+  const first_name = user.first_name;
+  const last_name = user.last_name;
+  const phone_no = user.phone_no;
+  const email = user.email;
+  const addresses = user.adresses;
+  console.log(addresses);
+
+  res.render("newProfile", {
+    userLoggedIn,
+    user: { first_name, last_name, phone_no, email, addresses },
+  });
 };
 
 //controlles post request to change account / profile for users
