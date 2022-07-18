@@ -39,10 +39,20 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  stock: {
-    type: {},
+  inventory: [{
+    type: {
+      color_id:{
+        type:String,
+        required:true,
+      },
+      stock:{
+        type:Number,
+        required:true,
+      },
+      images:[]
+    },
     minlength: 1,
-  },
+  }],
   category: {
     type: String,
     required: true,

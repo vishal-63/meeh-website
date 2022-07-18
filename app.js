@@ -30,6 +30,7 @@ const contactRouter = require("./routes/contact");
 const checkoutRouter = require("./routes/checkout");
 const blogRouter = require("./routes/blogs");
 const googleAuthRouter = require("./routes/googleAuth");
+const imageRouter = require("./routes/imageUpload");
 
 const app = express();
 
@@ -75,6 +76,7 @@ app.use("/wishlist", wishlistRouter);
 app.use("/register", registerRouter);
 app.use("/blogs", blogRouter);
 app.use("/auth/google", googleAuthRouter);
+app.use("/images",imageRouter);
 
 //about us route
 app.get("/about", (req, res) => {
@@ -86,28 +88,32 @@ app.get("/logout", (req, res) => {
   res.render("index", { userLoggedIn: false });
 });
 
-// app.get("/productUpdate",async (req,res)=>{
+app.get("/productUpdate",async (req,res)=>{
 
-//   const product= await Product.findOne({product_name:"Eraser"});
-//   product.color=["f6f6f6","333333"];
-//   product.size=["S","M","L"];
-//   product.stock={};
-//   for(let s=0;s<product.size.length;s++){
-//     for(let c=0;c<product.color.length;c++){
-//       product.stock[ product.size[s] + "_" + product.color[c] ]=20;
-//     }  
-//   }
+  const product= await Product.findOne({product_name:"Eraser"});
+  product.color=["f6f6f6","333333"];
+  product.size=["S","M","L"];
+  product.stock={};
+  for(let s=0;s<product.size.length;s++){
+    for(let c=0;c<product.color.length;c++){
+      product.inventory.push({
+        color_id:product.size[s]+"_"+product.color[c],
+        stock:20,
+        images:[]
+      });
+    }  
+  }
 
-//   product.save((err,result)=>{
-//     if(err){
-//       console.log(err);
-//     }
-//     else{
-//       console.log(result);
-//     }
-//   })
-//   res.json(product);
-// })
+  product.save((err,result)=>{
+    if(err){
+      console.log(err);
+    }
+    else{
+      console.log(result);
+    }
+  })
+  res.json(product);
+})
 
 // 404 page
 app.get("*", (req, res) => {

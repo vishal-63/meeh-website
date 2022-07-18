@@ -62,16 +62,28 @@
                                     <div class="slider-pager">
                                         <ul class="thumb-box">
                                             <li>
-                                                <a class="active" data-slide-index="0" href="#"><figure><img src="/assets/images/resource/shop/single-thumb-1.jpg" alt=""></figure></a>
+                                                <a class="active" data-slide-index="0" href="#">
+                                                    <figure>
+                                                        <img 
+                                                        src="<%= product.inventory[0].images[0]!=null?product.inventory[0].images[0]:'assets/images/resource/shop/shop-1.jpg' %>" 
+                                                        alt="">
+                                                    </figure>
+                                                </a>
                                             </li>
                                             <li>
-                                                <a data-slide-index="1" href="#"><figure><img src="/assets/images/resource/shop/single-thumb-2.jpg" alt=""></figure></a>
+                                                <a data-slide-index="1" href="#">
+                                                    <figure>
+                                                        <img 
+                                                        src="<%= product.inventory[0].images[1]!=null?product.inventory[0].images[1]:'assets/images/resource/shop/shop-1.jpg' %>" 
+                                                        alt="">
+                                                    </figure>
+                                                </a>
                                             </li>
                                         </ul>
                                     </div>
                                     <div class="product-image">
                                         <figure class="image">
-                                            <img src="/assets/images/resource/shop/product-details-2.jpg" alt="">
+                                            <img src="<%= product.inventory[0].images[1]!=null?product.inventory[0].images[1]:'/assets/images/resource/shop/product-details-2.jpg' %>" alt="">
                                             <a href="/assets/images/resource/shop/product-details-2.jpg" class="lightbox-image"><i class="flaticon-search-2"></i></a>
                                         </figure>
                                     </div>
@@ -80,16 +92,19 @@
                                     <div class="slider-pager">
                                         <ul class="thumb-box">
                                             <li>
-                                                <a class="active" data-slide-index="0" href="#"><figure><img src="/assets/images/resource/shop/single-thumb-1.jpg" alt=""></figure></a>
+                                                <a class="active" data-slide-index="0" href="#">
+                                                    <figure>
+                                                        <img src="<%= product.inventory[0].images[1]!=null?product.inventory[0].images[1]:'/assets/images/resource/shop/single-thumb-1.jpg'%>" alt=""></figure></a>
                                             </li>
                                             <li>
-                                                <a data-slide-index="1" href="#"><figure><img src="/assets/images/resource/shop/single-thumb-2.jpg" alt=""></figure></a>
+                                                <a data-slide-index="1" href="#"><figure>
+                                                    <img src="<%= product.inventory[0].images[1]!=null?product.inventory[0].images[1]:'/assets/images/resource/shop/single-thumb-2.jpg'%>" alt=""></figure></a>
                                             </li>
                                         </ul>
                                     </div>
                                     <div class="product-image">
                                         <figure class="image">
-                                            <img src="/assets/images/resource/shop/product-details-3.jpg" alt="">
+                                            <img src="<%= product.inventory[0].images[1]!=null?product.inventory[0].images[1]:'/assets/images/resource/shop/product-details-3.jpg'%>" alt="">
                                             <a href="/assets/images/resource/shop/product-details-3.jpg" class="lightbox-image"><i class="flaticon-search-2"></i></a>
                                         </figure>
                                     </div>
