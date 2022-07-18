@@ -1,6 +1,5 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
-const ForgotPassword = require("../models/forgotPassword");
 
 const maxAge = 3 * 24 * 60 * 60;
 

@@ -29,6 +29,7 @@ const contactRouter = require("./routes/contact");
 const checkoutRouter = require("./routes/checkout");
 const blogRouter = require("./routes/blogs");
 const googleAuthRouter = require("./routes/googleAuth");
+const imageRouter = require("./routes/imageUpload");
 
 const app = express();
 
@@ -74,6 +75,7 @@ app.use("/wishlist", wishlistRouter);
 app.use("/register", registerRouter);
 app.use("/blogs", blogRouter);
 app.use("/auth/google", googleAuthRouter);
+app.use("/images",imageRouter);
 
 //about us route
 app.get("/about", (req, res) => {

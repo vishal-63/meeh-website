@@ -3,6 +3,14 @@ const { isEmail, isStrongPassword } = require("validator");
 const bcrypt = require("bcrypt");
 
 const addressSchema = new mongoose.Schema({
+  first_name:{
+    type:String,
+    required:true,
+  },
+  last_name:{
+    type:String,
+    required:true,
+  },
   state: {
     type: String,
     required: true,

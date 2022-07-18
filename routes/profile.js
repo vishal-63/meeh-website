@@ -4,6 +4,7 @@ const { requireAuth } = require("../middleware/authMiddleware");
 const userController = require("../controllers/userController");
 const passwordController = require("../controllers/passwordController");
 
+
 router.get("/", requireAuth, userController.profile_get);
 router.post("/", requireAuth, userController.profile_post);
 

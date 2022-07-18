@@ -1,46 +1,89 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
-const path = require("path");
+const path = require('path');
+const bcrypt = require("bcrypt");
 
 //for mailing apis;
 const hbs = require("nodemailer-express-handlebars");
 const nodemailer = require("nodemailer");
 
-//controlles get request for when user has forgot password
-module.exports.forgot_password_get = async (req, res) => {
-  res.render("forgotPassword");
+
+const createJWT = (id) => {
+    return jwt.sign({ id }, process.env.JWT_SECRET_KEY);
 };
 
-module.exports.forgot_password_post = async (req, res) => {
-  try {
-    console.log("email = ", req.body.email);
-    const user = await User.findOne({ email: req.body.email });
-    if (user != null && user != undefined) {
-      //send top to email
-      console.log(process.env.NODE_ENV);
-      const transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
+
+//controlles get request when user wants to change password
+module.exports.change_password_get = async (req,res)=>{
+    res.render("changePassword");
+}
+
+module.exports.change_password_post = async (req,res)=>{
+
+    const {old_password,new_password,confirm_password} = req.body;
+    const user = await User.findById(res.user.id);
+    try{
+        if(user == null || user == undefined){
+            throw new Error("User not found!")
+        }
+        else{
+            const passwordMatched = bcrypt.compare(old_password, user.password);
+            if(passwordMatched && new_password == confirm_password){
+                user.password = new_password;
+                user.save((err,result)=>{
+                    if(err){
+                        throw new Error("Error while saveing new password!");
+                    }
+                    else{
+                        console.log(result);
+                        res.status(200).send(result);
+                    }
+                });
+            }
+        }
+    }catch(err){
+        console.log(err);
+        res.status(400).send(err.message);
+    }
+
+}
+
+
+//controlles get request for when user has forgot password
+
+module.exports.forgot_password_post = async (req,res) => {
+    try{
+
+        const user = await User.findOne({email:req.body.email});
+        if(user!=null && user != undefined){
+
+
+        //send top to email
+            const emailToken=createJWT(req.body.email);
+            const transporter = nodemailer.createTransport(
+                {
+                    service: 'outlook',
+                    auth: {
           user: "shahvishal662@gmail.com",
           pass: "eaajehtruffoslze",
         },
       });
 
-      const handlebarOptions = {
-        viewEngine: {
-          partialsDir: path.resolve("./views/"),
-          defaultLayout: false,
-        },
-        viewPath: path.resolve("./views/"),
-      };
+            const handlebarOptions = {
+                viewEngine: {
+                    partialsDir: path.resolve('./views/'),
+                    defaultLayout: false,
+                },
+                viewPath: path.resolve('./views/'),
+            };
 
-      transporter.use("compile", hbs(handlebarOptions));
+            transporter.use('compile', hbs(handlebarOptions));
 
-      var mailOptions = {
-        from: 'Meehh.com" <shahvishal662@gmail.com>', // sender address
-        to: req.body.email, // list of receivers
-        subject: "Meehh.com - Recover Password",
-        template: "email", // the name of the template file i.e email.handlebars
+            const mailOptions = {
+                from: '"Meehh.com" <sdkm7016816547@gmail.com>', // sender address
+                to: req.body.email, // list of receivers
+                subject: 'Welcome!',
+                template: 'email', // the name of the template file i.e email.handlebars,
         attachments: [
           {
             filename: "logo.png",
@@ -50,57 +93,61 @@ module.exports.forgot_password_post = async (req, res) => {
         ],
         context: {
           name: user.first_name,
-          link: "http://localhost:5000",
-        },
-      };
+                    link:"localhost:5000/profile/resetForgottenPassword?token="+emailToken // replace {{company}} with My Company
+                }
+            };
 
-      transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-          return console.log(error);
+            transporter.sendMail(mailOptions, function(error, info){
+                if(error){
+                    return console.log(error);
+                }
+                console.log('Message sent: ' + info.response);
+                res.status(200).send("Link to reset password is successfully sent!");
+            });        
         }
-        console.log("Message sent: " + info.response);
-        res.json({ response: info.response });
-      });
-    } else {
-      throw new Error("user not found");
+        else{
+            throw new Error("user not found");
+        }
+
+    }catch(err){
+        console.log(err);
+        res.status(400).send(err.message);
     }
-  } catch (err) {
-    console.log(err);
-    res.status(400).send(err.message);
-  }
-};
+}
 
-module.exports.reset_forgotten_password_get = async (req, res) => {
-  const email = jwt.verify(req.query.token, process.env.JWT_SECRET_KEY);
-  console.log(email);
 
-  res.render("forgotpasswordverify", { email: email });
-};
+module.exports.reset_forgotten_password_get = async (req,res) => {
+    console.log(req.query.token);
+    const email = jwt.verify(req.query.token,process.env.JWT_SECRET_KEY);
+    //send email in cookie
+    console.log(email);
+    res.render("resetForgottenPassword",{email:email.id});
 
-module.exports.reset_forgotten_password_post = async (req, res) => {
-  try {
-    const { email, otp, newPassword, confirmPassword } = req.body;
-    const forgot_password = await ForgotPassword.findOne({ email: email });
-    if (forgot_password == null || forgot_password == undefined) {
-      throw new Error("No otp has been send to this email!");
-    } else if (newPassword == confirmPassword) {
-      if (otp == forgot_password.otp) {
-        const user = await User.findOne({ email: email });
-        user.password = req.body.password;
-        user.save((err, result) => {
-          if (err) {
-            throw new Error("Failed to update password!");
-          } else {
-            forgot_password.delete();
-            console.log(result);
-            res.redirect("/login");
-          }
-        });
-      } else {
-        throw new Error("Incorrect OTP!");
-      }
-    } else {
-      res.status(400).send("Password do not match!");
+}
+
+module.exports.reset_forgotten_password_post = async (req,res) => {
+    try{
+
+        const email=null;
+        const {new_password,confirm_password} = req.body;
+
+        
+        //find user by email;
+        if(new_password == confirm_password){
+        
+            const user = await User.findOne({email:email});
+            user.password = req.body.password;
+            user.save((err,result)=>{
+            if(err){
+                throw new Error("Failed to update password!");
+            }
+            else{
+                forgot_password.delete();
+                console.log(result);
+                res.redirect("/login");
+            }
+            });
+        }
     }
   } catch (err) {
     console.log(err);
