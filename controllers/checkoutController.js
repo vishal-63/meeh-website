@@ -3,7 +3,7 @@ const Product = require("../models/product");
 
 module.exports.checkout_get = async(req,res)=>{
     const user = User.findById({_id:res.user.id});
-    res.render("checkout",{address:res.user.adresses,cart:user.cart});
+    res.render("checkout",{address:res.user.addresses,cart:user.cart});
 }
 
 module.exports.checkout_post = async(req,res)=>{

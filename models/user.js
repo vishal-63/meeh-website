@@ -75,7 +75,7 @@ const userSchema = new mongoose.Schema({
     minlength: [10, "Phone number must be 10 digits"],
     maxlength: [10, "Phone number must be 10 digits"],
   },
-  adresses: {
+  addresses: {
     type: [addressSchema],
     required: false,
   },
