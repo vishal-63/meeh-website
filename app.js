@@ -99,7 +99,8 @@ app.get("*", (req, res) => {
   if (req.cookies.jwt) {
     userLoggedIn = true;
   }
-  res.render("not-found", { userLoggedIn });
+  
+  res.render("not-found", {userLoggedIn});
 });
 
 // app.get("/productUpdate",async (req,res)=>{

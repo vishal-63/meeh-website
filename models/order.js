@@ -1,5 +1,40 @@
 const mongoose = require("mongoose");
 
+const addressSchema = new mongoose.Schema({
+  first_name:{
+    type:String,
+    required:true,
+  },
+  last_name:{
+    type:String,
+    required:true,
+  },
+  state: {
+    type: String,
+    required: true,
+  },
+  city: {
+    type: String,
+    required: true,
+  },
+  street: {
+    type: String,
+    required: true,
+  },
+  house_no: {
+    type: String,
+    required: true,
+  },
+  landmark: {
+    type: String,
+  },
+  pincode: {
+    type: Number,
+    minlength: 6,
+    maxlength: 6,
+    required: true,
+  },
+});
 
 const orderSchema = new mongoose.Schema({
   user_id: {
@@ -43,11 +78,13 @@ const orderSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  shipping_address: addressSchema,
   shipping_status:{
     type:String,
     required:true
   },
-  payment_id: {
+  razorpay_payment_id: String,
+  razorpay_order_id: {
     type: String,
     required: true,
   },

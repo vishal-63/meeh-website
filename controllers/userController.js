@@ -104,10 +104,16 @@ module.exports.profile_get = async (req, res) => {
   const last_name = user.last_name;
   const phone_no = user.phone_no;
   const email = user.email;
-  const addresses = user.adresses;
-  console.log(addresses);
+  let addresses = user.addresses;
+  addresses = addresses.map((address) => {
+    return {
+      name: `${address.first_name} ${address.last_name}`,
+      address: `${address.house_no}, ${address.street}, ${address.landmark}, ${address.city}, ${address.state} - ${address.pincode}`
+    }
+  })
+  console.log(addresses)
 
-  res.render("newProfile", {
+  res.render("profile", {
     userLoggedIn,
     user: { first_name, last_name, phone_no, email, addresses },
   });
@@ -119,25 +125,13 @@ module.exports.profile_post = async (req, res) => {
     first_name,
     last_name,
     phone,
-    state,
-    city,
-    street,
-    house_no,
-    landmark,
-    pincode,
   } = req.body;
   console.log(req.body.userDetails);
   try {
-    const user = User.findById(res.user.id);
+    const user = await User.findById(res.user.id);
     user.first_name = first_name;
     user.last_name = last_name;
     user.phone_no = phone;
-    user.adresses.state = state;
-    user.adresses.city = city;
-    user.adresses.street = street;
-    user.adresses.house_no = house_no;
-    user.adresses.landmark = landmark;
-    user.adresses.pincode = pincode;
     user.save((err, result) => {
       if (err) {
         console.log(err.message);
@@ -152,6 +146,25 @@ module.exports.profile_post = async (req, res) => {
     res.status(400).send(err.message);
   }
 };
+
+module.exports.save_address = async (req, res) => {
+  const address = req.body
+  try {
+    const user = await User.findById(res.user.id)
+    user.addresses = address
+    user.save((err, user) => {
+      if(err)
+        throw new Error(err.message)
+      else
+        console.log(user.address)
+        res.redirect("/profile")
+    })
+  } catch (err) {
+    console.log(err)
+    res.status(500)
+    res.send("An error occured while saving the address. Please try again later!")
+  }
+}
 
 //controlles get request for when user has forgot password
 module.exports.forgot_password_get = async (req, res) => {
