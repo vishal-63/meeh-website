@@ -240,7 +240,8 @@
                   <% for(let i=0;i<wishlist.length;i++){ %>
                     <div class="col-12 col-sm-4 col-md-3">
                       <div class="card">
-                        <img src="/assets/images/resource/shop/product-details-2.jpg" alt="" class="card-img-top" />
+                        <img 
+                        src="<%= wishlist[i].inventory[0].thumbnail_images[0]?wishlist[i].inventory[0].thumbnail_images[0]:'/assets/images/resource/shop/product-details-2.jpg'%>" alt="" class="card-img-top" />
                         <div class="card-body">
                           <h5 class="card-title"><%= wishlist[i].product_name %></h5>
                           <p class="card-subtitle">$<%= wishlist[i].price%></p>

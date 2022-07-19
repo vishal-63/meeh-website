@@ -277,7 +277,7 @@
                                   <div class="prod-thumb">
                                     <a href="#"
                                       ><img
-                                        src="/assets/images/resource/shop/cart-1.jpg"
+                                        src="<%= cart[i].product_id.inventory[0].thumbnail_images[0]?cart[i].product_id.inventory[0].thumbnail_images[0]:'/assets/images/resource/shop/cart-1.jpg'%>"
                                         alt=""
                                     /></a>
                                   </div>

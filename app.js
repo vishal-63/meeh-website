@@ -95,7 +95,11 @@ app.get("/logout", (req, res) => {
 
 // 404 page
 app.get("*", (req, res) => {
-  res.render("not-found");
+  let userLoggedIn = false;
+  if (req.cookies.jwt) {
+    userLoggedIn = true;
+  }
+  res.render("not-found", { userLoggedIn });
 });
 
 // app.get("/productUpdate",async (req,res)=>{

@@ -120,6 +120,7 @@ module.exports.reset_forgotten_password_get = async (req,res) => {
     console.log(req.query.token);
     const email = jwt.verify(req.query.token,process.env.JWT_SECRET_KEY);
     //send email in cookie
+    res.cookie("email",email.id);
     console.log(email);
     res.render("resetForgottenPassword",{email:email.id});
 
@@ -128,7 +129,7 @@ module.exports.reset_forgotten_password_get = async (req,res) => {
 module.exports.reset_forgotten_password_post = async (req,res) => {
     try{
 
-        const email=null;
+        const email=req.cookies.email;
         const {new_password,confirm_password} = req.body;
 
         
@@ -142,14 +143,14 @@ module.exports.reset_forgotten_password_post = async (req,res) => {
                 throw new Error("Failed to update password!");
             }
             else{
-                forgot_password.delete();
+                res.clearCookie("email");
                 console.log(result);
                 res.redirect("/login");
             }
             });
         }
     }
-  } catch (err) {
+   catch (err) {
     console.log(err);
     res.status(400).send(err.message);
   }

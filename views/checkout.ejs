@@ -476,7 +476,26 @@
                         <p>Product</p>
                         <span>Total</span>
                       </li>
-                      <li>
+                      <%if (cart.length == 0){%>
+                        <li>
+                          <div class="single-box clearfix">
+                            <h5>Empty-cart</h5>
+                          </div>
+                        </li>
+                      <%}%>
+                      <% for(let i=0;i<cart.length;i++){%>
+                        <li>
+                          <div class="single-box clearfix">
+                            <img
+                              src="<%= cart[i].product_id.inventory[0].thumbnail_images[0]?cart[i].product_id.inventory[0].thumbnail_images[0]:'assets/images/resource/shop/order-1.jpg'%>"
+                              alt=""
+                            />
+                            <h6>Side-Tie Tank X <%= cart[i].quantity%></h6>
+                            <span>$<%= cart[i].product_id.price * cart[i].quantity %>></span>
+                          </div>
+                        </li>
+                      <%}%>
+                      <!-- <li>
                         <div class="single-box clearfix">
                           <img
                             src="assets/images/resource/shop/order-1.jpg"
@@ -485,27 +504,9 @@
                           <h6>Side-Tie Tank</h6>
                           <span>$35.00</span>
                         </div>
-                      </li>
-                      <li>
-                        <div class="single-box clearfix">
-                          <img
-                            src="assets/images/resource/shop/order-2.jpg"
-                            alt=""
-                          />
-                          <h6>Must-Have Easy Tank</h6>
-                          <span>$25.00</span>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="single-box clearfix">
-                          <img
-                            src="assets/images/resource/shop/order-3.jpg"
-                            alt=""
-                          />
-                          <h6>Woven Crop Cami</h6>
-                          <span>$90.00</span>
-                        </div>
-                      </li>
+                      </li> -->
+                      
+
                       <li class="sub-total clearfix">
                         <h6>Sub Total</h6>
                         <span>$150.50</span>

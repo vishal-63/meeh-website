@@ -18,15 +18,8 @@ router.get("/change-password", requireAuth, (req, res) => {
 });
 // router.post("/changePassword",requireAuth,userController.change_password_post);
 
-router.get("/forgotPassword", passwordController.forgot_password_get);
 router.post("/forgotPassword", passwordController.forgot_password_post);
-router.get(
-  "/resetForgottenPassword",
-  passwordController.reset_forgotten_password_get
-);
-router.post(
-  "/resetForgottenPassword",
-  passwordController.reset_forgotten_password_post
-);
+router.get("/resetForgottenPassword",passwordController.reset_forgotten_password_get);
+router.post("/resetForgottenPassword",passwordController.reset_forgotten_password_post);
 
 module.exports = router;
