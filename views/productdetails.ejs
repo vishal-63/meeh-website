@@ -65,7 +65,7 @@
                                                 <a class="active" data-slide-index="0" href="#">
                                                     <figure>
                                                         <img 
-                                                        src="<%= product.inventory[0].images[0]!=null?product.inventory[0].images[0]:'assets/images/resource/shop/shop-1.jpg' %>" 
+                                                        src="<%= product.inventory[0].thumbnail_images[0]!=null?product.inventory[0].thumbnail_images[0]:'assets/images/resource/shop/shop-1.jpg' %>" 
                                                         alt="">
                                                     </figure>
                                                 </a>
@@ -74,7 +74,7 @@
                                                 <a data-slide-index="1" href="#">
                                                     <figure>
                                                         <img 
-                                                        src="<%= product.inventory[0].images[1]!=null?product.inventory[0].images[1]:'assets/images/resource/shop/shop-1.jpg' %>" 
+                                                        src="<%= product.inventory[0].thumbnail_images[0]!=null?product.inventory[0].thumbnail_images[0]:'assets/images/resource/shop/shop-1.jpg' %>" 
                                                         alt="">
                                                     </figure>
                                                 </a>
@@ -83,7 +83,7 @@
                                     </div>
                                     <div class="product-image">
                                         <figure class="image">
-                                            <img src="<%= product.inventory[0].images[1]!=null?product.inventory[0].images[1]:'/assets/images/resource/shop/product-details-2.jpg' %>" alt="">
+                                            <img src="<%= product.inventory[0].thumbnail_images[0]!=null?product.inventory[0].thumbnail_images[0]:'/assets/images/resource/shop/product-details-2.jpg' %>" alt="">
                                             <a href="/assets/images/resource/shop/product-details-2.jpg" class="lightbox-image"><i class="flaticon-search-2"></i></a>
                                         </figure>
                                     </div>
@@ -94,17 +94,17 @@
                                             <li>
                                                 <a class="active" data-slide-index="0" href="#">
                                                     <figure>
-                                                        <img src="<%= product.inventory[0].images[1]!=null?product.inventory[0].images[1]:'/assets/images/resource/shop/single-thumb-1.jpg'%>" alt=""></figure></a>
+                                                        <img src="<%= product.inventory[0].large_images[0]!=null?product.inventory[0].large_images[0]:'/assets/images/resource/shop/single-thumb-1.jpg'%>" alt=""></figure></a>
                                             </li>
                                             <li>
                                                 <a data-slide-index="1" href="#"><figure>
-                                                    <img src="<%= product.inventory[0].images[1]!=null?product.inventory[0].images[1]:'/assets/images/resource/shop/single-thumb-2.jpg'%>" alt=""></figure></a>
+                                                    <img src="<%= product.inventory[0].large_images[0]!=null?product.inventory[0].large_images[0]:'/assets/images/resource/shop/single-thumb-2.jpg'%>" alt=""></figure></a>
                                             </li>
                                         </ul>
                                     </div>
                                     <div class="product-image">
                                         <figure class="image">
-                                            <img src="<%= product.inventory[0].images[1]!=null?product.inventory[0].images[1]:'/assets/images/resource/shop/product-details-3.jpg'%>" alt="">
+                                            <img src="<%= product.inventory[0].large_images[0]!=null?product.inventory[0].large_images[0]:'/assets/images/resource/shop/product-details-3.jpg'%>" alt="">
                                             <a href="/assets/images/resource/shop/product-details-3.jpg" class="lightbox-image"><i class="flaticon-search-2"></i></a>
                                         </figure>
                                     </div>

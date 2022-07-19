@@ -99,7 +99,7 @@ app.get("*", (req, res) => {
   if (req.cookies.jwt) {
     userLoggedIn = true;
   }
-
+  
   res.render("not-found", {userLoggedIn});
 });
 
