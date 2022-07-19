@@ -8,7 +8,7 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
     />
 
-    <title>Castro - HTML 5 Template Preview</title>
+    <title>Meehh - My Account</title>
 
     <!-- Fav Icon -->
     <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon" />
@@ -398,7 +398,7 @@
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label>Email</label>
-                  <input type="text" name="email" class="form-control" value="<%=user.email%>" disabled/>
+                  <input type="text" name="email" class="form-control" value="<%= user.email %>" disabled/>
                 </div>
               </div>
               <div class="change-password"><a href="/profile/change-password">Change Password</a></div>
@@ -408,13 +408,13 @@
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label>First Name <span>*</span></label>
-                  <input type="text" name="first_name" class="form-control" value="<%=user.first_name%>" required />
+                  <input type="text" name="first_name" class="form-control" value="<%= user.first_name%>" required />
                   <span class="text-danger first_name-message"> </span>
                 </div>
 
                 <div class="form-group col-md-6">
                   <label>Last Name <span>*</span></label>
-                  <input type="text" name="last_name" class="form-control" value="<%=user.last_name%>" required />
+                  <input type="text" name="last_name" class="form-control" value="<%= user.last_name %>" required />
                   <span class="text-danger phone-message"> </span>
                 </div>
 
@@ -424,7 +424,7 @@
                     <div class="input-group-prepend">
                       <div class="input-group-text">+91</div>
                     </div>
-                    <input type="text" name="phone_no" class="form-control" value="<%=user.phone_no%>" required />
+                    <input type="text" name="phone_no" class="form-control" value="<%= user.phone_no %>" required />
                   </div>
                   <span class="text-danger password-message"> </span>
                 </div>
@@ -446,42 +446,18 @@
             aria-labelledby="addresses-tab"
           >
             <div class="card-columns">
-              <% for(int i = 0; i < user.adresses.length; i++ ) { %>
+              <% for(let i=0;i<user.addresses.length;i++){ %>
+                <% console.log(user.addresses[i]) %>
                 <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title">Vishal Shah</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">+91-9687312209</h6>
-                    <p class="card-text">202, Kanak Residency, Bh. Jalaram Mandir, Paldi, Ahmedabad, Gujarat, India - 380006</p>
+                    <h5 class="card-title"><%= user.addresses[i].name %></h5>
+                    <p class="card-text"><%= user.addresses[i].address %></p>
                   </div>
                 </div>
               <% } %>
 
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Vishal Shah</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">+91-9687312209</h6>
-                  <p class="card-text">202, Kanak Residency, Bh. Jalaram Mandir, Paldi, Ahmedabad, Gujarat, India - 380006</p>
-                </div>
-              </div>
-
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Vishal Shah</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">+91-9687312209</h6>
-                  <p class="card-text">202, Kanak Residency, Bh. Jalaram Mandir, Paldi, Ahmedabad, Gujarat, India - 380006</p>
-                </div>
-              </div>
-
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Vishal Shah</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">+91-9687312209</h6>
-                  <p class="card-text">202, Kanak Residency, Bh. Jalaram Mandir, Paldi, Ahmedabad, Gujarat, India - 380006</p>
-                </div>
-              </div>
-
               <div class="card add-new-address">
-                <a href="#">
+                <a href="/profile/add-new-address">
                   <div class="card-body">
                     <div class="flaticon-plus"></div>
                     <div class="card-title">Add new address</div>
@@ -550,7 +526,7 @@
     </section>
     <!-- myaccount-section end -->
 
-    <%- include('footer') %>
+    <!-- <%- include('footer') %> -->
 
     <!-- jequery plugins -->
     <script src="/assets/js/jquery.js"></script>
