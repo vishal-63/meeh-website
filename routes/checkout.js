@@ -18,6 +18,11 @@ router.get("/", requireAuth,async (req, res) => {
     path: "cart.product_id",
     model: Product,
   });
+
+  user.cart.map( (item) =>{
+    item.product_total = item.product_id.price * item.quantity
+  });
+
   console.log(user.cart);
   res.render("checkout", { userLoggedIn,cart:user.cart,address:user.adresses});
 });

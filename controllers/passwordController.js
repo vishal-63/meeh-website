@@ -58,16 +58,16 @@ module.exports.forgot_password_post = async (req,res) => {
         if(user!=null && user != undefined){
 
 
-        //send top to email
+            //send top to email
             const emailToken=createJWT(req.body.email);
             const transporter = nodemailer.createTransport(
-                {
-                    service: 'outlook',
-                    auth: {
-          user: "shahvishal662@gmail.com",
-          pass: "eaajehtruffoslze",
-        },
-      });
+            {
+                service: 'outlook',
+                auth: {
+                    user: "shahvishal662@gmail.com",
+                    pass: "eaajehtruffoslze",
+                },
+            });
 
             const handlebarOptions = {
                 viewEngine: {
