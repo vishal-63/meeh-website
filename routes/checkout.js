@@ -6,7 +6,7 @@ const Product = require("../models/product");
 
 const checkoutController = require("../controllers/checkoutController");
 const { requireAuth } = require("../middleware/authMiddleware");
-const paymentController = require("../controllers/paymentController1");
+const paymentController = require("../controllers/paymentController");
 
 router.get("/", requireAuth,async (req, res) => {
   let userLoggedIn = false;
@@ -27,8 +27,8 @@ router.get("/", requireAuth,async (req, res) => {
   res.render("checkout", { userLoggedIn,cart:user.cart,address:user.adresses});
 });
 
-router.get("/createOrder", requireAuth , paymentController.create_order);
-
-router.post("/verifyPayment", requireAuth , paymentController.verify_order);
+router.get("/create-order", requireAuth, paymentController.create_order);
+router.post("/verify-order", requireAuth, paymentController.verify_order);
 
 module.exports = router;
+
