@@ -12,7 +12,14 @@ require("../models/user");
 // products of a category or subcategory
 
 // get single product based on product id
+
+// router.get("/category/:cat",productController.products_get_by_category);
+
+// router.get("/category",productController.products_get_categories);
+
 router.get("/:id", productController.single_product_get);
+
+router.post("/", productController.products_get_next);
 
 router.get("/", productController.products_get);
 

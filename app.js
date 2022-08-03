@@ -30,6 +30,7 @@ const checkoutRouter = require("./routes/checkout");
 const blogRouter = require("./routes/blogs");
 const googleAuthRouter = require("./routes/googleAuth");
 const imageRouter = require("./routes/imageUpload");
+const productUploadRouter = require("./routes/uploadProducts");
 
 const app = express();
 
@@ -76,6 +77,8 @@ app.use("/register", registerRouter);
 app.use("/blogs", blogRouter);
 app.use("/auth/google", googleAuthRouter);
 app.use("/images",imageRouter);
+//temp for uploading images to database;
+app.use("/editProducts",productUploadRouter);
 
 //about us route
 app.get("/about", (req, res) => {

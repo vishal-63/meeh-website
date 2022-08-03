@@ -43,7 +43,6 @@ const productSchema = new mongoose.Schema({
     type: {
       color_id:{
         type:String,
-        required:true,
       },
       stock:{
         type:Number,

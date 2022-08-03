@@ -34,13 +34,13 @@
 <body>
 
     <div class="boxed_wrapper">
-          <!-- Preloader -->
+          <!-- Preloader
           <div class="loader-wrap">
               <div class="preloader"><div class="preloader-close">Preloader Close</div></div>
               <div class="layer layer-one"><span class="overlay"></span></div>
               <div class="layer layer-two"><span class="overlay"></span></div>        
               <div class="layer layer-three"><span class="overlay"></span></div>        
-          </div>
+          </div> -->
 
 
           <!-- search-popup -->
@@ -165,13 +165,13 @@
                                                   <div class="row clearfix">
                                                       <div class="col-lg-4 column">
                                                           <ul>
-                                                              <li><h4>Category 01</h4></li>
-                                                              <li><a href="/">Sub-category 01</a></li>
-                                                              <li><a href="/">Sub-category 02</a></li>
-                                                              <li><a href="/">Sub-category 03</a></li>
-                                                              <li><a href="/">Sub-category 04</a></li>
-                                                              <li><a href="/">Sub-category 05</a></li>
-                                                              <li><a href="/">Sub-category 06</a></li>
+                                                              <li><h4>Categories</h4></li>
+                                                              <li><a href="/products?category=Badge">Badges</a></li>
+                                                              <li><a href="/products?category=Pop%20Socket">Pop Sockets</a></li>
+                                                              <li><a href="/products?category=Mousepad">Mousepads</a></li>
+                                                              <li><a href="/products?category=Tote%20Bag">Tote Bags</a></li>
+                                                              <li><a href="/products?category=A5%20Dairy">A5 Dairy</a></li>
+                                                              <li><a href="/products?category=Bookmarks">Bookmarks</a></li>
                                                           </ul>
                                                       </div>
                                                       <div class="col-lg-4 column">
@@ -440,7 +440,7 @@
                     </div>
                 </div>
                 <div class="our-shop">
-                    <div class="row clearfix">
+                    <div class="row clearfix" id="productContainer">
 
                         <% for(let i=0;i<productList.length;i++){ %>
                             <div class="col-lg-3 col-md-6 col-sm-12 shop-block">
@@ -455,7 +455,7 @@
                                             </ul>
                                         </figure>
                                         <div class="lower-content">
-                                            <a href="products/<%= productList[i]._id %>"><%= productList[i].product_name %></a>
+                                            <a href="/products/<%= productList[i]._id %>"><%= productList[i].product_name %></a>
                                             <span class="price">$<%= productList[i].price %></span>
                                         </div>
                                     </div>
@@ -464,6 +464,10 @@
                         <% } %>
                     </div>
                 </div>
+                <div class="btn-box">
+                    <button class="theme-btn-two" onClick="loadMoreProducts()">Load More</button>
+                </div>
+
                 <div class="pagination-wrapper centred">
                     <ul class="pagination clearfix">
                         <li><a href="shop.html">Prev</a></li>
@@ -527,6 +531,159 @@
                 body: JSON.stringify(data),
             }
             await fetch(url,options);
+        }
+
+        async function loadMoreProducts(){
+            const url = "/products";
+            const reqData = { 
+                productsLoaded:document.getElementById("productContainer").children.length 
+            };
+            const options = {
+                headers:{
+                'Content-Type': 'application/json',
+                },
+                method:"POST",
+                body:JSON.stringify(reqData)
+            }
+            const response = await fetch(url,options);
+            const data = await response.json();
+            console.log(data);
+            
+
+            data.newProducts.map( (product)=>{
+
+                const imgSource = product.inventory[0].thumbnail_images[0] || 'assets/images/resource/shop/shop-1.jpg';
+                const productID = product._id;
+                const productName = product.prodcutName;
+                const productPrice = product.price;
+
+                createProductElements(imgSource,productID,productName,productPrice);
+
+            } )
+
+        }
+
+        function createProductElements (imageSource,productID,productName,productPrice){
+
+            //starting of first div
+            const outterDiv1 = document.createElement('div');
+            outterDiv1.classList.add("col-lg-3","col-md-6","col-sm-12","shop-block");
+            
+            //starting of otterDiv1's child div
+            //child
+            const outterDiv0 = document.createElement("div");
+            outterDiv0.classList.add("shop-block-one");
+            
+            //starting of outterDiv0's child div
+            //child
+            const innerDiv = document.createElement("div");
+            innerDiv.classList.add("inner-box");
+            
+            //starting of innerDiv's Child figure
+            //child
+            const figure = document.createElement("figure");
+            figure.classList.add("image-box");
+
+            //starting of figure's img tag
+            //child
+            const image = document.createElement("img");
+            image.src=imageSource;
+            //end of image 
+
+            //starting of figure's ul tag
+            const ul = document.createElement("ul");
+            ul.classList.add("info-list","clearfix");
+
+            //strating of ul's first li tag
+            const li0 = document.createElement("li");
+            li0.onclick = addWishlist(productID);
+            
+            //starting of li0's a tag
+            //child
+            const aTag0 = document.createElement("a");
+            
+            //starting of aTag0's i tag
+            //child
+            const iTag0 = document.createElement("i");
+            iTag0.classList.add("flaticon-heart");
+            //end of iTag0
+            //end of aTag0
+            //end of li0
+
+            //starting of ul's second li tag
+            const li1 = document.createElement("li");
+            li1.onclick = addToCart(productID);
+            
+            //starting of li1's a tag
+            //child
+            const aTag1 = document.createElement("a");
+            aTag1.textContent = "Add To cart";
+            //end of a tag
+            //end of li1 tag
+
+            //starting of ul's third li tag
+            const li2 = document.createElement("li");
+            
+            //starting of li2's a tag
+            const aTag2 = document.createElement("a");
+            aTag2.classList.add("lightbox-image");
+            aTag2.href = "/products/"+productID;
+            
+            //starting of aTag2's i tag
+            //child
+            const iTag2 = document.createElement("i");
+            iTag2.classList.add("flaticon-search");
+            //end of iTag2
+            //end of aTag2
+            //end of li2
+            //end of ul
+            //end of figure tag
+
+            //starting of innerDiv's second child div tag
+            const lowerContent = document.createElement('div');
+
+            //starting of lowerContent's first child a tag
+            const aTag3 = document.createElement('a');
+            aTag3.href = "/products/"+productID;
+            aTag3.textContent = productName;
+            //end of aTag3
+
+            //starting of lowerContent's second child span Tag
+            const span = document.createElement('span');
+            span.classList.add("price");
+            span.textContent = productName;
+            //end of span tag
+
+            //end of lowerContent
+            //end of innerDiv
+            //end of outterDiv0 
+            //end of outterDiv1
+
+            aTag0.appendChild(iTag0);
+            li0.appendChild(aTag0);
+            
+            li1.appendChild(aTag1);
+
+            aTag2.appendChild(iTag2);
+            li2.appendChild(aTag2);
+
+            ul.appendChild(li0);
+            ul.appendChild(li1);
+            // ul.appendChild(li2);
+
+            figure.appendChild(image);
+            figure.appendChild(ul);
+
+            lowerContent.appendChild(aTag3);
+            lowerContent.appendChild(span);
+
+            innerDiv.appendChild(figure);
+            innerDiv.appendChild(lowerContent);
+
+            outterDiv0.appendChild(innerDiv);
+            outterDiv1.appendChild(outterDiv0);
+
+            document.getElementById("productContainer").appendChild(outterDiv1);
         }
     </script>
 </body><!-- End of .page_wrapper -->

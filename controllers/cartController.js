@@ -13,6 +13,7 @@ module.exports.cart_get = async (req, res) => {
     model: Product,
   });
   const cart = user.cart;
+  console.log(cart);
   res.render("cart", { cart, userLoggedIn });
 };
 

@@ -1,37 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
-<title>Castro - HTML 5 Template Preview</title>
+    <title>Castro - HTML 5 Template Preview</title>
 
-<!-- Fav Icon -->
-<link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+    <!-- Fav Icon -->
+    <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
 
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
 
-<!-- Stylesheets -->
-<link href="/assets/css/font-awesome-all.css" rel="stylesheet">
-<link href="/assets/css/flaticon.css" rel="stylesheet">
-<link href="/assets/css/owl.css" rel="stylesheet">
-<link href="/assets/css/bootstrap.css" rel="stylesheet">
-<link href="/assets/css/jquery.fancybox.min.css" rel="stylesheet">
-<link href="/assets/css/animate.css" rel="stylesheet">
-<link href="/assets/css/jquery-ui.css" rel="stylesheet">
-<link href="/assets/css/jquery.bootstrap-touchspin.css" rel="stylesheet">
-<link href="/assets/css/nice-select.css" rel="stylesheet">
-<link href="/assets/css/color.css" rel="stylesheet">
-<link href="/assets/css/style.css" rel="stylesheet">
-<link href="/assets/css/responsive.css" rel="stylesheet">
+    <!-- Stylesheets -->
+    <link href="/assets/css/font-awesome-all.css" rel="stylesheet">
+    <link href="/assets/css/flaticon.css" rel="stylesheet">
+    <link href="/assets/css/owl.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="/assets/css/jquery.fancybox.min.css" rel="stylesheet">
+    <link href="/assets/css/animate.css" rel="stylesheet">
+    <link href="/assets/css/jquery-ui.css" rel="stylesheet">
+    <link href="/assets/css/jquery.bootstrap-touchspin.css" rel="stylesheet">
+    <link href="/assets/css/nice-select.css" rel="stylesheet">
+    <link href="/assets/css/color.css" rel="stylesheet">
+    <link href="/assets/css/style.css" rel="stylesheet">
+    <link href="/assets/css/responsive.css" rel="stylesheet">
 
 </head>
 
 
 <!-- page wrapper -->
+
 <body>
 
     <%- include('header')%>
@@ -58,62 +64,38 @@
                     <div class="row align-items-center clearfix">
                         <div class="col-lg-6 col-md-12 col-sm-12 image-column">
                             <div class="bxslider">
-                                <div class="slider-content">
-                                    <div class="slider-pager">
-                                        <ul class="thumb-box">
-                                            <li>
-                                                <a class="active" data-slide-index="0" href="#">
-                                                    <figure>
-                                                        <img 
-                                                        src="<%= product.inventory[0].thumbnail_images[0]!=null?product.inventory[0].thumbnail_images[0]:'assets/images/resource/shop/shop-1.jpg' %>" 
-                                                        alt="">
-                                                    </figure>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a data-slide-index="1" href="#">
-                                                    <figure>
-                                                        <img 
-                                                        src="<%= product.inventory[0].thumbnail_images[0]!=null?product.inventory[0].thumbnail_images[0]:'assets/images/resource/shop/shop-1.jpg' %>" 
-                                                        alt="">
-                                                    </figure>
-                                                </a>
-                                            </li>
-                                        </ul>
+                                <% for(let i=0;i<product.inventory[0].thumbnail_images.length;i++) { %>
+                                    <div class="slider-content">
+                                        <div class="slider-pager">
+                                            <ul class="thumb-box">
+                                                <% for(let j=0;j<product.inventory[0].thumbnail_images.length;j++) { %>
+                                                <li>
+                                                    <a class="<%= j==0 && 'active' %>" data-slide-index="<%= j %>"
+                                                        href="#">
+                                                        <figure>
+                                                            <img src="<%= product.inventory[0].thumbnail_images[j] %>"
+                                                                alt="">
+                                                        </figure>
+                                                    </a>
+                                                </li>
+                                                <% } %>
+                                            </ul>
+                                        </div>
+                                        <div class="product-image">
+                                            <figure class="image">
+                                                <img src="<%= product.inventory[0].large_images[i]%>" alt="">
+                                                <a href="<%= product.inventory[0].large_images[i]%>"
+                                                    class="lightbox-image"><i class="flaticon-search-2"></i></a>
+                                            </figure>
+                                        </div>
                                     </div>
-                                    <div class="product-image">
-                                        <figure class="image">
-                                            <img src="<%= product.inventory[0].thumbnail_images[0]!=null?product.inventory[0].thumbnail_images[0]:'/assets/images/resource/shop/product-details-2.jpg' %>" alt="">
-                                            <a href="/assets/images/resource/shop/product-details-2.jpg" class="lightbox-image"><i class="flaticon-search-2"></i></a>
-                                        </figure>
-                                    </div>
-                                </div>
-                                <div class="slider-content">
-                                    <div class="slider-pager">
-                                        <ul class="thumb-box">
-                                            <li>
-                                                <a class="active" data-slide-index="0" href="#">
-                                                    <figure>
-                                                        <img src="<%= product.inventory[0].large_images[0]!=null?product.inventory[0].large_images[0]:'/assets/images/resource/shop/single-thumb-1.jpg'%>" alt=""></figure></a>
-                                            </li>
-                                            <li>
-                                                <a data-slide-index="1" href="#"><figure>
-                                                    <img src="<%= product.inventory[0].large_images[0]!=null?product.inventory[0].large_images[0]:'/assets/images/resource/shop/single-thumb-2.jpg'%>" alt=""></figure></a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="product-image">
-                                        <figure class="image">
-                                            <img src="<%= product.inventory[0].large_images[0]!=null?product.inventory[0].large_images[0]:'/assets/images/resource/shop/product-details-3.jpg'%>" alt="">
-                                            <a href="/assets/images/resource/shop/product-details-3.jpg" class="lightbox-image"><i class="flaticon-search-2"></i></a>
-                                        </figure>
-                                    </div>
-                                </div>
+                                <% } %>
                             </div>
-                        </div>
                         <div class="col-lg-6 col-md-12 col-sm-12 content-column">
                             <div class="product-info">
-                                <h3><%= product.product_name %></h3>
+                                <h3>
+                                    <%= product.product_name %>
+                                </h3>
                                 <div class="customer-review clearfix">
                                     <ul class="rating-box clearfix">
                                         <li><i class="flaticon-star"></i></li>
@@ -122,64 +104,92 @@
                                         <li><i class="flaticon-star"></i></li>
                                         <li><i class="flaticon-star"></i></li>
                                     </ul>
-                                    <div class="reviews"><a href="product-single.html">(<%= product.reviews.length %> Review)</a></div>
+                                    <div class="reviews"><a href="product-single.html">(<%= product.reviews.length %>
+                                                Review)</a></div>
                                 </div>
                                 <span class="item-price">$<%= product.price %></span>
                                 <div class="text">
-                                    <p><%= product.description %></p>
+                                    <p>
+                                        <%= product.description %>
+                                    </p>
                                 </div>
                                 <% if(product.size.length!=0){ %>
                                     <div class="size-box">
                                         <h5>Size:</h5>
                                         <% for(let i=0; i<product.size.length; i++) { %>
-                                            <div class="custom-control custom-radio size-select" data-size="<%= product.size[i] %>" onclick="changeSelection(this)">
-                                                <input type="radio" name="size" id="<%= product.size[i] %>" class="custom-control-input">
-                                                <label class="custom-control-label" for="<%= product.size[i] %>"><%= product.size[i] %></label>
+                                            <div class="custom-control custom-radio size-select"
+                                                data-size="<%= product.size[i] %>" onclick="changeSelection(this)">
+                                                <input type="radio" name="size" id="<%= product.size[i] %>"
+                                                    class="custom-control-input">
+                                                <label class="custom-control-label" for="<%= product.size[i] %>">
+                                                    <%= product.size[i] %>
+                                                </label>
                                             </div>
-                                        <%}%>
+                                            <%}%>
                                     </div>
                                     <%}%>
-                                
-                                <div class="color-box">
-                                    <h5>Color:</h5>
-                                    <div class="color-inner">
-                                        
-                                        <% if(product.color.length != 0){%>
-                                            <% for(let i=0; i<product.color.length; i++) {%>
-                                                <div class="color-block" data-color="<%= product.color[i]%>" onclick="changeSelection(this)">
-                                                    <input type="radio" id="<%= product.color[i]%>" name="radio-group">
-                                                    <label for="<%= product.color[i]%>" style="background-color: #<%= product.color[i] %>"></label>
+
+                                        <% if(product.color.length !=0){%>
+                                            <div class="color-box">
+                                                <h5>Color:</h5>
+                                                <div class="color-inner">
+
+
+                                                    <% for(let i=0; i<product.color.length; i++) {%>
+                                                        <div class="color-block" data-color="<%= product.color[i]%>"
+                                                            onclick="changeSelection(this)">
+                                                            <input type="radio" id="<%= product.color[i]%>"
+                                                                name="radio-group">
+                                                            <label for="<%= product.color[i]%>"
+                                                                style="background-color: #<%= product.color[i] %>"></label>
+                                                        </div>
+                                                        <%}%>
+
+
                                                 </div>
+                                            </div>
                                             <%}%>
-                                        <%}%>
 
-                                    </div>
-                                </div>
-                                <div class="othre-options clearfix">
-                                    <div class="item-quantity">
-                                        <input class="quantity-spinner" type="text" value="1" name="quantity">
-                                    </div>
-                                    <div class="btn-box"><button type="button" class="theme-btn-two" disabled onClick="addToCart('<%= product._id %>')" >Add to cart</button></div>
+                                                <div class="othre-options clearfix">
+                                                    <div class="item-quantity">
+                                                        <input class="quantity-spinner" type="text" value="1"
+                                                            name="quantity">
+                                                    </div>
+                                                    <div class="btn-box"><button type="button" class="theme-btn-two"
+                                                            onClick="addToCart('<%= product._id %>')">Add to
+                                                            cart</button></div>
 
-                                    <ul class="info clearfix">
-                                        <li onClick="addWishlist('<%= product._id %>')"><a><i class="flaticon-heart"></i></a></li>
-                                        <li><a href="product-details.html"><i class="flaticon-search"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="other-links">
-                                    <ul class="clearfix">
-                                        <li>SKU: 05</li>
-                                        <li>Category: <a href="product-details.html"><%= product.category%></a></li>
-                                        <li>Sub Category: <a href="product-details.html"><%= product.sub_category%></a></li>
-                                    </ul>
-                                </div>
-                                <ul class="share-option clearfix">
-                                    <li><h5>Follow Us:</h5></li>
-                                    <li><a href="shop-details.html"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="shop-details.html"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="shop-details.html"><i class="fab fa-vimeo-v"></i></a></li>
-                                    <li><a href="shop-details.html"><i class="fab fa-google-plus-g"></i></a></li>
-                                </ul>
+                                                    <ul class="info clearfix">
+                                                        <li onClick="addWishlist('<%= product._id %>')"><a><i
+                                                                    class="flaticon-heart"></i></a></li>
+                                                        <li><a href="product-details.html"><i
+                                                                    class="flaticon-search"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="other-links">
+                                                    <ul class="clearfix">
+                                                        <li>SKU: 05</li>
+                                                        <li>Category: <a href="product-details.html">
+                                                                <%= product.category%>
+                                                            </a></li>
+                                                        <li>Sub Category: <a href="product-details.html">
+                                                                <%= product.sub_category%>
+                                                            </a></li>
+                                                    </ul>
+                                                </div>
+                                                <ul class="share-option clearfix">
+                                                    <li>
+                                                        <h5>Follow Us:</h5>
+                                                    </li>
+                                                    <li><a href="shop-details.html"><i
+                                                                class="fab fa-facebook-f"></i></a></li>
+                                                    <li><a href="shop-details.html"><i class="fab fa-twitter"></i></a>
+                                                    </li>
+                                                    <li><a href="shop-details.html"><i class="fab fa-vimeo-v"></i></a>
+                                                    </li>
+                                                    <li><a href="shop-details.html"><i
+                                                                class="fab fa-google-plus-g"></i></a></li>
+                                                </ul>
                             </div>
                         </div>
                     </div>
@@ -195,15 +205,45 @@
                         <div class="tabs-content">
                             <div class="tab active-tab" id="tab-1">
                                 <div class="text">
-                                    <p><%= product.description %></p>
+                                    <p>
+                                        <%= product.description %>
+                                    </p>
                                 </div>
                             </div>
                             <div class="tab" id="tab-2">
                                 <div class="review-box">
-                                    <h5><%= product.reviews.length %> Review for <%= product.product_name %></h5>
+                                    <h5>
+                                        <%= product.reviews.length %> Review for <%= product.product_name %>
+                                    </h5>
                                     <div class="review-inner">
-                                        <figure class="image-box"><img src="/assets/images/resource/review-1.png" alt=""></figure>
-                                        <div class="inner">
+                                        <figure class="image-box"><img src="/assets/images/resource/review-1.png"
+                                                alt=""></figure>
+
+                                        <%for(let i=0;i<product.reviews.length;i++){%>
+                                            <div class="inner">
+                                                <ul class="rating clearfix">
+                                                    <% for(let j=0;j<5;j++){%>
+                                                        <%if( j < product.reviews[i].rating){%>
+                                                            <li><i class="flaticon-star"></i></li>
+                                                            <%}else{%>
+                                                                <li><i class="flaticon-star-1"></i></li>
+                                                                <%}%>
+                                                                    <%}%>
+                                                                        <!-- <li><i class="flaticon-star"></i></li>
+                                                    <li><i class="flaticon-star"></i></li>
+                                                    <li><i class="flaticon-star"></i></li>
+                                                    <li><i class="flaticon-star"></i></li>
+                                                    <li><i class="flaticon-star-1"></i></li> -->
+                                                </ul>
+                                                <h6>
+                                                    <%= product.reviews[i].user_id.email%> <span>- May 1, 2020</span>
+                                                </h6>
+                                                <p>
+                                                    <%= product.reviews[i].comment%>
+                                                </p>
+                                            </div>
+                                            <% } %>
+                                                <!-- <div class="inner">
                                             <ul class="rating clearfix">
                                                 <li><i class="flaticon-star"></i></li>
                                                 <li><i class="flaticon-star"></i></li>
@@ -213,7 +253,7 @@
                                             </ul>
                                             <h6>Eileen Alene <span>- May 1, 2020</span></h6>
                                             <p>Excepteur sint occaecat cupidatat non proident sunt in culpa  qui officia deserunt mollit anim  est laborum. Sed perspiciatis unde omnis natus error sit voluptatem accusa dolore mque laudant totam rem aperiam eaque ipsa quae ab illo inventore veritatis et quasi arch tecto beatae vitae dicta.</p>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="replay-inner">
                                         <h5>Be First to Review For “Multi-Way Ultra Crop Top”</h5>
@@ -227,34 +267,6 @@
                                                 <li><i class="flaticon-star-1"></i></li>
                                             </ul>
                                         </div>
-                                        <form action="contact.html" method="post" class="review-form">
-                                            <div class="row clearfix">
-                                                <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                                    <label>Your Review</label>
-                                                    <textarea name="message"></textarea>
-                                                </div>
-                                                <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                                    <label>Your Name</label>
-                                                    <input type="text" name="name" required="">
-                                                </div>
-                                                <div class="col-lg-6 col-md-6 col-sm-12 form-group">
-                                                    <label>Your Emai</label>
-                                                    <input type="email" name="email" required="">
-                                                </div>
-                                                <div class="col-lg-12 col-md-12 col-sm-12 form-group">
-                                                    <div class="custom-controls-stacked">
-                                                        <label class="custom-control material-checkbox">
-                                                            <input type="checkbox" class="material-control-input">
-                                                            <span class="material-control-indicator"></span>
-                                                            <span class="description">Save my name, email, and website in this browser for the next time I comment</span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-12 col-md-12 col-sm-12 form-group message-btn">
-                                                    <button type="submit" class="theme-btn-two">Submit Your Review<i class="flaticon-right-1"></i></button>
-                                                </div>
-                                            </div>
-                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -265,7 +277,8 @@
                     <div class="sec-title style-two">
                         <h2>Related Products</h2>
                         <p>There are some product that we featured for choose your best</p>
-                        <span class="separator" style="background-image: url(/assets/images/icons/separator-2.png);"></span>
+                        <span class="separator"
+                            style="background-image: url(/assets/images/icons/separator-2.png);"></span>
                     </div>
                     <div class="row clearfix">
                         <div class="col-lg-3 col-md-6 col-sm-12 shop-block">
@@ -276,7 +289,8 @@
                                         <ul class="info-list clearfix">
                                             <li><a href="index.html"><i class="flaticon-heart"></i></a></li>
                                             <li><a href="product-details.html">Add to cart</a></li>
-                                            <li><a href="/assets/images/resource/shop/shop-1.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-search"></i></a></li>
+                                            <li><a href="/assets/images/resource/shop/shop-1.jpg" class="lightbox-image"
+                                                    data-fancybox="gallery"><i class="flaticon-search"></i></a></li>
                                         </ul>
                                     </figure>
                                     <div class="lower-content">
@@ -295,7 +309,8 @@
                                         <ul class="info-list clearfix">
                                             <li><a href="index.html"><i class="flaticon-heart"></i></a></li>
                                             <li><a href="product-details.html">Add to cart</a></li>
-                                            <li><a href="/assets/images/resource/shop/shop-2.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-search"></i></a></li>
+                                            <li><a href="/assets/images/resource/shop/shop-2.jpg" class="lightbox-image"
+                                                    data-fancybox="gallery"><i class="flaticon-search"></i></a></li>
                                         </ul>
                                     </figure>
                                     <div class="lower-content">
@@ -311,9 +326,11 @@
                                     <figure class="image-box">
                                         <img src="/assets/images/resource/shop/shop-3.jpg" alt="">
                                         <ul class="info-list clearfix">
-                                            <li><a onClick="addWishlist('<%= product._id %>')"><i class="flaticon-heart"></i></a></li>
+                                            <li><a onClick="addWishlist('<%= product._id %>')"><i
+                                                        class="flaticon-heart"></i></a></li>
                                             <li><a href="product-details.html">Add to cart</a></li>
-                                            <li><a href="/assets/images/resource/shop/shop-3.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-search"></i></a></li>
+                                            <li><a href="/assets/images/resource/shop/shop-3.jpg" class="lightbox-image"
+                                                    data-fancybox="gallery"><i class="flaticon-search"></i></a></li>
                                         </ul>
                                     </figure>
                                     <div class="lower-content">
@@ -331,7 +348,8 @@
                                         <ul class="info-list clearfix">
                                             <li><a href="index.html"><i class="flaticon-heart"></i></a></li>
                                             <li><a href="product-details.html">Add to cart</a></li>
-                                            <li><a href="/assets/images/resource/shop/shop-4.jpg" class="lightbox-image" data-fancybox="gallery"><i class="flaticon-search"></i></a></li>
+                                            <li><a href="/assets/images/resource/shop/shop-4.jpg" class="lightbox-image"
+                                                    data-fancybox="gallery"><i class="flaticon-search"></i></a></li>
                                         </ul>
                                     </figure>
                                     <div class="lower-content">
@@ -350,73 +368,74 @@
 
         <%- include('footer')%>
 
-    <script>
-        let size=null;
-        let color=null;
-        
-        const button = document.getElementsByClassName("theme-btn-two")[0];
-        function changeSelection(el) {
-            // console.log(el, el.childNodes)
-            const radioButton = el.childNodes[1]
-            radioButton.checked = true
-            el.classList.contains("size-select") ? size = el.dataset.size : color = el.dataset.color;
-            
-            if(size != null && color != null){
-                button.disabled=false;
-            }
-        }
+            <script>
+                let size = null;
+                let color = null;
 
-            
-        async function addWishlist(id){
-            console.log(id);
-            const data={id:id};
-            const url="/wishlist/addWishlist";
-            const options={
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                // 'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: JSON.stringify(data),
-            }
-            await fetch(url,options);
-        }
-        
-        
-        async function addToCart(id){
-            console.log(id);
-            const data={id,quantity:1,selected_size:size,selected_color:color};
-            const url="/cart/addToCart";
-            const options = {
-                method:'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data),
-            }
-            await fetch(url,options);
-        }
-    </script>
+                const button = document.getElementsByClassName("theme-btn-two")[0];
+                function changeSelection(el) {
+                    // console.log(el, el.childNodes)
+                    const radioButton = el.childNodes[1]
+                    radioButton.checked = true
+                    el.classList.contains("size-select") ? size = el.dataset.size : color = el.dataset.color;
 
-    <!-- jequery plugins -->
-    <script src="/assets/js/jquery.js"></script>
-    <script src="/assets/js/popper.min.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/owl.js"></script>
-    <script src="/assets/js/wow.js"></script>
-    <script src="/assets/js/validation.js"></script>
-    <script src="/assets/js/jquery.fancybox.js"></script>
-    <script src="/assets/js/TweenMax.min.js"></script>
-    <script src="/assets/js/appear.js"></script>
-    <script src="/assets/js/scrollbar.js"></script>
-    <script src="/assets/js/jquery.nice-select.min.js"></script>
-    <script src="/assets/js/isotope.js"></script>
-    <script src="/assets/js/jquery-ui.js"></script>
-    <script src="/assets/js/jquery.bootstrap-touchspin.js"></script>
-    <script src="/assets/js/bxslider.js"></script>
+                    if (size != null && color != null) {
+                        button.disabled = false;
+                    }
+                }
 
-    <!-- main-js -->
-    <script src="/assets/js/script.js"></script>
+
+                async function addWishlist(id) {
+                    console.log(id);
+                    const data = { id: id };
+                    const url = "/wishlist/addWishlist";
+                    const options = {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                            // 'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: JSON.stringify(data),
+                    }
+                    await fetch(url, options);
+                }
+
+
+                async function addToCart(id) {
+                    console.log(id);
+                    const data = { id, quantity: 1, selected_size: size, selected_color: color };
+                    const url = "/cart/addToCart";
+                    const options = {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data),
+                    }
+                    await fetch(url, options);
+                }
+            </script>
+
+            <!-- jequery plugins -->
+            <script src="/assets/js/jquery.js"></script>
+            <script src="/assets/js/popper.min.js"></script>
+            <script src="/assets/js/bootstrap.min.js"></script>
+            <script src="/assets/js/owl.js"></script>
+            <script src="/assets/js/wow.js"></script>
+            <script src="/assets/js/validation.js"></script>
+            <script src="/assets/js/jquery.fancybox.js"></script>
+            <script src="/assets/js/TweenMax.min.js"></script>
+            <script src="/assets/js/appear.js"></script>
+            <script src="/assets/js/scrollbar.js"></script>
+            <script src="/assets/js/jquery.nice-select.min.js"></script>
+            <script src="/assets/js/isotope.js"></script>
+            <script src="/assets/js/jquery-ui.js"></script>
+            <script src="/assets/js/jquery.bootstrap-touchspin.js"></script>
+            <script src="/assets/js/bxslider.js"></script>
+
+            <!-- main-js -->
+            <script src="/assets/js/script.js"></script>
 
 </body><!-- End of .page_wrapper -->
+
 </html>

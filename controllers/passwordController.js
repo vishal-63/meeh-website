@@ -51,7 +51,7 @@ module.exports.forgot_password_post = async (req, res) => {
       //send top to email
       const emailToken = createJWT(req.body.email);
       const transporter = nodemailer.createTransport({
-        service: "outlook",
+        service: "gmail",
         auth: {
           user: "shahvishal662@gmail.com",
           pass: "eaajehtruffoslze",
