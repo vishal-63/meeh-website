@@ -1,5 +1,26 @@
+const jwt = require("jsonwebtoken");
+
 const Product = require("../models/product");
 const User = require("../models/user");
+
+module.exports.get_cart_length = async (token) => {
+  if (token) {
+    const decodedToken = jwt.verify(
+      token,
+      process.env.JWT_SECRET_KEY,
+      (err, decodedToken) => {
+        if (err) {
+          console.log(err.message);
+        } else {
+          return decodedToken;
+        }
+      }
+    );
+    const user = await User.findById(decodedToken.id);
+    const length = user.cart.length;
+    return length;
+  } else return 0;
+};
 
 module.exports.cart_get = async (req, res) => {
   let userLoggedIn = false;
@@ -13,8 +34,13 @@ module.exports.cart_get = async (req, res) => {
     model: Product,
   });
   const cart = user.cart;
-  console.log(cart);
-  res.render("cart", { cart, userLoggedIn });
+  const addresses = user.addresses.map((address) => {
+    return {
+      name: `${address.first_name} ${address.last_name}`,
+      address: `${address.house_no}, ${address.street}, ${address.landmark}, ${address.city}, ${address.state} - ${address.pincode}`,
+    };
+  });
+  res.render("cart", { cart, userLoggedIn, addresses });
 };
 
 module.exports.cart_add_product = async (req, res) => {

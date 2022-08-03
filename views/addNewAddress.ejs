@@ -91,55 +91,20 @@
                                           </li>
 
                                           <li class="dropdown"><a href="/products">Shop<span>Hot</span></a>
-                                              <div class="megamenu">
-                                                  <div class="row clearfix">
-                                                      <div class="col-lg-4 column">
-                                                          <ul>
-                                                              <li><h4>Category 01</h4></li>
-                                                              <li><a href="/">Sub-category 01</a></li>
-                                                              <li><a href="/">Sub-category 02</a></li>
-                                                              <li><a href="/">Sub-category 03</a></li>
-                                                              <li><a href="/">Sub-category 04</a></li>
-                                                              <li><a href="/">Sub-category 05</a></li>
-                                                              <li><a href="/">Sub-category 06</a></li>
-                                                          </ul>
-                                                      </div>
-                                                      <div class="col-lg-4 column">
-                                                          <ul>
-                                                              <li><h4>Category 02 Page</h4></li>
-                                                              <li><a href="/">Sub-category 01</a></li>
-                                                              <li><a href="/">Sub-category 02</a></li>
-                                                              <li><a href="/">Sub-category 03</a></li>
-                                                              <li><a href="/">Sub-category 04</a></li>
-                                                              <li><a href="/">Sub-category 05</a></li>
-                                                              <li><a href="/">Sub-category 06</a></li>
-                                                              <li><a href="/">Sub-category 07</a></li>
-                                                          </ul>
-                                                      </div> 
-                                                      <div class="col-lg-4 column">
-                                                          <ul>
-                                                              <li><h4>Category 03</h4></li>
-                                                              <li><a href="/">Sub-category 01</a></li>
-                                                              <li><a href="/">Sub-category 02</a></li>
-                                                              <li><a href="/">Sub-category 03</a></li>
-                                                          </ul>
-                                                      </div>                                        
-                                                  </div>                                           
-                                              </div>
+                                              <ul>
+                                              <li><a href="/products?category=bookmarks">Bookmarks</a></li>
+                                              <li><a href="/products?category=pop-grippers">Pop Grippers</a></li>
+                                              <li><a href="/products?category=tote-bags">Tote Bags</a></li>
+                                              <li><a href="/products?category=badges">Badges</a></li>
+                                              <li><a href="/products?category=diaries">Diaries</a></li>
+                                              <li><a href="/products?category=mousepads">Mousepads</a></li>
+                                            </ul>
                                           </li>
                                           <li><a href="/about">About</a>
                                               
                                           </li>    
-                                          <li class="dropdown"><a href="/blogs">Blog</a>
-                                              <ul>
-                                                  <li><a href="blog.html">Blog 01</a></li>
-                                                  <li><a href="blog-2.html">Blog 02</a></li>
-                                                  <li><a href="blog-3.html">Blog 03</a></li>
-                                                  <li><a href="blog-4.html">Blog 04</a></li>
-                                                  <li><a href="blog-5.html">Blog 05</a></li>
-                                                  <li><a href="blog-details.html">Blog Details 01</a></li>
-                                                  <li><a href="blog-details-2.html">Blog Details 02</a></li>
-                                              </ul>
+                                          <li><a href="/blogs">Blog</a>
+                                              
                                           </li> 
                                           <li><a href="/contact">Contact</a></li>               
                                       </ul>
@@ -147,11 +112,11 @@
                               </nav>
                           </div>
                           <ul class="menu-right-content clearfix">
-                              <li>
+                              <!-- <li>
                                   <div class="search-btn">
                                       <button type="button" class="search-toggler"><i class="flaticon-search"></i></button>
                                   </div>
-                              </li>
+                              </li> -->
                               <li><a href="/wishlist"><i class="flaticon-like"></i></a></li>
                               <li class="dropdown"><a href=""><i class="flaticon-user"></i></a>
                                 <ul>
@@ -244,7 +209,7 @@
     <section class="myaccount-section change-password">
       <div class="container">
         <h3 class="title pl-3 mb-4">Add New Address</h3>
-        <form action="/profile/add-new-address" method="post" class="default-form col-md-9 row mx-0 px-0">
+        <form action="/profile/add-new-address" method="post" class="default-form col-lg-9 col-12 row mx-0 px-0">
           <div class="form-group col-md-6 mx-0">
             <label>First Name<span>*</span></label>
             <input type="text" name="first_name" class="form-control" required />
@@ -285,7 +250,7 @@
             <input type="text" name="pincode" class="form-control" required />
             <span class="text-danger pincode-message"> </span>
           </div>
-          <div class="form-group col-md-3 offset-md-9">
+          <div class="form-group col-sm-6 offset-sm-6 col-lg-3 offset-lg-9">
             <button class="theme-btn-three">Submit <i class="flaticon-right-arrow"></i></button>
           </div>
         </form>

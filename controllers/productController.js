@@ -1,5 +1,8 @@
+const jwt = require("jsonwebtoken");
+
 const Product = require("../models/product");
 const User = require("../models/user");
+const cartController = require("../controllers/cartController");
 
 module.exports.products_get = async (req, res) => {
   let userLoggedIn = false;
@@ -14,9 +17,8 @@ module.exports.products_get = async (req, res) => {
     res.render("products",{productList,userLoggedIn,productsLoaded:0});
   }else{
     const productList = await Product.find().limit(4);
-    res.render("products", { productList, userLoggedIn,productsLoaded:0});
+    res.render("products", { productList, userLoggedIn, productsLoaded:0});
   }
-
 };
 
 module.exports.products_get_next = async(req,res) =>{
@@ -28,6 +30,8 @@ module.exports.products_get_next = async(req,res) =>{
 
 module.exports.single_product_get = async (req, res) => {
   let userLoggedIn = false;
+  let cartLength = await cartController.get_cart_length(req.cookies.jwt);
+
   if (req.cookies.jwt) {
     userLoggedIn = true;
   }

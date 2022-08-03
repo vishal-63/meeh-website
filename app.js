@@ -4,6 +4,8 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
+var livereload = require("livereload");
+var connectLiveReload = require("connect-livereload");
 dotenv.config();
 
 //require models
@@ -32,12 +34,23 @@ const googleAuthRouter = require("./routes/googleAuth");
 const imageRouter = require("./routes/imageUpload");
 const productUploadRouter = require("./routes/uploadProducts");
 
+const cartController = require("./controllers/cartController");
+
 const app = express();
+
+// live reload browser on change in any files
+const liveReloadServer = livereload.createServer();
+liveReloadServer.server.once("connection", () => {
+  setTimeout(() => {
+    liveReloadServer.refresh("/");
+  }, 100);
+});
 
 // Middlewares
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(connectLiveReload());
 //declaring public directory to get assets from
 app.use(express.static(__dirname + "/public"));
 
@@ -50,6 +63,8 @@ mongoose
     console.log(`listening on port ${port}`);
   })
   .catch((err) => {
+    console.log("hehe");
+    console.log(err);
     console.log(err.message);
   });
 
@@ -57,12 +72,15 @@ mongoose
 app.set("view engine", "ejs");
 
 // Base route
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
   let userLoggedIn = false;
+  let cartLength = await cartController.get_cart_length(req.cookies.jwt);
+
   if (req.cookies.jwt) {
     userLoggedIn = true;
   }
-  res.render("index", { userLoggedIn });
+
+  res.render("index", { userLoggedIn, cartLength });
 });
 
 //setting routes for each path
@@ -81,13 +99,15 @@ app.use("/images",imageRouter);
 app.use("/editProducts",productUploadRouter);
 
 //about us route
-app.get("/about", (req, res) => {
+app.get("/about", async (req, res) => {
   let userLoggedIn = false;
+  let cartLength = cartController.get_cart_length(req.cookies.jwt);
+
   if (req.cookies.jwt) {
     userLoggedIn = true;
   }
 
-  res.render("about", { userLoggedIn });
+  res.render("about", { userLoggedIn, cartLength });
 });
 
 // logout route
@@ -102,8 +122,8 @@ app.get("*", (req, res) => {
   if (req.cookies.jwt) {
     userLoggedIn = true;
   }
-  
-  res.render("not-found", {userLoggedIn});
+
+  res.render("not-found", { userLoggedIn });
 });
 
 // app.get("/productUpdate",async (req,res)=>{
@@ -184,9 +204,11 @@ app.get("*", (req, res) => {
 // 62c875eba93d01aa26e5a4b8
 // 62c8763f78b5e02a4a99f1dc
 
-// async function printUsers() {
-//   const users = await User.find();
-//   console.log(users);
-// }
+async function printUsers() {
+  // await User.deleteOne({ first_name: "Nikharv" });
+  // await User.deleteOne({ first_name: "Shubham" });
+  // await User.deleteOne({ first_name: "Shyam" });
+  // console.log(await User.find());
+}
 
 // printUsers();
