@@ -40,16 +40,15 @@
   <!-- page wrapper -->
   <body>
     <div class="boxed_wrapper">
-
       <!-- main header -->
       <header class="main-header">
         <div class="header-lower">
           <div class="auto-container">
             <div class="outer-box">
               <figure class="logo-box">
-                <a href="/"
-                  ><img src="assets/images/header-logo.png" alt=""
-                /></a>
+                <a href="/">
+                  <img src="assets/images/header-logo.png" alt="" />
+                </a>
               </figure>
               <div class="menu-area">
                 <!--Mobile Navigation Toggler-->
@@ -114,20 +113,21 @@
                 <li class="dropdown">
                   <a href="#"><i class="flaticon-user"></i></a>
                   <ul>
-                    <% if(userLoggedIn) { %>
+                    <!-- <% if(userLoggedIn) { %> -->
                     <li><a href="/profile">Profile</a></li>
                     <li><a href="/orders">Your orders</a></li>
                     <li><a href="/logout">Logout</a></li>
-                    <% } else { %> 
+                    <!-- <% } else { %>  -->
                     <li><a href="/login">Log In</a></li>
                     <li><a href="/register">Sign Up</a></li>
-                    <% } %>
+                    <!-- <% } %> -->
                   </ul>
                 </li>
                 <li class="shop-cart">
-                  <a href="/cart"
-                    ><i class="flaticon-shopping-cart-1"></i><span>3</span></a
-                  >
+                  <a href="/cart">
+                    <i class="flaticon-shopping-cart-1"></i>
+                    <span>3</span>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -266,16 +266,20 @@
                       </ul>
                     </figure>
                     <div class="lower-content">
-                      <a href="products/<%= productList[i]._id %>"
-                        ><%= productList[i].product_name %></a
-                      >
+                      <a href="products/<%= productList[i]._id %>">
+                        <%= productList[i].product_name %>
+                      </a>
                       <span class="price">$<%= productList[i].price %></span>
                     </div>
                   </div>
                 </div>
-                <div class="btn-box">
-                    <button class="theme-btn-two" onClick="loadMoreProducts()">Load More</button>
-                </div>
+              </div>
+              <% } %>
+              <div class="btn-box">
+                <button class="theme-btn-two" onClick="loadMoreProducts()">
+                  Load More
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -329,160 +333,173 @@
           alert.innerText = "Item added to the wishlist!";
         } else console.log(res);
       }
-      
-        async function loadMoreProducts(){
-            const url = "/products";
-            const reqData = { 
-                productsLoaded:document.getElementById("productContainer").children.length 
-            };
-            const options = {
-                headers:{
-                'Content-Type': 'application/json',
-                },
-                method:"POST",
-                body:JSON.stringify(reqData)
-            }
-            const response = await fetch(url,options);
-            const data = await response.json();
-            console.log(data);
-            
 
-            data.newProducts.map( (product)=>{
+      async function loadMoreProducts() {
+        const url = "/products";
+        const reqData = {
+          productsLoaded:
+            document.getElementById("productContainer").children.length,
+        };
+        const options = {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "POST",
+          body: JSON.stringify(reqData),
+        };
+        const response = await fetch(url, options);
+        const data = await response.json();
+        console.log(data);
 
-                const imgSource = product.inventory[0].thumbnail_images[0] || 'assets/images/resource/shop/shop-1.jpg';
-                const productID = product._id;
-                const productName = product.prodcutName;
-                const productPrice = product.price;
+        data.newProducts.map((product) => {
+          const imgSource =
+            product.inventory[0].thumbnail_images[0] ||
+            "assets/images/resource/shop/shop-1.jpg";
+          const productID = product._id;
+          const productName = product.prodcutName;
+          const productPrice = product.price;
 
-                createProductElements(imgSource,productID,productName,productPrice);
+          createProductElements(
+            imgSource,
+            productID,
+            productName,
+            productPrice
+          );
+        });
+      }
 
-            } )
+      function createProductElements(
+        imageSource,
+        productID,
+        productName,
+        productPrice
+      ) {
+        //starting of first div
+        const outterDiv1 = document.createElement("div");
+        outterDiv1.classList.add(
+          "col-lg-3",
+          "col-md-6",
+          "col-sm-12",
+          "shop-block"
+        );
 
-        }
+        //starting of otterDiv1's child div
+        //child
+        const outterDiv0 = document.createElement("div");
+        outterDiv0.classList.add("shop-block-one");
 
-        function createProductElements (imageSource,productID,productName,productPrice){
+        //starting of outterDiv0's child div
+        //child
+        const innerDiv = document.createElement("div");
+        innerDiv.classList.add("inner-box");
 
-            //starting of first div
-            const outterDiv1 = document.createElement('div');
-            outterDiv1.classList.add("col-lg-3","col-md-6","col-sm-12","shop-block");
-            
-            //starting of otterDiv1's child div
-            //child
-            const outterDiv0 = document.createElement("div");
-            outterDiv0.classList.add("shop-block-one");
-            
-            //starting of outterDiv0's child div
-            //child
-            const innerDiv = document.createElement("div");
-            innerDiv.classList.add("inner-box");
-            
-            //starting of innerDiv's Child figure
-            //child
-            const figure = document.createElement("figure");
-            figure.classList.add("image-box");
+        //starting of innerDiv's Child figure
+        //child
+        const figure = document.createElement("figure");
+        figure.classList.add("image-box");
 
-            //starting of figure's img tag
-            //child
-            const image = document.createElement("img");
-            image.src=imageSource;
-            //end of image 
+        //starting of figure's img tag
+        //child
+        const image = document.createElement("img");
+        image.src = imageSource;
+        //end of image
 
-            //starting of figure's ul tag
-            const ul = document.createElement("ul");
-            ul.classList.add("info-list","clearfix");
+        //starting of figure's ul tag
+        const ul = document.createElement("ul");
+        ul.classList.add("info-list", "clearfix");
 
-            //strating of ul's first li tag
-            const li0 = document.createElement("li");
-            li0.onclick = addWishlist(productID);
-            
-            //starting of li0's a tag
-            //child
-            const aTag0 = document.createElement("a");
-            
-            //starting of aTag0's i tag
-            //child
-            const iTag0 = document.createElement("i");
-            iTag0.classList.add("flaticon-heart");
-            //end of iTag0
-            //end of aTag0
-            //end of li0
+        //strating of ul's first li tag
+        const li0 = document.createElement("li");
+        li0.onclick = addWishlist(productID);
 
-            //starting of ul's second li tag
-            const li1 = document.createElement("li");
-            li1.onclick = addToCart(productID);
-            
-            //starting of li1's a tag
-            //child
-            const aTag1 = document.createElement("a");
-            aTag1.textContent = "Add To cart";
-            //end of a tag
-            //end of li1 tag
+        //starting of li0's a tag
+        //child
+        const aTag0 = document.createElement("a");
 
-            //starting of ul's third li tag
-            const li2 = document.createElement("li");
-            
-            //starting of li2's a tag
-            const aTag2 = document.createElement("a");
-            aTag2.classList.add("lightbox-image");
-            aTag2.href = "/products/"+productID;
-            
-            //starting of aTag2's i tag
-            //child
-            const iTag2 = document.createElement("i");
-            iTag2.classList.add("flaticon-search");
-            //end of iTag2
-            //end of aTag2
-            //end of li2
-            //end of ul
-            //end of figure tag
+        //starting of aTag0's i tag
+        //child
+        const iTag0 = document.createElement("i");
+        iTag0.classList.add("flaticon-heart");
+        //end of iTag0
+        //end of aTag0
+        //end of li0
 
-            //starting of innerDiv's second child div tag
-            const lowerContent = document.createElement('div');
+        //starting of ul's second li tag
+        const li1 = document.createElement("li");
+        li1.onclick = addToCart(productID);
 
-            //starting of lowerContent's first child a tag
-            const aTag3 = document.createElement('a');
-            aTag3.href = "/products/"+productID;
-            aTag3.textContent = productName;
-            //end of aTag3
+        //starting of li1's a tag
+        //child
+        const aTag1 = document.createElement("a");
+        aTag1.textContent = "Add To cart";
+        //end of a tag
+        //end of li1 tag
 
-            //starting of lowerContent's second child span Tag
-            const span = document.createElement('span');
-            span.classList.add("price");
-            span.textContent = productName;
-            //end of span tag
+        //starting of ul's third li tag
+        const li2 = document.createElement("li");
 
-            //end of lowerContent
-            //end of innerDiv
-            //end of outterDiv0 
-            //end of outterDiv1
+        //starting of li2's a tag
+        const aTag2 = document.createElement("a");
+        aTag2.classList.add("lightbox-image");
+        aTag2.href = "/products/" + productID;
 
-            aTag0.appendChild(iTag0);
-            li0.appendChild(aTag0);
-            
-            li1.appendChild(aTag1);
+        //starting of aTag2's i tag
+        //child
+        const iTag2 = document.createElement("i");
+        iTag2.classList.add("flaticon-search");
+        //end of iTag2
+        //end of aTag2
+        //end of li2
+        //end of ul
+        //end of figure tag
 
-            aTag2.appendChild(iTag2);
-            li2.appendChild(aTag2);
+        //starting of innerDiv's second child div tag
+        const lowerContent = document.createElement("div");
 
-            ul.appendChild(li0);
-            ul.appendChild(li1);
-            // ul.appendChild(li2);
+        //starting of lowerContent's first child a tag
+        const aTag3 = document.createElement("a");
+        aTag3.href = "/products/" + productID;
+        aTag3.textContent = productName;
+        //end of aTag3
 
-            figure.appendChild(image);
-            figure.appendChild(ul);
+        //starting of lowerContent's second child span Tag
+        const span = document.createElement("span");
+        span.classList.add("price");
+        span.textContent = productName;
+        //end of span tag
 
-            lowerContent.appendChild(aTag3);
-            lowerContent.appendChild(span);
+        //end of lowerContent
+        //end of innerDiv
+        //end of outterDiv0
+        //end of outterDiv1
 
-            innerDiv.appendChild(figure);
-            innerDiv.appendChild(lowerContent);
+        aTag0.appendChild(iTag0);
+        li0.appendChild(aTag0);
 
-            outterDiv0.appendChild(innerDiv);
-            outterDiv1.appendChild(outterDiv0);
+        li1.appendChild(aTag1);
 
-            document.getElementById("productContainer").appendChild(outterDiv1);
-        }
-        
+        aTag2.appendChild(iTag2);
+        li2.appendChild(aTag2);
+
+        ul.appendChild(li0);
+        ul.appendChild(li1);
+        // ul.appendChild(li2);
+
+        figure.appendChild(image);
+        figure.appendChild(ul);
+
+        lowerContent.appendChild(aTag3);
+        lowerContent.appendChild(span);
+
+        innerDiv.appendChild(figure);
+        innerDiv.appendChild(lowerContent);
+
+        outterDiv0.appendChild(innerDiv);
+        outterDiv1.appendChild(outterDiv0);
+
+        document.getElementById("productContainer").appendChild(outterDiv1);
+      }
+
       async function addToCart(id) {
         console.log(id);
         const data = {
