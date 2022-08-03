@@ -81,6 +81,11 @@ module.exports.signup_post = async (req, res) => {
         password,
       });
       await user.save();
+      user.password = await User.hashPassword(user.password);
+      user.save((err, user) => {
+        if (err) throw new Error("An error occurred while saving the user!");
+        else console.log(user);
+      });
 
       const jwtToken = createJWT(user._id);
       res.cookie("jwt", jwtToken, { httpOnly: true });
@@ -108,10 +113,9 @@ module.exports.profile_get = async (req, res) => {
   addresses = addresses.map((address) => {
     return {
       name: `${address.first_name} ${address.last_name}`,
-      address: `${address.house_no}, ${address.street}, ${address.landmark}, ${address.city}, ${address.state} - ${address.pincode}`
-    }
-  })
-  console.log(addresses)
+      address: `${address.house_no}, ${address.street}, ${address.landmark}, ${address.city}, ${address.state} - ${address.pincode}`,
+    };
+  });
 
   res.render("profile", {
     userLoggedIn,
@@ -121,11 +125,7 @@ module.exports.profile_get = async (req, res) => {
 
 //controlles post request to change account / profile for users
 module.exports.profile_post = async (req, res) => {
-  const {
-    first_name,
-    last_name,
-    phone,
-  } = req.body;
+  const { first_name, last_name, phone } = req.body;
   console.log(req.body.userDetails);
   try {
     const user = await User.findById(res.user.id);
@@ -148,23 +148,23 @@ module.exports.profile_post = async (req, res) => {
 };
 
 module.exports.save_address = async (req, res) => {
-  const address = req.body
+  const address = req.body;
   try {
-    const user = await User.findById(res.user.id)
-    user.addresses = address
+    const user = await User.findById(res.user.id);
+    user.addresses.push(address);
     user.save((err, user) => {
-      if(err)
-        throw new Error(err.message)
-      else
-        console.log(user.address)
-        res.redirect("/profile")
-    })
+      if (err) throw new Error(err.message);
+      else console.log(user.addresses);
+      res.redirect(req.header("Referer") || "/profile");
+    });
   } catch (err) {
-    console.log(err)
-    res.status(500)
-    res.send("An error occured while saving the address. Please try again later!")
+    console.log(err);
+    res.status(500);
+    res.send(
+      "An error occured while saving the address. Please try again later!"
+    );
   }
-}
+};
 
 //controlles get request for when user has forgot password
 module.exports.forgot_password_get = async (req, res) => {

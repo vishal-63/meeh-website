@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js --ext *"
   },
   "keywords": [],
   "author": "",
@@ -26,8 +26,12 @@
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.7.7",
     "nodemailer-express-handlebars": "^5.0.0",
-    "nodemon": "^2.0.19",
     "razorpay": "^2.8.2",
     "validator": "^13.7.0"
+  },
+  "devDependencies": {
+    "connect-livereload": "^0.6.1",
+    "livereload": "^0.9.3",
+    "nodemon": "^2.0.19"
   }
 }

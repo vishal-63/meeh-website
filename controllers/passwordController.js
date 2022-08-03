@@ -130,7 +130,7 @@ module.exports.reset_forgotten_password_post = async (req, res) => {
         }
       });
     }
-   catch (err) {
+  } catch (err) {
     console.log(err);
     res.status(400).send(err.message);
   }

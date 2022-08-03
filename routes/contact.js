@@ -2,7 +2,12 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.render("contact");
+  let userLoggedIn = false;
+  if (req.cookies.jwt) {
+    userLoggedIn = true;
+  }
+
+  res.render("contact", { userLoggedIn });
 });
 
 module.exports = router;

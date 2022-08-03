@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
 
 const addressSchema = new mongoose.Schema({
-  first_name:{
-    type:String,
-    required:true,
+  first_name: {
+    type: String,
+    required: true,
   },
-  last_name:{
-    type:String,
-    required:true,
+  last_name: {
+    type: String,
+    required: true,
   },
   state: {
     type: String,
@@ -43,13 +43,16 @@ const orderSchema = new mongoose.Schema({
     required: true,
   },
   products: {
-    type: [{
-      product_id: {
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: "Product",
+    type: [
+      {
+        product_id: {
+          type: mongoose.SchemaTypes.ObjectId,
+          ref: "Product",
+        },
+        quantity: Number,
+        total_amt: Number,
       },
-      quantity: Number,
-      total_amt: Number,}],
+    ],
     minlength: 1,
     required: true,
   },
@@ -78,10 +81,16 @@ const orderSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  shipping_address: addressSchema,
-  shipping_status:{
-    type:String,
-    required:true
+  shipping_address: {
+    type: {
+      name: String,
+      address: String,
+    },
+    required: true,
+  },
+  shipping_status: {
+    type: String,
+    required: true,
   },
   razorpay_payment_id: String,
   razorpay_order_id: {
