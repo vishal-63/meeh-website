@@ -8,7 +8,7 @@ const checkoutController = require("../controllers/checkoutController");
 const { requireAuth } = require("../middleware/authMiddleware");
 const paymentController = require("../controllers/paymentController");
 
-router.get("/", requireAuth,async (req, res) => {
+router.get("/", requireAuth, async (req, res) => {
   let userLoggedIn = false;
   if (req.cookies.jwt) {
     userLoggedIn = true;
@@ -19,11 +19,14 @@ router.get("/", requireAuth,async (req, res) => {
     model: Product,
   });
   console.log(user.cart);
-  res.render("checkout", { userLoggedIn,cart:user.cart,address:user.adresses});
+  res.render("checkout", {
+    userLoggedIn,
+    cart: user.cart,
+    address: user.addresses,
+  });
 });
 
-router.get("/create-order", requireAuth, paymentController.create_order);
+router.post("/create-order", requireAuth, paymentController.create_order);
 router.post("/verify-order", requireAuth, paymentController.verify_order);
 
 module.exports = router;
-

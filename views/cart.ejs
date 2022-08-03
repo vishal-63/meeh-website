@@ -36,6 +36,8 @@
     <link href="/assets/css/color.css" rel="stylesheet" />
     <link href="/assets/css/style.css" rel="stylesheet" />
     <link href="/assets/css/responsive.css" rel="stylesheet" />
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js" async defer></script>
   </head>
 
   <!-- page wrapper -->
@@ -247,23 +249,23 @@
           <div class="social-links">
             <ul class="clearfix">
               <li>
-                <a href="index.html"><span class="fab fa-twitter"></span></a>
+                <a href="/"><span class="fab fa-twitter"></span></a>
               </li>
               <li>
-                <a href="index.html"
+                <a href="/"
                   ><span class="fab fa-facebook-square"></span
                 ></a>
               </li>
               <li>
-                <a href="index.html"
+                <a href="/"
                   ><span class="fab fa-pinterest-p"></span
                 ></a>
               </li>
               <li>
-                <a href="index.html"><span class="fab fa-instagram"></span></a>
+                <a href="/"><span class="fab fa-instagram"></span></a>
               </li>
               <li>
-                <a href="index.html"><span class="fab fa-youtube"></span></a>
+                <a href="/"><span class="fab fa-youtube"></span></a>
               </li>
             </ul>
           </div>
@@ -295,191 +297,255 @@
       <!-- page-title end -->
 
       <!-- Multistep form -->
-      <div class="container-fluid" id="grad1">
+      <div class="container">
         <div class="row justify-content-center mt-0">
-          <div
-            class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2"
-          >
-            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
-              <h2><strong>Sign Up Your User Account</strong></h2>
-              <p>Fill all form field to go to next step</p>
-              <div class="row">
-                <div class="col-md-12 mx-0">
-                  <form id="msform">
-                    <!-- progressbar -->
-                    <ul id="progressbar">
-                      <li class="active" id="account">
-                        <strong>Account</strong>
-                      </li>
-                      <li id="personal"><strong>Personal</strong></li>
-                      <li id="payment"><strong>Payment</strong></li>
-                      <li id="confirm"><strong>Finish</strong></li>
-                    </ul>
-                    <!-- fieldsets -->
-                    <fieldset>
-                      <div class="form-card">
-                        <h2 class="fs-title">Account Information</h2>
-                        <input
-                          type="email"
-                          name="email"
-                          placeholder="Email Id"
-                        />
-                        <input
-                          type="text"
-                          name="uname"
-                          placeholder="UserName"
-                        />
-                        <input
-                          type="password"
-                          name="pwd"
-                          placeholder="Password"
-                        />
-                        <input
-                          type="password"
-                          name="cpwd"
-                          placeholder="Confirm Password"
-                        />
-                      </div>
-                      <input
-                        type="button"
-                        name="next"
-                        class="next action-button"
-                        value="Next Step"
-                      />
-                    </fieldset>
-                    <fieldset>
-                      <div class="form-card">
-                        <h2 class="fs-title">Personal Information</h2>
-                        <input
-                          type="text"
-                          name="fname"
-                          placeholder="First Name"
-                        />
-                        <input
-                          type="text"
-                          name="lname"
-                          placeholder="Last Name"
-                        />
-                        <input
-                          type="text"
-                          name="phno"
-                          placeholder="Contact No."
-                        />
-                        <input
-                          type="text"
-                          name="phno_2"
-                          placeholder="Alternate Contact No."
-                        />
-                      </div>
-                      <input
-                        type="button"
-                        name="previous"
-                        class="previous action-button-previous"
-                        value="Previous"
-                      />
-                      <input
-                        type="button"
-                        name="next"
-                        class="next action-button"
-                        value="Next Step"
-                      />
-                    </fieldset>
-                    <fieldset>
-                      <div class="form-card">
-                        <h2 class="fs-title">Payment Information</h2>
-                        <div class="radio-group">
-                          <div class="radio" data-value="credit">
-                            <img
-                              src="https://i.imgur.com/XzOzVHZ.jpg"
-                              width="200px"
-                              height="100px"
-                            />
-                          </div>
-                          <div class="radio" data-value="paypal">
-                            <img
-                              src="https://i.imgur.com/jXjwZlj.jpg"
-                              width="200px"
-                              height="100px"
-                            />
-                          </div>
-                          <br />
+          <div class="col-12 text-center p-0 mt-3 mb-2">
+            <div class="px-0 pt-4 pb-0 mt-3 mb-3">
+              <div class="mx-0">
+                <div id="msform">
+                  <!-- progressbar -->
+                  <ul id="progressbar">
+                    <li class="active" id="cart">
+                      <i class="flaticon-shopping-cart-1"></i>
+                      Cart
+                    </li>
+                    <li id="shipping">
+                      <i class="flaticon-location-pin-1"></i>
+                      Shipping
+                    </li>
+                    <li id="payment"><i class="far fa-payment"></i>Payment
+                    </li>
+                  </ul>
+                  <!-- fieldsets -->
+                  <fieldset class="cart-section steps">
+                    <div class="row clearfix">
+                      <div
+                        class="col-lg-12 col-md-12 col-sm-12 table-column mb-4"
+                      >
+                        <div class="table-outer">
+                          <table class="cart-table">
+                            <thead class="cart-header">
+                              <tr>
+                                <th>&nbsp;</th>
+                                <th class="prod-column">Product Name</th>
+                                <th>&nbsp;</th>
+                                <th>&nbsp;</th>
+                                <th class="price">Price</th>
+                                <th class="quantity">Quantity</th>
+                                <th>Subtotal</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <% for(let i=0; i<cart.length; i++) { %>
+                              <tr>
+                                <td colspan="4" class="prod-column">
+                                  <div class="column-box">
+                                    <div
+                                      class="remove-btn"
+                                      onClick="deleteFromCart('<%= cart[i]._id %>', this)"
+                                    >
+                                      <i class="flaticon-close"></i>
+                                    </div>
+                                    <div class="prod-thumb">
+                                      <a href="#"
+                                        ><img
+                                          src="<%= cart[i].product_id.inventory[0].thumbnail_images[0]?cart[i].product_id.inventory[0].thumbnail_images[0]:'/assets/images/resource/shop/cart-1.jpg'%>"
+                                          alt="Product Image"
+                                      /></a>
+                                    </div>
+                                    <div class="prod-title">
+                                      <%= cart[i].product_id.product_name%>
+                                    </div>
+                                    <div><%= cart[i].selected_size%></div>
+                                    <div><%= cart[i].selected_color%></div>
+                                  </div>
+                                </td>
+                                <td class="price">
+                                  $<%= cart[i].product_id.price %>
+                                </td>
+                                <td class="qty">
+                                  <div class="item-quantity">
+                                    <input
+                                      value="<%=cart[i].quantity%>"
+                                      id="<%=cart[i]._id%>%>"
+                                      class="quantity-spinner"
+                                      type="text"
+                                      name="quantity"
+                                    />
+                                  </div>
+                                </td>
+                                <td class="sub-total">
+                                  $<%= cart[i].quantity *
+                                  cart[i].product_id.price %>
+                                </td>
+                              </tr>
+                              <% } %>
+                            </tbody>
+                          </table>
                         </div>
-                        <label class="pay">Card Holder Name*</label>
-                        <input type="text" name="holdername" placeholder="" />
+                      </div>
+                    </div>
+                    <div class="cart-total">
+                      <div class="row">
+                        <div class="col-12 col-md-5 offset-md-7 cart-column">
+                          <div class="total-cart-box clearfix">
+                            <h4>Cart Totals</h4>
+                            <ul class="list clearfix">
+                              <li>
+                                Subtotal:<span class="sub-total"></span>
+                              </li>
+                              <li>
+                                Order Total:<span class="order-total" ></span>
+                              </li>
+                            </ul>
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <button name="next" class="next theme-btn-two">
+                      Proceed
+                      <i class="flaticon-right-1"></i>
+                    </button>
+                  </fieldset>
+                  <fieldset class="checkout-section steps">
+                    <div class="shipping-info">
+                      <h4 class="sub-title">Shipping Details</h4>
+                      
+                      <% if(addresses.length > 0) { %>
+                        <div class="card-columns my-5 addresses">
+                          <% for(let i=0;i<addresses.length;i++) { %>
+                          <div class="option-block card p-4">
+                            <div class="custom-controls-stacked">
+                              <label class="custom-control material-checkbox">
+                                <input
+                                  type="checkbox"
+                                  class="material-control-input"
+                                  onchange="selectAddress(<%=i%>)"
+                                />
+                                <span class="material-control-indicator"></span>
+                                <h5 class="description"><%= addresses[i].name %></h5>
+                                <p><%= addresses[i].address %></p>
+                              </label>
+                            </div>
+                          </div>
+                          <% } %>
+                          <div class="card add-new-address" onclick="showAddressFields()">
+                            <div class="card-body">
+                              <div class="flaticon-plus"></div>
+                              <div class="card-title">Add new address</div>
+                            </div>
+                          </div>
+                        </div>
+                        <% } %>
+
+                      <form action="/profile/add-new-address" method="post" class="shipping-form d-none">
+                        <h4 class="details-title ml-3">Personal Details</h4>
                         <div class="row">
-                          <div class="col-9">
-                            <label class="pay">Card Number*</label>
-                            <input type="text" name="cardno" placeholder="" />
+                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
+                            <label>First Name*</label>
+                            <div class="field-input">
+                              <input type="text" required name="first_name" />
+                            </div>
                           </div>
-                          <div class="col-3">
-                            <label class="pay">CVC*</label>
-                            <input
-                              type="password"
-                              name="cvcpwd"
-                              placeholder="***"
-                            />
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-3">
-                            <label class="pay">Expiry Date*</label>
-                          </div>
-                          <div class="col-9">
-                            <select class="list-dt" id="month" name="expmonth">
-                              <option selected>Month</option>
-                              <option>January</option>
-                              <option>February</option>
-                              <option>March</option>
-                              <option>April</option>
-                              <option>May</option>
-                              <option>June</option>
-                              <option>July</option>
-                              <option>August</option>
-                              <option>September</option>
-                              <option>October</option>
-                              <option>November</option>
-                              <option>December</option>
-                            </select>
-                            <select class="list-dt" id="year" name="expyear">
-                              <option selected>Year</option>
-                            </select>
+                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
+                            <label>Last Name*</label>
+                            <div class="field-input">
+                              <input type="text" required name="last_name" />
+                            </div>
                           </div>
                         </div>
+                        <h4 class="details-title ml-3">Address Details</h4>
+                        <div class="row">  
+                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
+                            <label>House No.*</label>
+                            <div class="field-input">
+                              <input type="text" required name="house_no" />
+                            </div>
+                          </div>
+                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
+                            <label>Street*</label>
+                            <div class="field-input">
+                              <input type="text" required name="street" />
+                            </div>
+                          </div>
+                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
+                            <label>Landmark <span>(optional)</span></label>
+                            <div class="field-input">
+                              <input type="text" name="landmark" />
+                            </div>
+                          </div>
+                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
+                            <label>City*</label>
+                            <div class="field-input">
+                              <input type="text" required name="city" />
+                            </div>
+                          </div>
+                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
+                            <label>State*</label>
+                            <div class="field-input">
+                              <input type="text" required name="state" />
+                            </div>
+                          </div>
+
+                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
+                            <label>Pin Code*</label>
+                            <div class="field-input">
+                              <input type="text" required name="pincode" />
+                            </div>
+                          </div>
+                        </div>
+                        <input type="submit" value="Save" class="theme-btn-two ml-3">
+                      </form>
+                    </div>
+                    <button class="previous theme-btn-three">
+                      <i class="flaticon-left-2"></i>
+                      Go Back
+                    </button>
+                    <button class="next theme-btn-two shipping-section">
+                      Proceed
+                      <i class="flaticon-right-1"></i>
+                    </button>
+                  </fieldset>
+                  
+                  <fieldset class="steps">
+                    <div class="order-summary border rounded p-3 col-md-8 mb-4 mx-auto">
+                      <h3 class="pb-3 mb-2 border-bottom">Order Summary</h3>
+                      <div class="order-items">
+                        <% for(let i=0; i<cart.length; i++) { %>
+                          <div class="item">
+                            <div class="d-flex align-items-center">
+                              <img
+                              src="<%= cart[i].product_id.inventory[0].thumbnail_images[0] || '/assets/images/resource/shop/cart-1.jpg'%>"
+                              alt="Product Image"
+                              />
+                              <div class="text-left">
+                                <div class="product-name text-dark"><%= cart[i].product_id.product_name%></div>
+                                <div class="product-specs text-muted"><%= cart[i].selected_size%> <%= cart[i].selected_color%></div>
+                              </div>
+                            </div>
+                            <div class="quantity ">&times;<%=cart[i].quantity%></div>
+                            <div class="total_amt ">Rs. <%= cart[i].quantity * cart[i].product_id.price %></div>
+                          </div>
+                          <% } %>
                       </div>
-                      <input
-                        type="button"
-                        name="previous"
-                        class="previous action-button-previous"
-                        value="Previous"
-                      />
-                      <input
-                        type="button"
-                        name="make_payment"
-                        class="next action-button"
-                        value="Confirm"
-                      />
-                    </fieldset>
-                    <fieldset>
-                      <div class="form-card">
-                        <h2 class="fs-title text-center">Success !</h2>
-                        <br /><br />
-                        <div class="row justify-content-center">
-                          <div class="col-3">
-                            <img
-                              src="https://img.icons8.com/color/96/000000/ok--v2.png"
-                              class="fit-image"
-                            />
-                          </div>
-                        </div>
-                        <br /><br />
-                        <div class="row justify-content-center">
-                          <div class="col-7 text-center">
-                            <h5>You Have Successfully Signed Up</h5>
-                          </div>
-                        </div>
+                      <div class="order-total mt-3 text-right">
+                        <div class="sub-total">Sub Total: <span></span></div>
+                        <div class="coupon-discount text-primary">- Coupon Discount: <span></span></div>
+                        <div class="grand-total text-dark">Grand Total: <span></span></div>
                       </div>
-                    </fieldset>
-                  </form>
+                      <div class="shipping-summary">
+                        <h5>Shipping Details</h5>
+                        <div class="name"></div>
+                        <div class="address"></div>
+                      </div>
+                      <button class="theme-btn-two my-4" id="checkout">Pay now</button>
+                    </div>
+                    <button class="previous theme-btn-one">
+                      <i class="flaticon-left-2"></i>
+                      Go Back
+                    </button>
+                  </fieldset>
                 </div>
               </div>
             </div>
@@ -487,173 +553,8 @@
         </div>
       </div>
 
-      <section class="cart-section cart-page">
-        <div class="auto-container">
-          <div class="row clearfix">
-            <div class="col-lg-12 col-md-12 col-sm-12 table-column mb-4">
-              <div class="table-outer">
-                <table class="cart-table">
-                  <thead class="cart-header">
-                    <tr>
-                      <th>&nbsp;</th>
-                      <th class="prod-column">Product Name</th>
-                      <th>&nbsp;</th>
-                      <th>&nbsp;</th>
-                      <th class="price">Price</th>
-                      <th class="quantity">Quantity</th>
-                      <th>Subtotal</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <% for(let i=0; i<cart.length; i++) { %>
-                    <tr>
-                      <td colspan="4" class="prod-column">
-                        <div class="column-box">
-                          <div
-                            class="remove-btn"
-                            onClick="deleteFromCart('<%= cart[i]._id %>', this)"
-                          >
-                            <i class="flaticon-close"></i>
-                          </div>
-                          <div class="prod-thumb">
-                            <a href="#"
-                              ><img
-                                src="/assets/images/resource/shop/cart-1.jpg"
-                                alt=""
-                            /></a>
-                          </div>
-                          <div class="prod-title">
-                            <%= cart[i].product_id.product_name%>
-                          </div>
-                          <div><%= cart[i].selected_size%></div>
-                          <div><%= cart[i].selected_color%></div>
-                        </div>
-                      </td>
-                      <td class="price">$<%= cart[i].product_id.price %></td>
-                      <td class="qty">
-                        <div class="item-quantity">
-                          <input
-                            id="<%=cart[i]._id%>%>"
-                            class="quantity-spinner"
-                            type="text"
-                            name="quantity"
-                          />
-                        </div>
-                      </td>
-                      <td class="sub-total">$<%= cart[i].quantity * cart[i].product_id.price %></td>
-                    </tr>
-                    <%}%>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+      <!-- page-title end -->
 
-          <div class="cart-total">
-            <div class="row">
-              <div class="col-12 col-md-5 offset-md-7 cart-column">
-                <div class="total-cart-box clearfix">
-                  <h4>Cart Totals</h4>
-                  <ul class="list clearfix">
-                    <li>Subtotal:<span class="sub-total">$150</span></li>
-                    <li>Order Total:<span class="order-total">$150</span></li>
-                  </ul>
-                  <a href="/checkout" class="theme-btn-two">
-                    Proceed to Checkout<i class="flaticon-right-1"></i>
-                  </a>
-                </div>
-              </div>
-            </section>
-            <!-- page-title end -->
-
-            <section class="cart-section cart-page">
-              <div class="auto-container">
-                <div class="row clearfix">
-                  <div class="col-lg-12 col-md-12 col-sm-12 table-column mb-4">
-                    <div class="table-outer">
-                      <table class="cart-table">
-                        <thead class="cart-header">
-                          <tr>
-                            <th>&nbsp;</th>
-                            <th class="prod-column">Product Name</th>
-                            <th>&nbsp;</th>
-                            <th>&nbsp;</th>
-                            <th class="price">Price</th>
-                            <th class="quantity">Quantity</th>
-                            <th>Subtotal</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <% for(let i=0; i<cart.length; i++) { %>
-                            <tr>
-                              <td colspan="4" class="prod-column">
-                                <div class="column-box">
-                                  <div class="remove-btn" onClick="deleteFromCart('<%= cart[i]._id %>', this)">
-                                    <i class="flaticon-close"></i>
-                                  </div>
-                                  <div class="prod-thumb">
-                                    <a href="#"
-                                      ><img
-                                        src="<%= cart[i].product_id.inventory[0].thumbnail_images[0]?cart[i].product_id.inventory[0].thumbnail_images[0]:'/assets/images/resource/shop/cart-1.jpg'%>"
-                                        alt=""
-                                    /></a>
-                                  </div>
-                                  <div class="prod-title"><%= cart[i].product_id.product_name%></div>
-                                  <div><%= cart[i].selected_size%></div>
-                                  <div><%= cart[i].selected_color%></div>
-                                </div>
-                              </td>
-                              <td class="price">$<%= cart[i].product_id.price %></td>
-                              <td class="qty">
-                                <div class="item-quantity">
-                                  <!-- <div onClick="updateCart('<%= cart[i]._id%>',-1)">Minus</div> -->
-                                  <input
-                                    id="<%=cart[i]._id%>%>"
-                                    class="quantity-spinner"
-                                    type="text"
-                                    value="<%= cart[i].quantity %>"
-                                    name="quantity"
-                                  />
-                                  <!-- <div onClick="updateCart('<%= cart[i]._id%>',1)">Plus</div> -->
-                                </div>
-                              </td>
-                              <td class="sub-total">$<%= cart[i].quantity * cart[i].product_id.price %></td>
-                            </tr>
-                          <%}%>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="cart-total">
-                  <div class="row">
-                    <div class="col-12 col-md-5 offset-md-7 cart-column">
-                      <div class="total-cart-box clearfix">
-                        <h4>Cart Totals</h4>
-                        <ul class="list clearfix">
-                          <li>Subtotal:<span class="sub-total">$150</span></li>
-                          <li>Order Total:<span class="order-total">$150</span></li>
-                        </ul>
-                        <a href="/checkout" class="theme-btn-two">
-                          Proceed to Checkout<i class="flaticon-right-1"></i>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-          <% } else { %>
-            <div class="empty-cart container">
-              <img src="\assets\images\icons\empty_cart.svg" alt="Empty Cart Icon" class="icon">
-              <div class="text">Your shopping cart is empty <i class="far fa-sad-tear"></i> </div>
-              <div class="theme-btn-three"><a href="/products">Continue Shopping<i class="flaticon-right-1"></i></a></div>
-              
-            </div>
-          </div>
-        </div>
-      </section>
       <% } else { %>
       <div class="empty-cart container">
         <img
@@ -691,95 +592,19 @@
     <script src="/assets/js/isotope.js"></script>
     <script src="/assets/js/jquery-ui.js"></script>
     <script src="/assets/js/jquery.bootstrap-touchspin.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></script>
 
     <!-- main-js -->
     <script src="/assets/js/script.js"></script>
+    <script src="/assets/js/cart.js"></script>
+    
     <script>
       var clientCart = <%- JSON.stringify(cart) %>
-      // console.log(<%- cart.length %>)
-
-      $(document).ready(function () {
-        var current_fs, next_fs, previous_fs; //fieldsets
-        var opacity;
-
-        $(".next").click(function () {
-          current_fs = $(this).parent();
-          next_fs = $(this).parent().next();
-
-          console.log(current_fs)
-          console.log(next_fs)
-
-          //Add Class Active
-          $("#progressbar li")
-            .eq($("fieldset").index(next_fs))
-            .addClass("active");
-
-          //show the next fieldset
-          next_fs.show();
-          //hide the current fieldset with style
-          current_fs.animate(
-            { opacity: 0 },
-            {
-              step: function (now) {
-                // for making fielset appear animation
-                opacity = 1 - now;
-
-                current_fs.css({
-                  display: "none",
-                  position: "relative",
-                });
-                next_fs.css({ opacity: opacity });
-              },
-              duration: 600,
-            }
-          );
-        });
-
-        $(".previous").click(function () {
-          current_fs = $(this).parent();
-          previous_fs = $(this).parent().prev();
-
-          //Remove class active
-          $("#progressbar li")
-            .eq($("fieldset").index(current_fs))
-            .removeClass("active");
-
-          //show the previous fieldset
-          previous_fs.show();
-
-          //hide the current fieldset with style
-          current_fs.animate(
-            { opacity: 0 },
-            {
-              step: function (now) {
-                // for making fielset appear animation
-                opacity = 1 - now;
-
-                current_fs.css({
-                  display: "none",
-                  position: "relative",
-                });
-                previous_fs.css({ opacity: opacity });
-              },
-              duration: 600,
-            }
-          );
-        });
-
-        $(".radio-group .radio").click(function () {
-          $(this).parent().find(".radio").removeClass("selected");
-          $(this).addClass("selected");
-        });
-
-        $(".submit").click(function () {
-          return false;
-        });
-      });
+      var addresses = <%- JSON.stringify(addresses) %>
 
       const subTotals = clientCart.map((item) => {
         return item.quantity * item.product_id.price;
       });
-      console.log(subTotals);
 
       const subTotalSpan = document.querySelector(
         ".total-cart-box ul.list li span.sub-total"
@@ -794,7 +619,6 @@
         return num + total;
       }, 0)}`;
 
-      console.log(clientCart);
       const plusButtons = document.querySelectorAll(".bootstrap-touchspin-up");
       const minusButtons = document.querySelectorAll(
         ".bootstrap-touchspin-down"
@@ -843,7 +667,6 @@
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            // 'Content-Type': 'application/x-www-form-urlencoded',
           },
           body: JSON.stringify(data),
         };
@@ -861,6 +684,87 @@
           location.reload(false);
         }
       }
+
+      // Multi-step code
+$(document).ready(function () {
+  var current_fs, next_fs, previous_fs; //fieldsets
+  var opacity;
+
+  $(".next").click(function () {
+    current_fs = $(this).parent();
+    next_fs = $(this).parent().next();
+
+    if (this.classList.contains("shipping-section")) {
+      createOrder();
+    }
+
+    //Add Class Active
+    $("#progressbar li")
+      .eq($("fieldset.steps").index(next_fs))
+      .addClass("active");
+
+    //show the next fieldset
+    next_fs.show();
+    //hide the current fieldset with style
+    current_fs.animate(
+      { opacity: 0 },
+      {
+        step: function (now) {
+          // for making fielset appear animation
+          opacity = 1 - now;
+
+          current_fs.css({
+            display: "none",
+            position: "relative",
+          });
+          next_fs.css({ opacity: opacity });
+        },
+        duration: 600,
+      }
+    );
+  });
+
+  $(".previous").click(function () {
+    current_fs = $(this).parent();
+    previous_fs = $(this).parent().prev();
+
+    //Remove class active
+    $("#progressbar li")
+      .eq($("fieldset").index(current_fs))
+      .removeClass("active");
+
+    //show the previous fieldset
+    previous_fs.show();
+
+    //hide the current fieldset with style
+    current_fs.animate(
+      { opacity: 0 },
+      {
+        step: function (now) {
+          // for making fielset appear animation
+          opacity = 1 - now;
+
+          current_fs.css({
+            display: "none",
+            position: "relative",
+          });
+          previous_fs.css({ opacity: opacity });
+        },
+        duration: 600,
+      }
+    );
+  });
+
+  $(".radio-group .radio").click(function () {
+    $(this).parent().find(".radio").removeClass("selected");
+    $(this).addClass("selected");
+  });
+
+  $(".submit").click(function () {
+    return false;
+  });
+});
+      
     </script>
   </body>
 </html>

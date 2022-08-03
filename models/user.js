@@ -3,13 +3,13 @@ const { isEmail, isStrongPassword } = require("validator");
 const bcrypt = require("bcrypt");
 
 const addressSchema = new mongoose.Schema({
-  first_name:{
-    type:String,
-    required:true,
+  first_name: {
+    type: String,
+    required: true,
   },
-  last_name:{
-    type:String,
-    required:true,
+  last_name: {
+    type: String,
+    required: true,
   },
   state: {
     type: String,
@@ -109,7 +109,10 @@ const userSchema = new mongoose.Schema({
 userSchema.statics.login = async (email, password) => {
   const user = await User.findOne({ email });
   if (user) {
+    console.log("password", password);
+    console.log("passwordhash", user.password);
     const passwordMatched = await bcrypt.compare(password, user.password);
+    console.log(passwordMatched);
     if (passwordMatched) {
       return user;
     }
@@ -118,14 +121,15 @@ userSchema.statics.login = async (email, password) => {
   throw Error("This email address does not exist");
 };
 
-// fire a function before a document is saved in the database
-userSchema.pre("save", async function (next) {
-  if (this.password != undefined) {
+userSchema.statics.hashPassword = async (password) => {
+  if (password != undefined) {
+    console.log("in pre", password);
     const salt = await bcrypt.genSalt();
-    this.password = await bcrypt.hash(this.password, salt);
+    password = await bcrypt.hash(password, salt);
+    console.log("hashed", password);
+    return password;
   }
-  next(); // do not remove this
-});
+};
 
 const User = mongoose.model("user", userSchema);
 
