@@ -1,0 +1,35 @@
+<html>
+    <body>
+        <% if(product != null && product !=undefined ){%>
+        <form action="/editProducts" method="POST">
+            
+            <input name="next" value="<%= next%>">
+            <input name="_id" value="<%= product._id%>"><br><br>
+            <div>
+                Name: <input name="product_name" value="<%= product.product_name %>"> </input>
+                
+                Price: <input name="price" value="<%= product.price %>" ></input>
+            </div><br>
+            <div>
+                Description: <textarea name="description"><%= product.description %></textarea>
+            </div><br>
+                        
+            <div>
+                category: <input name="category" value="<%= product.category %>" ></input>
+                Sub Category: <input name="sub_category" value="<%= product.sub_category %>" ></input>
+            </div><br>
+
+            <div>
+                <img width="270" height="350" src="<%= product.inventory[0].large_images[0] %>" alt=""> 
+            </div><br><br>
+            <div>
+                <input type="submit" name="submit" text="submit">
+            </div>
+        </form>
+        <a href="/editProducts/<%=next +1 %>"><h1>NEXT</h1></a>
+        <a href="/editProducts/<%=next -1 %>"><h1>PREVIOUS</h1></a>
+        <%}else{%>
+            <h2>No Products This Way!!</h2>
+        <%}%>
+    </body>
+</html>

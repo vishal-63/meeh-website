@@ -1,6 +1,9 @@
 const Razorpay = require('razorpay');
 const Order = require('../models/order');
 
+const hbs = require("nodemailer-express-handlebars");
+const nodemailer = require("nodemailer");
+
 const instance = new Razorpay({
     key_id:process.env.RAZORPAY_KEY,
     key_secret:process.env.RAZORPAY_SECRET,
@@ -37,9 +40,10 @@ module.exports.verify_order = async (req,res)=>{
     
     const {razorpay_order_id , razorpay_payment_id , razorpay_signature} = req.body;
 
-    generated_signature = hmac_sha256(order_id + "|" + razorpay_payment_id, secret);
+    generated_signature = hmac_sha256(razorpay_order_id + "|" + razorpay_payment_id, secret);
 
   if (generated_signature == razorpay_signature) {
+
     console.log("payment is successful");
   }
 }

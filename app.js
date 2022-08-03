@@ -32,6 +32,7 @@ const checkoutRouter = require("./routes/checkout");
 const blogRouter = require("./routes/blogs");
 const googleAuthRouter = require("./routes/googleAuth");
 const imageRouter = require("./routes/imageUpload");
+const productUploadRouter = require("./routes/uploadProducts");
 
 const cartController = require("./controllers/cartController");
 
@@ -93,7 +94,9 @@ app.use("/wishlist", wishlistRouter);
 app.use("/register", registerRouter);
 app.use("/blogs", blogRouter);
 app.use("/auth/google", googleAuthRouter);
-app.use("/images", imageRouter);
+app.use("/images",imageRouter);
+//temp for uploading images to database;
+app.use("/editProducts",productUploadRouter);
 
 //about us route
 app.get("/about", async (req, res) => {
