@@ -271,7 +271,7 @@
 
                         <div class="othre-options clearfix">
                           <div class="item-quantity">
-                            <input class="quantity-spinner" type="text" value="1" name="quantity">
+                            <input class="quantity-spinner" type="text" value="1" name="quantity" id="quantity">
                           </div>
                           <div class="btn-box"><button type="button" class="theme-btn-two"
                               onClick="addToCart('<%= product._id %>')">Add to
@@ -494,7 +494,7 @@
         descTags.forEach(tag => {
           descArray.forEach(desc => {
             const li = document.createElement("li")
-            li.textContent = `- &#x20B9;{desc}`
+            li.textContent = `- ${desc}`
             tag.appendChild(li)
           })
         })

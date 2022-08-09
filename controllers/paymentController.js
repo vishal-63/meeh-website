@@ -27,8 +27,6 @@ module.exports.create_order = async (req, res) => {
     req.body.address
   );
 
-  console.log(req.body.address);
-
   const formattedAddress = `${req.body.address.house_no}, ${req.body.address.street}, ${req.body.address.landmark}, ${req.body.address.city} - ${req.body.address.pincode}, ${req.body.address.state}`;
 
   const user = await User.findById(res.user.id);
@@ -46,10 +44,10 @@ module.exports.create_order = async (req, res) => {
   const currency = "INR";
   const receipt = order._id;
   const notes = {
-    shipping_name: req.body.address.name,
+    shipping_name: `${req.body.address.first_name} ${req.body.address.last_name}`,
     shipping_address: formattedAddress,
     sub_total: order.sub_total,
-    coupon_discount: order.coupon.discount,
+    coupon_discount: order.coupon?.discount,
   };
 
   try {
@@ -106,8 +104,9 @@ module.exports.verify_order = async (req, res) => {
         }
       });
 
-      const user = User.findById(res.user.id);
+      const user = await User.findById(order.user_id);
       user.cart = [];
+      user.save();
 
       const { email, contact } = await razorpayInstance.payments.fetch(
         payment_id
@@ -156,7 +155,7 @@ module.exports.verify_order = async (req, res) => {
 
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
-          return console.log(error);
+          return console.log(error.message);
         }
         console.log("Message sent: " + info.response);
         res.status(200).send("Link to reset password is successfully sent!");

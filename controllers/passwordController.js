@@ -83,9 +83,14 @@ module.exports.forgot_password_post = async (req, res) => {
         context: {
           name: user.first_name,
           link:
-            "localhost:5000/profile/resetForgottenPassword?token=" + emailToken, // replace {{company}} with My Company
+            "http://localhost:5000/profile/forgot-password?token=" + emailToken, // replace {{company}} with My Company
         },
       };
+
+      console.log(
+        "http://localhost:5000/profile/resetForgottenPassword?token=" +
+          emailToken
+      );
 
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {

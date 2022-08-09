@@ -68,14 +68,11 @@ module.exports.cart_add_product = async (req, res) => {
       });
     }
 
-    console.log(user.cart);
-    console.log(req.body);
     user.save((err, result) => {
       if (err) {
         throw new Error({ message: "Failed to add product to cart!" });
       }
     });
-    console.log(user.cart);
     res.status(200).send("success!");
   } catch (err) {
     console.log(err.message);
@@ -112,8 +109,6 @@ module.exports.cart_update_product = async (req, res) => {
   // console.log(user)
 
   try {
-    console.log("request = ", req.body);
-
     user.cart.map((item) => {
       if (item._id == req.body.id) {
         item.quantity = item.quantity + req.body.quantity;

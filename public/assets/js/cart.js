@@ -65,12 +65,13 @@ async function createOrder() {
   });
   const data = await res.json();
   if (res.ok) {
+    console.log(data);
     order = data.result;
     key = data.key;
     userDetails = data.userDetails;
     orderSummarySubtotal.textContent = "Rs. " + order.notes.sub_total;
-    orderSummaryCouponDiscount.textContent =
-      "Rs. " + order.notes.coupon_discount;
+    // orderSummaryCouponDiscount.textContent =
+    //   "Rs. " + order.notes.coupon_discount;
     orderSummaryGrandtotal.textContent = "Rs. " + order.amount / 100;
     shippingNameDiv.textContent = order.notes.shipping_name;
     shippingAddressDiv.textContent = order.notes.shipping_address;
