@@ -111,8 +111,9 @@ module.exports.verify_order = async (req, res) => {
         }
       });
 
-      const user = User.findById(res.user.id);
+      const user = await User.findById(order.user_id);
       user.cart = [];
+      user.save();
 
       const { email, contact } = await razorpayInstance.payments.fetch(
         payment_id
@@ -161,7 +162,7 @@ module.exports.verify_order = async (req, res) => {
 
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
-          return console.log(error);
+          return console.log(error.message);
         }
         console.log("Message sent: " + info.response);
         res.status(200).send("Link to reset password is successfully sent!");

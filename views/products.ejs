@@ -97,7 +97,7 @@
                       <li><a href="/blogs">Blog</a></li>
                       <li><a href="/contact">Contact</a></li>
                       <br>
-                      <li>
+                      <!-- <li>
                         <div class="form-group">
                           <form action="/products/search" method="GET">
                             <fieldset style=" display:flex; ">
@@ -106,7 +106,7 @@
                             </fieldset>
                             </form>
                         </div>    
-                      </li>
+                      </li> -->
                     </ul>
                     
                   </div>
@@ -115,11 +115,11 @@
               </div>
 
               <ul class="menu-right-content clearfix">
-                <!-- <li>
-                                  <div class="search-btn">
-                                      <button type="button" class="search-toggler"><i class="flaticon-search"></i></button>
-                                  </div>
-                              </li> -->
+                <li>
+                    <div class="search-btn">
+                        <button type="button" class="search-toggler"><i class="flaticon-search"></i></button>
+                    </div>
+                </li>
                 <li>
                   <a href="/wishlist"><i class="flaticon-like"></i></a>
                 </li>
@@ -531,8 +531,6 @@
         const data = {
           id,
           quantity: 1,
-          selected_size: "large",
-          selected_color: "f6f6f6",
         };
         const url = "/cart/addToCart";
         const options = {

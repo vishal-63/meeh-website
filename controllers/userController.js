@@ -17,7 +17,6 @@ const handleErrors = (err) => {
     phone_no: null,
     confirm_password: null,
   };
-  console.log(err.message, err.code);
 
   //   Check for duplicate email with err.code
   if (err.code == 11000) {
@@ -48,7 +47,6 @@ module.exports.login_get = (req, res) => {
 
 module.exports.login_post = async (req, res) => {
   const { email, password } = req.body;
-  console.log(req.body);
   try {
     const user = await User.login(email, password);
     const jwtToken = createJWT(user._id);
@@ -70,7 +68,6 @@ module.exports.signup_post = async (req, res) => {
   const { first_name, last_name, email, phone_no, password, confirm_password } =
     req.body;
 
-  console.log(req.body.body);
   try {
     if (password === confirm_password) {
       const user = User({
@@ -84,7 +81,6 @@ module.exports.signup_post = async (req, res) => {
       user.password = await User.hashPassword(user.password);
       user.save((err, user) => {
         if (err) throw new Error("An error occurred while saving the user!");
-        else console.log(user);
       });
 
       const jwtToken = createJWT(user._id);
@@ -126,7 +122,6 @@ module.exports.profile_get = async (req, res) => {
 //controlles post request to change account / profile for users
 module.exports.profile_post = async (req, res) => {
   const { first_name, last_name, phone } = req.body;
-  console.log(req.body.userDetails);
   try {
     const user = await User.findById(res.user.id);
     user.first_name = first_name;
@@ -137,7 +132,6 @@ module.exports.profile_post = async (req, res) => {
         console.log(err.message);
         throw new Error("Could not save user details!");
       } else {
-        console.log(result);
         res.redirect("userAccount");
       }
     });
@@ -154,7 +148,6 @@ module.exports.save_address = async (req, res) => {
     user.addresses.push(address);
     user.save((err, user) => {
       if (err) throw new Error(err.message);
-      else console.log(user.addresses);
       res.redirect(req.header("Referer") || "/profile");
     });
   } catch (err) {
@@ -192,7 +185,6 @@ module.exports.forgot_password_post = async (req, res) => {
         if (err) {
           throw new Error("Error while saving new otp!");
         } else {
-          console.log(result);
           res.send(result);
         }
       });

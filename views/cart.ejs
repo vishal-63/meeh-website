@@ -395,6 +395,9 @@
                                 Subtotal:<span class="sub-total"></span>
                               </li>
                               <li>
+                                Shipping:<span class="shipping-charge">&#x20B9; 80</span>
+                              </li>
+                              <li>
                                 Order Total:<span class="order-total" ></span>
                               </li>
                             </ul>
@@ -424,7 +427,7 @@
                                   onchange="selectAddress(<%=i%>)"
                                 />
                                 <span class="material-control-indicator"></span>
-                                <h5 class="description"><%= addresses[i].first_name %> <%= addresses[i].first_name %></h5>
+                                <h5 class="description"><%= addresses[i].first_name %> <%= addresses[i].last_name %></h5>
                                 <p>
                                   <%= addresses[i].house_no %>, <%= addresses[i].street %>, <%= addresses[i].landmark %> <%= addresses[i].landmark && "," %> <%= addresses[i].city %> - <%= addresses[i].pincode %>
                                   <br> 
@@ -434,6 +437,7 @@
                             </div>
                           </div>
                           <% } %>
+                        <% } %>
                           <div class="card add-new-address" onclick="showAddressFields()">
                             <div class="card-body">
                               <div class="flaticon-plus"></div>
@@ -441,7 +445,6 @@
                             </div>
                           </div>
                         </div>
-                        <% } %>
 
                       <form action="/profile/add-new-address" method="post" class="shipping-form d-none">
                         <h4 class="details-title ml-3">Personal Details</h4>
@@ -535,7 +538,8 @@
                       </div>
                       <div class="order-total mt-3 text-right">
                         <div class="sub-total">Sub Total: <span></span></div>
-                        <div class="coupon-discount text-primary">- Coupon Discount: <span></span></div>
+                        <!-- <div class="coupon-discount text-primary">- Coupon Discount: <span></span></div> -->
+                        <div class="">+ Shipping: <span>Rs. 80</span></div>
                         <div class="grand-total text-dark">Grand Total: <span></span></div>
                       </div>
                       <div class="shipping-summary">
@@ -609,6 +613,7 @@
       const subTotals = clientCart.map((item) => {
         return item.quantity * item.product_id.price;
       });
+      const grandTotal = [...subTotals, 80]
 
       const subTotalSpan = document.querySelector(
         ".total-cart-box ul.list li span.sub-total"
@@ -616,10 +621,10 @@
       const orderTotalSpan = document.querySelector(
         ".total-cart-box ul.list li span.order-total"
       );
-      subTotalSpan.textContent = `&#x20B9;${subTotals.reduce((total, num) => {
+      subTotalSpan.innerHTML = `&#x20B9; ${subTotals.reduce((total, num) => {
         return num + total;
       }, 0)}`;
-      orderTotalSpan.textContent = `&#x20B9;${subTotals.reduce((total, num) => {
+      orderTotalSpan.innerHTML = `&#x20B9; ${grandTotal.reduce((total, num) => {
         return num + total;
       }, 0)}`;
 
