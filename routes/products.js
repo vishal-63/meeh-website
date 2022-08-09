@@ -17,6 +17,8 @@ require("../models/user");
 
 // router.get("/category",productController.products_get_categories);
 
+router.get("/search",productController.products_get_search);
+
 router.get("/:id", productController.single_product_get);
 
 router.post("/", productController.products_get_next);

@@ -161,30 +161,57 @@
           <div class="row clearfix">
             <div class="col-lg-6 col-md-12 col-sm-12 image-column">
               <div class="bxslider">
-                <% for(let i=0;i<product.inventory[0].thumbnail_images.length;i++) { %>
-                  <div class="slider-content">
-                    <div class="slider-pager">
-                      <ul class="thumb-box">
-                        <% for(let j=0;j<product.inventory[0].thumbnail_images.length;j++) { %>
-                          <li>
-                            <a class="<%= j==0 && 'active' %>" data-slide-index="<%= j %>" href="#">
-                              <figure>
-                                <img src="<%= product.inventory[0].thumbnail_images[j] %>" alt="">
-                              </figure>
-                            </a>
-                          </li>
-                          <% } %>
-                      </ul>
+                <% if(product.inventory[0].thumbnail_images.length >0){%>
+                  <% for(let i=0;i<product.inventory[0].thumbnail_images.length;i++) { %>
+                    <div class="slider-content">
+                      <div class="slider-pager">
+                        <ul class="thumb-box">
+                          <% for(let j=0;j<product.inventory[0].thumbnail_images.length;j++) { %>
+                            <li>
+                              <a class="<%= j==0 && 'active' %>" data-slide-index="<%= j %>" href="#">
+                                <figure>
+                                  <img src="<%= product.inventory[0].thumbnail_images[j] %>" alt="">
+                                </figure>
+                              </a>
+                            </li>
+                            <% } %>
+                        </ul>
+                      </div>
+                      <div class="product-image">
+                        <figure class="image">
+                          <img src="<%= product.inventory[0].large_images[i]%>" alt="">
+                          <a href="<%= product.inventory[0].large_images[i]%>" class="lightbox-image"><i
+                              class="flaticon-search-2"></i></a>
+                        </figure>
+                      </div>
                     </div>
-                    <div class="product-image">
-                      <figure class="image">
-                        <img src="<%= product.inventory[0].large_images[i]%>" alt="">
-                        <a href="<%= product.inventory[0].large_images[i]%>" class="lightbox-image"><i
-                            class="flaticon-search-2"></i></a>
-                      </figure>
-                    </div>
-                  </div>
-                  <% } %>
+                    <% } %>
+                  <%}else{%>
+                    <% for(let i=0;i<product.inventory[0].large_images.length;i++) { %>
+                      <div class="slider-content">
+                        <div class="slider-pager">
+                          <ul class="thumb-box">
+                            <% for(let j=0;j<product.inventory[0].large_images.length;j++) { %>
+                              <li>
+                                <a class="<%= j==0 && 'active' %>" data-slide-index="<%= j %>" href="#">
+                                  <figure>
+                                    <img src="<%= product.inventory[0].large_images[j] %>" alt="">
+                                  </figure>
+                                </a>
+                              </li>
+                              <% } %>
+                          </ul>
+                        </div>
+                        <div class="product-image">
+                          <figure class="image">
+                            <img src="<%= product.inventory[0].large_images[i]%>" alt="">
+                            <a href="<%= product.inventory[0].large_images[i]%>" class="lightbox-image"><i
+                                class="flaticon-search-2"></i></a>
+                          </figure>
+                        </div>
+                      </div>
+                      <% } %>
+                  <%}%>
               </div>
             </div>
             <div class="col-lg-6 col-md-12 col-sm-12 content-column">
