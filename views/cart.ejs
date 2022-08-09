@@ -361,7 +361,7 @@
                                   </div>
                                 </td>
                                 <td class="price">
-                                  $<%= cart[i].product_id.price %>
+                                  &#x20B9;<%= cart[i].product_id.price %>
                                 </td>
                                 <td class="qty">
                                   <div class="item-quantity">
@@ -375,7 +375,7 @@
                                   </div>
                                 </td>
                                 <td class="sub-total">
-                                  $<%= cart[i].quantity *
+                                  &#x20B9;<%= cart[i].quantity *
                                   cart[i].product_id.price %>
                                 </td>
                               </tr>
@@ -424,8 +424,12 @@
                                   onchange="selectAddress(<%=i%>)"
                                 />
                                 <span class="material-control-indicator"></span>
-                                <h5 class="description"><%= addresses[i].name %></h5>
-                                <p><%= addresses[i].address %></p>
+                                <h5 class="description"><%= addresses[i].first_name %> <%= addresses[i].first_name %></h5>
+                                <p>
+                                  <%= addresses[i].house_no %>, <%= addresses[i].street %>, <%= addresses[i].landmark %> <%= addresses[i].landmark && "," %> <%= addresses[i].city %> - <%= addresses[i].pincode %>
+                                  <br> 
+                                  <%= addresses[i].state %>
+                                </p>
                               </label>
                             </div>
                           </div>
@@ -612,10 +616,10 @@
       const orderTotalSpan = document.querySelector(
         ".total-cart-box ul.list li span.order-total"
       );
-      subTotalSpan.textContent = `$${subTotals.reduce((total, num) => {
+      subTotalSpan.textContent = `&#x20B9;${subTotals.reduce((total, num) => {
         return num + total;
       }, 0)}`;
-      orderTotalSpan.textContent = `$${subTotals.reduce((total, num) => {
+      orderTotalSpan.textContent = `&#x20B9;${subTotals.reduce((total, num) => {
         return num + total;
       }, 0)}`;
 

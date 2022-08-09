@@ -82,10 +82,7 @@ const orderSchema = new mongoose.Schema({
     required: true,
   },
   shipping_address: {
-    type: {
-      name: String,
-      address: String,
-    },
+    type: addressSchema,
     required: true,
   },
   shipping_status: {

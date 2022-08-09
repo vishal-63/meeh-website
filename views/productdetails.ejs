@@ -203,7 +203,7 @@
                   <div class="reviews"><a href="#">(<%= product.reviews.length %>
                         Review)</a></div>
                 </div>
-                <span class="item-price">$<%= product.price %></span>
+                <span class="item-price">&#x20B9;<%= product.price %></span>
                 <div class="text">
                   <p class="product-description">
                     <ul></ul>
@@ -383,7 +383,7 @@
                   </figure>
                   <div class="lower-content">
                     <a href="#">Cold Crewneck Sweater</a>
-                    <span class="price">$70.30</span>
+                    <span class="price">&#x20B9;70.30</span>
                   </div>
                 </div>
               </div>
@@ -401,7 +401,7 @@
                   </figure>
                   <div class="lower-content">
                     <a href="#">Multi-Way Ultra Crop Top</a>
-                    <span class="price">$50.00</span>
+                    <span class="price">&#x20B9;50.00</span>
                   </div>
                 </div>
               </div>
@@ -418,7 +418,7 @@
                   </figure>
                   <div class="lower-content">
                     <a href="#">Side-Tie Tank</a>
-                    <span class="price">$40.00</span>
+                    <span class="price">&#x20B9;40.00</span>
                   </div>
                 </div>
               </div>
@@ -435,7 +435,7 @@
                   </figure>
                   <div class="lower-content">
                     <a href="#">Cold Crewneck Sweater</a>
-                    <span class="price">$60.30</span>
+                    <span class="price">&#x20B9;60.30</span>
                   </div>
                 </div>
               </div>
@@ -467,7 +467,7 @@
         descTags.forEach(tag => {
           descArray.forEach(desc => {
             const li = document.createElement("li")
-            li.textContent = `- ${desc}`
+            li.textContent = `- &#x20B9;{desc}`
             tag.appendChild(li)
           })
         })

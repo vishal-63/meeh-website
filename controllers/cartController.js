@@ -34,12 +34,7 @@ module.exports.cart_get = async (req, res) => {
     model: Product,
   });
   const cart = user.cart;
-  const addresses = user.addresses.map((address) => {
-    return {
-      name: `${address.first_name} ${address.last_name}`,
-      address: `${address.house_no}, ${address.street}, ${address.landmark}, ${address.city}, ${address.state} - ${address.pincode}`,
-    };
-  });
+  const addresses = user.addresses;
   res.render("cart", { cart, userLoggedIn, addresses });
 };
 

@@ -33,6 +33,7 @@ const blogRouter = require("./routes/blogs");
 const googleAuthRouter = require("./routes/googleAuth");
 const imageRouter = require("./routes/imageUpload");
 const productUploadRouter = require("./routes/uploadProducts");
+const shippingRouter = require("./routes/shipping");
 
 const cartController = require("./controllers/cartController");
 
@@ -63,9 +64,8 @@ mongoose
     console.log(`listening on port ${port}`);
   })
   .catch((err) => {
-    console.log("hehe");
+    console.log("Error while connecting to mongoose");
     console.log(err);
-    console.log(err.message);
   });
 
 // Ejs view engine
@@ -94,9 +94,10 @@ app.use("/wishlist", wishlistRouter);
 app.use("/register", registerRouter);
 app.use("/blogs", blogRouter);
 app.use("/auth/google", googleAuthRouter);
-app.use("/images",imageRouter);
+app.use("/images", imageRouter);
+app.use("/shipping", shippingRouter);
 //temp for uploading images to database;
-app.use("/editProducts",productUploadRouter);
+app.use("/editProducts", productUploadRouter);
 
 //about us route
 app.get("/about", async (req, res) => {
