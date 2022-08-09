@@ -50,23 +50,30 @@ module.exports.create_order = async (req, res) => {
     coupon_discount: order.coupon?.discount,
   };
 
+  console.log(amount);
+
   try {
     razorpayInstance.orders.create(
       { amount, currency, receipt, notes },
       (err, result) => {
         if (!err) {
           const key = process.env.RAZORPAY_KEY;
+          console.log(key);
 
           order.payment_status = "Pending";
           order.shipping_status = "Ordered";
           order.razorpay_order_id = result.id;
 
-          order.save().catch((err) => {
-            console.log(err);
-            throw new Error(
-              "An error occurred while creating your order. Please try again later!"
-            );
-          });
+          order
+            .save()
+            .then((order) => console.log(order))
+            .catch((err) => {
+              console.log(err);
+              throw new Error(
+                "An error occurred while creating your order. Please try again later!"
+              );
+            });
+          console.log({ result, key, userDetails });
           res.json({ result, key, userDetails });
         } else {
           console.log(err);
@@ -179,4 +186,4 @@ module.exports.verify_order = async (req, res) => {
     console.log(err);
     res.status(400).send(err.message);
   }
-};
+}
