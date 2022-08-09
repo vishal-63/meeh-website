@@ -25,26 +25,27 @@ module.exports.createDbOrder = async (userId, cart, address) => {
       0
     );
 
-    let couponDiscount = 0;
-    const coupon = await Coupon.findOne({ coupon_code: "RAKHI20" });
+    // let couponDiscount = 0;
 
-    if (order.sub_total > coupon.min_total) {
-      if (coupon.percentage) {
-        couponDiscount =
-          (order.sub_total * coupon.percentage) / 100 > coupon.max_discount
-            ? coupon.max_discount
-            : (order.sub_total * coupon.percentage) / 100;
-      } else {
-        couponDiscount = coupon.amount;
-      }
-    }
+    order.coupon = null;
 
-    order.coupon = {
-      coupon_id: coupon._id,
-      discount: couponDiscount,
-    };
+    // if (order.sub_total > coupon?.min_total) {
+    //   if (coupon?.percentage) {
+    //     couponDiscount =
+    //       (order.sub_total * coupon?.percentage) / 100 > coupon?.max_discount
+    //         ? coupon?.max_discount
+    //         : (order.sub_total * coupon?.percentage) / 100;
+    //   } else {
+    //     couponDiscount = coupon?.amount;
+    //   }
+    // }
 
-    order.grand_total = order.sub_total - order.coupon.discount;
+    // order.coupon = {
+    //   coupon_id: coupon?._id,
+    //   discount: couponDiscount,
+    // };
+
+    order.grand_total = order.sub_total - (order.coupon?.discount || 0) + 80;
     order.shipping_address = address;
 
     return order;

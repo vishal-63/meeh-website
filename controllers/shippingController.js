@@ -188,7 +188,9 @@ async function create_order() {
   const manifest_url = manifest.manifest_url;
 }
 
-async function wrapper_api(dbOrder, email, contact, products) {
+module.exports.wrapper_api = async (dbOrder, email, contact, products) => {
+  const token = await get_access_token();
+
   const orderItems = products.map((product) => {
     return {
       name: product.product_id.product_name,
@@ -227,16 +229,16 @@ async function wrapper_api(dbOrder, email, contact, products) {
     url: "https://apiv2.shiprocket.in/v1/external/shipments/create/forward-shipment",
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer {{token}}",
+      Authorization: `Bearer ${token}`,
     },
     data: data,
   };
 
   axios(config)
     .then(function (response) {
-      console.log(JSON.stringify(response.data));
+      console.log(response.data);
     })
     .catch(function (error) {
-      console.log(error);
+      console.log("create order", error.message);
     });
-}
+};
