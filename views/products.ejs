@@ -73,21 +73,21 @@
                             <a href="/products?category=bookmarks">Bookmarks</a>
                           </li>
                           <li>
-                            <a href="/products?category=pop-grippers"
+                            <a href="/products?category=pop socket"
                               >Pop Grippers</a
                             >
                           </li>
                           <li>
-                            <a href="/products?category=tote-bags">Tote Bags</a>
+                            <a href="/products?category=tote bag">Tote Bags</a>
                           </li>
                           <li>
-                            <a href="/products?category=badges">Badges</a>
+                            <a href="/products?category=badge">Badges</a>
                           </li>
                           <li>
-                            <a href="/products?category=diaries">Diaries</a>
+                            <a href="/products?category=a5 dairy">Diaries</a>
                           </li>
                           <li>
-                            <a href="/products?category=mousepads">Mousepads</a>
+                            <a href="/products?category=mousepad">Mousepads</a>
                           </li>
                         </ul>
                       </li>
@@ -96,8 +96,21 @@
                       </li>
                       <li><a href="/blogs">Blog</a></li>
                       <li><a href="/contact">Contact</a></li>
+                      <br>
+                      <li>
+                        <div class="form-group">
+                          <form action="/products/search" method="GET">
+                            <fieldset style=" display:flex; ">
+                              <input type="text" class="form-control" name="search-input" value="" placeholder="Search Here" required >
+                              <input type="submit" value="Search Now!" class="theme-btn">
+                            </fieldset>
+                            </form>
+                        </div>    
+                      </li>
                     </ul>
+                    
                   </div>
+                    
                 </nav>
               </div>
 
@@ -204,7 +217,7 @@
       <section class="page-title centred">
         <div
           class="pattern-layer"
-          style="background-image: url(assets/images/background/page-title.jpg)"
+          style="background-image: url(assets/images/bannerIMG.png)"
         ></div>
         <div class="auto-container">
           <div class="content-box">
@@ -246,18 +259,18 @@
           </div>
 
           <div class="our-shop">
-            <div class="row clearfix">
+            <div class="row clearfix" id="productContainer">
               <% for(let i=0;i<productList.length;i++){ %>
               <div class="col-lg-3 col-md-6 col-sm-12 shop-block">
                 <div class="shop-block-one">
                   <div class="inner-box">
                     <figure class="image-box">
                       <img
-                        src="<%= productList[i].inventory[0].thumbnail_images[0]!=null?productList[i].inventory[0].thumbnail_images[0]:'assets/images/resource/shop/shop-1.jpg' %>"
+                        src="<%= productList[i].inventory[0].large_images[0]!=null?productList[i].inventory[0].large_images[0]:'assets/images/resource/shop/shop-1.jpg' %>"
                         alt=""
                       />
                       <ul class="info-list clearfix">
-                        <li onClick="addWishlist('<%= productList[i]._id %>')">
+                        <li onClick="()=>addWishlist('<%= productList[i]._id %>')">
                           <a><i class="flaticon-heart"></i></a>
                         </li>
                         <li onClick="addToCart('<%= productList[i]._id %>')">
@@ -266,7 +279,7 @@
                       </ul>
                     </figure>
                     <div class="lower-content">
-                      <a href="products/<%= productList[i]._id %>">
+                      <a href="/products/<%= productList[i]._id %>">
                         <%= productList[i].product_name %>
                       </a>
                       <span class="price">&#8377;<%= productList[i].price %></span>
@@ -276,11 +289,12 @@
               </div>
               <% } %>
               <div class="btn-box">
-                <button class="theme-btn-two" onClick="loadMoreProducts()">
-                  Load More
-                </button>
+                
               </div>
             </div>
+            <button class="theme-btn-two" onClick="loadMoreProducts()">
+                Load More
+              </button>
           </div>
         </div>
       </section>
@@ -315,10 +329,11 @@
     <script src="assets/js/script.js"></script>
     <script>
       const alert = document.querySelector(".alert > span.text");
+
       async function addWishlist(id) {
         console.log(id);
         const data = { id: id };
-        const url = "/wishlist/addWishlist";
+        const url = "/wishlist/()=>addWishlist";
         const options = {
           method: "POST",
           headers: {
@@ -335,10 +350,16 @@
       }
 
       async function loadMoreProducts() {
+        let categoryName=null;
+
+        if(window.location.search.length){
+          categoryName = window.location.search.substr(1).split('&')[0].split('=')[1].replace("%20"," ");
+        }
+
         const url = "/products";
         const reqData = {
-          productsLoaded:
-            document.getElementById("productContainer").children.length,
+          productsLoaded:document.getElementById("productContainer").children.length,
+          category: categoryName
         };
         const options = {
           headers: {
@@ -347,24 +368,28 @@
           method: "POST",
           body: JSON.stringify(reqData),
         };
+
+
         const response = await fetch(url, options);
         const data = await response.json();
-        console.log(data);
+        
+        // console.log(data);
 
         data.newProducts.map((product) => {
           const imgSource =
-            product.inventory[0].thumbnail_images[0] ||
+            product.inventory[0].thumbnail_images[0] ||product.inventory[0].large_images[0] 
             "assets/images/resource/shop/shop-1.jpg";
           const productID = product._id;
-          const productName = product.prodcutName;
+          const productName = product.product_name;
           const productPrice = product.price;
-
+          
           createProductElements(
             imgSource,
             productID,
             productName,
             productPrice
           );
+
         });
       }
 
@@ -410,7 +435,7 @@
 
         //strating of ul's first li tag
         const li0 = document.createElement("li");
-        li0.onclick = addWishlist(productID);
+        li0.onclick = ()=>addWishlist(productID);
 
         //starting of li0's a tag
         //child
@@ -426,7 +451,7 @@
 
         //starting of ul's second li tag
         const li1 = document.createElement("li");
-        li1.onclick = addToCart(productID);
+        li1.onclick = ()=>addToCart(productID);
 
         //starting of li1's a tag
         //child
@@ -455,6 +480,7 @@
 
         //starting of innerDiv's second child div tag
         const lowerContent = document.createElement("div");
+        lowerContent.classList.add("lower-content");
 
         //starting of lowerContent's first child a tag
         const aTag3 = document.createElement("a");
@@ -465,7 +491,7 @@
         //starting of lowerContent's second child span Tag
         const span = document.createElement("span");
         span.classList.add("price");
-        span.textContent = productName;
+        span.textContent = "$"+productPrice;
         //end of span tag
 
         //end of lowerContent
@@ -479,11 +505,11 @@
         li1.appendChild(aTag1);
 
         aTag2.appendChild(iTag2);
-        li2.appendChild(aTag2);
+        // li2.appendChild(aTag2);
 
         ul.appendChild(li0);
         ul.appendChild(li1);
-        // ul.appendChild(li2);
+        ul.appendChild(li2);
 
         figure.appendChild(image);
         figure.appendChild(ul);

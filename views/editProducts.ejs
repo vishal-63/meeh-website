@@ -2,32 +2,43 @@
     <body>
         <% if(product != null && product !=undefined ){%>
         <form action="/editProducts" method="POST">
-            
-            <input name="next" value="<%= next%>">
-            <input name="_id" value="<%= product._id%>"><br><br>
+        <div style="display:flex">
             <div>
-                Name: <input name="product_name" value="<%= product.product_name %>"> </input>
-                
-                Price: <input name="price" value="<%= product.price %>" ></input>
-            </div><br>
-            <div>
-                Description: <textarea name="description"><%= product.description %></textarea>
-            </div><br>
-                        
-            <div>
-                category: <input name="category" value="<%= product.category %>" ></input>
-                Sub Category: <input name="sub_category" value="<%= product.sub_category %>" ></input>
-            </div><br>
-
-            <div>
-                <img width="270" height="350" src="<%= product.inventory[0].large_images[0] %>" alt=""> 
-            </div><br><br>
-            <div>
-                <input type="submit" name="submit" text="submit">
+                <input name="next" value="<%= next%>">
+                <input name="_id" value="<%= product._id%>"><br><br>
+                Large Image: <input name="large_image" value="<%= product.inventory[0].large_images[0]%>" style=" width:500px " > <br><br>
+                Small Image: <input name="small_image" value="<%= product.inventory[0].thumbnail_images[0]%>"style=" width:500px "> <br><br>
+                <div>
+                    Name: <input name="product_name" value="<%= product.product_name %>" style="width:500px"> </input>
+                    <br>
+                    Price: <input name="price" value="<%= product.price %>" style="width:500px"></input>
+                </div><br>
+                <div>
+                    Description: <textarea name="description"><%= product.description %></textarea>
+                </div><br>
+                            
+                <div>
+                    category: <input name="category" value="<%= product.category %>" ></input>
+                    Sub Category: <input name="sub_category" value="<%= product.sub_category %>" ></input>
+                </div><br><br>
+                <div>
+                    <input type="submit" name="submit" text="submit"><br><br><br>
+                    <a href="/editProducts/delete/<%= product._id%>"><h1>Delete</h1></a>
+                </div>     
             </div>
+            <div>
+                <div>
+                    <img  style=" max-width:1600 ; max-height:690" src="<%= product.inventory[0].large_images[0] %>" alt=""> 
+                    <img width="270" height="350" src="<%= product.inventory[0].thumbnail_images[0] %>" alt=""> 
+                </div>
+            </div> 
+        </div>
         </form>
-        <a href="/editProducts/<%=next +1 %>"><h1>NEXT</h1></a>
-        <a href="/editProducts/<%=next -1 %>"><h1>PREVIOUS</h1></a>
+        <div style="display:felx flexDirection:column">
+            <a href="/editProducts/<%=next +1 %>"><h1>NEXT</h1></a><br/>
+            <a href="/editProducts/<%=next -1 %>"><h1>PREVIOUS</h1></a>
+        </div>
+        
         <%}else{%>
             <h2>No Products This Way!!</h2>
         <%}%>
