@@ -188,7 +188,7 @@ async function create_order() {
   const manifest_url = manifest.manifest_url;
 }
 
-async function wrapper_api(dbOrder, email, contact, products) {
+module.exports.wrapper_api = async(dbOrder, email, contact, products)=>{
   const orderItems = products.map((product) => {
     return {
       name: product.product_id.product_name,
