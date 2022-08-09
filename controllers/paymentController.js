@@ -1,19 +1,13 @@
 const Razorpay = require("razorpay");
 const crypto = require("crypto");
-const path = require("path");
+const nodemailer = require('nodemailer');
 
 // Models
 const Order = require("../models/order");
 const User = require("../models/user");
-const Product = require("../models/product");
 
 // Controllers
 const orderController = require("../controllers/orderController");
-const shippingController = require("../controllers/shippingController");
-
-//for mailing apis;
-const hbs = require("nodemailer-express-handlebars");
-const nodemailer = require("nodemailer");
 
 const razorpayInstance = new Razorpay({
   key_id: process.env.RAZORPAY_KEY,
@@ -27,19 +21,12 @@ module.exports.create_order = async (req, res) => {
     req.body.address
   );
 
-  console.log(req.body.address);
-
-  const formattedAddress = `${req.body.address.house_no}, ${req.body.address.street}, ${req.body.address.landmark}, ${req.body.address.city} - ${req.body.address.pincode}, ${req.body.address.state}`;
-
   const user = await User.findById(res.user.id);
   const userDetails = {
     name: `${user.first_name} ${user.last_name}`,
     email: user.email,
     phone_no: user.phone_no,
-    shipping_address: {
-      name: `${req.body.address.first_name} ${req.body.address.last_name}`,
-      address: formattedAddress,
-    },
+    shipping_address: req.body.address,
   };
 
   const amount = order.grand_total * 100;
@@ -47,7 +34,7 @@ module.exports.create_order = async (req, res) => {
   const receipt = order._id;
   const notes = {
     shipping_name: req.body.address.name,
-    shipping_address: formattedAddress,
+    shipping_address: req.body.address.address,
     sub_total: order.sub_total,
     coupon_discount: order.coupon.discount,
   };
@@ -85,98 +72,83 @@ module.exports.create_order = async (req, res) => {
 };
 
 module.exports.verify_order = async (req, res) => {
-  try {
+  try{
     const { order_id, payment_id } = req.body;
-    const razorpay_signature = req.headers["x-razorpay-signature"];
+    const razorpay_signature = req.headers['x-razorpay-signature']
 
-    const secret_key = process.env.RAZORPAY_SECRET;
+    const secret_key = process.env.RAZORPAY_SECRET
 
-    let hmac = crypto.createHmac("sha256", secret_key);
-    hmac.update(order_id + "|" + payment_id);
-    const generated_signature = hmac.digest("hex");
+    let hmac = crypto.createHmac('sha256', secret_key)
+    hmac.update(order_id + "|" + payment_id)
+    const generated_signature = hmac.digest("hex")
 
-    if (razorpay_signature === generated_signature) {
-      const order = await Order.findOne({ razorpay_order_id: order_id });
-      order.razorpay_payment_id = payment_id;
-      order.payment_status = "Successful";
+    if(razorpay_signature === generated_signature) {
+      const order = await Order.findOne({razorpay_order_id: order_id})
+      order.payment_status = "Successful"
 
       order.save((err, order) => {
-        if (err) {
-          console.log(err);
+        if(err){
+          console.log(err);          
         }
-      });
+        else{
+          console.log(order);
+          
+          //sending main of order placed.
+          const user = User.findById(res.user.id);
 
-      const user = User.findById(res.user.id);
-      user.cart = [];
-
-      const { email, contact } = await razorpayInstance.payments.fetch(
-        payment_id
-      );
-
-      /* ================================================ 
-        Sending mail to the user for order confirmation 
-      ================================================= */
-
-      const transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-          user: "shahvishal662@gmail.com",
-          pass: "eaajehtruffoslze",
-        },
-      });
-
-      const handlebarOptions = {
-        viewEngine: {
-          partialsDir: path.resolve("./views/"),
-          defaultLayout: false,
-        },
-        viewPath: path.resolve("./views/"),
-      };
-
-      transporter.use("compile", hbs(handlebarOptions));
-
-      const mailOptions = {
-        from: '"Meehh.com" <sdkm7016816547@gmail.com>', // sender address
-        to: user.email, // list of receivers
-        subject: "Order Placed",
-        template: "email", // the name of the template file i.e email.handlebars,
-        attachments: [
-          {
-            filename: "logo.png",
-            path: process.cwd() + "/public/assets/images/logo.png",
-            cid: "logo",
-          },
-        ],
-        context: {
-          name: user.first_name + " " + user.last_name,
-          email: user.email,
-          order: order,
-        },
-      };
-
-      transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-          return console.log(error);
+          const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+              user: "shahvishal662@gmail.com",
+              pass: "eaajehtruffoslze",
+            },
+            });
+      
+            const handlebarOptions = {
+              viewEngine: {
+                partialsDir: path.resolve("./views/"),
+                defaultLayout: false,
+              },
+              viewPath: path.resolve("./views/"),
+            };
+      
+            transporter.use("compile", hbs(handlebarOptions));
+      
+            const mailOptions = {
+              from: '"Meehh.com" <sdkm7016816547@gmail.com>', // sender address
+              to: user.email, // list of receivers
+              subject: "Order Placed",
+              template: "email", // the name of the template file i.e email.handlebars,
+              attachments: [
+                {
+                  filename: "logo.png",
+                  path: process.cwd() + "/public/assets/images/logo.png",
+                  cid: "logo",
+                },
+              ],
+              context: {
+                name: user.first_name + " "+ user.last_name,
+                email:user.email,
+                order:order
+              },
+            };
+      
+            transporter.sendMail(mailOptions, function (error, info) {
+              if (error) {
+                return console.log(error);
+              }
+              console.log("Message sent: " + info.response);
+              res.status(200).send("Link to reset password is successfully sent!");
+            });
         }
-        console.log("Message sent: " + info.response);
-        res.status(200).send("Link to reset password is successfully sent!");
-      });
+      })
 
-      /* ===========================
-        CREATE SHIPROCKET ORDER 
-      ============================ */
-      await order.populate({
-        path: "products.product_id",
-        model: Product,
-      });
-      const products = order.products;
-      shippingController.wrapper_api(order, email, contact, products);
-
-      res.json({ success: true, message: "Payment has been verified" });
+      res.json({success:true, message:"Payment has been verified"})
     } else {
-      res.json({ success: false, message: "Payment verification failed" });
+      res.json({success:false, message:"Payment verification failed"})
     }
-  } catch (err) {
+  }
+  catch(err){
     console.log(err);
     res.status(400).send(err.message);
   }
