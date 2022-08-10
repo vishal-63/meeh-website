@@ -51,7 +51,23 @@ module.exports.products_get_next = async (req, res) => {
     })
       .limit(100)
       .skip(productsLoaded);
-  } else {
+
+  } else if(req.body.search){
+
+    console.log(req.body.search);
+
+    const con = [];
+
+    req.body.search.split(" ").map((text) => {
+      con.push({ description: { $regex: text, $options: "i" } });
+    });
+
+    newProducts = await Product.find({ $and: con })
+      .limit(100)
+      .skip(parseInt(req.body.productsLoaded));
+
+
+  }else {
     newProducts = await Product.find().limit(100).skip(productsLoaded);
   }
   res.send({ newProducts });
@@ -99,12 +115,7 @@ module.exports.products_get_search = async (req, res) => {
     // const productList = await Product.find({ description:{  } }).limit(100)
     res.render("products", { productList, userLoggedIn, productsLoaded: 0 });
   } else {
-    const productList = await Product.find()
-      .limit(100)
-      .skip(parseInt(req.body.productsLoaded));
-
-    console.log(productList[0].inventory[0].large_images);
-    res.render("products", { productList, userLoggedIn, productsLoaded: 0 });
+    res.redirect("/products");
   }
 };
 

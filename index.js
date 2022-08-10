@@ -36,8 +36,10 @@ const googleAuthRouter = require("./routes/googleAuth");
 const imageRouter = require("./routes/imageUpload");
 const productUploadRouter = require("./routes/uploadProducts");
 const shippingRouter = require("./routes/shipping");
+const orderRouter = require("./routes/order.js");
 
 const cartController = require("./controllers/cartController");
+
 
 const app = express();
 
@@ -101,6 +103,7 @@ app.use("/images", imageRouter);
 app.use("/shipping", shippingRouter);
 //temp for uploading images to database;
 app.use("/editProducts", productUploadRouter);
+app.use("/orders",orderRouter);
 
 //about us route
 app.get("/about", async (req, res) => {

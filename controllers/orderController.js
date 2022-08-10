@@ -3,6 +3,11 @@ const Order = require("../models/order");
 const Product = require("../models/product");
 const User = require("../models/user");
 
+module.exports.get_user_orders = async (req,res)=>{
+  const orders = await Order.find({user_id:res.user.id});
+  res.send(orders);
+}
+
 module.exports.createDbOrder = async (userId, cart, address) => {
   try {
     let order = new Order();
