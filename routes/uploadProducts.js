@@ -233,19 +233,21 @@ router.get("/deleteProducts", async (req, res) => {
 //   // res.end("0");
 // });
 
-router.get("/changeDetails",async (req,res)=>{
-  
-  const products = await Product.find({product_name:{$regex:"bookmarks",$options:"i"}});
-  
+router.get("/changeDetails", async (req, res) => {
+  const products = await Product.find({
+    product_name: { $regex: "bookmarks", $options: "i" },
+  });
+
   let regEx = new RegExp("bookmarks", "ig");
-  
-  products.map( async (product)=>{
-    product.product_name = product.product_name.replace(regEx,"BOOKSMARK");
-    product.description = product.description.replace(regEx,"BOOKSMARK");
+
+  products.map(async (product) => {
+    product.product_name = product.product_name.replace(regEx, "BOOKSMARK");
+    product.description = product.description.replace(regEx, "BOOKSMARK");
     await product.save();
   });
 
   res.send("Done");
+});
 
 router.get("/delete/:id", async (req, res) => {
   console.log(req.params);
