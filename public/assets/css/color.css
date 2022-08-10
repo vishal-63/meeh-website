@@ -25,16 +25,16 @@
 }
 
 .search-popup .search-form fieldset input[type="submit"] {
-  background: var(--dark-purple);
+  background: var(--naples-yellow);
 }
 
 .search-popup .recent-searches li a:hover {
-  color: var(--dark-purple);
-  border-color: var(--dark-purple);
+  color: var(--naples-yellow);
+  border-color: var(--naples-yellow);
 }
 
 .search-popup .close-search:hover {
-  color: var(--dark-purple);
+  color: var(--naples-yellow);
 }
 
 .main-menu .navigation > li > a span {
