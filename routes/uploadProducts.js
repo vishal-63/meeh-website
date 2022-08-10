@@ -238,42 +238,18 @@ router.get("/deleteProducts",async(req,res)=>{
 
 
 router.get("/changeDetails",async (req,res)=>{
-
-  const products = new Product({
-    product_name: "TESTING",
-    description: `(Bookmarks) - Ultra HD Prints1 - Gloss Laminated Finish - Tear Proof - Ideal Size - Handy Feel - Dimensions: 7” * 2” (inch) - Weight: 4gm`,
-    size: [],
-    color: [],
-    price: 30,
-    category: "Bookmarks",
-    sub_category: "pending",
-    discount: 0,
-    reviews: [],
-    is_deleted: false,
-    inventory: [
-      {
-        stock: 0,
-        color_id: "",
-        thumbnail_images: [],
-        large_images: [],
-      },
-    ],
+  
+  const products = await Product.find({product_name:{$regex:"bookmarks",$options:"i"}});
+  
+  let regEx = new RegExp("bookmarks", "ig");
+  
+  products.map( async (product)=>{
+    product.product_name = product.product_name.replace(regEx,"BOOKSMARK");
+    product.description = product.description.replace(regEx,"BOOKSMARK");
+    await product.save();
   });
 
-  await products.save();
-
-  res.send("done");
-
-});
-
-
-router.get("/delete/:id",async (req,res)=>{
-  
-  console.log(req.params);
-
-  await Product.deleteOne({_id:req.params.id});
-
-  res.redirect('/editProducts/');
+  res.send("Done");
 
 });
 

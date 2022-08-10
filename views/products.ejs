@@ -260,34 +260,48 @@
 
           <div class="our-shop">
             <div class="row clearfix" id="productContainer">
-              <% for(let i=0;i<productList.length;i++){ %>
-              <div class="col-lg-3 col-md-6 col-sm-12 shop-block">
-                <div class="shop-block-one">
-                  <div class="inner-box">
-                    <figure class="image-box">
-                      <img
-                        src="<%= productList[i].inventory[0].large_images[0]!=null?productList[i].inventory[0].large_images[0]:'assets/images/resource/shop/shop-1.jpg' %>"
-                        alt=""
-                      />
-                      <ul class="info-list clearfix">
-                        <li onClick="()=>addWishlist('<%= productList[i]._id %>')">
-                          <a><i class="flaticon-heart"></i></a>
-                        </li>
-                        <li onClick="addToCart('<%= productList[i]._id %>')">
-                          <a>Add to cart</a>
-                        </li>
-                      </ul>
-                    </figure>
-                    <div class="lower-content">
-                      <a href="/products/<%= productList[i]._id %>">
-                        <%= productList[i].product_name %>
-                      </a>
-                      <span class="price">&#8377;<%= productList[i].price %></span>
+              
+              <% if(productList[0] != null && productList[0] != undefined ){%>
+                <% for(let i=0;i<productList.length;i++){ %>
+                <div class="col-lg-3 col-md-6 col-sm-12 shop-block">
+                  <div class="shop-block-one">
+                    <div class="inner-box">
+                      <figure class="image-box">
+                        <img
+                          src="<%= productList[i].inventory[0].large_images[0]!=null?productList[i].inventory[0].large_images[0]:'assets/images/resource/shop/shop-1.jpg' %>"
+                          alt=""
+                        />
+                        <ul class="info-list clearfix">
+                          <li onClick="()=>addWishlist('<%= productList[i]._id %>')">
+                            <a><i class="flaticon-heart"></i></a>
+                          </li>
+                          <li onClick="addToCart('<%= productList[i]._id %>')">
+                            <a>Add to cart</a>
+                          </li>
+                        </ul>
+                      </figure>
+                      <div class="lower-content">
+                        <a href="/products/<%= productList[i]._id %>">
+                          <%= productList[i].product_name %>
+                        </a>
+                        <span class="price">&#8377;<%= productList[i].price %></span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <% } %>
+                <% } %>
+              <%}else{%>
+
+                <% for(let i=0;i< Object.keys(productList).length;i++){ %>
+                
+                  <% const category = Object.keys(productList)[i];%>
+                  <% for(let j=0;j< productList[category].length){%>
+                    <% console.log(productList[category][j] ) ;%>
+                  <%}%>
+
+                <%}%>
+
+              <%}%>
               <div class="btn-box">
                 
               </div>

@@ -16,8 +16,19 @@ module.exports.products_get = async (req, res) => {
     }).limit(100);
     res.render("products", { productList, userLoggedIn, productsLoaded: 0 });
   } else {
-    const productList = await Product.find().limit(100);
+
+    const categories = await Product.find().distinct("category");
+    
+    const productList={};
+
+    
+    for(let i=0;i<categories.length;i++){
+      
+      productList[categories[i]] = await Product.find({category:{$regex:categories[i],$options:"i"}}).limit(8);
+     
+    }
     res.render("products", { productList, userLoggedIn, productsLoaded: 0 });
+    
   }
 };
 
