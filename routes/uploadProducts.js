@@ -3,7 +3,7 @@ const router = Router();
 
 const fs = require("fs");
 const Product = require("../models/product");
-const ImageKit = require("imageKit");
+const ImageKit = require("imagekit");
 
 const uploadToImageKit = async (
   thumbnailImgBuffer,
@@ -82,30 +82,30 @@ const uploadToImageKit = async (
   }
 };
 
-const uploadToImageKit1 = async(largeImgBuffer,fileName)=>{
+const uploadToImageKit1 = async (largeImgBuffer, fileName) => {
   const imageKit = new ImageKit({
     publicKey: process.env.IMAGE_KIT_PUBLIC_KEY,
     privateKey: process.env.IMAGE_KIT_SECRET_KEY,
     urlEndpoint: process.env.IMAGE_KIT_ENDPOINT,
   });
 
-  try{
+  try {
     const result = await imageKit.upload({
-      file:largeImgBuffer,
-      fileName: fileName
+      file: largeImgBuffer,
+      fileName: fileName,
     });
     return result;
+  } catch (error) {
+    console.log(error.message, error);
   }
-  catch(error){
-    console.log(error.message,error);
-  }
-  
-}
+};
 
-router.get("/deleteProducts",async(req,res)=>{
-  await Product.deleteMany({product_name:{ $regex: "bookmark test1", $options: "i" }});
+router.get("/deleteProducts", async (req, res) => {
+  await Product.deleteMany({
+    product_name: { $regex: "bookmark test1", $options: "i" },
+  });
   res.send("done");
-})
+});
 
 //upload set of n bookmarks
 // router.get("/setImages",async (req,res)=>{
@@ -163,18 +163,18 @@ router.get("/deleteProducts",async(req,res)=>{
 //       });
 
 //       product.inventory[0].large_images.push(imageResult.url);
-      
+
 //       individualProduct.inventory[0].large_images.push(imageResult.url);
 
 //       await individualProduct.save();
-      
+
 //       console.log(individualProduct.product_name,individualProduct.inventory[0].large_images);
 
 //     }
 //     await product.save();
 
 //     console.log(product.product_name,product.inventory[0].large_images);
-    
+
 //   });
 
 //   // const testImage = await fs.promises.readFile(testFolderName+"/"+testDirResult[0]);
@@ -188,8 +188,6 @@ router.get("/deleteProducts",async(req,res)=>{
 //   const bigDir = await fs.promises.readdir(foldername);
 
 //   console.log(bigDir[0].split(".")[0]);
-
-    
 
 //     const product = new Product({
 //       product_name: "SHERLOCK BOOKSMARKS SET OF 5",
@@ -229,16 +227,13 @@ router.get("/deleteProducts",async(req,res)=>{
 //   await product.save();
 //   console.log(product.product_name,product.inventory[0].large_images[0]);
 
-  
 //   res.send("hello");
 //   // console.log("=============================================")
 //   // // res.send(folders);
 //   // res.end("0");
 // });
 
-
-router.get("/changeDetails",async (req,res)=>{
-
+router.get("/changeDetails", async (req, res) => {
   const products = new Product({
     product_name: "TESTING",
     description: `(Bookmarks) - Ultra HD Prints1 - Gloss Laminated Finish - Tear Proof - Ideal Size - Handy Feel - Dimensions: 7” * 2” (inch) - Weight: 4gm`,
@@ -263,57 +258,64 @@ router.get("/changeDetails",async (req,res)=>{
   await products.save();
 
   res.send("done");
-
 });
 
-
-router.get("/delete/:id",async (req,res)=>{
-  
+router.get("/delete/:id", async (req, res) => {
   console.log(req.params);
 
-  await Product.deleteOne({_id:req.params.id});
+  await Product.deleteOne({ _id: req.params.id });
 
-  res.redirect('/editProducts/');
-
+  res.redirect("/editProducts/");
 });
 
-router.get("/:id",async (req,res)=>{
-    if( (req.params.id != null || req.params.id != undefined) && req.params.id >= 0){
-        const product = await Product.findOne().skip(req.params.id);
-        res.render("editProducts",{ product:product , next: parseInt(req.params.id)  });
-    }
-    else{
-        // console.log(product);
-        res.redirect("/editProducts/0");
-    }
+router.get("/:id", async (req, res) => {
+  if (
+    (req.params.id != null || req.params.id != undefined) &&
+    req.params.id >= 0
+  ) {
+    const product = await Product.findOne().skip(req.params.id);
+    res.render("editProducts", {
+      product: product,
+      next: parseInt(req.params.id),
+    });
+  } else {
+    // console.log(product);
+    res.redirect("/editProducts/0");
+  }
 });
 
-router.get("/",async (req,res)=>{
+router.get("/", async (req, res) => {
   res.redirect("/editProducts/0");
-})
+});
 
+router.post("/", async (req, res) => {
+  console.log(req.body);
+  const {
+    _id,
+    product_name,
+    price,
+    description,
+    category,
+    sub_category,
+    next,
+    small_image,
+  } = req.body;
+  // res.send(req.body);
+  const product = await Product.findById(_id);
+  product.product_name = product_name;
+  product.price = price;
+  product.description = description;
+  product.category = category;
+  product.sub_category = sub_category;
+  product.inventory[0].thumbnail_images[0] = small_image;
 
-router.post("/",async(req,res)=>{
-    console.log(req.body);
-    const { _id,product_name,price,description,category,sub_category,next,small_image} = req.body;
-    // res.send(req.body);
-    const product = await Product.findById(_id);
-    product.product_name = product_name;
-    product.price = price;
-    product.description = description;
-    product.category = category;
-    product.sub_category = sub_category;
-    product.inventory[0].thumbnail_images[0] = small_image;
+  try {
+    await product.save();
+  } catch (err) {
+    console.log(err);
+  }
 
-    try{
-        await product.save();
-    }
-    catch(err){
-        console.log(err)
-    }
-
-    res.redirect(`/editProducts/${next}`);
-})
-
+  res.redirect(`/editProducts/${next}`);
+});
 
 module.exports = router;
