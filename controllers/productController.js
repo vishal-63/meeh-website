@@ -24,14 +24,17 @@ module.exports.products_get = async (req, res) => {
 module.exports.products_get_next = async (req, res) => {
   const productsLoaded = parseInt(req.body.productsLoaded);
   let newProducts;
-  
-  if(req.body.category){
-    newProducts = await Product.find({category: { $regex: req.body.category, $options: "i" },}).limit(100).skip(productsLoaded);
-  }
-  else{
+
+  if (req.body.category) {
+    newProducts = await Product.find({
+      category: { $regex: req.body.category, $options: "i" },
+    })
+      .limit(100)
+      .skip(productsLoaded);
+  } else {
     newProducts = await Product.find().limit(100).skip(productsLoaded);
   }
-  res.send({ newProducts ,});
+  res.send({ newProducts });
 };
 
 module.exports.single_product_get = async (req, res) => {
@@ -49,40 +52,37 @@ module.exports.single_product_get = async (req, res) => {
     model: User,
   });
 
-  console.log(product.inventory[0].large_images);
-
   res.render("productdetails", { product, userLoggedIn, cartLength });
 };
 
 module.exports.products_get_search = async (req, res) => {
   let userLoggedIn = false;
-  if (req.query['search-input'] != null) {
-
+  if (req.query["q"] != null) {
     // const productList = await Product.find({
     //   $or:[
-    //     {category: { $regex: req.query['search-input'], $options: "i" }},
-    //     {product_name: { $regex: req.query['search-input'], $options: "i" }},
+    //     {category: { $regex: req.query['q'], $options: "i" }},
+    //     {product_name: { $regex: req.query['q'], $options: "i" }},
     //   ],
     // }).limit(100);
-    console.log(req.query['search-input']);
+    console.log(req.query["q"]);
 
     const con = [];
 
-    req.query['search-input'].split(" ").map( (text)=>{
-      con.push(
-        {description: { $regex : text ,$options: "i" } }
-      );
-    } )
+    req.query["q"].split(" ").map((text) => {
+      con.push({ description: { $regex: text, $options: "i" } });
+    });
 
-    const productList = await Product.find({ $and : con }).limit(100).skip(parseInt(req.body.productsLoaded));
-    // console.log(productList[0].inventory[0].large_images); 
+    const productList = await Product.find({ $and: con })
+      .limit(100)
+      .skip(parseInt(req.body.productsLoaded));
+    // console.log(productList[0].inventory[0].large_images);
     // const productList = await Product.find({ description:{  } }).limit(100)
     res.render("products", { productList, userLoggedIn, productsLoaded: 0 });
-  } 
-  else {
-    
-    const productList = await Product.find().limit(100).skip(parseInt(req.body.productsLoaded));
-    
+  } else {
+    const productList = await Product.find()
+      .limit(100)
+      .skip(parseInt(req.body.productsLoaded));
+
     console.log(productList[0].inventory[0].large_images);
     res.render("products", { productList, userLoggedIn, productsLoaded: 0 });
   }

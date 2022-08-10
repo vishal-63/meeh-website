@@ -4,8 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js --ext *"
+    "dev": "nodemon index.js --ext *"
+  },
+  "engines": {
+    "node": "16.14.0",
+    "npm": "8.5.0"
   },
   "keywords": [],
   "author": "",
@@ -32,7 +37,6 @@
   },
   "devDependencies": {
     "connect-livereload": "^0.6.1",
-    "livereload": "^0.9.3",
     "nodemon": "^2.0.19"
   }
 }

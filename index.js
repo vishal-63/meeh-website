@@ -4,8 +4,8 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
-var livereload = require("livereload");
-var connectLiveReload = require("connect-livereload");
+// var livereload = require("livereload");
+// var connectLiveReload = require("connect-livereload");
 dotenv.config();
 
 //require models
@@ -40,18 +40,18 @@ const cartController = require("./controllers/cartController");
 const app = express();
 
 // live reload browser on change in any files
-const liveReloadServer = livereload.createServer();
-liveReloadServer.server.once("connection", () => {
-  setTimeout(() => {
-    liveReloadServer.refresh("/");
-  }, 100);
-});
+// const liveReloadServer = livereload.createServer();
+// liveReloadServer.server.once("connection", () => {
+//   setTimeout(() => {
+//     liveReloadServer.refresh("/");
+//   }, 100);
+// });
 
 // Middlewares
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(connectLiveReload());
+// app.use(connectLiveReload());
 //declaring public directory to get assets from
 app.use(express.static(__dirname + "/public"));
 
@@ -60,6 +60,7 @@ mongoose
   .connect(process.env.MONGODBURI)
   .then(() => {
     const port = process.env.PORT || 5000;
+    const host = process.env.HOST || "0.0.0.0";
     app.listen(port);
     console.log(`listening on port ${port}`);
   })
@@ -92,7 +93,7 @@ app.use("/contact", contactRouter);
 app.use("/checkout", checkoutRouter);
 app.use("/wishlist", wishlistRouter);
 app.use("/register", registerRouter);
-app.use("/blogs", blogRouter);
+// app.use("/blogs", blogRouter);
 app.use("/auth/google", googleAuthRouter);
 app.use("/images", imageRouter);
 app.use("/shipping", shippingRouter);
@@ -102,13 +103,13 @@ app.use("/editProducts", productUploadRouter);
 //about us route
 app.get("/about", async (req, res) => {
   let userLoggedIn = false;
-  let cartLength = cartController.get_cart_length(req.cookies.jwt);
+  let cartLength = await cartController.get_cart_length(req.cookies.jwt);
 
   if (req.cookies.jwt) {
     userLoggedIn = true;
   }
 
-  res.render("about", { userLoggedIn, cartLength });
+  res.render("index", { userLoggedIn, cartLength });
 });
 
 // logout route

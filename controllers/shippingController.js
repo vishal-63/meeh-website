@@ -188,7 +188,6 @@ async function create_order() {
   const manifest_url = manifest.manifest_url;
 }
 
-
 module.exports.wrapper_api = async (dbOrder, email, contact, products) => {
   const token = await get_access_token();
 
@@ -240,6 +239,6 @@ module.exports.wrapper_api = async (dbOrder, email, contact, products) => {
       console.log(response.data);
     })
     .catch(function (error) {
-      console.log("create order", error.message);
+      console.log("shiprocket error", error.message);
     });
 };
