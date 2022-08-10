@@ -60,6 +60,7 @@ mongoose
   .connect(process.env.MONGODBURI)
   .then(() => {
     const port = process.env.PORT || 5000;
+    const host = process.env.HOST || "0.0.0.0";
     app.listen(port);
     console.log(`listening on port ${port}`);
   })
