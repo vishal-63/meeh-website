@@ -40,178 +40,141 @@
   <!-- page wrapper -->
   <body>
     <div class="boxed_wrapper">
-      <!-- main header -->
-      <header class="main-header">
-        <div class="header-lower">
-          <div class="auto-container">
-            <div class="outer-box">
-              <figure class="logo-box">
-                <a href="/">
-                  <img src="assets/images/header-logo.png" alt="" />
-                </a>
-              </figure>
-              <div class="menu-area">
-                <!--Mobile Navigation Toggler-->
-                <div class="mobile-nav-toggler">
-                  <i class="icon-bar"></i>
-                  <i class="icon-bar"></i>
-                  <i class="icon-bar"></i>
-                </div>
-                <nav class="main-menu navbar-expand-md navbar-light">
-                  <div
-                    class="collapse navbar-collapse show clearfix"
-                    id="navbarSupportedContent"
-                  >
-                    <ul class="navigation clearfix">
-                      <li class="current">
-                        <a href="/">Home</a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="/products">Shop<span>Hot</span></a>
-                        <ul>
-                          <li>
-                            <a href="/products?category=bookmarks">Bookmarks</a>
-                          </li>
-                          <li>
-                            <a href="/products?category=pop gripper"
-                              >Pop Grippers</a
-                            >
-                          </li>
-                          <li>
-                            <a href="/products?category=tote bag">Tote Bags</a>
-                          </li>
-                          <li>
-                            <a href="/products?category=badge">Badges</a>
-                          </li>
-                          <li>
-                            <a href="/products?category=a5 dairy">Diaries</a>
-                          </li>
-                          <li>
-                            <a href="/products?category=mousepad">Mousepads</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li>
-                        <a href="/about">About</a>
-                      </li>
-                      <li><a href="/blogs">Blog</a></li>
-                      <li><a href="/contact">Contact</a></li>
-                      <br />
-                      <!-- <li>
-                        <div class="form-group">
-                          <form action="/products/search" method="GET">
-                            <fieldset style=" display:flex; ">
-                              <input type="text" class="form-control" name="search-input" value="" placeholder="Search Here" required >
-                              <input type="submit" value="Search Now!" class="theme-btn">
-                            </fieldset>
-                            </form>
-                        </div>    
-                      </li> -->
-                    </ul>
+      <!-- search-popup -->
+          <div id="search-popup" class="search-popup">
+              <div class="close-search"><i class="flaticon-close"></i></div>
+              <div class="popup-inner">
+                  <div class="overlay-layer"></div>
+                  <div class="search-form">
+                      <form method="GET" action="/products/search">
+                          <div class="form-group">
+                              <fieldset>
+                                  <input type="search" class="form-control" name="q" value="" placeholder="Search Here" required >
+                                  <input type="submit" value="Search Now!" class="theme-btn style-four">
+                              </fieldset>
+                          </div>
+                      </form>
+                      <h3>Popular Search Keywords</h3>
+                      <ul class="recent-searches">
+                          <li><a href="/products?category=bookmark">Bookmark</a></li>
+                          <li><a href="/products?category=pop gripper">Pop Grippers</a></li>
+                          <li><a href="/products/search?q=friends">Friends</a></li>
+                          <li><a href="/products/search?q">Game of Thrones</a></li>
+                          <li><a href="/products/search?q=blackpink">Blackpink</a></li>
+                      </ul>
                   </div>
-                </nav>
               </div>
+          </div>
+          <!-- search-popup end -->
 
-              <ul class="menu-right-content clearfix">
-                <li>
-                  <div class="search-btn">
-                    <button type="button" class="search-toggler">
-                      <i class="flaticon-search"></i>
-                    </button>
+
+          <!-- main header -->
+          <header class="main-header">
+              
+              <div class="header-lower">
+                  <div class="auto-container">
+                      <div class="outer-box">
+                          <figure class="logo-box"><a href="/"><img src="assets/images/header-logo.png" alt=""></a></figure>
+                          <div class="menu-area">
+                              <!--Mobile Navigation Toggler-->
+                              <div class="mobile-nav-toggler">
+                                  <i class="icon-bar"></i>
+                                  <i class="icon-bar"></i>
+                                  <i class="icon-bar"></i>
+                              </div>
+                              <nav class="main-menu navbar-expand-md navbar-light">
+                                  <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
+                                      <ul class="navigation clearfix">
+                                          <li class="current">
+                                            <a href="/">Home</a>
+                                          </li>
+                                          <li class="dropdown"><a href="/products">Shop<span>Hot</span></a>
+                                              <ul>
+                                              <li><a href="/products?category=bookmark">Bookmarks</a></li>
+                                              <li><a href="/products?category=pop gripper">Pop Grippers</a></li>
+                                              <li><a href="/products?category=tote bag">Tote Bags</a></li>
+                                              <li><a href="/products?category=badge">Badges</a></li>
+                                              <li><a href="/products?category=a5 dairy">Diaries</a></li>
+                                              <li><a href="/products?category=mousepad">Mousepads</a></li>
+                                            </ul>
+                                          </li>
+                                          <li><a href="/about">About</a></li>    
+                                          <!-- <li><a href="/blogs">Blog</a></li>  -->
+                                          <li><a href="/contact">Contact</a></li>               
+                                      </ul>
+                                  </div>
+                              </nav>
+                          </div>
+                          <ul class="menu-right-content clearfix">
+                              <li>
+                                  <div class="search-btn">
+                                      <button type="button" class="search-toggler"><i class="flaticon-search"></i></button>
+                                  </div>
+                              </li>
+                              <li><a href="/wishlist"><i class="flaticon-like"></i></a></li>
+                              <li class="dropdown"><a href=""><i class="flaticon-user"></i></a>
+                                <ul>
+                                  <% if(userLoggedIn) { %>
+                                  <li><a href="/profile">Profile</a></li>
+                                  <li><a href="/orders">Your orders</a></li>
+                                  <li><a href="/logout">Logout</a></li>
+                                  <% } else { %> 
+                                  <li><a href="/login">Log In</a></li>
+                                  <li><a href="/register">Sign Up</a></li>
+                                  <% } %>
+                              </ul></li>
+                              <li class="shop-cart">
+                                  <a href="/cart"><i class="flaticon-shopping-cart-1"></i><span><%=cartLength%></span></a>
+                              </li>
+                          </ul>
+                      </div>
                   </div>
-                </li>
-                <li>
-                  <a href="/wishlist"><i class="flaticon-like"></i></a>
-                </li>
-                <li class="dropdown">
-                  <a href="#"><i class="flaticon-user"></i></a>
-                  <ul>
-                    <!-- <% if(userLoggedIn) { %> -->
-                    <li><a href="/profile">Profile</a></li>
-                    <li><a href="/orders">Your orders</a></li>
-                    <li><a href="/logout">Logout</a></li>
-                    <!-- <% } else { %>  -->
-                    <li><a href="/login">Log In</a></li>
-                    <li><a href="/register">Sign Up</a></li>
-                    <!-- <% } %> -->
-                  </ul>
-                </li>
-                <li class="shop-cart">
-                  <a href="/cart">
-                    <i class="flaticon-shopping-cart-1"></i>
-                    <span>3</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!--sticky Header-->
-        <div class="sticky-header">
-          <div class="auto-container">
-            <div class="outer-box clearfix">
-              <div class="logo-box pull-left">
-                <figure class="logo">
-                  <a href="/"
-                    ><img src="assets/images/small-logo.png" alt=""
-                  /></a>
-                </figure>
               </div>
-              <div class="menu-area pull-right">
-                <nav class="main-menu clearfix">
-                  <!--Keep This Empty / Menu will come through Javascript-->
-                </nav>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-      <!-- main-header end -->
 
-      <!-- Mobile Menu  -->
-      <div class="mobile-menu">
-        <div class="menu-backdrop"></div>
-        <div class="close-btn"><i class="fas fa-times"></i></div>
-        <nav class="menu-box">
-          <div class="nav-logo">
-            <a href="/"
-              ><img src="assets/images/logo-2.png" alt="" title=""
-            /></a>
-          </div>
-          <div class="menu-outer">
-            <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
-          </div>
-          <div class="contact-info">
-            <h4>Contact Info</h4>
-            <ul>
-              <li>Chicago 12, Melborne City, USA</li>
-              <li><a href="tel:+8801682648101">+88 01682648101</a></li>
-              <li><a href="mailto:info@meehh.com">info@meehh.com</a></li>
-            </ul>
-          </div>
-          <div class="social-links">
-            <ul class="clearfix">
-              <li>
-                <a href="/"><span class="fab fa-twitter"></span></a>
-              </li>
-              <li>
-                <a href="/"><span class="fab fa-facebook-square"></span></a>
-              </li>
-              <li>
-                <a href="/"><span class="fab fa-pinterest-p"></span></a>
-              </li>
-              <li>
-                <a href="/"><span class="fab fa-instagram"></span></a>
-              </li>
-              <li>
-                <a href="/"><span class="fab fa-youtube"></span></a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </div>
-      <!-- End Mobile Menu -->
+              <!--sticky Header-->
+              <div class="sticky-header">
+                  <div class="auto-container">
+                      <div class="outer-box clearfix">
+                          <div class="logo-box pull-left">
+                              <figure class="logo"><a href="/"><img src="assets/images/small-logo.png" alt=""></a></figure>
+                          </div>
+                          <div class="menu-area pull-right">
+                              <nav class="main-menu clearfix">
+                                  <!--Keep This Empty / Menu will come through Javascript-->
+                              </nav>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </header>
+          <!-- main-header end -->
+
+          <!-- Mobile Menu  -->
+          <div class="mobile-menu">
+              <div class="menu-backdrop"></div>
+              <div class="close-btn"><i class="fas fa-times"></i></div>
+              <nav class="menu-box">
+                  <div class="nav-logo"><a href="/"><img src="assets/images/small-logo.png" alt="" title=""></a></div>
+                  <div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--></div>
+                  <div class="contact-info">
+                      <h4>Contact Info</h4>
+                      <ul>
+                          <!-- <li>Chicago 12, Melborne City, USA</li> -->
+                          <li><a href="tel:+91-9773034478">+91 97730 34478</a></li>
+                          <li><a href="mailto:meehh.com@gmail.com">meehh.com@gmail.com</a></li>
+                      </ul>
+                  </div>
+                  <div class="social-links">
+                      <ul class="clearfix">
+                          <li><a href="/"><span class="fab fa-twitter"></span></a></li>
+                          <li><a href="/"><span class="fab fa-facebook-square"></span></a></li>
+                          <li><a href="/"><span class="fab fa-pinterest-p"></span></a></li>
+                          <li><a href="/"><span class="fab fa-instagram"></span></a></li>
+                          <li><a href="/"><span class="fab fa-youtube"></span></a></li>
+                      </ul>
+                  </div>
+              </nav>
+          </div><!-- End Mobile Menu -->
 
       <!-- page-title -->
       <section class="page-title centred">
@@ -271,7 +234,7 @@
                           alt="<%= productList[i].product_name %>"
                         />
                         <ul class="info-list clearfix">
-                          <li onClick="()=>addWishlist('<%= productList[i]._id %>')">
+                          <li onClick="addWishlist('<%= productList[i]._id %>')">
                             <a><i class="flaticon-heart"></i></a>
                           </li>
                           <li onClick="addToCart('<%= productList[i]._id %>')">
@@ -292,17 +255,19 @@
               <% } else { %>
                 <% for(let i=0;i<Object.keys(productList).length;i++) { %> 
                   <% const category = Object.keys(productList)[i];%>
+                  <h3 class="col-12 category-title"><%=category%></h3>
+                  <br>
                   <% for(let j=0;j<productList[category].length;j++) { %>
                     <div class="col-lg-3 col-md-6 col-sm-12 shop-block">
                       <div class="shop-block-one">
                         <div class="inner-box">
                           <figure class="image-box">
                             <img
-                              src="<%= productList[category][j].inventory[0].large_images[0]!=null?productList[category][j].inventory[0].large_images[0]:'assets/images/resource/shop/shop-1.jpg' %>"
+                              src="<%= productList[category][j].inventory[0].large_images[0] %>"
                               alt=""
                             />
                             <ul class="info-list clearfix">
-                              <li onClick="()=>addWishlist('<%= productList[category][j]._id %>')">
+                              <li onClick="addWishlist('<%= productList[category][j]._id %>')">
                                 <a><i class="flaticon-heart"></i></a>
                               </li>
                               <li onClick="addToCart('<%= productList[category][j]._id %>')">
@@ -320,14 +285,18 @@
                       </div>
                     </div>
                   <% } %>
+                  <button class="theme-btn-two see-all" onClick="loadMoreProducts()">
+                    <a href="/products?category=<%=category%>">See All<i class="flaticon-right-1"></i></a>
+                  </button>
                 <% } %>
               <% } %>
 
-              <div class="btn-box"></div>
             </div>
-            <button class="theme-btn-two" onClick="loadMoreProducts()">
-              Load More
-            </button>
+            <% if(productList[0]!=null && productList[0]!=undefined) { %>
+              <button class="theme-btn-two" onClick="loadMoreProducts()">
+                  Load More
+                </button>
+            <% }%>
           </div>
         </div>
       </section>
@@ -361,13 +330,12 @@
     <!-- main-js -->
     <script src="assets/js/script.js"></script>
     <script>
-              console.log(<%= productList %>)
       const alert = document.querySelector(".alert > span.text");
 
       async function addWishlist(id) {
         console.log(id);
         const data = { id: id };
-        const url = "/wishlist/()=>addWishlist";
+        const url = "/wishlist/addWishlist";
         const options = {
           method: "POST",
           headers: {
@@ -380,10 +348,10 @@
         if (res.ok) {
           document.querySelector(".products-alert").classList.remove("d-none");
           alert.innerText = "Item added to the wishlist!";
-          // setTimeout(()=> {
-          //   document.querySelector(".products-alert").classList.add("d-none");
-          //   alert.innerText = ""
-          // }, 1000)
+          setTimeout(()=> {
+            document.querySelector(".products-alert").classList.add("d-none");
+            alert.innerText = ""
+          }, 1000)
         } else console.log(res);
       }
 
@@ -611,10 +579,10 @@
         if (res.ok) {
           document.querySelector(".products-alert").classList.remove("d-none");
           alert.innerText = "Item added to cart!";
-          // setTimeout(()=> {
-          //   document.querySelector(".products-alert").classList.add("d-none");
-          //   alert.innerText = ""
-          // }, 1000)
+          setTimeout(()=> {
+            document.querySelector(".products-alert").classList.add("d-none");
+            alert.innerText = ""
+          }, 1000)
         } else console.log(res);
       }
     </script>

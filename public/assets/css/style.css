@@ -6686,6 +6686,16 @@ div#mCSB_1_container {
   padding: 120px 0px;
 }
 
+.shop-page-section .our-shop h3.category-title {
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.shop-page-section .our-shop button.see-all {
+  margin-left: 15px;
+  margin-bottom: 5rem;
+}
+
 .shop-page-section .item-shorting {
   position: relative;
   display: block;

@@ -6,6 +6,8 @@ const cartController = require("../controllers/cartController");
 
 module.exports.products_get = async (req, res) => {
   let userLoggedIn = false;
+  let cartLength = await cartController.get_cart_length(req.cookies.jwt);
+
   if (req.cookies.jwt) {
     userLoggedIn = true;
   }
@@ -14,21 +16,28 @@ module.exports.products_get = async (req, res) => {
     const productList = await Product.find({
       category: { $regex: req.query.category, $options: "i" },
     }).limit(100);
-    res.render("products", { productList, userLoggedIn, productsLoaded: 0 });
+    res.render("products", {
+      productList,
+      userLoggedIn,
+      productsLoaded: 0,
+      cartLength,
+    });
   } else {
-
     const categories = await Product.find().distinct("category");
-    
-    const productList={};
 
-    
-    for(let i=0;i<categories.length;i++){
-      
-      productList[categories[i]] = await Product.find({category:{$regex:categories[i],$options:"i"}}).limit(8);
-     
+    const productList = {};
+
+    for (let i = 0; i < categories.length; i++) {
+      productList[categories[i]] = await Product.find({
+        category: { $regex: categories[i], $options: "i" },
+      }).limit(8);
     }
-    res.render("products", { productList, userLoggedIn, productsLoaded: 0 });
-    
+    res.render("products", {
+      productList,
+      userLoggedIn,
+      productsLoaded: 0,
+      cartLength,
+    });
   }
 };
 

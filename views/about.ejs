@@ -44,13 +44,13 @@
         <div class="popup-inner">
           <div class="overlay-layer"></div>
           <div class="search-form">
-            <form method="post" action="/">
+            <form method="GET" action="/products/search">
               <div class="form-group">
                 <fieldset>
                   <input
                     type="search"
                     class="form-control"
-                    name="search-input"
+                    name="q"
                     value=""
                     placeholder="Search Here"
                     required
@@ -63,13 +63,13 @@
                 </fieldset>
               </div>
             </form>
-            <h3>Recent Search Keywords</h3>
+            <h3>Popular Search Keywords</h3>
             <ul class="recent-searches">
-              <li><a href="/">Finance</a></li>
-              <li><a href="/">Idea</a></li>
-              <li><a href="/">Service</a></li>
-              <li><a href="/">Growth</a></li>
-              <li><a href="/">Plan</a></li>
+              <li><a href="/products?category=bookmark">Bookmark</a></li>
+              <li><a href="/products?category=pop gripper">Pop Grippers</a></li>
+              <li><a href="/products/search?q=friends">Friends</a></li>
+              <li><a href="/products/search?q">Game of Thrones</a></li>
+              <li><a href="/products/search?q=blackpink">Blackpink</a></li>
             </ul>
           </div>
         </div>
@@ -99,47 +99,47 @@
                     id="navbarSupportedContent"
                   >
                     <ul class="navigation clearfix">
-                      <li>
+                      <li class="current">
                         <a href="/">Home</a>
                       </li>
                       <li class="dropdown">
                         <a href="/products">Shop<span>Hot</span></a>
                         <ul>
                           <li>
-                            <a href="/products?category=bookmarks">Bookmarks</a>
+                            <a href="/products?category=bookmark">Bookmarks</a>
                           </li>
                           <li>
-                            <a href="/products?category=pop-grippers"
+                            <a href="/products?category=pop gripper"
                               >Pop Grippers</a
                             >
                           </li>
                           <li>
-                            <a href="/products?category=tote-bags">Tote Bags</a>
+                            <a href="/products?category=tote bag">Tote Bags</a>
+                          </li>
+                          <li><a href="/products?category=badge">Badges</a></li>
+                          <li>
+                            <a href="/products?category=a5 dairy">Diaries</a>
                           </li>
                           <li>
-                            <a href="/products?category=badges">Badges</a>
-                          </li>
-                          <li>
-                            <a href="/products?category=diaries">Diaries</a>
-                          </li>
-                          <li>
-                            <a href="/products?category=mousepads">Mousepads</a>
+                            <a href="/products?category=mousepad">Mousepads</a>
                           </li>
                         </ul>
                       </li>
-                      <li class="current"><a href="/about">About</a></li>
-                      <li><a href="/blogs">Blog</a></li>
+                      <li><a href="/about">About</a></li>
+                      <!-- <li><a href="/blogs">Blog</a></li>  -->
                       <li><a href="/contact">Contact</a></li>
                     </ul>
                   </div>
                 </nav>
               </div>
               <ul class="menu-right-content clearfix">
-                <!-- <li>
-                                  <div class="search-btn">
-                                      <button type="button" class="search-toggler"><i class="flaticon-search"></i></button>
-                                  </div>
-                              </li> -->
+                <li>
+                  <div class="search-btn">
+                    <button type="button" class="search-toggler">
+                      <i class="flaticon-search"></i>
+                    </button>
+                  </div>
+                </li>
                 <li>
                   <a href="/wishlist"><i class="flaticon-like"></i></a>
                 </li>
@@ -196,7 +196,7 @@
         <nav class="menu-box">
           <div class="nav-logo">
             <a href="/"
-              ><img src="assets/images/logo-2.png" alt="" title=""
+              ><img src="assets/images/small-logo.png" alt="" title=""
             /></a>
           </div>
           <div class="menu-outer">
@@ -205,9 +205,11 @@
           <div class="contact-info">
             <h4>Contact Info</h4>
             <ul>
-              <li>Chicago 12, Melborne City, USA</li>
-              <li><a href="tel:+8801682648101">+88 01682648101</a></li>
-              <li><a href="mailto:info@example.com">info@example.com</a></li>
+              <!-- <li>Chicago 12, Melborne City, USA</li> -->
+              <li><a href="tel:+91-9773034478">+91 97730 34478</a></li>
+              <li>
+                <a href="mailto:meehh.com@gmail.com">meehh.com@gmail.com</a>
+              </li>
             </ul>
           </div>
           <div class="social-links">
