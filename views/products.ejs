@@ -96,7 +96,7 @@
                       </li>
                       <li><a href="/blogs">Blog</a></li>
                       <li><a href="/contact">Contact</a></li>
-                      <br>
+                      <br />
                       <!-- <li>
                         <div class="form-group">
                           <form action="/products/search" method="GET">
@@ -108,17 +108,17 @@
                         </div>    
                       </li> -->
                     </ul>
-                    
                   </div>
-                    
                 </nav>
               </div>
 
               <ul class="menu-right-content clearfix">
                 <li>
-                    <div class="search-btn">
-                        <button type="button" class="search-toggler"><i class="flaticon-search"></i></button>
-                    </div>
+                  <div class="search-btn">
+                    <button type="button" class="search-toggler">
+                      <i class="flaticon-search"></i>
+                    </button>
+                  </div>
                 </li>
                 <li>
                   <a href="/wishlist"><i class="flaticon-like"></i></a>
@@ -260,15 +260,15 @@
 
           <div class="our-shop">
             <div class="row clearfix" id="productContainer">
-              <% if(productList[0] != null && productList[0] != undefined ){%>
-                <% for(let i=0;i<productList.length;i++){ %>
+              <% if(productList[0]!=null && productList[0]!=undefined) { %>
+                <% for(let i=0;i<productList.length;i++) { %>
                 <div class="col-lg-3 col-md-6 col-sm-12 shop-block">
                   <div class="shop-block-one">
                     <div class="inner-box">
                       <figure class="image-box">
                         <img
-                          src="<%= productList[i].inventory[0].large_images[0]!=null?productList[i].inventory[0].large_images[0]:'assets/images/resource/shop/shop-1.jpg' %>"
-                          alt=""
+                          src="<%= productList[i].inventory[0].large_images[0]%>"
+                          alt="<%= productList[i].product_name %>"
                         />
                         <ul class="info-list clearfix">
                           <li onClick="()=>addWishlist('<%= productList[i]._id %>')">
@@ -283,20 +283,16 @@
                         <a href="/products/<%= productList[i]._id %>">
                           <%= productList[i].product_name %>
                         </a>
-                        <span class="price">&#8377;<%= productList[i].price %></span>
+                        <span class="price">&#8377; <%= productList[i].price %></span>
                       </div>
                     </div>
                   </div>
                 </div>
                 <% } %>
-              <%}else{%>
-
-                <% for(let i=0;i< Object.keys(productList).length;i++){ %>
-                
+              <% } else { %>
+                <% for(let i=0;i<Object.keys(productList).length;i++) { %> 
                   <% const category = Object.keys(productList)[i];%>
-                  <% for(let j=0;j< productList[category].length){%>
-                    <% console.log(productList[category][j] ) ;%>
-
+                  <% for(let j=0;j<productList[category].length;j++) { %>
                     <div class="col-lg-3 col-md-6 col-sm-12 shop-block">
                       <div class="shop-block-one">
                         <div class="inner-box">
@@ -323,26 +319,22 @@
                         </div>
                       </div>
                     </div>
+                  <% } %>
+                <% } %>
+              <% } %>
 
-                  <%}%>
-
-                <%}%>
-
-              <%}%>
-              <div class="btn-box">
-                
-              </div>
+              <div class="btn-box"></div>
             </div>
             <button class="theme-btn-two" onClick="loadMoreProducts()">
-                Load More
-              </button>
+              Load More
+            </button>
           </div>
         </div>
       </section>
       <!-- shop-page-section end -->
 
       <!-- main-footer -->
-      <%- include('footer')%>
+      <%- include('footer') %>
       <!-- main-footer end -->
 
       <!--Scroll to top-->
@@ -369,6 +361,7 @@
     <!-- main-js -->
     <script src="assets/js/script.js"></script>
     <script>
+              console.log(<%= productList %>)
       const alert = document.querySelector(".alert > span.text");
 
       async function addWishlist(id) {
@@ -417,17 +410,17 @@
 
         const response = await fetch(url, options);
         const data = await response.json();
-        
+
         // console.log(data);
 
         data.newProducts.map((product) => {
           const imgSource =
-            product.inventory[0].thumbnail_images[0] ||product.inventory[0].large_images[0] 
+            product.inventory[0].thumbnail_images[0] ||product.inventory[0].large_images[0]
             "assets/images/resource/shop/shop-1.jpg";
           const productID = product._id;
           const productName = product.product_name;
           const productPrice = product.price;
-          
+
           createProductElements(
             imgSource,
             productID,
