@@ -189,6 +189,7 @@ router.get("/deleteProducts", async (req, res) => {
 
 //   console.log(bigDir[0].split(".")[0]);
 
+
 //     const product = new Product({
 //       product_name: "SHERLOCK BOOKSMARKS SET OF 5",
 //       description: `SHERLOCK BOOKSMARKS SET OF 5 (Bookmarks) - Ultra HD Prints1 - Gloss Laminated Finish - Tear Proof - Ideal Size - Handy Feel - Dimensions: 7” * 2” (inch) - Weight: 4gm`,
@@ -233,21 +234,20 @@ router.get("/deleteProducts", async (req, res) => {
 //   // res.end("0");
 // });
 
-router.get("/changeDetails", async (req, res) => {
-  const products = await Product.find({
-    product_name: { $regex: "bookmarks", $options: "i" },
-  });
+router.get("/changeDetails",async (req,res)=>{
+  
+  // const products = await Product.find();
+  
+  // let regEx = new RegExp("<br>", "ig");
+  
+  // products.map( async (product)=>{
+  //   product.description = product.description.replace(regEx,"");
+  //   await product.save();
+  // });
 
-  let regEx = new RegExp("bookmarks", "ig");
-
-  products.map(async (product) => {
-    product.product_name = product.product_name.replace(regEx, "BOOKSMARK");
-    product.description = product.description.replace(regEx, "BOOKSMARK");
-    await product.save();
-  });
-
-  res.send("Done");
+  res.send("Empty code...");
 });
+
 
 router.get("/delete/:id", async (req, res) => {
   console.log(req.params);
