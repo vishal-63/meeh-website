@@ -48,30 +48,30 @@
 
 
           <!-- search-popup -->
-          <!-- <div id="search-popup" class="search-popup">
+          <div id="search-popup" class="search-popup">
               <div class="close-search"><i class="flaticon-close"></i></div>
               <div class="popup-inner">
                   <div class="overlay-layer"></div>
                   <div class="search-form">
-                      <form method="post" action="/">
+                      <form method="GET" action="/products/search">
                           <div class="form-group">
                               <fieldset>
-                                  <input type="search" class="form-control" name="search-input" value="" placeholder="Search Here" required >
+                                  <input type="search" class="form-control" name="q" value="" placeholder="Search Here" required >
                                   <input type="submit" value="Search Now!" class="theme-btn style-four">
                               </fieldset>
                           </div>
                       </form>
-                      <h3>Recent Search Keywords</h3>
+                      <h3>Popular Search Keywords</h3>
                       <ul class="recent-searches">
-                          <li><a href="/">Finance</a></li>
-                          <li><a href="/">Idea</a></li>
-                          <li><a href="/">Service</a></li>
-                          <li><a href="/">Growth</a></li>
-                          <li><a href="/">Plan</a></li>
+                          <li><a href="/products?category=bookmarks">Bookmark</a></li>
+                          <li><a href="/products?category=pop socket">Pop Grippers</a></li>
+                          <li><a href="/products/search?q=friends">Friends</a></li>
+                          <li><a href="/products/search?q">Game of Thrones</a></li>
+                          <li><a href="/products/search?q=blackpink">Blackpink</a></li>
                       </ul>
                   </div>
               </div>
-          </div> -->
+          </div>
           <!-- search-popup end -->
 
 
