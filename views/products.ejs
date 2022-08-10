@@ -361,7 +361,6 @@
     <!-- main-js -->
     <script src="assets/js/script.js"></script>
     <script>
-              console.log(<%= productList %>)
       const alert = document.querySelector(".alert > span.text");
 
       async function addWishlist(id) {
@@ -389,15 +388,23 @@
 
       async function loadMoreProducts() {
         let categoryName=null;
+        let search = null;
 
         if(window.location.search.length){
-          categoryName = window.location.search.substr(1).split('&')[0].split('=')[1].replace("%20"," ");
+          if(window.location.search.substr(1).split("=")[0] == "category"){
+            categoryName = window.location.search.substr(1).split('&')[0].split('=')[1].replace("%20"," ");
+          }
+          else if(window.location.search.substr(1).split("=")[0] == "q"){
+            search = window.location.search.substr(1).split('&')[0].split('=')[1].replace("%20"," ");
+          }
+          console.log(categoryName,search);
         }
 
         const url = "/products";
         const reqData = {
           productsLoaded:document.getElementById("productContainer").children.length,
-          category: categoryName
+          category: categoryName,
+          search:search
         };
         const options = {
           headers: {

@@ -236,16 +236,16 @@ router.get("/deleteProducts", async (req, res) => {
 
 router.get("/changeDetails",async (req,res)=>{
   
-  // const products = await Product.find();
+  const products = await Product.find({description:{$regex:"Pending", $options:"i"}});
   
-  // let regEx = new RegExp("<br>", "ig");
+  let regEx = new RegExp("booksmark", "ig");
   
-  // products.map( async (product)=>{
-  //   product.description = product.description.replace(regEx,"");
-  //   await product.save();
-  // });
+  products.map( async (product)=>{
+    product.category ="Pending";
+    await product.save();
+  });
 
-  res.send("Empty code...");
+  res.send("Done");
 });
 
 
