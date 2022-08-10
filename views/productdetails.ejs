@@ -177,14 +177,14 @@
                             <% } %>
                         </ul>
                       </div>
-                      <div class="product-image">
+                      <div class="product-image <%= product.inventory[0].thumbnail_images.length > 4 && 'two-columns' %>">
                         <figure class="image">
                           <img src="<%= product.inventory[0].large_images[i]%>" alt="">
                           <a href="<%= product.inventory[0].large_images[i]%>" class="lightbox-image"><i
-                              class="flaticon-search-2"></i></a>
-                        </figure>
+                            class="flaticon-search-2"></i></a>
+                          </figure>
+                        </div>
                       </div>
-                    </div>
                     <% } %>
                   <%}else{%>
                     <% for(let i=0;i<product.inventory[0].large_images.length;i++) { %>
@@ -202,17 +202,17 @@
                               <% } %>
                           </ul>
                         </div>
-                        <div class="product-image">
+                        <div class="product-image <%= product.inventory[0].large_images.length > 4 && 'two-columns' %>">
                           <figure class="image">
                             <img src="<%= product.inventory[0].large_images[i]%>" alt="">
                             <a href="<%= product.inventory[0].large_images[i]%>" class="lightbox-image"><i
-                                class="flaticon-search-2"></i></a>
+                              class="flaticon-search-2"></i></a>
                           </figure>
                         </div>
                       </div>
                       <% } %>
-                  <%}%>
-              </div>
+                      <%}%>
+                    </div>
             </div>
             <div class="col-lg-6 col-md-12 col-sm-12 content-column">
               <div class="product-info">
