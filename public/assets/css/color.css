@@ -429,6 +429,10 @@ ul.menu-right-content > li > a {
   border-bottom: 1px solid var(--naples-yellow);
 }
 
+.shop-page-section .our-shop h3.category-title {
+  color: var(--dark-purple);
+}
+
 .shop-page-section .item-shorting .right-column .menu-box a:first-child:hover {
   background: var(--naples-yellow);
 }

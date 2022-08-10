@@ -35,7 +35,12 @@ module.exports.cart_get = async (req, res) => {
   });
   const cart = user.cart;
   const addresses = user.addresses;
-  res.render("cart", { cart, userLoggedIn, addresses });
+  res.render("cart", {
+    cart,
+    userLoggedIn,
+    addresses,
+    cartLength: cart.length,
+  });
 };
 
 module.exports.cart_add_product = async (req, res) => {
