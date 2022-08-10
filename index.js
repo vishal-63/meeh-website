@@ -93,7 +93,7 @@ app.use("/contact", contactRouter);
 app.use("/checkout", checkoutRouter);
 app.use("/wishlist", wishlistRouter);
 app.use("/register", registerRouter);
-app.use("/blogs", blogRouter);
+// app.use("/blogs", blogRouter);
 app.use("/auth/google", googleAuthRouter);
 app.use("/images", imageRouter);
 app.use("/shipping", shippingRouter);
@@ -103,13 +103,13 @@ app.use("/editProducts", productUploadRouter);
 //about us route
 app.get("/about", async (req, res) => {
   let userLoggedIn = false;
-  let cartLength = cartController.get_cart_length(req.cookies.jwt);
+  let cartLength = await cartController.get_cart_length(req.cookies.jwt);
 
   if (req.cookies.jwt) {
     userLoggedIn = true;
   }
 
-  res.render("about", { userLoggedIn, cartLength });
+  res.render("index", { userLoggedIn, cartLength });
 });
 
 // logout route

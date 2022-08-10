@@ -2335,6 +2335,8 @@ div#mCSB_1_container {
 
 .category-block-one .image-box img {
   width: 100%;
+  height: inherit;
+  object-fit: cover;
   border-radius: 50%;
 }
 
@@ -6024,8 +6026,8 @@ div#mCSB_1_container {
   background-size: cover;
   background-repeat: repeat-x;
   background-position: center;
-  animation: slide 100s linear infinite;
-  -webkit-animation: slide 100s linear infinite;
+  /* animation: slide 100s linear infinite;
+  -webkit-animation: slide 100s linear infinite; */
 }
 
 @keyframes slide {

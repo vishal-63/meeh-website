@@ -254,14 +254,14 @@
         <div class="auto-container">
           <div class="item-shorting clearfix">
             <div class="left-column pull-left clearfix">
-              <div class="text mx-0"><p>Showing 1–12 of 50 Results</p></div>
+              <!-- <div class="text mx-0"><p>Showing 1–12 of 50 Results</p></div> -->
             </div>
           </div>
 
           <div class="our-shop">
             <div class="row clearfix" id="productContainer">
               <% for(let i=0;i<productList.length;i++){ %>
-              <div class="col-lg-3 col-md-6 col-sm-12 shop-block">
+              <div class="col-lg-3 col-md-6 col-6 shop-block">
                 <div class="shop-block-one">
                   <div class="inner-box">
                     <figure class="image-box">
@@ -345,8 +345,12 @@
         };
         const res = await fetch(url, options);
         if (res.ok) {
-          document.querySelector(".products-alert").classList.toggle("d-none");
+          document.querySelector(".products-alert").classList.remove("d-none");
           alert.innerText = "Item added to the wishlist!";
+          // setTimeout(()=> {
+          //   document.querySelector(".products-alert").classList.add("d-none");
+          //   alert.innerText = ""
+          // }, 1000)
         } else console.log(res);
       }
 
@@ -572,8 +576,12 @@
         };
         const res = await fetch(url, options);
         if (res.ok) {
-          document.querySelector(".products-alert").classList.toggle("d-none");
+          document.querySelector(".products-alert").classList.remove("d-none");
           alert.innerText = "Item added to cart!";
+          // setTimeout(()=> {
+          //   document.querySelector(".products-alert").classList.add("d-none");
+          //   alert.innerText = ""
+          // }, 1000)
         } else console.log(res);
       }
     </script>
