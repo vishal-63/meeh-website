@@ -120,10 +120,8 @@ app.use("/wishlist", wishlistRouter);
 app.use("/register", registerRouter);
 // app.use("/blogs", blogRouter);
 app.use("/auth/google", googleAuthRouter);
-app.use("/images", imageRouter);
 app.use("/shipping", shippingRouter);
 //temp for uploading images to database;
-app.use("/editProducts", productUploadRouter);
 app.use("/orders", orderRouter);
 
 //about us route
