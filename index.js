@@ -40,7 +40,6 @@ const orderRouter = require("./routes/order.js");
 
 const cartController = require("./controllers/cartController");
 
-
 const app = express();
 
 // live reload browser on change in any files
@@ -88,6 +87,28 @@ app.get("/", async (req, res) => {
   res.render("index", { userLoggedIn, cartLength });
 });
 
+app.get("/terms-and-conditions", async (req, res) => {
+  let userLoggedIn = false;
+  let cartLength = await cartController.get_cart_length(req.cookies.jwt);
+
+  if (req.cookies.jwt) {
+    userLoggedIn = true;
+  }
+
+  res.render("termsConditions", { userLoggedIn });
+});
+
+app.get("/privacy-policy", async (req, res) => {
+  let userLoggedIn = false;
+  let cartLength = await cartController.get_cart_length(req.cookies.jwt);
+
+  if (req.cookies.jwt) {
+    userLoggedIn = true;
+  }
+
+  res.render("privacyPolicy", { userLoggedIn });
+});
+
 //setting routes for each path
 app.use("/login", loginRouter);
 app.use("/cart", cartRouter);
@@ -103,7 +124,7 @@ app.use("/images", imageRouter);
 app.use("/shipping", shippingRouter);
 //temp for uploading images to database;
 app.use("/editProducts", productUploadRouter);
-app.use("/orders",orderRouter);
+app.use("/orders", orderRouter);
 
 //about us route
 app.get("/about", async (req, res) => {

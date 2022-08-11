@@ -327,8 +327,33 @@
             role="tabpanel"
             aria-labelledby="orders-tab"
           >
-          <!-- Card 1 -->
+          <% for(let i=orders.length-1;i>=0;i--) { %>
             <div class="card order-card mb-4">
+              <div class="card-header d-flex justify-content-between">
+                <div>Total Amount: Rs. <%=orders[i].grand_total %></div>
+                <div><%= orders[i].order_date.toLocaleDateString() %></div>
+              </div>
+              <div class="card-body py-0">
+                <% for(let j=0;j<orders[i].products.length;j++) { %>
+                  <% if(orders[i].products[j].product_id !== null) { %>
+                    <div class="order-item py-4 border-bottom">
+                      <img src="<%= orders[i].products[j].product_id?.inventory[0].large_images[0] %>" alt="<%= orders[i].products[j].product_id?.product_name %>" class="item-img rounded mr-3">
+                      <div class="item-description">
+                        <div class="item-name"><%= orders[i].products[j].product_id?.product_name %></div>
+                        <div class="order-item-status">
+                          <span class="status-icon shipping"></span>
+                          <span><%= orders[i].shipping_status %></span>
+                        </div>
+                        <div class="flaticon-right-chevron"></div>
+                      </div>
+                    </div>
+                    <% } %>
+                <% } %>
+              </div>
+            </div>
+          <% } %>
+          <!-- Card 1 -->
+            <!-- <div class="card order-card mb-4">
               <div class="card-header d-flex justify-content-between">
                 <div>Order Id: 899013</div>
                 <div>10 Jul, 2022</div>
@@ -344,10 +369,10 @@
                   <div class="flaticon-right-chevron"></div>
                 </div>
               </div>
-            </div>
+            </div> -->
 
             <!-- Card 2 -->
-            <div class="card order-card">
+            <!-- <div class="card order-card">
               <div class="card-header d-flex justify-content-between">
                 <div>Order Id: 899012</div>
                 <div>09 Jul, 2022</div>
@@ -372,7 +397,7 @@
                   <div class="flaticon-right-chevron"></div>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>

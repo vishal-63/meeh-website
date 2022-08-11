@@ -2,6 +2,8 @@ const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 
 const cartController = require("../controllers/cartController");
+const Order = require("../models/order");
+const Product = require("../models/product");
 
 const maxAge = 3 * 24 * 60 * 60;
 
@@ -120,9 +122,20 @@ module.exports.profile_get = async (req, res) => {
     };
   });
 
+  const orders = await Order.find({ user_id: res.user.id });
+  for (let i = 0; i < orders.length; i++) {
+    await orders[i].populate({
+      path: "products.product_id",
+      model: Product,
+    });
+  }
+  // orders.forEach(async (order) => {
+  // });
+
   res.render("profile", {
     userLoggedIn,
     user: { first_name, last_name, phone_no, email, addresses },
+    orders,
     cartLength,
   });
 };
