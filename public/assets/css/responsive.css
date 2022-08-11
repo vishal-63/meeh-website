@@ -22,8 +22,8 @@
 
 @media only screen and (max-width: 1200px) {
   .category-block-one .image-box {
-    width: 100%;
-    height: auto;
+    /* width: 100%;
+    height: auto; */
   }
 
   .shop-block-one .inner-box .image-box .info-list li {
@@ -872,6 +872,26 @@
 @media only screen and (max-width: 599px) {
   .shop-block-one .inner-box .image-box img {
     max-height: 215px;
+  }
+
+  .shop-block-one .inner-box .image-box .info-list {
+    width: calc(100% - 24px);
+  }
+
+  .shop-block-one .inner-box .image-box .info-list li a {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+  }
+
+  .shop-block-one .inner-box .image-box .info-list li:nth-child(2) a {
+    width: auto;
+    height: 30px;
+    margin-left: 0.5rem;
+    padding: 0 0.5rem;
+    font-size: 14px;
+    font-weight: normal;
   }
 
   .banner-carousel .content-inner .image-box {

@@ -2451,8 +2451,9 @@ div#mCSB_1_container {
 
 .shop-block-one .inner-box .image-box .info-list {
   position: absolute;
-  left: 20px;
   bottom: -65px;
+  left: 50%;
+  transform: translateX(-50%);
   width: calc(100% - 40px);
   visibility: hidden;
   transition: all 250ms ease;
