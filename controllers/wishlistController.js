@@ -1,8 +1,12 @@
 const User = require("../models/user");
 const Product = require("../models/product");
 
+const cartController = require("../controllers/cartController");
+
 module.exports.wishlist_get = async (req, res) => {
   let userLoggedIn = false;
+  let cartLength = await cartController.get_cart_length(req.cookies.jwt);
+
   if (req.cookies.jwt) {
     userLoggedIn = true;
   }
@@ -13,7 +17,7 @@ module.exports.wishlist_get = async (req, res) => {
     model: Product,
   });
   const wishlist = user.wishlist;
-  res.render("wishlist", { wishlist, userLoggedIn });
+  res.render("wishlist", { wishlist, userLoggedIn, cartLength });
 };
 
 module.exports.add_wishlist_post = async (req, res) => {

@@ -43,6 +43,20 @@
   </style>
 </head>
 <body>
-  hii{{name}} you email is {{email}}
+  <div class="email-container" style="font-family: Helvetica, sans serif; color: #6a6a6a; max-width: 550px; padding: 20px 12px; border: 1px solid #dadada">
+    <div class="logo" style="width: inherit; padding: 10px 0; display: flex; justify-content: center; border-bottom: 1px solid #dadada;">
+      <img src="cid:logo" alt="Meehh.com Logo" style="width: 150px">
+    </div>
+    <h4 class="title" style="color: #3f3f3f; font-size: 18px; font-weight: 500;">Hello,</h4>
+    <p class="sub-title" style="font-size: 14px; margin-right: 1rem;">
+        User: {{username}}<br>
+        Email: {{email}}<br>
+        phone: {{phone}}<br>
+        subject: {{subject}}<br>
+        message: {{message}}
+    </p>
+    <br>
+    Regards.
+  </div>
 </body>
 </html>

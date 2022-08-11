@@ -2335,6 +2335,8 @@ div#mCSB_1_container {
 
 .category-block-one .image-box img {
   width: 100%;
+  height: inherit;
+  object-fit: cover;
   border-radius: 50%;
 }
 
@@ -6024,8 +6026,8 @@ div#mCSB_1_container {
   background-size: cover;
   background-repeat: repeat-x;
   background-position: center;
-  animation: slide 100s linear infinite;
-  -webkit-animation: slide 100s linear infinite;
+  /* animation: slide 100s linear infinite;
+  -webkit-animation: slide 100s linear infinite; */
 }
 
 @keyframes slide {
@@ -6682,6 +6684,16 @@ div#mCSB_1_container {
 .shop-page-section {
   position: relative;
   padding: 120px 0px;
+}
+
+.shop-page-section .our-shop h3.category-title {
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.shop-page-section .our-shop button.see-all {
+  margin-left: 15px;
+  margin-bottom: 5rem;
 }
 
 .shop-page-section .item-shorting {
@@ -9574,6 +9586,10 @@ select.list-dt:focus {
   display: flex;
   position: relative;
   cursor: pointer;
+}
+
+.myaccount-section .order-card .order-item img {
+  max-height: 130px;
 }
 
 .myaccount-section .order-card .order-item:last-child {

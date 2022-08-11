@@ -1,6 +1,10 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 
+const cartController = require("../controllers/cartController");
+const Order = require("../models/order");
+const Product = require("../models/product");
+
 const maxAge = 3 * 24 * 60 * 60;
 
 const createJWT = (id) => {
@@ -36,13 +40,15 @@ const handleErrors = (err) => {
   return errors;
 };
 
-module.exports.login_get = (req, res) => {
+module.exports.login_get = async (req, res) => {
   let userLoggedIn = false;
+  let cartLength = await cartController.get_cart_length(req.cookies.jwt);
+
   if (req.cookies.jwt) {
     userLoggedIn = true;
   }
 
-  res.render("login", { userLoggedIn });
+  res.render("login", { userLoggedIn, cartLength });
 };
 
 module.exports.login_post = async (req, res) => {
@@ -97,9 +103,12 @@ module.exports.signup_post = async (req, res) => {
 //controlles get request to account/ profile page for users
 module.exports.profile_get = async (req, res) => {
   let userLoggedIn = false;
+  let cartLength = await cartController.get_cart_length(req.cookies.jwt);
+
   if (req.cookies.jwt) {
     userLoggedIn = true;
   }
+
   const user = await User.findById(res.user.id);
   const first_name = user.first_name;
   const last_name = user.last_name;
@@ -113,9 +122,21 @@ module.exports.profile_get = async (req, res) => {
     };
   });
 
+  const orders = await Order.find({ user_id: res.user.id });
+  for (let i = 0; i < orders.length; i++) {
+    await orders[i].populate({
+      path: "products.product_id",
+      model: Product,
+    });
+  }
+  // orders.forEach(async (order) => {
+  // });
+
   res.render("profile", {
     userLoggedIn,
     user: { first_name, last_name, phone_no, email, addresses },
+    orders,
+    cartLength,
   });
 };
 

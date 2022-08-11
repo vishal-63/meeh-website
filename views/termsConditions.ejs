@@ -7,16 +7,8 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
     />
-    <meta
-      name="Content-Security-Policy-Report-Only"
-      content="script-src https://accounts.google.com/gsi/client; frame-src https://accounts.google.com/gsi/; connect-src https://accounts.google.com/gsi/;"
-    />
-    <meta
-      name="google-signin-client_id"
-      content="649922066604-90k8n6au857isf9oo7og9nhp9f0nhb8a.apps.googleusercontent.com"
-    />
 
-    <title>Meehh - Login</title>
+    <title>Meehh - My Account</title>
 
     <!-- Fav Icon -->
     <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon" />
@@ -44,8 +36,6 @@
     <link href="/assets/css/color.css" rel="stylesheet" />
     <link href="/assets/css/style.css" rel="stylesheet" />
     <link href="/assets/css/responsive.css" rel="stylesheet" />
-
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
   </head>
 
   <!-- page wrapper -->
@@ -134,9 +124,6 @@
                                   <li><a href="/register">Sign Up</a></li>
                                   <% } %>
                               </ul></li>
-                              <li class="shop-cart">
-                                  <a href="/cart"><i class="flaticon-shopping-cart-1"></i><span><%=cartLength%></span></a>
-                              </li>
                           </ul>
                       </div>
                   </div>
@@ -186,178 +173,52 @@
                   </div>
               </nav>
           </div><!-- End Mobile Menu -->
-
-    <!-- myaccount-section -->
-    <section class="myaccount-section">
-      <div class="auto-container d-flex">
-        <div class="d-none d-lg-block col-5 p-5 my-auto">
-          <img src="/assets/images/icons/login.svg" alt="">
-        </div>
-        <div class="col-lg-6 offset-lg-1">
-          <div class="inner-column">
-            <div class="inner-box login-inner p-3 py-4 p-sm-4 p-lg-5">
-              <div class="upper-inner">
-                <h3>Log in</h3>
-                <p>Log in to snatch our product!</p>
-              </div>
-              <div class="hide login-error" role="alert"></div>
-              <form class="default-form login-form">
-                <div class="form-group">
-                  <label>Email address</label>
-                  <input type="email" name="email" required />
-                  <div class="email-error"></div>
-                </div>
-                <div class="form-group">
-                  <label>Password</label>
-                  <input type="password" name="password" required />
-                  <div class="password-error"></div>
-                </div>
-                <!-- <div class="form-group">
-                  <a href="#" class="recover-password" data-toggle="modal" data-target="#recoverPasswordModal">Forgot password?</a>
-                </div> -->
-                <div class="form-group col-12 col-sm-4 col-lg-12 pl-0">
-                  <button class="theme-btn-two">
-                    Log In<i class="flaticon-right-1"></i>
-                  </button>
-                </div>
-              </form>
-              <div class="lower-inner centred">
-                <span>or</span>
-                <ul class="social-links clearfix">
-                  <li>
-                    <div id="google-login-btn"></div>
-                  </li>
-                </ul>
-                <p>
-                  Don't Have an Account?
-                  <a href="/register" class="text-primary">Sign up Now</a>
-                </p>
-              </div>
-            </div>
-          </div>
+          
+    <!-- page-title -->
+    <section class="page-title centred">
+      <div
+        class="pattern-layer"
+        style="background-image: url(/assets/images/background/page-title.jpg)"
+      ></div>
+      <div class="auto-container">
+        <div class="content-box">
+          <h1>My Account</h1>
+          <ul class="bread-crumb clearfix">
+            <li>
+              <i class="flaticon-home-1"></i><a href="/">Home</a>
+            </li>
+            <li>My Account</li>
+          </ul>
         </div>
       </div>
     </section>
-    <!-- myaccount-section end -->
+    <!-- page-title end -->
 
-    <!-- Forgot password modal -->
-    <div class="modal fade" id="recoverPasswordModal" tabindex="-1" role="dialog" aria-labelledby="Recover Password Modal" aria-hidden="true">
-      <div class="modal-dialog  modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Recover Password</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="modal-text">Enter your registered email address.</div>
-            <span class="text-muted">A link to reset your password will be sent to this email address</span>
-              <div class="form-group">
-                <label for="email" class="col-form-label">Email:</label>
-                <input type="email" class="form-control" id="forgot-password-email">
-                <span class="text-dangered error"></span>
-              </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="theme-btn-two" onclick="forgotPassword()">Submit</button>
-          </div>
+    <div class="container my-5">
+        <h3 class="my-3">Terms and Conditions</h3>
+        <div>
+            Greetings from Meehh.com. The following terms and conditions of use, along with our privacy statement, govern Meehh.com's relationship with you in connection to this website. If you use or access this website in any other way, you do so at your own risk.
+            "Meehh.com," "www.meehh.com," "us," and "we" all refer to the website's owner. You, the user or viewer of our website, are referred to as "you."
         </div>
-      </div>
+        <br>
+
+        <div class="mt-2">
+            The terms and conditions of use govern the use of this website: 
+            <ul>
+                <li> - The information on these pages is provided solely for your general information and use. Without prior notice, changes could be made.</li>
+                <li> - As to the accuracy, timeliness, performance, completeness, or suitability of the information and materials found or offered on this website for any particular purpose, neither we nor any third parties make any warranty or guarantee. You understand that these materials and information could have mistakes or inaccuracies, and we expressly disclaim all responsibility for any such errors or inaccuracies to the fullest extent permissible by law.</li>
+                <li> - You use all information and content on this website at your own risk, and we will not be held responsible. You are solely responsible for ensuring that any goods, services, or information obtained from this website satisfy your particular needs.</li>
+                <li> - This website contains content that we own or have a licence to use. This content contains the images as well as the design, layout, look, and appearance. Other than in line with the copyright notice, which is a component of these terms and conditions, reproduction is not permitted.</li>
+                <li> - All trademarks used in this website's reproductions that are not the operator's or that are used with permission from the operator are acknowledged on the page.</li>
+                <li> - Unauthorized use of this website could result in a lawsuit for damages or even legal action.</li>
+                <li> - Links to other websites may occasionally be found on this website. For your convenience, we have included these links to further information. They don't imply that we support the website in any way (s). The linked website's content is not under our control (s). Without the business name's prior written consent, you are not permitted to establish a connection to this website from another website or document.
+                </li>
+                <li> - The laws of India or another governing body will govern how you use this website and any disputes that result from it.</li>
+            </ul>
+        </div>
     </div>
 
-    <script>
-      // send token recieved from google after user sign up to server to create user
-      async function handleCredentialResponse(response) {
-        const token = response.credential;
-        console.log(token);
-        const res = await fetch("/auth/google/sign-up", {
-          method: "POST",
-          body: JSON.stringify({ token: token }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        if (res.ok) {
-          location.assign("/products");
-        } else {
-          const data = await res.json();
-          console.log(data);
-        }
-      }
-
-      // inititalize google login button
-      window.onload = function () {
-        google.accounts.id.initialize({
-          client_id:
-            "649922066604-90k8n6au857isf9oo7og9nhp9f0nhb8a.apps.googleusercontent.com",
-          callback: handleCredentialResponse,
-        });
-        google.accounts.id.renderButton(
-          document.getElementById("google-login-btn"),
-          { theme: "filled_blue", size: "large", text: "signin_with" } // customization attributes
-        );
-        google.accounts.id.prompt(); // also display the One Tap dialog
-      };
-
-      // handle user login
-      const loginForm = document.querySelector("form.login-form");
-      const loginError = document.querySelector("div.login-error");
-
-      loginForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        // clear the errors
-        loginError.textContent = "";
-
-        // get the input values
-        const email = loginForm.email.value;
-        const password = loginForm.password.value;
-
-        try {
-          const res = await fetch("/login", {
-            method: "POST",
-            body: JSON.stringify({ email, password }),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-          console.log(res);
-          const data = await res.json();
-          console.log(data);
-          if (res.ok) {
-            loginError.textContent = data.message;
-            loginError.classList.remove("hide");
-            loginError.classList.add("alert");
-            loginError.classList.add("alert-success");
-            setTimeout(() => location.assign("/products"), 1000);
-          } else {
-            loginError.textContent = data.error;
-            loginError.classList.remove("hide");
-            loginError.classList.add("alert");
-            loginError.classList.add("alert-danger");
-            console.log(data.error);
-          }
-        } catch (err) {
-          console.log(err);
-        }
-      });
-    
-
-      const forgotPasswordForm = document.querySelector("form.for-password-form")
-
-      async function forgotPassword (emailInput) {
-        const email = document.querySelector("input#forgot-password-email").value
-        const res = await fetch("/profile/forgotPassword", {
-          method: "POST",
-          body: JSON.stringify({email}),
-          headers: {
-            "Content-Type": "application/json"
-          }
-        })
-        console.log(await res.json);
-      }
-    </script>
+    <%- include('footer') %>
 
     <!-- jequery plugins -->
     <script src="/assets/js/jquery.js"></script>
@@ -378,5 +239,4 @@
     <!-- main-js -->
     <script src="/assets/js/script.js"></script>
   </body>
-  <!-- End of .page_wrapper -->
 </html>

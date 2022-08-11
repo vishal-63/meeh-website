@@ -28,7 +28,9 @@
             </div>
             <div>
                 <div>
-                    <img  style=" max-width:1600 ; max-height:690" src="<%= product.inventory[0].large_images[0] %>" alt=""> 
+                    <% for(let i=0;i< product.inventory[0].large_images.length; i++){%>
+                    <img  style=" max-width:1600 ; max-height:690" src="<%= product.inventory[0].large_images[i] %>" alt=""> 
+                    <%}%>
                     <img width="270" height="350" src="<%= product.inventory[0].thumbnail_images[0] %>" alt=""> 
                 </div>
             </div> 

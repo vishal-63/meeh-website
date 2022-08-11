@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
-<title>Meehh - Wishlist</title>
+<title>Meehh.com - Wishlist</title>
 
 <!-- Fav Icon -->
 <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
@@ -37,30 +37,30 @@
     <div class="boxed_wrapper">
       
           <!-- search-popup -->
-          <!-- <div id="search-popup" class="search-popup">
+          <div id="search-popup" class="search-popup">
               <div class="close-search"><i class="flaticon-close"></i></div>
               <div class="popup-inner">
                   <div class="overlay-layer"></div>
                   <div class="search-form">
-                      <form method="post" action="/">
+                      <form method="GET" action="/products/search">
                           <div class="form-group">
                               <fieldset>
-                                  <input type="search" class="form-control" name="search-input" value="" placeholder="Search Here" required >
+                                  <input type="search" class="form-control" name="q" value="" placeholder="Search Here" required >
                                   <input type="submit" value="Search Now!" class="theme-btn style-four">
                               </fieldset>
                           </div>
                       </form>
-                      <h3>Recent Search Keywords</h3>
+                      <h3>Popular Search Keywords</h3>
                       <ul class="recent-searches">
-                          <li><a href="/">Finance</a></li>
-                          <li><a href="/">Idea</a></li>
-                          <li><a href="/">Service</a></li>
-                          <li><a href="/">Growth</a></li>
-                          <li><a href="/">Plan</a></li>
+                          <li><a href="/products?category=bookmark">Bookmark</a></li>
+                          <li><a href="/products?category=pop gripper">Pop Grippers</a></li>
+                          <li><a href="/products/search?q=friends">Friends</a></li>
+                          <li><a href="/products/search?q">Game of Thrones</a></li>
+                          <li><a href="/products/search?q=blackpink">Blackpink</a></li>
                       </ul>
                   </div>
               </div>
-          </div> -->
+          </div>
           <!-- search-popup end -->
 
 
@@ -83,50 +83,44 @@
                                       <ul class="navigation clearfix">
                                           <li class="current">
                                             <a href="/">Home</a>
-                                              
                                           </li>
-                                         
                                           <li class="dropdown"><a href="/products">Shop<span>Hot</span></a>
                                               <ul>
-                                              <li><a href="/products?category=bookmarks">Bookmarks</a></li>
-                                              <li><a href="/products?category=pop-grippers">Pop Grippers</a></li>
-                                              <li><a href="/products?category=tote-bags">Tote Bags</a></li>
-                                              <li><a href="/products?category=badges">Badges</a></li>
-                                              <li><a href="/products?category=diaries">Diaries</a></li>
-                                              <li><a href="/products?category=mousepads">Mousepads</a></li>
+                                              <li><a href="/products?category=bookmark">Bookmarks</a></li>
+                                              <li><a href="/products?category=pop gripper">Pop Grippers</a></li>
+                                              <li><a href="/products?category=tote bag">Tote Bags</a></li>
+                                              <li><a href="/products?category=badge">Badges</a></li>
+                                              <li><a href="/products?category=a5 dairy">Diaries</a></li>
+                                              <li><a href="/products?category=mousepad">Mousepads</a></li>
                                             </ul>
                                           </li>
-                                          <li><a href="/about">About</a>
-                                             
-                                          </li>    
-                                          <li><a href="/blogs">Blog</a>
-                                              
-                                          </li> 
+                                          <li><a href="/about">About</a></li>    
+                                          <!-- <li><a href="/blogs">Blog</a></li>  -->
                                           <li><a href="/contact">Contact</a></li>               
                                       </ul>
                                   </div>
                               </nav>
                           </div>
                           <ul class="menu-right-content clearfix">
-                              <!-- <li>
+                              <li>
                                   <div class="search-btn">
                                       <button type="button" class="search-toggler"><i class="flaticon-search"></i></button>
                                   </div>
-                              </li> -->
+                              </li>
                               <li><a href="/wishlist"><i class="flaticon-like"></i></a></li>
                               <li class="dropdown"><a href=""><i class="flaticon-user"></i></a>
                                 <ul>
                                   <% if(userLoggedIn) { %>
-                                    <li><a href="/profile">Profile</a></li>
-                                    <li><a href="/orders">Your orders</a></li>
-                                    <li><a href="/logout">Logout</a></li>
+                                  <li><a href="/profile">Profile</a></li>
+                                  <li><a href="/orders">Your orders</a></li>
+                                  <li><a href="/logout">Logout</a></li>
                                   <% } else { %> 
-                                    <li><a href="/login">Log In</a></li>
-                                    <li><a href="/register">Sign Up</a></li>
+                                  <li><a href="/login">Log In</a></li>
+                                  <li><a href="/register">Sign Up</a></li>
                                   <% } %>
                               </ul></li>
                               <li class="shop-cart">
-                                  <a href="/cart"><i class="flaticon-shopping-cart-1"></i><span>3</span></a>
+                                  <a href="/cart"><i class="flaticon-shopping-cart-1"></i><span><%=cartLength%></span></a>
                               </li>
                           </ul>
                       </div>
@@ -156,14 +150,14 @@
               <div class="menu-backdrop"></div>
               <div class="close-btn"><i class="fas fa-times"></i></div>
               <nav class="menu-box">
-                  <div class="nav-logo"><a href="/"><img src="assets/images/logo-2.png" alt="" title=""></a></div>
+                  <div class="nav-logo"><a href="/"><img src="assets/images/small-logo.png" alt="" title=""></a></div>
                   <div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--></div>
                   <div class="contact-info">
                       <h4>Contact Info</h4>
                       <ul>
-                          <li>Chicago 12, Melborne City, USA</li>
-                          <li><a href="tel:+8801682648101">+88 01682648101</a></li>
-                          <li><a href="mailto:info@example.com">info@example.com</a></li>
+                          <!-- <li>Chicago 12, Melborne City, USA</li> -->
+                          <li><a href="tel:+91-9773034478">+91 97730 34478</a></li>
+                          <li><a href="mailto:meehh.com@gmail.com">meehh.com@gmail.com</a></li>
                       </ul>
                   </div>
                   <div class="social-links">

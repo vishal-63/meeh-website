@@ -4,8 +4,10 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
+
 // var livereload = require("livereload");
 // var connectLiveReload = require("connect-livereload");
+
 dotenv.config();
 
 //require models
@@ -34,6 +36,7 @@ const googleAuthRouter = require("./routes/googleAuth");
 const imageRouter = require("./routes/imageUpload");
 const productUploadRouter = require("./routes/uploadProducts");
 const shippingRouter = require("./routes/shipping");
+const orderRouter = require("./routes/order.js");
 
 const cartController = require("./controllers/cartController");
 
@@ -84,6 +87,28 @@ app.get("/", async (req, res) => {
   res.render("index", { userLoggedIn, cartLength });
 });
 
+app.get("/terms-and-conditions", async (req, res) => {
+  let userLoggedIn = false;
+  let cartLength = await cartController.get_cart_length(req.cookies.jwt);
+
+  if (req.cookies.jwt) {
+    userLoggedIn = true;
+  }
+
+  res.render("termsConditions", { userLoggedIn });
+});
+
+app.get("/privacy-policy", async (req, res) => {
+  let userLoggedIn = false;
+  let cartLength = await cartController.get_cart_length(req.cookies.jwt);
+
+  if (req.cookies.jwt) {
+    userLoggedIn = true;
+  }
+
+  res.render("privacyPolicy", { userLoggedIn });
+});
+
 //setting routes for each path
 app.use("/login", loginRouter);
 app.use("/cart", cartRouter);
@@ -93,23 +118,24 @@ app.use("/contact", contactRouter);
 app.use("/checkout", checkoutRouter);
 app.use("/wishlist", wishlistRouter);
 app.use("/register", registerRouter);
-app.use("/blogs", blogRouter);
+// app.use("/blogs", blogRouter);
 app.use("/auth/google", googleAuthRouter);
 app.use("/images", imageRouter);
 app.use("/shipping", shippingRouter);
 //temp for uploading images to database;
 app.use("/editProducts", productUploadRouter);
+app.use("/orders", orderRouter);
 
 //about us route
 app.get("/about", async (req, res) => {
   let userLoggedIn = false;
-  let cartLength = cartController.get_cart_length(req.cookies.jwt);
+  let cartLength = await cartController.get_cart_length(req.cookies.jwt);
 
   if (req.cookies.jwt) {
     userLoggedIn = true;
   }
 
-  res.render("about", { userLoggedIn, cartLength });
+  res.render("index", { userLoggedIn, cartLength });
 });
 
 // logout route

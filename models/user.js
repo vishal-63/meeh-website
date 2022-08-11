@@ -109,10 +109,7 @@ const userSchema = new mongoose.Schema({
 userSchema.statics.login = async (email, password) => {
   const user = await User.findOne({ email });
   if (user) {
-    console.log("password", password);
-    console.log("passwordhash", user.password);
     const passwordMatched = await bcrypt.compare(password, user.password);
-    console.log(passwordMatched);
     if (passwordMatched) {
       return user;
     }

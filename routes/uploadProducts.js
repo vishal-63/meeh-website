@@ -189,6 +189,7 @@ router.get("/deleteProducts", async (req, res) => {
 
 //   console.log(bigDir[0].split(".")[0]);
 
+
 //     const product = new Product({
 //       product_name: "SHERLOCK BOOKSMARKS SET OF 5",
 //       description: `SHERLOCK BOOKSMARKS SET OF 5 (Bookmarks) - Ultra HD Prints1 - Gloss Laminated Finish - Tear Proof - Ideal Size - Handy Feel - Dimensions: 7” * 2” (inch) - Weight: 4gm`,
@@ -233,40 +234,28 @@ router.get("/deleteProducts", async (req, res) => {
 //   // res.end("0");
 // });
 
-router.get("/changeDetails", async (req, res) => {
-  const products = new Product({
-    product_name: "TESTING",
-    description: `(Bookmarks) - Ultra HD Prints1 - Gloss Laminated Finish - Tear Proof - Ideal Size - Handy Feel - Dimensions: 7” * 2” (inch) - Weight: 4gm`,
-    size: [],
-    color: [],
-    price: 30,
-    category: "Bookmarks",
-    sub_category: "pending",
-    discount: 0,
-    reviews: [],
-    is_deleted: false,
-    inventory: [
-      {
-        stock: 0,
-        color_id: "",
-        thumbnail_images: [],
-        large_images: [],
-      },
-    ],
-  });
+router.get("/changeDetails",async (req,res)=>{
+  
+  // const products = await Product.find({category:{$regex:"mousepad", $options:"i"}});
+  
+  // let regEx = new RegExp("booksmark", "ig");
+  
+  // products.map( async (product)=>{
+  //   product.category ="Mousepad";
+  //   await product.save();
+  // });
 
-  await products.save();
-
-  res.send("done");
+  res.send("Done");
 });
 
-router.get("/delete/:id", async (req, res) => {
-  console.log(req.params);
 
-  await Product.deleteOne({ _id: req.params.id });
+// router.get("/delete/:id", async (req, res) => {
+//   console.log(req.params);
 
-  res.redirect("/editProducts/");
-});
+//   await Product.deleteOne({ _id: req.params.id });
+
+//   res.redirect("/editProducts/");
+// });
 
 router.get("/:id", async (req, res) => {
   if (
