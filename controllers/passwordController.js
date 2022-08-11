@@ -60,7 +60,7 @@ module.exports.forgot_password_post = async (req, res) => {
         service: "gmail",
         auth: {
           user: "meehh.com@gmail.com",
-          pass: "dreamworldprints01@gmail.com",
+          pass: process.env.GMAIL_APP_PASSWORD,
         },
       });
 

@@ -127,7 +127,7 @@ module.exports.verify_order = async (req, res) => {
         service: "gmail",
         auth: {
           user: "meehh.com@gmail.com",
-          pass: "erbzccxasokppkla",
+          pass: process.env.GMAIL_APP_PASSWORD,
         },
       });
 
