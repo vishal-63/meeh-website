@@ -285,15 +285,17 @@
                       </div>
                     </div>
                   <% } %>
-                  <button class="theme-btn-two see-all" onClick="loadMoreProducts()">
-                    <a href="/products?category=<%=category%>">See All<i class="flaticon-right-1"></i></a>
-                  </button>
+                  <a href="/products?category=<%=category%>">
+                    <button class="theme-btn-two see-all">
+                      See All<i class="flaticon-right-1"></i>
+                    </button>
+                  </a>
                 <% } %>
               <% } %>
 
             </div>
             <% if(productList[0]!=null && productList[0]!=undefined) { %>
-              <button class="theme-btn-two" onClick="loadMoreProducts()">
+              <button class="theme-btn-two" id="loadMore" onClick="loadMoreProducts()">
                   Load More
                 </button>
             <% }%>
@@ -370,6 +372,7 @@
         }
 
         const url = "/products";
+        
         const reqData = {
           productsLoaded:document.getElementById("productContainer").children.length,
           category: categoryName,
@@ -387,8 +390,11 @@
         const response = await fetch(url, options);
         const data = await response.json();
 
-        // console.log(data);
+        console.log(data.newProducts);
 
+        if(data.newProducts.length == 0){
+          const loadMore = document.getElementById("loadMore").style.display="none";
+        }
         data.newProducts.map((product) => {
           const imgSource =
             product.inventory[0].thumbnail_images[0] ||product.inventory[0].large_images[0]

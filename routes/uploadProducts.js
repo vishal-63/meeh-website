@@ -236,26 +236,26 @@ router.get("/deleteProducts", async (req, res) => {
 
 router.get("/changeDetails",async (req,res)=>{
   
-  const products = await Product.find({description:{$regex:"Pending", $options:"i"}});
+  // const products = await Product.find({category:{$regex:"mousepad", $options:"i"}});
   
-  let regEx = new RegExp("booksmark", "ig");
+  // let regEx = new RegExp("booksmark", "ig");
   
-  products.map( async (product)=>{
-    product.category ="Pending";
-    await product.save();
-  });
+  // products.map( async (product)=>{
+  //   product.category ="Mousepad";
+  //   await product.save();
+  // });
 
   res.send("Done");
 });
 
 
-router.get("/delete/:id", async (req, res) => {
-  console.log(req.params);
+// router.get("/delete/:id", async (req, res) => {
+//   console.log(req.params);
 
-  await Product.deleteOne({ _id: req.params.id });
+//   await Product.deleteOne({ _id: req.params.id });
 
-  res.redirect("/editProducts/");
-});
+//   res.redirect("/editProducts/");
+// });
 
 router.get("/:id", async (req, res) => {
   if (
