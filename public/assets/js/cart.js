@@ -107,7 +107,7 @@ function intializeRazorpay() {
           "x-razorpay-signature": response.razorpay_signature,
         },
       });
-      console.log(await res.json());
+      // console.log(await res.json());
     },
     prefill: {
       contact: userDetails?.phone_no,

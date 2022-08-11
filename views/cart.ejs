@@ -255,7 +255,7 @@
                                     <div class="prod-thumb">
                                       <a href="#"
                                         ><img
-                                          src="<%= cart[i].product_id.inventory[0].thumbnail_images[0]?cart[i].product_id.inventory[0].thumbnail_images[0]:'/assets/images/resource/shop/cart-1.jpg'%>"
+                                          src="<%= cart[i].product_id?.inventory[0].thumbnail_images[0] || cart[i].product_id?.inventory[0].large_images[0] %>"
                                           alt="Product Image"
                                       /></a>
                                     </div>
@@ -429,7 +429,7 @@
                           <div class="item">
                             <div class="d-flex align-items-center">
                               <img
-                              src="<%= cart[i].product_id.inventory[0].thumbnail_images[0] || '/assets/images/resource/shop/cart-1.jpg'%>"
+                              src="<%= cart[i].product_id.inventory[0].thumbnail_images[0] || cart[i].product_id.inventory[0].large_images[0] %>"
                               alt="Product Image"
                               />
                               <div class="text-left">

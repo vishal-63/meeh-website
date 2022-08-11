@@ -155,9 +155,9 @@ module.exports.verify_order = async (req, res) => {
         ],
         context: {
           name: user.first_name + " " + user.last_name,
-          orderid:order._id,
-          paymentid:order.razorpay_payment_id,
-          amount:order.grand_total,
+          orderid: order._id,
+          paymentid: order.razorpay_payment_id,
+          amount: order.grand_total,
         },
       };
 
@@ -179,7 +179,8 @@ module.exports.verify_order = async (req, res) => {
       const products = order.products;
       shippingController.wrapper_api(order, email, contact, products);
 
-      res.json({ success: true, message: "Payment has been verified" });
+      // res.json({ success: true, message: "Payment has been verified" });
+      res.redirect("/cart");
     } else {
       res.json({ success: false, message: "Payment verification failed" });
     }
@@ -187,4 +188,4 @@ module.exports.verify_order = async (req, res) => {
     console.log(err);
     res.status(400).send(err.message);
   }
-}
+};
