@@ -126,8 +126,8 @@ module.exports.verify_order = async (req, res) => {
       const transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
-          user: "shahvishal662@gmail.com",
-          pass: "eaajehtruffoslze",
+          user: "meehh.com@gmail.com",
+          pass: "erbzccxasokppkla",
         },
       });
 
@@ -145,7 +145,7 @@ module.exports.verify_order = async (req, res) => {
         from: '"Meehh.com" <sdkm7016816547@gmail.com>', // sender address
         to: user.email, // list of receivers
         subject: "Order Placed",
-        template: "email", // the name of the template file i.e email.handlebars,
+        template: "orderEmail", // the name of the template file i.e email.handlebars,
         attachments: [
           {
             filename: "logo.png",
@@ -155,8 +155,9 @@ module.exports.verify_order = async (req, res) => {
         ],
         context: {
           name: user.first_name + " " + user.last_name,
-          email: user.email,
-          order: order,
+          orderid:order._id,
+          paymentid:order.razorpay_payment_id,
+          amount:order.grand_total,
         },
       };
 
