@@ -223,11 +223,11 @@
               </form>
               <div class="lower-inner centred">
                 <span>or</span>
-                <ul class="social-links clearfix">
+                <!-- <ul class="social-links clearfix">
                   <li>
                     <div id="google-login-btn"></div>
                   </li>
-                </ul>
+                </ul> -->
                 <p>
                   Don't Have an Account?
                   <a href="/register" class="text-primary">Sign up Now</a>
@@ -268,37 +268,37 @@
 
     <script>
       // send token recieved from google after user sign up to server to create user
-      async function handleCredentialResponse(response) {
-        const token = response.credential;
-        console.log(token);
-        const res = await fetch("/auth/google/sign-up", {
-          method: "POST",
-          body: JSON.stringify({ token: token }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        if (res.ok) {
-          location.assign("/products");
-        } else {
-          const data = await res.json();
-          console.log(data);
-        }
-      }
+      // async function handleCredentialResponse(response) {
+      //   const token = response.credential;
+      //   console.log(token);
+      //   const res = await fetch("/auth/google/sign-up", {
+      //     method: "POST",
+      //     body: JSON.stringify({ token: token }),
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //   });
+      //   if (res.ok) {
+      //     location.assign("/products");
+      //   } else {
+      //     const data = await res.json();
+      //     console.log(data);
+      //   }
+      // }
 
       // inititalize google login button
-      window.onload = function () {
-        google.accounts.id.initialize({
-          client_id:
-            "649922066604-90k8n6au857isf9oo7og9nhp9f0nhb8a.apps.googleusercontent.com",
-          callback: handleCredentialResponse,
-        });
-        google.accounts.id.renderButton(
-          document.getElementById("google-login-btn"),
-          { theme: "filled_blue", size: "large", text: "signin_with" } // customization attributes
-        );
-        google.accounts.id.prompt(); // also display the One Tap dialog
-      };
+      // window.onload = function () {
+      //   google.accounts.id.initialize({
+      //     client_id:
+      //       "649922066604-90k8n6au857isf9oo7og9nhp9f0nhb8a.apps.googleusercontent.com",
+      //     callback: handleCredentialResponse,
+      //   });
+      //   google.accounts.id.renderButton(
+      //     document.getElementById("google-login-btn"),
+      //     { theme: "filled_blue", size: "large", text: "signin_with" } // customization attributes
+      //   );
+      //   google.accounts.id.prompt(); // also display the One Tap dialog
+      // };
 
       // handle user login
       const loginForm = document.querySelector("form.login-form");
