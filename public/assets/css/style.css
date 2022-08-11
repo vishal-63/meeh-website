@@ -9588,6 +9588,10 @@ select.list-dt:focus {
   cursor: pointer;
 }
 
+.myaccount-section .order-card .order-item img {
+  max-height: 130px;
+}
+
 .myaccount-section .order-card .order-item:last-child {
   border: none;
 }

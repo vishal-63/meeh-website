@@ -8,7 +8,7 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
     />
 
-    <title>Meehh - Change Password</title>
+    <title>Meehh - My Account</title>
 
     <!-- Fav Icon -->
     <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon" />
@@ -41,28 +41,27 @@
   <!-- page wrapper -->
   <body>
     <div class="boxed_wrapper">
-
           <!-- search-popup -->
           <div id="search-popup" class="search-popup">
               <div class="close-search"><i class="flaticon-close"></i></div>
               <div class="popup-inner">
                   <div class="overlay-layer"></div>
                   <div class="search-form">
-                      <form method="post" action="/">
+                      <form method="GET" action="/products/search">
                           <div class="form-group">
                               <fieldset>
-                                  <input type="search" class="form-control" name="search-input" value="" placeholder="Search Here" required >
+                                  <input type="search" class="form-control" name="q" value="" placeholder="Search Here" required >
                                   <input type="submit" value="Search Now!" class="theme-btn style-four">
                               </fieldset>
                           </div>
                       </form>
-                      <h3>Recent Search Keywords</h3>
+                      <h3>Popular Search Keywords</h3>
                       <ul class="recent-searches">
-                          <li><a href="/">Finance</a></li>
-                          <li><a href="/">Idea</a></li>
-                          <li><a href="/">Service</a></li>
-                          <li><a href="/">Growth</a></li>
-                          <li><a href="/">Plan</a></li>
+                          <li><a href="/products?category=bookmark">Bookmark</a></li>
+                          <li><a href="/products?category=pop gripper">Pop Grippers</a></li>
+                          <li><a href="/products/search?q=friends">Friends</a></li>
+                          <li><a href="/products/search?q">Game of Thrones</a></li>
+                          <li><a href="/products/search?q=blackpink">Blackpink</a></li>
                       </ul>
                   </div>
               </div>
@@ -72,6 +71,7 @@
 
           <!-- main header -->
           <header class="main-header">
+              
               <div class="header-lower">
                   <div class="auto-container">
                       <div class="outer-box">
@@ -89,34 +89,29 @@
                                           <li class="current">
                                             <a href="/">Home</a>
                                           </li>
-
                                           <li class="dropdown"><a href="/products">Shop<span>Hot</span></a>
                                               <ul>
                                               <li><a href="/products?category=bookmark">Bookmarks</a></li>
-                                              <li><a href="/products?category=pop-grippers">Pop Grippers</a></li>
-                                              <li><a href="/products?category=tote-bags">Tote Bags</a></li>
-                                              <li><a href="/products?category=badges">Badges</a></li>
-                                              <li><a href="/products?category=diaries">Diaries</a></li>
-                                              <li><a href="/products?category=mousepads">Mousepads</a></li>
+                                              <li><a href="/products?category=pop gripper">Pop Grippers</a></li>
+                                              <li><a href="/products?category=tote bag">Tote Bags</a></li>
+                                              <li><a href="/products?category=badge">Badges</a></li>
+                                              <li><a href="/products?category=a5 dairy">Diaries</a></li>
+                                              <li><a href="/products?category=mousepad">Mousepads</a></li>
                                             </ul>
                                           </li>
-                                          <li><a href="/about">About</a>
-                                              
-                                          </li>    
-                                          <li><a href="/blogs">Blog</a>
-                                              
-                                          </li> 
+                                          <li><a href="/about">About</a></li>    
+                                          <!-- <li><a href="/blogs">Blog</a></li>  -->
                                           <li><a href="/contact">Contact</a></li>               
                                       </ul>
                                   </div>
                               </nav>
                           </div>
                           <ul class="menu-right-content clearfix">
-                              <!-- <li>
+                              <li>
                                   <div class="search-btn">
                                       <button type="button" class="search-toggler"><i class="flaticon-search"></i></button>
                                   </div>
-                              </li> -->
+                              </li>
                               <li><a href="/wishlist"><i class="flaticon-like"></i></a></li>
                               <li class="dropdown"><a href=""><i class="flaticon-user"></i></a>
                                 <ul>
@@ -129,9 +124,6 @@
                                   <li><a href="/register">Sign Up</a></li>
                                   <% } %>
                               </ul></li>
-                              <li class="shop-cart">
-                                  <a href="/cart"><i class="flaticon-shopping-cart-1"></i><span>3</span></a>
-                              </li>
                           </ul>
                       </div>
                   </div>
@@ -160,14 +152,14 @@
               <div class="menu-backdrop"></div>
               <div class="close-btn"><i class="fas fa-times"></i></div>
               <nav class="menu-box">
-                  <div class="nav-logo"><a href="/"><img src="assets/images/logo-2.png" alt="" title=""></a></div>
+                  <div class="nav-logo"><a href="/"><img src="assets/images/small-logo.png" alt="" title=""></a></div>
                   <div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--></div>
                   <div class="contact-info">
                       <h4>Contact Info</h4>
                       <ul>
-                          <li>Chicago 12, Melborne City, USA</li>
-                          <li><a href="tel:+8801682648101">+88 01682648101</a></li>
-                          <li><a href="mailto:info@example.com">info@example.com</a></li>
+                          <!-- <li>Chicago 12, Melborne City, USA</li> -->
+                          <li><a href="tel:+91-9773034478">+91 97730 34478</a></li>
+                          <li><a href="mailto:meehh.com@gmail.com">meehh.com@gmail.com</a></li>
                       </ul>
                   </div>
                   <div class="social-links">
@@ -195,74 +187,33 @@
             <li>
               <i class="flaticon-home-1"></i><a href="/">Home</a>
             </li>
-            <li>
-              <i class="flaticon-home-1"></i><a href="/profile">My Account</a>
-            </li>
-            <li>Change Password</li>
+            <li>My Account</li>
           </ul>
         </div>
       </div>
     </section>
     <!-- page-title end -->
 
-    <!-- myaccount-section -->
-    <section class="myaccount-section change-password">
-      <div class="container">
-        <h3 class="title pl-3">Change Password</h3>
-        <div class="subtitle pl-3 mb-4">Change your password by entering your old and new passwords.</div>
-        <form action="/profile/change-password" method="post" class="default-form col-md-6">
-          <% if(userLoggedIn) { %>
-            <div class="form-group">
-              <label for="old_password">Old Password</label>
-              <div class="input-group mb-3">
-                <input type="password" class="form-control" name="old_password" id="old_password" aria-label="Old Password" aria-describedby="show-password">
-                <div class="input-group-append" onclick="togglePasswordShow(this)">
-                  <span class="input-group-text" id="show-password"><i class="far fa-eye"></i></span>
-                </div>
-              </div>
-              <span class="text-danger old_password-message"></span>
-            </div>
-          <% } %>
+    <div class="container my-5">
+        <h3 class="my-4">Privacy Policy</h3>
+        <div>
+            Meehh.com reserves the right, in its sole discretion, to review and, if necessary, delete any Content from the Website or to terminate your account if that content violates this Agreement or any applicable laws.
+            <br><br>
+            This implies that all Content that you upload for use as products, post, email, transmit, or otherwise make available on Meehh.com is solely your responsibility and not Meehh.com's. Meehh.com has no control over the Content submitted using its services, hence it cannot vouch for its validity, reliability, or excellence. You are aware that using Meehh.com's services could expose you to material that is inappropriate, offensive, or indecent. Meehh.com shall not be responsible or liable for any Content, including, but not limited to, any errors or omissions in any Content, or for any loss or damage of any kind resulting from the posting, emailing, transmitting, or other use of any Content made available via Meehh.com.<br><br>
+            While we make an effort to provide correct information, we cannot guarantee that the Content and postings on the website will always be true and current. You are in charge of making sure that your posts are truthful and don't contain any false information. You acknowledge that you won't hold us liable for errors in any postings made on the website.
+            <br><br>
+            You understand, acknowledge, and agree that Meehh.com may access, preserve, and disclose your account information and Content as permitted by law or in the good faith belief that such access, preservation, or disclosure is reasonably necessary to: (i) comply with legal channels; (ii) enforce the Terms of Service; (iii) respond to claims that any Material infringes the rights of third parties; (iv) satisfy your queries for customer service; or (v) respect the rights, property, or personal safety of Meehh.com
+            <br><br>
+            By using Meehh.com's services, you consent to receiving SMS, email, or both with marketing or informational material related to Meehh.com. You will automatically be subscribed to our order-related WhatsApp notifications once you place an order with us.
+            <br><br>
+            Without limiting other remedies, we may take technical and legal measures to keep users off the Website if we believe they are causing issues, posing legal risks, or acting inconsistently with the letter or essence of our Terms of Service. We may also restrict, suspend, or terminate our service and user accounts, forbid access to the Website, delay or remove hosted Content, and limit, suspend, or terminate our service and user accounts.
+            <br><br>
+            Meehh.com also maintains the right, in its sole discretion, to terminate unverified accounts or accounts that have lain dormant for an extended length of time without activity.
+        </div>
 
-          <div class="form-group">
-            <label for="new_password">New Password</label>
-            <div class="input-group mb-3">
-              <input type="password" class="form-control" name="new_password" id="new_password" aria-label="New Password" aria-describedby="show-password">
-              <div class="input-group-append" onclick="togglePasswordShow(this)">
-                <span class="input-group-text" id="show-password"><i class="far fa-eye"></i></span>
-              </div>
-              <span class="text-danger new_password-message"></span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="confirm_password">Confirm Password</label>
-            <div class="input-group mb-3">
-              <input type="password" class="form-control" name="confirm_password" id="confirm_password" aria-label="Confirm Password" aria-describedby="show-password">
-              <div class="input-group-append" onclick="togglePasswordShow(this)">
-                <span class="input-group-text" id="show-password"><i class="far fa-eye"></i></span>
-              </div>
-            </div>
-            <span class="text-danger confirm_password-message"></span>
-          </div>
-          <div class="form-group col-6 pl-0">
-            <button class="theme-btn-two">Submit</button>
-          </div>
-        </form>
-      </div>
-    </section>
-<!-- myaccount-section end -->
+    </div>
 
     <%- include('footer') %>
-
-    <script>
-      function togglePasswordShow (e) {
-        const input = e.previousElementSibling
-        const icon = e.children[0].children[0]
-        input.type = input.type === "text" ? "password" : "text"
-        icon.classList.toggle("fa-eye")
-        icon.classList.toggle("fa-eye-slash")
-      }
-    </script>
 
     <!-- jequery plugins -->
     <script src="/assets/js/jquery.js"></script>
@@ -283,5 +234,4 @@
     <!-- main-js -->
     <script src="/assets/js/script.js"></script>
   </body>
-  <!-- End of .page_wrapper -->
 </html>

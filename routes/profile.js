@@ -26,10 +26,20 @@ router.get("/change-password", requireAuth, (req, res) => {
 
   res.render("changePassword", { userLoggedIn });
 });
-// router.post("/changePassword",requireAuth,userController.change_password_post);
+router.post(
+  "/change-password",
+  requireAuth,
+  passwordController.change_password_post
+);
 
 router.post("/forgotPassword", passwordController.forgot_password_post);
-router.get("/resetForgottenPassword",passwordController.reset_forgotten_password_get);
-router.post("/resetForgottenPassword",passwordController.reset_forgotten_password_post);
+router.get(
+  "/resetForgottenPassword",
+  passwordController.reset_forgotten_password_get
+);
+router.post(
+  "/resetForgottenPassword",
+  passwordController.reset_forgotten_password_post
+);
 
 module.exports = router;
