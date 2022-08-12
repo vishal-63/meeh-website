@@ -112,7 +112,7 @@
                                   </div>
                               </li>
                               <li><a href="/wishlist"><i class="flaticon-like"></i></a></li>
-                              <li class="dropdown"><a href=""><i class="flaticon-user"></i></a>
+                              <li class="dropdown"><a><i class="flaticon-user"></i></a>
                                 <ul>
                                   <% if(userLoggedIn) { %>
                                   <li><a href="/profile">Profile</a></li>
@@ -234,12 +234,22 @@
                           alt="<%= productList[i].product_name %>"
                         />
                         <ul class="info-list clearfix">
-                          <li onClick="addWishlist('<%= productList[i]._id %>')">
-                            <a><i class="flaticon-heart"></i></a>
-                          </li>
-                          <li onClick="addToCart('<%= productList[i]._id %>')">
-                            <a>Add to cart</a>
-                          </li>
+                          <% if(userLoggedIn) { %>
+                            <% console.log(userLoggedIn) %>
+                            <li onClick="addWishlist('<%= productList[i]._id %>')">
+                              <a><i class="flaticon-heart"></i></a>
+                            </li>
+                            <li onClick="addToCart('<%= productList[i]._id %>')">
+                              <a>Add to cart</a>
+                            </li>
+                          <% } else { %> 
+                            <li>
+                              <a href="/login"><i class="flaticon-heart"></i></a>
+                            </li>
+                            <li>
+                              <a href="/login">Add to cart</a>
+                            </li>
+                          <% } %> 
                         </ul>
                       </figure>
                       <div class="lower-content">
@@ -267,13 +277,23 @@
                               alt=""
                             />
                             <ul class="info-list clearfix">
-                              <li onClick="addWishlist('<%= productList[category][j]._id %>')">
-                                <a><i class="flaticon-heart"></i></a>
-                              </li>
-                              <li onClick="addToCart('<%= productList[category][j]._id %>')">
-                                <a>Add to cart</a>
-                              </li>
-                            </ul>
+                              <% if(userLoggedIn) { %>
+                                <% console.log(userLoggedIn) %>
+                                <li onClick="addWishlist('<%= productList[i]._id %>')">
+                                  <a><i class="flaticon-heart"></i></a>
+                                </li>
+                                <li onClick="addToCart('<%= productList[i]._id %>')">
+                                  <a>Add to cart</a>
+                                </li>
+                              <% } else { %> 
+                                <li>
+                                  <a href="/login"><i class="flaticon-heart"></i></a>
+                                </li>
+                                <li>
+                                  <a href="/login">Add to cart</a>
+                                </li>
+                              <% } %> 
+                        </ul>
                           </figure>
                           <div class="lower-content">
                             <a href="/products/<%= productList[category][j]._id %>">
@@ -456,121 +476,6 @@
                 </div>
               `
 
-        //starting of otterDiv1's child div
-        //child
-        // const outterDiv0 = document.createElement("div");
-        // outterDiv0.classList.add("shop-block-one");
-
-        // //starting of outterDiv0's child div
-        // //child
-        // const innerDiv = document.createElement("div");
-        // innerDiv.classList.add("inner-box");
-
-        // //starting of innerDiv's Child figure
-        // //child
-        // const figure = document.createElement("figure");
-        // figure.classList.add("image-box");
-
-        // //starting of figure's img tag
-        // //child
-        // const image = document.createElement("img");
-        // image.src = imageSource;
-        // //end of image
-
-        // //starting of figure's ul tag
-        // const ul = document.createElement("ul");
-        // ul.classList.add("info-list", "clearfix");
-
-        // //strating of ul's first li tag
-        // const li0 = document.createElement("li");
-        // li0.onclick = ()=>addWishlist(productID);
-
-        // //starting of li0's a tag
-        // //child
-        // const aTag0 = document.createElement("a");
-
-        // //starting of aTag0's i tag
-        // //child
-        // const iTag0 = document.createElement("i");
-        // iTag0.classList.add("flaticon-heart");
-        // //end of iTag0
-        // //end of aTag0
-        // //end of li0
-
-        // //starting of ul's second li tag
-        // const li1 = document.createElement("li");
-        // li1.onclick = ()=>addToCart(productID);
-
-        // //starting of li1's a tag
-        // //child
-        // const aTag1 = document.createElement("a");
-        // aTag1.textContent = "Add To cart";
-        // //end of a tag
-        // //end of li1 tag
-
-        // //starting of ul's third li tag
-        // const li2 = document.createElement("li");
-
-        // //starting of li2's a tag
-        // const aTag2 = document.createElement("a");
-        // aTag2.classList.add("lightbox-image");
-        // aTag2.href = "/products/" + productID;
-
-        // //starting of aTag2's i tag
-        // //child
-        // const iTag2 = document.createElement("i");
-        // iTag2.classList.add("flaticon-search");
-        // //end of iTag2
-        // //end of aTag2
-        // //end of li2
-        // //end of ul
-        // //end of figure tag
-
-        // //starting of innerDiv's second child div tag
-        // const lowerContent = document.createElement("div");
-        // lowerContent.classList.add("lower-content");
-
-        // //starting of lowerContent's first child a tag
-        // const aTag3 = document.createElement("a");
-        // aTag3.href = "/products/" + productID;
-        // aTag3.textContent = productName;
-        // //end of aTag3
-
-        // //starting of lowerContent's second child span Tag
-        // const span = document.createElement("span");
-        // span.classList.add("price");
-        // span.textContent = "$"+productPrice;
-        // //end of span tag
-
-        // //end of lowerContent
-        // //end of innerDiv
-        // //end of outterDiv0
-        // //end of outterDiv1
-
-        // aTag0.appendChild(iTag0);
-        // li0.appendChild(aTag0);
-
-        // li1.appendChild(aTag1);
-
-        // aTag2.appendChild(iTag2);
-        // // li2.appendChild(aTag2);
-
-        // ul.appendChild(li0);
-        // ul.appendChild(li1);
-        // ul.appendChild(li2);
-
-        // figure.appendChild(image);
-        // figure.appendChild(ul);
-
-        // lowerContent.appendChild(aTag3);
-        // lowerContent.appendChild(span);
-
-        // innerDiv.appendChild(figure);
-        // innerDiv.appendChild(lowerContent);
-
-        // outterDiv0.appendChild(innerDiv);
-        // outterDiv1.appendChild(outterDiv0);
-
         document.getElementById("productContainer").appendChild(shopBlock);
       }
 
@@ -585,7 +490,6 @@
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            // 'Content-Type': 'application/x-www-form-urlencoded',
           },
           body: JSON.stringify(data),
         };

@@ -24,7 +24,6 @@ module.exports.products_get = async (req, res) => {
     });
   } else {
     const categories = await Product.find().distinct("category");
-    console.log(categories);
     const productList = {};
 
     for (let i = 0; i < categories.length; i++) {
