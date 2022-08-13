@@ -236,7 +236,6 @@
                         />
                         <ul class="info-list clearfix">
                           <% if(userLoggedIn) { %>
-                            <% console.log(userLoggedIn) %>
                             <li onClick="addWishlist('<%= productList[i]._id %>')">
                               <a><i class="flaticon-heart"></i></a>
                             </li>
@@ -355,7 +354,6 @@
       const alert = document.querySelector(".alert > span.text");
 
       async function addWishlist(id) {
-        console.log(id);
         const data = { id: id };
         const url = "/wishlist/addWishlist";
         const options = {
@@ -388,7 +386,6 @@
           else if(window.location.search.substr(1).split("=")[0] == "q"){
             search = window.location.search.substr(1).split('&')[0].split('=')[1].replace("%20"," ");
           }
-          console.log(categoryName,search);
         }
 
         const url = "/products";
@@ -409,8 +406,6 @@
 
         const response = await fetch(url, options);
         const data = await response.json();
-
-        console.log(data.newProducts);
 
         if(data.newProducts.length == 0){
           const loadMore = document.getElementById("loadMore").style.display="none";
@@ -480,7 +475,6 @@
       }
 
       async function addToCart(id) {
-        console.log(id);
         const data = {
           id,
           quantity: 1,

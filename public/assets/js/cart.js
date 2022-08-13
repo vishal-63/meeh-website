@@ -23,7 +23,6 @@ if (selectedAddress === undefined) shippingNextBtn.disabled = true;
 function selectAddress(index) {
   if (addressCheckboxes[index].checked === true) {
     selectedAddress = addresses[index];
-    console.log(selectedAddress);
     addressCheckboxes.map((checkbox, i) => {
       if (i !== index) {
         checkbox.disabled = true;
@@ -65,7 +64,6 @@ async function createOrder() {
   });
   const data = await res.json();
   if (res.ok) {
-    console.log(data);
     order = data.result;
     key = data.key;
     userDetails = data.userDetails;
@@ -124,11 +122,9 @@ function intializeRazorpay() {
     send_sms_hash: true,
   };
   razorpayObject = new Razorpay(options);
-  console.log(razorpayObject);
 
   razorpayObject.on("payment.failed", function (response) {
-    console.log(response);
-    alert("This step of Payment Failed");
+    alert("Sorry, we couln't process your payment successfully!");
   });
 
   document.getElementById("checkout").onclick = function (e) {

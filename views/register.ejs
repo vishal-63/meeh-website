@@ -321,15 +321,6 @@
         const password = form.password.value;
         const confirm_password = form.confirm_password.value;
 
-        console.log(
-          first_name,
-          last_name,
-          phone_no,
-          password,
-          confirm_password,
-          email
-        );
-
         const body = {
           first_name,
           last_name,
@@ -340,7 +331,6 @@
         };
 
         try {
-          console.log(body);
           const res = await fetch("/register", {
             method: "POST",
             body: JSON.stringify(body),
@@ -349,7 +339,6 @@
             },
           });
           const data = await res.json();
-          console.log(data);
           if (res.ok) {
             alert.textContent = "User registration successful!";
             alert.classList.remove("hide");
@@ -372,7 +361,6 @@
             ).textContent = data.errors.confirm_password;
           }
         } catch (err) {
-          console.log(err);
         }
       });
     </script>

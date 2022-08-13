@@ -575,7 +575,6 @@
       }
 
       async function updateCart(id, quantity) {
-        console.log(id);
         const data = { id, quantity };
         const url = "/cart/updateCart";
         const options = {
@@ -586,7 +585,6 @@
           body: JSON.stringify(data),
         };
         const res = await fetch(url, options);
-        console.log(res);
         if (!res.ok) {
           alert(
             "An error occurred while updating your cart. Please try again later!"

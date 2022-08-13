@@ -270,7 +270,6 @@
       // send token recieved from google after user sign up to server to create user
       // async function handleCredentialResponse(response) {
       //   const token = response.credential;
-      //   console.log(token);
       //   const res = await fetch("/auth/google/sign-up", {
       //     method: "POST",
       //     body: JSON.stringify({ token: token }),
@@ -322,9 +321,7 @@
               "Content-Type": "application/json",
             },
           });
-          console.log(res);
           const data = await res.json();
-          console.log(data);
           if (res.ok) {
             loginError.textContent = data.message;
             loginError.classList.remove("hide");
