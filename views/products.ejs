@@ -112,7 +112,8 @@
                                   </div>
                               </li>
                               <li><a href="/wishlist"><i class="flaticon-like"></i></a></li>
-                              <li class="dropdown"><a><i class="flaticon-user"></i></a>
+                              <li class="dropdown">
+                                <a><i class="flaticon-user"></i></a>
                                 <ul>
                                   <% if(userLoggedIn) { %>
                                   <li><a href="/profile">Profile</a></li>
@@ -278,11 +279,10 @@
                             />
                             <ul class="info-list clearfix">
                               <% if(userLoggedIn) { %>
-                                <% console.log(userLoggedIn) %>
-                                <li onClick="addWishlist('<%= productList[i]._id %>')">
+                                <li onClick="addWishlist('<%= productList[category][j]._id %>')">
                                   <a><i class="flaticon-heart"></i></a>
                                 </li>
-                                <li onClick="addToCart('<%= productList[i]._id %>')">
+                                <li onClick="addToCart('<%= productList[category][j]._id %>')">
                                   <a>Add to cart</a>
                                 </li>
                               <% } else { %> 
