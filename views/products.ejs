@@ -74,7 +74,7 @@
               <div class="header-lower">
                   <div class="auto-container">
                       <div class="outer-box">
-                          <figure class="logo-box"><a href="/"><img src="assets/images/header-logo.png" alt=""></a></figure>
+                          <figure class="logo-box"><a href="/"><img src="/assets/images/header-logo.png" alt=""></a></figure>
                           <div class="menu-area">
                               <!--Mobile Navigation Toggler-->
                               <div class="mobile-nav-toggler">
@@ -137,7 +137,7 @@
                   <div class="auto-container">
                       <div class="outer-box clearfix">
                           <div class="logo-box pull-left">
-                              <figure class="logo"><a href="/"><img src="assets/images/small-logo.png" alt=""></a></figure>
+                              <figure class="logo"><a href="/"><img src="/assets/images/small-logo.png" alt=""></a></figure>
                           </div>
                           <div class="menu-area pull-right">
                               <nav class="main-menu clearfix">
@@ -155,7 +155,7 @@
               <div class="menu-backdrop"></div>
               <div class="close-btn"><i class="fas fa-times"></i></div>
               <nav class="menu-box">
-                  <div class="nav-logo"><a href="/"><img src="assets/images/small-logo.png" alt="" title=""></a></div>
+                  <div class="nav-logo"><a href="/"><img src="/assets/images/small-logo.png" alt="" title=""></a></div>
                   <div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--></div>
                   <div class="contact-info">
                       <h4>Contact Info</h4>
@@ -226,41 +226,43 @@
             <div class="row clearfix" id="productContainer">
               <% if(productList[0]!=null && productList[0]!=undefined) { %>
                 <% for(let i=0;i<productList.length;i++) { %>
-                <div class="col-lg-3 col-md-6 col-6 shop-block">
-                  <div class="shop-block-one">
-                    <div class="inner-box">
-                      <figure class="image-box">
-                        <img
-                          src="<%= productList[i].inventory[0].large_images[0]%>"
-                          alt="<%= productList[i].product_name %>"
-                        />
-                        <ul class="info-list clearfix">
-                          <% if(userLoggedIn) { %>
-                            <li onClick="addWishlist('<%= productList[i]._id %>')">
-                              <a><i class="flaticon-heart"></i></a>
-                            </li>
-                            <li onClick="addToCart('<%= productList[i]._id %>')">
-                              <a>Add to cart</a>
-                            </li>
-                          <% } else { %> 
-                            <li>
-                              <a href="/login"><i class="flaticon-heart"></i></a>
-                            </li>
-                            <li>
-                              <a href="/login">Add to cart</a>
-                            </li>
-                          <% } %> 
-                        </ul>
-                      </figure>
-                      <div class="lower-content">
-                        <a href="/products/<%= productList[i]._id %>">
-                          <%= productList[i].product_name %>
-                        </a>
-                        <span class="price">&#8377; <%= productList[i].price %></span>
+                  <div class="col-lg-3 col-md-6 col-6 shop-block">
+                    <div class="shop-block-one">
+                      <div class="inner-box">
+                        <figure class="image-box">
+                          <a href="/products/<%= productList[i]._id %>">
+                            <img
+                            src="<%= productList[i].inventory[0].large_images[0]%>"
+                            alt="<%= productList[i].product_name %>"
+                            />
+                          </a>
+                          <ul class="info-list clearfix">
+                            <% if(userLoggedIn) { %>
+                              <li onClick="addWishlist('<%= productList[i]._id %>')">
+                                <a><i class="flaticon-heart"></i></a>
+                              </li>
+                              <li onClick="addToCart('<%= productList[i]._id %>')">
+                                <a>Add to cart</a>
+                              </li>
+                            <% } else { %> 
+                              <li>
+                                <a href="/login"><i class="flaticon-heart"></i></a>
+                              </li>
+                              <li>
+                                <a href="/login">Add to cart</a>
+                              </li>
+                            <% } %> 
+                          </ul>
+                        </figure>
+                        <div class="lower-content">
+                          <a href="/products/<%= productList[i]._id %>">
+                            <%= productList[i].product_name %>
+                          </a>
+                          <span class="price">&#8377; <%= productList[i].price %></span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
                 <% } %>
               <% } else { %>
                 <% for(let i=0;i<Object.keys(productList).length;i++) { %> 
@@ -272,10 +274,12 @@
                       <div class="shop-block-one">
                         <div class="inner-box">
                           <figure class="image-box">
-                            <img
-                              src="<%= productList[category][j].inventory[0].large_images[0] %>"
-                              alt=""
-                            />
+                            <a href="/products/<%= productList[category][j]._id %>">
+                              <img
+                              src="<%= productList[category][j].inventory[0].large_images[0]%>"
+                              alt="<%= productList[category][j].product_name %>"
+                              />
+                            </a>
                             <ul class="info-list clearfix">
                               <% if(userLoggedIn) { %>
                                 <li onClick="addWishlist('<%= productList[category][j]._id %>')">
@@ -292,13 +296,13 @@
                                   <a href="/login">Add to cart</a>
                                 </li>
                               <% } %> 
-                        </ul>
+                            </ul>
                           </figure>
                           <div class="lower-content">
                             <a href="/products/<%= productList[category][j]._id %>">
                               <%= productList[category][j].product_name %>
                             </a>
-                            <span class="price">&#8377;<%= productList[category][j].price %></span>
+                            <span class="price">&#8377; <%= productList[category][j].price %></span>
                           </div>
                         </div>
                       </div>
@@ -334,22 +338,22 @@
     </div>
 
     <!-- jequery plugins -->
-    <script src="assets/js/jquery.js"></script>
-    <script src="assets/js/popper.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/owl.js"></script>
-    <script src="assets/js/wow.js"></script>
-    <script src="assets/js/validation.js"></script>
-    <script src="assets/js/jquery.fancybox.js"></script>
-    <script src="assets/js/TweenMax.min.js"></script>
-    <script src="assets/js/appear.js"></script>
-    <script src="assets/js/scrollbar.js"></script>
-    <script src="assets/js/jquery.nice-select.min.js"></script>
-    <script src="assets/js/isotope.js"></script>
-    <script src="assets/js/jquery-ui.js"></script>
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/popper.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/owl.js"></script>
+    <script src="/assets/js/wow.js"></script>
+    <script src="/assets/js/validation.js"></script>
+    <script src="/assets/js/jquery.fancybox.js"></script>
+    <script src="/assets/js/TweenMax.min.js"></script>
+    <script src="/assets/js/appear.js"></script>
+    <script src="/assets/js/scrollbar.js"></script>
+    <script src="/assets/js/jquery.nice-select.min.js"></script>
+    <script src="/assets/js/isotope.js"></script>
+    <script src="/assets/js/jquery-ui.js"></script>
 
     <!-- main-js -->
-    <script src="assets/js/script.js"></script>
+    <script src="/assets/js/script.js"></script>
     <script>
       const alert = document.querySelector(".alert > span.text");
 
@@ -372,7 +376,10 @@
             document.querySelector(".products-alert").classList.add("d-none");
             alert.innerText = ""
           }, 1000)
-        } else console.log(res);
+        } else {
+          alert("An error occured while adding item to the wishlist. Please try again later!")
+          console.log(res)
+        };
       }
 
       async function loadMoreProducts() {
@@ -413,7 +420,7 @@
         data.newProducts.map((product) => {
           const imgSource =
             product.inventory[0].thumbnail_images[0] ||product.inventory[0].large_images[0]
-            "assets/images/resource/shop/shop-1.jpg";
+            "/assets/images/resource/shop/shop-1.jpg";
           const productID = product._id;
           const productName = product.product_name;
           const productPrice = product.price;
@@ -495,7 +502,10 @@
             document.querySelector(".products-alert").classList.add("d-none");
             alert.innerText = ""
           }, 1000)
-        } else console.log(res);
+        } else {
+            alert("An error occurred while adding item to the cart. Please try again later.")
+            console.log(res)
+          };
       }
     </script>
   </body>

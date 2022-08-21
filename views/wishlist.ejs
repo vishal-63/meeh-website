@@ -70,7 +70,7 @@
               <div class="header-lower">
                   <div class="auto-container">
                       <div class="outer-box">
-                          <figure class="logo-box"><a href="/"><img src="assets/images/header-logo.png" alt=""></a></figure>
+                          <figure class="logo-box"><a href="/"><img src="/assets/images/header-logo.png" alt=""></a></figure>
                           <div class="menu-area">
                               <!--Mobile Navigation Toggler-->
                               <div class="mobile-nav-toggler">
@@ -132,7 +132,7 @@
                   <div class="auto-container">
                       <div class="outer-box clearfix">
                           <div class="logo-box pull-left">
-                              <figure class="logo"><a href="/"><img src="assets/images/small-logo.png" alt=""></a></figure>
+                              <figure class="logo"><a href="/"><img src="/assets/images/small-logo.png" alt=""></a></figure>
                           </div>
                           <div class="menu-area pull-right">
                               <nav class="main-menu clearfix">
@@ -150,7 +150,7 @@
               <div class="menu-backdrop"></div>
               <div class="close-btn"><i class="fas fa-times"></i></div>
               <nav class="menu-box">
-                  <div class="nav-logo"><a href="/"><img src="assets/images/small-logo.png" alt="" title=""></a></div>
+                  <div class="nav-logo"><a href="/"><img src="/assets/images/small-logo.png" alt="" title=""></a></div>
                   <div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--></div>
                   <div class="contact-info">
                       <h4>Contact Info</h4>
@@ -190,6 +190,24 @@
           </section>
           <!-- page-title end -->
 
+          <!-- added to cart alert -->
+          <div class="products-alert d-none">
+            <div
+              class="alert alert-success alert-dismissible fade show"
+              role="alert"
+            >
+              <span class="text"></span>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="alert"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
+
 
           <!-- wishlist section -->
           <section class="wishlist-section cart-page">
@@ -200,13 +218,13 @@
                     <div class="col-12 col-sm-4 col-md-3">
                       <div class="card">
                         <img 
-                        src="<%= wishlist[i].inventory[0].thumbnail_images[0]?wishlist[i].inventory[0].thumbnail_images[0]:'/assets/images/resource/shop/product-details-2.jpg'%>" alt="" class="card-img-top" />
+                        src="<%= wishlist[i].inventory[0].thumbnail_images[0] && wishlist[i].inventory[0].large_images[0] %>" alt="<%= wishlist[i].product_name %>" class="card-img-top" />
                         <div class="card-body">
                           <h5 class="card-title"><%= wishlist[i].product_name %></h5>
                           <p class="card-subtitle">&#x20B9;<%= wishlist[i].price%></p>
                         </div>
                         <div class="card-footer">
-                          <a href="#" class="card-link">Move to Cart</a>
+                          <a class="card-link"  onClick="addToCart('<%= wishlist[i]._id %>')">Move to Cart</a>
                         </div>
                         <div class="remove-icon" onclick="updateWishlist('<%= wishlist[i]._id%>')">
                           <i class="flaticon-close d-flex"></i>
@@ -232,25 +250,55 @@
 
 
     <!-- jequery plugins -->
-    <script src="assets/js/jquery.js"></script>
-    <script src="assets/js/popper.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/owl.js"></script>
-    <script src="assets/js/wow.js"></script>
-    <script src="assets/js/validation.js"></script>
-    <script src="assets/js/jquery.fancybox.js"></script>
-    <script src="assets/js/TweenMax.min.js"></script>
-    <script src="assets/js/appear.js"></script>
-    <script src="assets/js/scrollbar.js"></script>
-    <script src="assets/js/jquery.nice-select.min.js"></script>
-    <script src="assets/js/isotope.js"></script>
-    <script src="assets/js/jquery-ui.js"></script>
-    <script src="assets/js/jquery.bootstrap-touchspin.js"></script>
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/popper.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/owl.js"></script>
+    <script src="/assets/js/wow.js"></script>
+    <script src="/assets/js/validation.js"></script>
+    <script src="/assets/js/jquery.fancybox.js"></script>
+    <script src="/assets/js/TweenMax.min.js"></script>
+    <script src="/assets/js/appear.js"></script>
+    <script src="/assets/js/scrollbar.js"></script>
+    <script src="/assets/js/jquery.nice-select.min.js"></script>
+    <script src="/assets/js/isotope.js"></script>
+    <script src="/assets/js/jquery-ui.js"></script>
+    <script src="/assets/js/jquery.bootstrap-touchspin.js"></script>
 
     <!-- main-js -->
-    <script src="assets/js/script.js"></script>
+    <script src="/assets/js/script.js"></script>
 
     <script>
+      const alert = document.querySelector(".alert > span.text");
+
+      async function addToCart(id) {
+          const data = {
+            id,
+            quantity: 1,
+          };
+          const url = "/cart/addToCart";
+          const options = {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          };
+          const res = await fetch(url, options);
+          if (res.ok) {
+            updateWishlist(id)
+            document.querySelector(".products-alert").classList.remove("d-none");
+            alert.innerText = "Item added to cart!";
+            setTimeout(()=> {
+              document.querySelector(".products-alert").classList.add("d-none");
+              alert.innerText = ""
+            }, 1000)
+          } else {
+            alert("An error occurred while adding item to the cart. Please try again later.")
+            console.log(res)
+          };
+        }
+
         async function updateWishlist(id){
           const data = {id};
           const url = "/wishlist/deleteWishlist";
