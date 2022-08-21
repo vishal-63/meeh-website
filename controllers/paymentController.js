@@ -21,13 +21,14 @@ const razorpayInstance = new Razorpay({
 });
 
 module.exports.create_order = async (req, res) => {
+  const address = JSON.parse(req.body.address);
   const order = await orderController.createDbOrder(
     res.user.id,
     req.body.cart,
-    req.body.address
+    address
   );
 
-  const formattedAddress = `${req.body.address.house_no}, ${req.body.address.street}, ${req.body.address.landmark}, ${req.body.address.city} - ${req.body.address.pincode}, ${req.body.address.state}`;
+  const formattedAddress = `${address.house_no}, ${address.street}, ${address.landmark}, ${address.city} - ${address.pincode}, ${address.state}`;
 
   const user = await User.findById(res.user.id);
   const userDetails = {
@@ -35,7 +36,7 @@ module.exports.create_order = async (req, res) => {
     email: user.email,
     phone_no: user.phone_no,
     shipping_address: {
-      name: `${req.body.address.first_name} ${req.body.address.last_name}`,
+      name: `${address.first_name} ${address.last_name}`,
       address: formattedAddress,
     },
   };
@@ -44,13 +45,11 @@ module.exports.create_order = async (req, res) => {
   const currency = "INR";
   const receipt = order._id;
   const notes = {
-    shipping_name: `${req.body.address.first_name} ${req.body.address.last_name}`,
+    shipping_name: `${address.first_name} ${address.last_name}`,
     shipping_address: formattedAddress,
     sub_total: order.sub_total,
     coupon_discount: order.coupon?.discount,
   };
-
-  console.log(amount);
 
   try {
     razorpayInstance.orders.create(
@@ -58,7 +57,6 @@ module.exports.create_order = async (req, res) => {
       (err, result) => {
         if (!err) {
           const key = process.env.RAZORPAY_KEY;
-          console.log(key);
 
           order.payment_status = "Pending";
           order.shipping_status = "Ordered";
@@ -66,17 +64,16 @@ module.exports.create_order = async (req, res) => {
 
           order
             .save()
-            .then((order) => console.log(order))
+            .then(() => console.log("Order saved"))
             .catch((err) => {
               console.log(err);
               throw new Error(
                 "An error occurred while creating your order. Please try again later!"
               );
             });
-          console.log({ result, key, userDetails });
           res.json({ result, key, userDetails });
         } else {
-          console.log(err);
+          console.log(err, err.message);
           throw new Error(
             "An error occurred while creating your order. Please try again later!"
           );

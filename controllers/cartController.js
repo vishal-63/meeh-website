@@ -22,7 +22,7 @@ module.exports.get_cart_length = async (token) => {
   } else return 0;
 };
 
-module.exports.cart_get = async (req, res) => {
+async function getCartData(req, res) {
   let userLoggedIn = false;
   if (req.cookies.jwt) {
     userLoggedIn = true;
@@ -33,14 +33,24 @@ module.exports.cart_get = async (req, res) => {
     path: "cart.product_id",
     model: Product,
   });
+
   const cart = user.cart;
   const addresses = user.addresses;
-  res.render("cart", {
+
+  return {
     cart,
     userLoggedIn,
     addresses,
     cartLength: cart.length,
-  });
+  };
+}
+
+module.exports.cart_get = async (req, res) => {
+  res.render("newCart", await getCartData(req, res));
+};
+
+module.exports.cart_shipping_get = async (req, res) => {
+  res.render("shipping", await getCartData(req, res));
 };
 
 module.exports.cart_add_product = async (req, res) => {
