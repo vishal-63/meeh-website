@@ -69,7 +69,7 @@ mongoose
   })
   .catch((err) => {
     console.log("Error while connecting to mongoose");
-    console.log(err);
+    console.log(err, err.message);
   });
 
 // Ejs view engine

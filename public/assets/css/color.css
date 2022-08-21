@@ -114,6 +114,7 @@ ul.menu-right-content > li > a {
   background: var(--dark-purple);
 }
 
+.shop-block-one .inner-box .image-box .info-list li span.links:hover,
 .shop-block-one .inner-box .image-box .info-list li a:hover {
   background: var(--naples-yellow) !important;
 }

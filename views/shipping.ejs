@@ -7,16 +7,8 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
     />
-    <meta
-      name="Content-Security-Policy-Report-Only"
-      content="script-src https://accounts.google.com/gsi/client; frame-src https://accounts.google.com/gsi/; connect-src https://accounts.google.com/gsi/;"
-    />
-    <meta
-      name="google-signin-client_id"
-      content="649922066604-90k8n6au857isf9oo7og9nhp9f0nhb8a.apps.googleusercontent.com"
-    />
 
-    <title>Meehh - Login</title>
+    <title>Meehh.com - Shopping Cart</title>
 
     <!-- Fav Icon -->
     <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon" />
@@ -45,13 +37,13 @@
     <link href="/assets/css/style.css" rel="stylesheet" />
     <link href="/assets/css/responsive.css" rel="stylesheet" />
 
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js" async defer></script>
   </head>
 
   <!-- page wrapper -->
   <body>
     <div class="boxed_wrapper">
-          <!-- search-popup -->
+      <!-- search-popup -->
           <div id="search-popup" class="search-popup">
               <div class="close-search"><i class="flaticon-close"></i></div>
               <div class="popup-inner">
@@ -187,178 +179,192 @@
               </nav>
           </div><!-- End Mobile Menu -->
 
-    <!-- myaccount-section -->
-    <section class="myaccount-section">
-      <div class="auto-container d-flex">
-        <div class="d-none d-lg-block col-5 p-5 my-auto">
-          <img src="/assets/images/icons/login.svg" alt="">
+      <!-- cart section -->
+
+      <% if (cart != null && cart.length > 0) { %>
+      <!-- page-title -->
+      <section class="page-title centred">
+        <div
+          class="pattern-layer"
+          style="
+            background-image: url(/assets/images/background/page-title.jpg);
+          "
+        ></div>
+        <div class="auto-container">
+          <div class="content-box">
+            <h1>Cart</h1>
+            <ul class="bread-crumb clearfix">
+              <li><i class="flaticon-home-1"></i><a href="/">Home</a></li>
+              <li>Cart</li>
+            </ul>
+          </div>
         </div>
-        <div class="col-lg-6 offset-lg-1">
-          <div class="inner-column">
-            <div class="inner-box login-inner p-3 py-4 p-sm-4 p-lg-5">
-              <div class="upper-inner">
-                <h3>Log in</h3>
-                <p>Log in to snatch our product!</p>
-              </div>
-              <div class="hide login-error" role="alert"></div>
-              <form class="default-form login-form">
-                <div class="form-group">
-                  <label>Email address</label>
-                  <input type="email" name="email" required />
-                  <div class="email-error"></div>
+      </section>
+      <!-- page-title end -->
+
+      <!-- Multistep form -->
+      <div class="container">
+        <div class="row justify-content-center mt-0">
+          <div class="col-12 text-center p-0 mt-3 mb-2">
+            <div class="px-0 pt-4 pb-0 mt-3 mb-3">
+              <div class="mx-0">
+                <div id="msform">
+                  <!-- progressbar -->
+                  <ul id="progressbar">
+                    <li class="active" id="cart">
+                      <i class="flaticon-shopping-cart-1"></i>
+                      Cart
+                    </li>
+                    <li class="active" id="shipping">
+                      <i class="flaticon-location-pin-1"></i>
+                      Shipping
+                    </li>
+                    <li id="payment">
+                      <i class="far fa-payment"></i>
+                      Payment
+                    </li>
+                  </ul>
+                  <fieldset class="checkout-section steps">
+                    <div class="shipping-info">
+                      <form action="/profile/add-new-address" method="post" class="shipping-form d-none">
+                        <h4 class="details-title ml-3">Personal Details</h4>
+                        <div class="row">
+                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
+                            <label>First Name*</label>
+                            <div class="field-input">
+                              <input type="text" required name="first_name" />
+                            </div>
+                          </div>
+                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
+                            <label>Last Name*</label>
+                            <div class="field-input">
+                              <input type="text" required name="last_name" />
+                            </div>
+                          </div>
+                        </div>
+                        <h4 class="details-title ml-3">Address Details</h4>
+                        <div class="row">  
+                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
+                            <label>House No.*</label>
+                            <div class="field-input">
+                              <input type="text" required name="house_no" />
+                            </div>
+                          </div>
+                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
+                            <label>Street*</label>
+                            <div class="field-input">
+                              <input type="text" required name="street" />
+                            </div>
+                          </div>
+                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
+                            <label>Landmark <span>(optional)</span></label>
+                            <div class="field-input">
+                              <input type="text" name="landmark" />
+                            </div>
+                          </div>
+                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
+                            <label>City*</label>
+                            <div class="field-input">
+                              <input type="text" required name="city" />
+                            </div>
+                          </div>
+                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
+                            <label>State*</label>
+                            <div class="field-input">
+                              <input type="text" required name="state" />
+                            </div>
+                          </div>
+
+                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
+                            <label>Pin Code*</label>
+                            <div class="field-input">
+                              <input type="text" required name="pincode" />
+                            </div>
+                          </div>
+                        </div>
+                        <button type="cancel" value="Cancel" onclick="showAddressFields()" class="theme-btn-one ml-3">Cancel</button>
+                        <button type="submit" value="Save" class="theme-btn-two ml-3">Save</button>
+                      </form>
+
+                      <h4 class="sub-title">Shipping Details</h4>
+                      <form action="/checkout" method="post">
+                        <input type="text" class="hidden-address" name="address" hidden>
+                        <% if(addresses.length > 0) { %>
+                          <div class="card-columns my-5 addresses">
+                            <% for(let i=0;i<addresses.length;i++) { %>
+                            <div class="option-block card p-4">
+                              <div class="custom-controls-stacked">
+                                <label class="custom-control material-checkbox">
+                                  <input
+                                    type="checkbox"
+                                    class="material-control-input"
+                                    onchange="selectAddress(<%=i%>)"
+                                  />
+                                  <span class="material-control-indicator"></span>
+                                  <h5 class="description"><%= addresses[i].first_name %> <%= addresses[i].last_name %></h5>
+                                  <p>
+                                    <%= addresses[i].house_no %>, <%= addresses[i].street %>, <%= addresses[i].landmark %> <%= addresses[i].landmark && "," %> <%= addresses[i].city %> - <%= addresses[i].pincode %>
+                                    <br> 
+                                    <%= addresses[i].state %>
+                                  </p>
+                                </label>
+                              </div>
+                            </div>
+                          <% } %>
+                        <% } %>
+                        <div class="card add-new-address" onclick="showAddressFields()">
+                          <div class="card-body">
+                            <div class="flaticon-plus"></div>
+                            <div class="card-title">Add new address</div>
+                          </div>
+                        </div>
+                      </div>
+                        <button class="previous theme-btn-one">
+                          <a href="/cart">
+                            <i class="flaticon-left-2"></i>
+                            Go Back
+                          </a>
+                        </button>
+                        <button class="next theme-btn-two shipping-section">
+                          <a href="/checkout">
+                            Proceed
+                          </a>
+                          <i class="flaticon-right-1"></i>
+                        </button>
+                      </form>
+                  </fieldset>
+                  
                 </div>
-                <div class="form-group">
-                  <label>Password</label>
-                  <input type="password" name="password" required />
-                  <div class="password-error"></div>
-                </div>
-                <!-- <div class="form-group">
-                  <a href="#" class="recover-password" data-toggle="modal" data-target="#recoverPasswordModal">Forgot password?</a>
-                </div> -->
-                <div class="form-group col-12 col-sm-4 col-lg-12 pl-0">
-                  <button class="theme-btn-two">
-                    Log In<i class="flaticon-right-1"></i>
-                  </button>
-                </div>
-              </form>
-              <div class="lower-inner centred">
-                <span>or</span>
-                <!-- <ul class="social-links clearfix">
-                  <li>
-                    <div id="google-login-btn"></div>
-                  </li>
-                </ul> -->
-                <p>
-                  Don't Have an Account?
-                  <a href="/register" class="text-primary">Sign up Now</a>
-                </p>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
-    <!-- myaccount-section end -->
 
-    <!-- Forgot password modal -->
-    <div class="modal fade" id="recoverPasswordModal" tabindex="-1" role="dialog" aria-labelledby="Recover Password Modal" aria-hidden="true">
-      <div class="modal-dialog  modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Recover Password</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="modal-text">Enter your registered email address.</div>
-            <span class="text-muted">A link to reset your password will be sent to this email address</span>
-              <div class="form-group">
-                <label for="email" class="col-form-label">Email:</label>
-                <input type="email" class="form-control" id="forgot-password-email">
-                <span class="text-dangered error"></span>
-              </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="theme-btn-two" onclick="forgotPassword()">Submit</button>
-          </div>
+      <!-- page-title end -->
+
+      <% } else { %>
+      <div class="empty-cart container">
+        <img
+          src="\assets\images\icons\empty_cart.svg"
+          alt="Empty Cart Icon"
+          class="icon"
+        />
+        <div class="text">
+          Your shopping cart is empty <i class="far fa-sad-tear"></i>
+        </div>
+        <div class="theme-btn-three">
+          <a href="/products"
+            >Continue Shopping<i class="flaticon-right-1"></i
+          ></a>
         </div>
       </div>
+      <% } %>
+
+      <!-- cart section end -->
+
+      <%- include('footer')%>
     </div>
-
-    <script>
-
-      const prevUrl = document.referrer
-
-      // send token recieved from google after user sign up to server to create user
-      // async function handleCredentialResponse(response) {
-      //   const token = response.credential;
-      //   const res = await fetch("/auth/google/sign-up", {
-      //     method: "POST",
-      //     body: JSON.stringify({ token: token }),
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   });
-      //   if (res.ok) {
-      //     location.assign("/products");
-      //   } else {
-      //     const data = await res.json();
-      //     console.log(data);
-      //   }
-      // }
-
-      // inititalize google login button
-      // window.onload = function () {
-      //   google.accounts.id.initialize({
-      //     client_id:
-      //       "649922066604-90k8n6au857isf9oo7og9nhp9f0nhb8a.apps.googleusercontent.com",
-      //     callback: handleCredentialResponse,
-      //   });
-      //   google.accounts.id.renderButton(
-      //     document.getElementById("google-login-btn"),
-      //     { theme: "filled_blue", size: "large", text: "signin_with" } // customization attributes
-      //   );
-      //   google.accounts.id.prompt(); // also display the One Tap dialog
-      // };
-
-      // handle user login
-      const loginForm = document.querySelector("form.login-form");
-      const loginError = document.querySelector("div.login-error");
-
-      loginForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        // clear the errors
-        loginError.textContent = "";
-
-        // get the input values
-        const email = loginForm.email.value;
-        const password = loginForm.password.value;
-
-        try {
-          const res = await fetch("/login", {
-            method: "POST",
-            body: JSON.stringify({ email, password }),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-          const data = await res.json();
-          if (res.ok) {
-            loginError.classList.add("alert-success");
-            loginError.classList.add("alert");
-            loginError.classList.remove("hide");
-            loginError.textContent = data.message;
-            setTimeout(() => location.assign(prevUrl), 1000);
-          } else {
-            loginError.classList.add("alert-danger");
-            loginError.classList.add("alert");
-            loginError.classList.remove("hide");
-            loginError.textContent = data.error;
-            console.log(data.error);
-          }
-        } catch (err) {
-          console.log(err);
-        }
-      });
-    
-
-      const forgotPasswordForm = document.querySelector("form.for-password-form")
-
-      async function forgotPassword (emailInput) {
-        const email = document.querySelector("input#forgot-password-email").value
-        const res = await fetch("/profile/forgotPassword", {
-          method: "POST",
-          body: JSON.stringify({email}),
-          headers: {
-            "Content-Type": "application/json"
-          }
-        })
-        console.log(await res.json);
-      }
-    </script>
-
     <!-- jequery plugins -->
     <script src="/assets/js/jquery.js"></script>
     <script src="/assets/js/popper.min.js"></script>
@@ -374,9 +380,57 @@
     <script src="/assets/js/isotope.js"></script>
     <script src="/assets/js/jquery-ui.js"></script>
     <script src="/assets/js/jquery.bootstrap-touchspin.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></script>
 
     <!-- main-js -->
     <script src="/assets/js/script.js"></script>
+    <script src="/assets/js/cart.js"></script>
+    
+    <script>
+      var clientCart = <%- JSON.stringify(cart) %>
+      var addresses = <%- JSON.stringify(addresses) %>
+
+      // Handle shipping address selection
+      let selectedAddress;
+      const addressCheckboxes = [
+        ...document.querySelectorAll("input[type='checkbox'].material-control-input"),
+      ];
+      const shippingNextBtn = document.querySelector("button.shipping-section.next");
+
+      if (selectedAddress === undefined) shippingNextBtn.disabled = true;
+
+      function selectAddress(index) {
+        if (addressCheckboxes[index].checked === true) {
+          selectedAddress = addresses[index];
+          console.log(document.querySelector("input.hidden-address"));
+          document.querySelector("input.hidden-address").value =
+            JSON.stringify(selectedAddress);
+          console.log(document.querySelector("input.hidden-address").value);
+          addressCheckboxes.map((checkbox, i) => {
+            if (i !== index) {
+              checkbox.disabled = true;
+            }
+          });
+          shippingNextBtn.disabled = false;
+        } else {
+          selectedAddress = {};
+          shippingNextBtn.disabled = true;
+          addressCheckboxes.map((checkbox) => (checkbox.disabled = false));
+        }
+      }
+
+      // Show address input fields when clicked on add new address
+      function showAddressFields() {
+        const form = document.querySelector("form.shipping-form");
+        form.classList.toggle("d-none");
+        if (!form.classList.contains("d-none")) {
+          shippingNextBtn.disabled = true;
+        }
+        document
+          .querySelector("div.card-columns.addresses")
+          .classList.toggle("d-none");
+      }
+     
+    </script>
   </body>
-  <!-- End of .page_wrapper -->
 </html>

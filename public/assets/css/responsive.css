@@ -1062,6 +1062,10 @@
     top: 22px;
   }
 
+  ul.menu-right-content > li > ul {
+    margin-top: 0;
+  }
+
   .cs-countdown .count-col {
     margin-bottom: 10px;
   }

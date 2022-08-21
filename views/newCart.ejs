@@ -7,16 +7,8 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
     />
-    <meta
-      name="Content-Security-Policy-Report-Only"
-      content="script-src https://accounts.google.com/gsi/client; frame-src https://accounts.google.com/gsi/; connect-src https://accounts.google.com/gsi/;"
-    />
-    <meta
-      name="google-signin-client_id"
-      content="649922066604-90k8n6au857isf9oo7og9nhp9f0nhb8a.apps.googleusercontent.com"
-    />
 
-    <title>Meehh - Login</title>
+    <title>Meehh.com - Shopping Cart</title>
 
     <!-- Fav Icon -->
     <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon" />
@@ -45,13 +37,13 @@
     <link href="/assets/css/style.css" rel="stylesheet" />
     <link href="/assets/css/responsive.css" rel="stylesheet" />
 
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js" async defer></script>
   </head>
 
   <!-- page wrapper -->
   <body>
     <div class="boxed_wrapper">
-          <!-- search-popup -->
+      <!-- search-popup -->
           <div id="search-popup" class="search-popup">
               <div class="close-search"><i class="flaticon-close"></i></div>
               <div class="popup-inner">
@@ -187,178 +179,179 @@
               </nav>
           </div><!-- End Mobile Menu -->
 
-    <!-- myaccount-section -->
-    <section class="myaccount-section">
-      <div class="auto-container d-flex">
-        <div class="d-none d-lg-block col-5 p-5 my-auto">
-          <img src="/assets/images/icons/login.svg" alt="">
+      <!-- cart section -->
+
+      <% if (cart != null && cart.length > 0) { %>
+      <!-- page-title -->
+      <section class="page-title centred">
+        <div
+          class="pattern-layer"
+          style="
+            background-image: url(/assets/images/background/page-title.jpg);
+          "
+        ></div>
+        <div class="auto-container">
+          <div class="content-box">
+            <h1>Cart</h1>
+            <ul class="bread-crumb clearfix">
+              <li><i class="flaticon-home-1"></i><a href="/">Home</a></li>
+              <li>Cart</li>
+            </ul>
+          </div>
         </div>
-        <div class="col-lg-6 offset-lg-1">
-          <div class="inner-column">
-            <div class="inner-box login-inner p-3 py-4 p-sm-4 p-lg-5">
-              <div class="upper-inner">
-                <h3>Log in</h3>
-                <p>Log in to snatch our product!</p>
-              </div>
-              <div class="hide login-error" role="alert"></div>
-              <form class="default-form login-form">
-                <div class="form-group">
-                  <label>Email address</label>
-                  <input type="email" name="email" required />
-                  <div class="email-error"></div>
+      </section>
+      <!-- page-title end -->
+
+      <!-- Multistep form -->
+      <div class="container">
+        <div class="row justify-content-center mt-0">
+          <div class="col-12 text-center p-0 mt-3 mb-2">
+            <div class="px-0 pt-4 pb-0 mt-3 mb-3">
+              <div class="mx-0">
+                <div id="msform">
+                  <!-- progressbar -->
+                  <ul id="progressbar">
+                    <li class="active" id="cart">
+                      <i class="flaticon-shopping-cart-1"></i>
+                      Cart
+                    </li>
+                    <li id="shipping">
+                      <i class="flaticon-location-pin-1"></i>
+                      Shipping
+                    </li>
+                    <li id="payment">
+                      <i class="far fa-payment"></i>
+                      Payment
+                    </li>
+                  </ul>
+                  <!-- fieldsets -->
+                  <!-- <fieldset class="cart-section steps"> -->
+                    <div class="row clearfix">
+                      <div
+                        class="col-lg-12 col-md-12 col-sm-12 table-column mb-4"
+                      >
+                        <div class="table-outer">
+                          <table class="cart-table">
+                            <thead class="cart-header">
+                              <tr>
+                                <th>&nbsp;</th>
+                                <th class="prod-column">Product Name</th>
+                                <th>&nbsp;</th>
+                                <th>&nbsp;</th>
+                                <th class="price">Price</th>
+                                <th class="quantity">Quantity</th>
+                                <th>Subtotal</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <% for(let i=0; i<cart.length; i++) { %>
+                              <tr>
+                                <td colspan="4" class="prod-column">
+                                  <div class="column-box">
+                                    <div
+                                      class="remove-btn"
+                                      onClick="deleteFromCart('<%= cart[i]._id %>', this)"
+                                    >
+                                      <i class="flaticon-close"></i>
+                                    </div>
+                                    <div class="prod-thumb">
+                                      <a href="#"
+                                        ><img
+                                          src="<%= cart[i].product_id?.inventory[0].thumbnail_images[0] || cart[i].product_id?.inventory[0].large_images[0] %>"
+                                          alt="Product Image"
+                                      /></a>
+                                    </div>
+                                    <div class="prod-title">
+                                      <%= cart[i].product_id.product_name%>
+                                    </div>
+                                    <div><%= cart[i].selected_size%></div>
+                                    <div><%= cart[i].selected_color%></div>
+                                  </div>
+                                </td>
+                                <td class="price">
+                                  &#x20B9;<%= cart[i].product_id.price %>
+                                </td>
+                                <td class="qty">
+                                  <div class="item-quantity">
+                                    <input
+                                      value="<%=cart[i].quantity%>"
+                                      id="<%=cart[i]._id%>%>"
+                                      class="quantity-spinner"
+                                      type="text"
+                                      name="quantity"
+                                    />
+                                  </div>
+                                </td>
+                                <td class="sub-total">
+                                  &#x20B9;<%= cart[i].quantity *
+                                  cart[i].product_id.price %>
+                                </td>
+                              </tr>
+                              <% } %>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="cart-total">
+                      <div class="row">
+                        <div class="col-12 col-md-5 offset-md-7 cart-column">
+                          <div class="total-cart-box clearfix">
+                            <h4>Cart Totals</h4>
+                            <ul class="list clearfix">
+                              <li>
+                                Subtotal:<span class="sub-total"></span>
+                              </li>
+                              <li>
+                                Shipping:<span class="shipping-charge">&#x20B9; 80</span>
+                              </li>
+                              <li>
+                                Order Total:<span class="order-total" ></span>
+                              </li>
+                            </ul>
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <button name="next" class="next theme-btn-two">
+                      <a href="/cart/shipping">
+                        Proceed
+                      </a>
+                      <i class="flaticon-right-1"></i>
+                    </button>
+                  
                 </div>
-                <div class="form-group">
-                  <label>Password</label>
-                  <input type="password" name="password" required />
-                  <div class="password-error"></div>
-                </div>
-                <!-- <div class="form-group">
-                  <a href="#" class="recover-password" data-toggle="modal" data-target="#recoverPasswordModal">Forgot password?</a>
-                </div> -->
-                <div class="form-group col-12 col-sm-4 col-lg-12 pl-0">
-                  <button class="theme-btn-two">
-                    Log In<i class="flaticon-right-1"></i>
-                  </button>
-                </div>
-              </form>
-              <div class="lower-inner centred">
-                <span>or</span>
-                <!-- <ul class="social-links clearfix">
-                  <li>
-                    <div id="google-login-btn"></div>
-                  </li>
-                </ul> -->
-                <p>
-                  Don't Have an Account?
-                  <a href="/register" class="text-primary">Sign up Now</a>
-                </p>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
-    <!-- myaccount-section end -->
 
-    <!-- Forgot password modal -->
-    <div class="modal fade" id="recoverPasswordModal" tabindex="-1" role="dialog" aria-labelledby="Recover Password Modal" aria-hidden="true">
-      <div class="modal-dialog  modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Recover Password</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="modal-text">Enter your registered email address.</div>
-            <span class="text-muted">A link to reset your password will be sent to this email address</span>
-              <div class="form-group">
-                <label for="email" class="col-form-label">Email:</label>
-                <input type="email" class="form-control" id="forgot-password-email">
-                <span class="text-dangered error"></span>
-              </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="theme-btn-two" onclick="forgotPassword()">Submit</button>
-          </div>
+      <!-- page-title end -->
+
+      <% } else { %>
+      <div class="empty-cart container">
+        <img
+          src="\assets\images\icons\empty_cart.svg"
+          alt="Empty Cart Icon"
+          class="icon"
+        />
+        <div class="text">
+          Your shopping cart is empty <i class="far fa-sad-tear"></i>
+        </div>
+        <div class="theme-btn-three">
+          <a href="/products"
+            >Continue Shopping<i class="flaticon-right-1"></i
+          ></a>
         </div>
       </div>
+      <% } %>
+
+      <!-- cart section end -->
+
+      <%- include('footer')%>
     </div>
-
-    <script>
-
-      const prevUrl = document.referrer
-
-      // send token recieved from google after user sign up to server to create user
-      // async function handleCredentialResponse(response) {
-      //   const token = response.credential;
-      //   const res = await fetch("/auth/google/sign-up", {
-      //     method: "POST",
-      //     body: JSON.stringify({ token: token }),
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   });
-      //   if (res.ok) {
-      //     location.assign("/products");
-      //   } else {
-      //     const data = await res.json();
-      //     console.log(data);
-      //   }
-      // }
-
-      // inititalize google login button
-      // window.onload = function () {
-      //   google.accounts.id.initialize({
-      //     client_id:
-      //       "649922066604-90k8n6au857isf9oo7og9nhp9f0nhb8a.apps.googleusercontent.com",
-      //     callback: handleCredentialResponse,
-      //   });
-      //   google.accounts.id.renderButton(
-      //     document.getElementById("google-login-btn"),
-      //     { theme: "filled_blue", size: "large", text: "signin_with" } // customization attributes
-      //   );
-      //   google.accounts.id.prompt(); // also display the One Tap dialog
-      // };
-
-      // handle user login
-      const loginForm = document.querySelector("form.login-form");
-      const loginError = document.querySelector("div.login-error");
-
-      loginForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        // clear the errors
-        loginError.textContent = "";
-
-        // get the input values
-        const email = loginForm.email.value;
-        const password = loginForm.password.value;
-
-        try {
-          const res = await fetch("/login", {
-            method: "POST",
-            body: JSON.stringify({ email, password }),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-          const data = await res.json();
-          if (res.ok) {
-            loginError.classList.add("alert-success");
-            loginError.classList.add("alert");
-            loginError.classList.remove("hide");
-            loginError.textContent = data.message;
-            setTimeout(() => location.assign(prevUrl), 1000);
-          } else {
-            loginError.classList.add("alert-danger");
-            loginError.classList.add("alert");
-            loginError.classList.remove("hide");
-            loginError.textContent = data.error;
-            console.log(data.error);
-          }
-        } catch (err) {
-          console.log(err);
-        }
-      });
-    
-
-      const forgotPasswordForm = document.querySelector("form.for-password-form")
-
-      async function forgotPassword (emailInput) {
-        const email = document.querySelector("input#forgot-password-email").value
-        const res = await fetch("/profile/forgotPassword", {
-          method: "POST",
-          body: JSON.stringify({email}),
-          headers: {
-            "Content-Type": "application/json"
-          }
-        })
-        console.log(await res.json);
-      }
-    </script>
-
     <!-- jequery plugins -->
     <script src="/assets/js/jquery.js"></script>
     <script src="/assets/js/popper.min.js"></script>
@@ -374,9 +367,96 @@
     <script src="/assets/js/isotope.js"></script>
     <script src="/assets/js/jquery-ui.js"></script>
     <script src="/assets/js/jquery.bootstrap-touchspin.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></script>
 
     <!-- main-js -->
     <script src="/assets/js/script.js"></script>
+    
+    <script>
+      var clientCart = <%- JSON.stringify(cart) %>
+
+      const subTotals = clientCart.map((item) => {
+        return item.quantity * item.product_id.price;
+      });
+      const grandTotal = [...subTotals, 80]
+
+      const subTotalSpan = document.querySelector(
+        ".total-cart-box ul.list li span.sub-total"
+      );
+      const orderTotalSpan = document.querySelector(
+        ".total-cart-box ul.list li span.order-total"
+      );
+      subTotalSpan.innerHTML = `&#x20B9; ${subTotals.reduce((total, num) => {
+        return num + total;
+      }, 0)}`;
+      orderTotalSpan.innerHTML = `&#x20B9; ${grandTotal.reduce((total, num) => {
+        return num + total;
+      }, 0)}`;
+
+      const plusButtons = document.querySelectorAll(".bootstrap-touchspin-up");
+      const minusButtons = document.querySelectorAll(
+        ".bootstrap-touchspin-down"
+      );
+
+      for (let i = 0; i < plusButtons.length; i++) {
+        plusButtons[i].onclick = () => {
+          const itemId =
+            plusButtons[i].parentElement.parentElement.childNodes[1].id;
+          updateCart(itemId, 1);
+        };
+      }
+
+      for (let i = 0; i < minusButtons.length; i++) {
+        minusButtons[i].onclick = () => {
+          const itemId =
+            minusButtons[i].parentElement.parentElement.childNodes[1].id;
+          updateCart(itemId, -1);
+        };
+      }
+
+      async function deleteFromCart(id, e) {
+        const data = { id };
+        const url = "/cart/deleteFromCart";
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: JSON.stringify(data),
+        };
+        const res = await fetch(url, options);
+        if (!res.ok)
+          alert(
+            "An error occurred while updating your cart. Please try again later!"
+          );
+        else location.reload(false);
+      }
+
+      async function updateCart(id, quantity) {
+        const data = { id, quantity };
+        const url = "/cart/updateCart";
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        };
+        const res = await fetch(url, options);
+        if (!res.ok) {
+          alert(
+            "An error occurred while updating your cart. Please try again later!"
+          );
+          quantity > 0
+            ? document.getElementById(id).value--
+            : document.getElementById(id).value++;
+        } else {
+          console.log(res);
+          location.reload(false);
+        }
+      }
+      
+    </script>
   </body>
-  <!-- End of .page_wrapper -->
 </html>
