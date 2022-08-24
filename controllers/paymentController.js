@@ -22,6 +22,7 @@ const razorpayInstance = new Razorpay({
 
 module.exports.create_order = async (req, res) => {
   const address = JSON.parse(req.body.address);
+  console.log(address);
   const order = await orderController.createDbOrder(
     res.user.id,
     req.body.cart,
