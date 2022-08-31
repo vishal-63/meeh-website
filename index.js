@@ -37,6 +37,7 @@ const imageRouter = require("./routes/imageUpload");
 const productUploadRouter = require("./routes/uploadProducts");
 const shippingRouter = require("./routes/shipping");
 const orderRouter = require("./routes/order.js");
+const adminRouter = require("./routes/adminRoutes.js");
 
 const cartController = require("./controllers/cartController");
 
@@ -123,6 +124,9 @@ app.use("/auth/google", googleAuthRouter);
 app.use("/shipping", shippingRouter);
 //temp for uploading images to database;
 app.use("/orders", orderRouter);
+
+//admin routes
+app.use("/admin",adminRouter);
 
 //about us route
 app.get("/about", async (req, res) => {

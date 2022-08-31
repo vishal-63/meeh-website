@@ -271,38 +271,34 @@
 //   }
 // });
 
-// router.get("/", async (req, res) => {
-//   res.redirect("/editProducts/0");
-// });
+router.get("/changeDescription",async (req,res)=>{
+  const products = await Product.find({
+    category:{$regex: "bookmark", $options: "i"}
+  });
 
-// router.post("/", async (req, res) => {
-//   console.log(req.body);
-//   const {
-//     _id,
-//     product_name,
-//     price,
-//     description,
-//     category,
-//     sub_category,
-//     next,
-//     small_image,
-//   } = req.body;
-//   // res.send(req.body);
-//   const product = await Product.findById(_id);
-//   product.product_name = product_name;
-//   product.price = price;
-//   product.description = description;
-//   product.category = category;
-//   product.sub_category = sub_category;
-//   product.inventory[0].thumbnail_images[0] = small_image;
+  for(let i=0;i<products.length;i++){
+    products[i].description = `${products[i].product_name}|Ultra HD Prints1|Gloss Laminated Finish|Tear Proof|Ideal Size|Handy Feel|Dimensions: 7” * 2” (inch)|Weight: 4gm`;
+    await products[i].save();
+    console.log(`${i+1} out of ${products.length}`);
+  }
+  res.send("Done.");
+})
 
-//   try {
-//     await product.save();
-//   } catch (err) {
-//     console.log(err);
-//   }
+router.get("/changeDetails/:id",async (req,res)=>{
+  
+  const product = await Product.findById(req.params.id);
+  console.log(product);
+  
+  res.render("editProducts",{product:product,next:0});
+});
 
-//   res.redirect(`/editProducts/${next}`);
-// });
+
+router.get("/delete/:id", async (req, res) => {
+  console.log(req.params);
+
+  await Product.deleteOne({ _id: req.params.id });
+
+  res.redirect("/editProducts/");
+});
 
 // module.exports = router;
