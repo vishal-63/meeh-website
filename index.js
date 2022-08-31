@@ -95,7 +95,7 @@ app.get("/terms-and-conditions", async (req, res) => {
     userLoggedIn = true;
   }
 
-  res.render("termsConditions", { userLoggedIn });
+  res.render("termsConditions", { userLoggedIn, cartLength });
 });
 
 app.get("/privacy-policy", async (req, res) => {
@@ -106,7 +106,7 @@ app.get("/privacy-policy", async (req, res) => {
     userLoggedIn = true;
   }
 
-  res.render("privacyPolicy", { userLoggedIn });
+  res.render("privacyPolicy", { userLoggedIn, cartLength });
 });
 
 //setting routes for each path
@@ -143,13 +143,14 @@ app.get("/logout", (req, res) => {
 });
 
 // 404 page
-app.get("*", (req, res) => {
+app.get("*", async (req, res) => {
   let userLoggedIn = false;
+  let cartLength = await cartController.get_cart_length(req.cookies.jwt);
   if (req.cookies.jwt) {
     userLoggedIn = true;
   }
 
-  res.render("not-found", { userLoggedIn });
+  res.render("not-found", { userLoggedIn, cartLength });
 });
 
 // app.get("/productUpdate",async (req,res)=>{
