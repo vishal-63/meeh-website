@@ -229,12 +229,10 @@
                     <div class="shop-block-one">
                       <div class="inner-box">
                         <figure class="image-box">
-                          <a href="/products/<%= productList[i]._id %>">
                             <img
                             src="<%= productList[i].inventory[0].large_images[0]%>"
                             alt="<%= productList[i].product_name %>"
                             />
-                          </a>
                           <ul class="info-list clearfix">
                             <% if(userLoggedIn) { %>
                               <li onClick="addWishlist('<%= productList[i]._id %>')">
@@ -273,12 +271,10 @@
                       <div class="shop-block-one">
                         <div class="inner-box">
                           <figure class="image-box">
-                            <a href="/products/<%= productList[category][j]._id %>">
                               <img
                               src="<%= productList[category][j].inventory[0].large_images[0]%>"
                               alt="<%= productList[category][j].product_name %>"
                               />
-                            </a>
                             <ul class="info-list clearfix">
                               <% if(userLoggedIn) { %>
                                 <li onClick="addWishlist('<%= productList[category][j]._id %>')">
@@ -375,6 +371,7 @@
             document.querySelector(".products-alert").classList.add("d-none");
             alert.innerText = ""
           }, 1000)
+          location.reload()
         } else {
           alert("An error occured while adding item to the wishlist. Please try again later!")
           console.log(res)
@@ -501,6 +498,7 @@
             document.querySelector(".products-alert").classList.add("d-none");
             alert.innerText = ""
           }, 1000)
+          location.reload()
         } else {
             alert("An error occurred while adding item to the cart. Please try again later.")
             console.log(res)

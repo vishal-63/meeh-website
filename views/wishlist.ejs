@@ -179,10 +179,10 @@
             <div class="pattern-layer" style="background-image: url(assets/images/background/page-title.jpg);"></div>
               <div class="auto-container">
                 <div class="content-box">
-                  <h1>Cart Page</h1>
+                  <h1>Wishlist Page</h1>
                   <ul class="bread-crumb clearfix">
                     <li><i class="flaticon-home-1"></i><a href="/">Home</a></li>
-                    <li>Cart Page</li>
+                    <li>Wishlist Page</li>
                   </ul>
                 </div>
               </div>
@@ -224,7 +224,7 @@
                           <p class="card-subtitle">&#x20B9;<%= wishlist[i].price%></p>
                         </div>
                         <div class="card-footer">
-                          <a class="card-link"  onClick="addToCart('<%= wishlist[i]._id %>')">Move to Cart</a>
+                          <a class="card-link" style="cursor: pointer;" onClick="addToCart('<%= wishlist[i]._id %>')">Move to Cart</a>
                         </div>
                         <div class="remove-icon" onclick="updateWishlist('<%= wishlist[i]._id%>')">
                           <i class="flaticon-close d-flex"></i>
@@ -293,6 +293,7 @@
               document.querySelector(".products-alert").classList.add("d-none");
               alert.innerText = ""
             }, 1000)
+            location.reload()
           } else {
             alert("An error occurred while adding item to the cart. Please try again later.")
             console.log(res)
