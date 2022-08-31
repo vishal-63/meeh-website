@@ -202,7 +202,7 @@ module.exports.wrapper_api = async (dbOrder, email, contact, products) => {
   var data = JSON.stringify({
     order_id: dbOrder._id,
     order_date: dbOrder.order_date,
-    channel_id: "3155338",
+    channel_id: "3173737",
     billing_customer_name: dbOrder.shipping_address.first_name,
     billing_last_name: dbOrder.shipping_address.last_name,
     billing_address: `${dbOrder.shipping_address.house_no}, ${dbOrder.shipping_address.street}`,

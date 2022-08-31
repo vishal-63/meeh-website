@@ -243,9 +243,20 @@
                         </ul>
                       </figure>
                       <div class="lower-content">
-                        <a target="_blank" href="/editProducts/changeDetails/<%= productList[i]._id %>">
-                          <%= productList[i].product_name %>
-                        </a>
+                        <% if(isAdmin){%>
+                          
+                          <a target="_blank" href= "/admin/getProduct/<%= productList[i]._id %>">
+                            <%= productList[i].product_name %>
+                          </a>
+
+                        <% }else{%>
+                          
+                          <a target="_blank" href= "/products/<%= productList[i]._id %>">
+                            <%= productList[i].product_name %>
+                          </a>
+
+                        <%}%>
+                        
                         <span class="price">&#8377; <%= productList[i].price %></span>
                       </div>
                     </div>
