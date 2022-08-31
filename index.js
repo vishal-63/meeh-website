@@ -41,7 +41,6 @@ const adminRouter = require("./routes/adminRoutes.js");
 
 const cartController = require("./controllers/cartController");
 
-
 const app = express();
 
 // live reload browser on change in any files
@@ -71,7 +70,7 @@ mongoose
   })
   .catch((err) => {
     console.log("Error while connecting to mongoose");
-    console.log(err);
+    console.log(err, err.message);
   });
 
 // Ejs view engine
@@ -89,6 +88,28 @@ app.get("/", async (req, res) => {
   res.render("index", { userLoggedIn, cartLength });
 });
 
+app.get("/terms-and-conditions", async (req, res) => {
+  let userLoggedIn = false;
+  let cartLength = await cartController.get_cart_length(req.cookies.jwt);
+
+  if (req.cookies.jwt) {
+    userLoggedIn = true;
+  }
+
+  res.render("termsConditions", { userLoggedIn, cartLength });
+});
+
+app.get("/privacy-policy", async (req, res) => {
+  let userLoggedIn = false;
+  let cartLength = await cartController.get_cart_length(req.cookies.jwt);
+
+  if (req.cookies.jwt) {
+    userLoggedIn = true;
+  }
+
+  res.render("privacyPolicy", { userLoggedIn, cartLength });
+});
+
 //setting routes for each path
 app.use("/login", loginRouter);
 app.use("/cart", cartRouter);
@@ -100,11 +121,9 @@ app.use("/wishlist", wishlistRouter);
 app.use("/register", registerRouter);
 // app.use("/blogs", blogRouter);
 app.use("/auth/google", googleAuthRouter);
-app.use("/images", imageRouter);
 app.use("/shipping", shippingRouter);
 //temp for uploading images to database;
-app.use("/editProducts", productUploadRouter);
-app.use("/orders",orderRouter);
+app.use("/orders", orderRouter);
 
 //admin routes
 app.use("/admin",adminRouter);
@@ -128,13 +147,14 @@ app.get("/logout", (req, res) => {
 });
 
 // 404 page
-app.get("*", (req, res) => {
+app.get("*", async (req, res) => {
   let userLoggedIn = false;
+  let cartLength = await cartController.get_cart_length(req.cookies.jwt);
   if (req.cookies.jwt) {
     userLoggedIn = true;
   }
 
-  res.render("not-found", { userLoggedIn });
+  res.render("not-found", { userLoggedIn, cartLength });
 });
 
 // app.get("/productUpdate",async (req,res)=>{

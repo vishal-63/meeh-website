@@ -72,7 +72,7 @@
               <div class="header-lower">
                   <div class="auto-container">
                       <div class="outer-box">
-                          <figure class="logo-box"><a href="/"><img src="assets/images/header-logo.png" alt=""></a></figure>
+                          <figure class="logo-box"><a href="/"><img src="/assets/images/header-logo.png" alt=""></a></figure>
                           <div class="menu-area">
                               <!--Mobile Navigation Toggler-->
                               <div class="mobile-nav-toggler">
@@ -96,7 +96,7 @@
                                               <li><a href="/products?category=mousepad">Mousepads</a></li>
                                             </ul>
                                           </li>
-                                          <li><a href="/about">About</a></li>    
+                                          <!-- <li><a href="/about">About</a></li>     -->
                                           <!-- <li><a href="/blogs">Blog</a></li>  -->
                                           <li><a href="/contact">Contact</a></li>               
                                       </ul>
@@ -110,7 +110,7 @@
                                   </div>
                               </li>
                               <li><a href="/wishlist"><i class="flaticon-like"></i></a></li>
-                              <li class="dropdown"><a href=""><i class="flaticon-user"></i></a>
+                              <li class="dropdown"><a><i class="flaticon-user"></i></a>
                                 <ul>
                                   <% if(userLoggedIn) { %>
                                   <li><a href="/profile">Profile</a></li>
@@ -134,7 +134,7 @@
                   <div class="auto-container">
                       <div class="outer-box clearfix">
                           <div class="logo-box pull-left">
-                              <figure class="logo"><a href="/"><img src="assets/images/small-logo.png" alt=""></a></figure>
+                              <figure class="logo"><a href="/"><img src="/assets/images/small-logo.png" alt=""></a></figure>
                           </div>
                           <div class="menu-area pull-right">
                               <nav class="main-menu clearfix">
@@ -152,7 +152,7 @@
               <div class="menu-backdrop"></div>
               <div class="close-btn"><i class="fas fa-times"></i></div>
               <nav class="menu-box">
-                  <div class="nav-logo"><a href="/"><img src="assets/images/small-logo.png" alt="" title=""></a></div>
+                  <div class="nav-logo"><a href="/"><img src="/assets/images/small-logo.png" alt="" title=""></a></div>
                   <div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--></div>
                   <div class="contact-info">
                       <h4>Contact Info</h4>
@@ -189,6 +189,24 @@
     </section>
     <!-- page-title end -->
 
+    <!-- added to cart alert -->
+      <div class="products-alert d-none">
+        <div
+          class="alert alert-success alert-dismissible fade show"
+          role="alert"
+        >
+          <span class="text"></span>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+
     <!-- product-details -->
     <section class="product-details product-details-2">
       <div class="auto-container">
@@ -205,7 +223,7 @@
                             <li>
                               <a class="<%= j==0 && 'active' %>" data-slide-index="<%= j %>" href="#">
                                 <figure>
-                                  <img src="<%= product.inventory[0].thumbnail_images[j] %>" alt="">
+                                  <img src="<%= product.inventory[0].thumbnail_images[j] %>" alt="" class="<%= product.category%>">
                                 </figure>
                               </a>
                             </li>
@@ -214,7 +232,7 @@
                       </div>
                       <div class="product-image <%= product.inventory[0].thumbnail_images.length > 4 && 'two-columns' %>">
                         <figure class="image">
-                          <img src="<%= product.inventory[0].large_images[i]%>" alt="">
+                          <img src="<%= product.inventory[0].large_images[i]%>" alt="" class="<%= product.category%>">
                           <a href="<%= product.inventory[0].large_images[i]%>" class="lightbox-image"><i
                             class="flaticon-search-2"></i></a>
                           </figure>
@@ -230,7 +248,7 @@
                               <li>
                                 <a class="<%= j==0 && 'active' %>" data-slide-index="<%= j %>" href="#">
                                   <figure>
-                                    <img src="<%= product.inventory[0].large_images[j] %>" alt="">
+                                    <img src="<%= product.inventory[0].large_images[j] %>" alt="" class="<%= product.category%>">
                                   </figure>
                                 </a>
                               </li>
@@ -239,7 +257,7 @@
                         </div>
                         <div class="product-image <%= product.inventory[0].large_images.length > 4 && 'two-columns' %>">
                           <figure class="image">
-                            <img src="<%= product.inventory[0].large_images[i]%>" alt="">
+                            <img src="<%= product.inventory[0].large_images[i]%>" alt="" class="<%= product.category%>">
                             <a href="<%= product.inventory[0].large_images[i]%>" class="lightbox-image"><i
                               class="flaticon-search-2"></i></a>
                           </figure>
@@ -308,18 +326,24 @@
                           <div class="item-quantity">
                             <input class="quantity-spinner" type="text" value="1" name="quantity" id="quantity">
                           </div>
-                          <div class="btn-box"><button type="button" class="theme-btn-two"
-                              onClick="addToCart('<%= product._id %>')">Add to
-                              cart</button></div>
+                          <div class="btn-box">
+                            <% if(userLoggedIn) { %>
+                              <button type="button" class="theme-btn-two" onClick="addToCart('<%= product._id %>')">
+                                Add to cart
+                              </button>
+                            <% } else { %> 
+                              <button type="button" class="theme-btn-two">
+                                <a href="/login">Add to cart</a>
+                              </button>
+                            <% } %> 
+                          </div>
 
                           <ul class="info clearfix">
                             <li onClick="addWishlist('<%= product._id %>')"><a><i class="flaticon-heart"></i></a></li>
-
                           </ul>
                         </div>
                         <div class="other-links">
                           <ul class="clearfix">
-                            <li>SKU: 05</li>
                             <li>Category: <a href="#">
                                 <%= product.category%>
                               </a></li>
@@ -364,7 +388,7 @@
                 <div class="review-box">
                   <h5>1 Review for Multi-Way Ultra Crop Top</h5>
                   <div class="review-inner">
-                    <figure class="image-box"><img src="assets/images/resource/review-1.png" alt=""></figure>
+                    <figure class="image-box"><img src="/assets/images/resource/review-1.png" alt=""></figure>
                     <div class="inner">
                       <ul class="rating clearfix">
                         <li><i class="flaticon-star"></i></li>
@@ -426,7 +450,7 @@
             </div>
           </div>
         </div>
-        <div class="related-product">
+        <!-- <div class="related-product">
           <div class="sec-title style-two">
             <h2>Related Products</h2>
             <p>There are some product that we featured for choose your best</p>
@@ -504,7 +528,7 @@
             </div>
 
           </div>
-        </div>
+        </div> -->
 
       </div>
     </section>
@@ -512,6 +536,8 @@
 
     <%- include('footer')%>
       <script>
+        const alert = document.querySelector(".alert > span.text");
+
         let size = null;
         let color = null;
 
@@ -525,21 +551,18 @@
         }
 
         const descTags = document.querySelectorAll("p.product-description + ul")
-        const descArray = '<%=product.description%>'.split("-")
+        const description = '<%=product.description%>'
+        console.log(description)
+        const descArray = description.split("|")
         descTags.forEach(tag => {
           descArray.forEach(desc => {
             const li = document.createElement("li")
-            li.textContent = `- ${desc}`
+            li.innerHTML = `- ${desc}`
             tag.appendChild(li)
           })
         })
-        
-        // descTags.forEach(tag => {
-        //   console.log(tag)
-        // })
 
         function changeSelection(el) {
-          // console.log(el, el.childNodes)
           const radioButton = el.childNodes[1];
           radioButton.checked = true;
           el.classList.contains("size-select")
@@ -561,8 +584,21 @@
             },
             body: JSON.stringify(data),
           };
-          await fetch(url, options);
+          const res = await fetch(url, options);
+          if (res.ok) {
+            document.querySelector(".products-alert").classList.remove("d-none");
+            alert.innerText = "Item added to the wishlist!";
+            setTimeout(()=> {
+              document.querySelector(".products-alert").classList.add("d-none");
+              alert.innerText = ""
+            }, 1000)
+            location.reload()
+          } else {
+            alert("An error occured while adding item to the wishlist. Please try again later!")
+            console.log(res)
+          };
         }
+
         async function addToCart(id) {
           const data = {
             id,
@@ -578,7 +614,19 @@
             },
             body: JSON.stringify(data),
           };
-          await fetch(url, options);
+          const res = await fetch(url, options);
+          if (res.ok) {
+            document.querySelector(".products-alert").classList.remove("d-none");
+            alert.innerText = "Item added to cart!";
+            setTimeout(()=> {
+              document.querySelector(".products-alert").classList.add("d-none");
+              alert.innerText = ""
+            }, 1000)
+            location.reload()
+          } else {
+            alert("An error occurred while adding item to the cart. Please try again later.")
+            console.log(res)
+          };
         }
       </script>
 

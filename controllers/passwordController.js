@@ -13,7 +13,14 @@ const createJWT = (id) => {
 
 //controlles get request when user wants to change password
 module.exports.change_password_get = async (req, res) => {
-  res.render("changePassword");
+  let userLoggedIn = false;
+  let cartLength = await cartController.get_cart_length(req.cookies.jwt);
+
+  if (req.cookies.jwt) {
+    userLoggedIn = true;
+  }
+
+  res.render("changePassword", { userLoggedIn });
 };
 
 module.exports.change_password_post = async (req, res) => {
@@ -30,8 +37,7 @@ module.exports.change_password_post = async (req, res) => {
           if (err) {
             throw new Error("Error while saveing new password!");
           } else {
-            console.log(result);
-            res.status(200).send(result);
+            res.render("changePassword");
           }
         });
       }
@@ -54,7 +60,7 @@ module.exports.forgot_password_post = async (req, res) => {
         service: "gmail",
         auth: {
           user: "meehh.com@gmail.com",
-          pass: "dreamworldprints01@gmail.com",
+          pass: process.env.GMAIL_APP_PASSWORD,
         },
       });
 

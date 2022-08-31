@@ -19,7 +19,7 @@
     <title>Meehh - Signup</title>
 
     <!-- Fav Icon -->
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon" />
 
     <!-- Google Fonts -->
     <link
@@ -32,18 +32,18 @@
     />
 
     <!-- Stylesheets -->
-    <link href="assets/css/font-awesome-all.css" rel="stylesheet" />
-    <link href="assets/css/flaticon.css" rel="stylesheet" />
-    <link href="assets/css/owl.css" rel="stylesheet" />
-    <link href="assets/css/bootstrap.css" rel="stylesheet" />
-    <link href="assets/css/jquery.fancybox.min.css" rel="stylesheet" />
-    <link href="assets/css/animate.css" rel="stylesheet" />
-    <link href="assets/css/jquery-ui.css" rel="stylesheet" />
-    <link href="assets/css/jquery.bootstrap-touchspin.css" rel="stylesheet" />
-    <link href="assets/css/nice-select.css" rel="stylesheet" />
-    <link href="assets/css/color.css" rel="stylesheet" />
-    <link href="assets/css/style.css" rel="stylesheet" />
-    <link href="assets/css/responsive.css" rel="stylesheet" />
+    <link href="/assets/css/font-awesome-all.css" rel="stylesheet" />
+    <link href="/assets/css/flaticon.css" rel="stylesheet" />
+    <link href="/assets/css/owl.css" rel="stylesheet" />
+    <link href="/assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="/assets/css/jquery.fancybox.min.css" rel="stylesheet" />
+    <link href="/assets/css/animate.css" rel="stylesheet" />
+    <link href="/assets/css/jquery-ui.css" rel="stylesheet" />
+    <link href="/assets/css/jquery.bootstrap-touchspin.css" rel="stylesheet" />
+    <link href="/assets/css/nice-select.css" rel="stylesheet" />
+    <link href="/assets/css/color.css" rel="stylesheet" />
+    <link href="/assets/css/style.css" rel="stylesheet" />
+    <link href="/assets/css/responsive.css" rel="stylesheet" />
 
     <script src="https://accounts.google.com/gsi/client" async defer></script>
   </head>
@@ -85,7 +85,7 @@
               <div class="header-lower">
                   <div class="auto-container">
                       <div class="outer-box">
-                          <figure class="logo-box"><a href="/"><img src="assets/images/header-logo.png" alt=""></a></figure>
+                          <figure class="logo-box"><a href="/"><img src="/assets/images/header-logo.png" alt=""></a></figure>
                           <div class="menu-area">
                               <!--Mobile Navigation Toggler-->
                               <div class="mobile-nav-toggler">
@@ -109,7 +109,7 @@
                                               <li><a href="/products?category=mousepad">Mousepads</a></li>
                                             </ul>
                                           </li>
-                                          <li><a href="/about">About</a></li>    
+                                          <!-- <li><a href="/about">About</a></li>     -->    
                                           <!-- <li><a href="/blogs">Blog</a></li>  -->
                                           <li><a href="/contact">Contact</a></li>               
                                       </ul>
@@ -147,7 +147,7 @@
                   <div class="auto-container">
                       <div class="outer-box clearfix">
                           <div class="logo-box pull-left">
-                              <figure class="logo"><a href="/"><img src="assets/images/small-logo.png" alt=""></a></figure>
+                              <figure class="logo"><a href="/"><img src="/assets/images/small-logo.png" alt=""></a></figure>
                           </div>
                           <div class="menu-area pull-right">
                               <nav class="main-menu clearfix">
@@ -165,7 +165,7 @@
               <div class="menu-backdrop"></div>
               <div class="close-btn"><i class="fas fa-times"></i></div>
               <nav class="menu-box">
-                  <div class="nav-logo"><a href="/"><img src="assets/images/small-logo.png" alt="" title=""></a></div>
+                  <div class="nav-logo"><a href="/"><img src="/assets/images/small-logo.png" alt="" title=""></a></div>
                   <div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--></div>
                   <div class="contact-info">
                       <h4>Contact Info</h4>
@@ -256,11 +256,11 @@
               </form>
               <div class="lower-inner centred">
                 <span>or</span>
-                <ul class="social-links clearfix">
+                <!-- <ul class="social-links clearfix">
                   <li>
                     <div id="google-login-btn"></div>
                   </li>
-                </ul>
+                </ul> -->
                 <p>
                   Already have an account?
                   <a href="/login" class="text-primary">Log In Now</a>
@@ -275,37 +275,37 @@
 
     <script>
       // send token recieved from google after user sign up to server to create user
-      async function handleCredentialResponse(response) {
-        const token = response.credential;
+      // async function handleCredentialResponse(response) {
+      //   const token = response.credential;
 
-        const res = await fetch("/auth/google/sign-up", {
-          method: "POST",
-          body: JSON.stringify({ token: token }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        if (res.ok) {
-          location.assign("/products");
-        } else {
-          const data = await res.json();
-          console.log(data);
-        }
-      }
+      //   const res = await fetch("/auth/google/sign-up", {
+      //     method: "POST",
+      //     body: JSON.stringify({ token: token }),
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //   });
+      //   if (res.ok) {
+      //     location.assign("/products");
+      //   } else {
+      //     const data = await res.json();
+      //     console.log(data);
+      //   }
+      // }
 
-      // inititalize google signup button
-      window.onload = function () {
-        google.accounts.id.initialize({
-          client_id:
-            "649922066604-90k8n6au857isf9oo7og9nhp9f0nhb8a.apps.googleusercontent.com",
-          callback: handleCredentialResponse,
-        });
-        google.accounts.id.renderButton(
-          document.getElementById("google-login-btn"),
-          { theme: "filled_blue", size: "large", text: "signup_with" } // customization attributes
-        );
-        google.accounts.id.prompt(); // also display the One Tap dialog
-      };
+      // // inititalize google signup button
+      // window.onload = function () {
+      //   google.accounts.id.initialize({
+      //     client_id:
+      //       "649922066604-90k8n6au857isf9oo7og9nhp9f0nhb8a.apps.googleusercontent.com",
+      //     callback: handleCredentialResponse,
+      //   });
+      //   google.accounts.id.renderButton(
+      //     document.getElementById("google-login-btn"),
+      //     { theme: "filled_blue", size: "large", text: "signup_with" } // customization attributes
+      //   );
+      //   google.accounts.id.prompt(); // also display the One Tap dialog
+      // };
 
       // handle user registration
       const form = document.querySelector("form.signup-form");
@@ -321,15 +321,6 @@
         const password = form.password.value;
         const confirm_password = form.confirm_password.value;
 
-        console.log(
-          first_name,
-          last_name,
-          phone_no,
-          password,
-          confirm_password,
-          email
-        );
-
         const body = {
           first_name,
           last_name,
@@ -340,7 +331,6 @@
         };
 
         try {
-          console.log(body);
           const res = await fetch("/register", {
             method: "POST",
             body: JSON.stringify(body),
@@ -349,7 +339,6 @@
             },
           });
           const data = await res.json();
-          console.log(data);
           if (res.ok) {
             alert.textContent = "User registration successful!";
             alert.classList.remove("hide");
@@ -372,29 +361,28 @@
             ).textContent = data.errors.confirm_password;
           }
         } catch (err) {
-          console.log(err);
         }
       });
     </script>
 
     <!-- jequery plugins -->
-    <script src="assets/js/jquery.js"></script>
-    <script src="assets/js/popper.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/owl.js"></script>
-    <script src="assets/js/wow.js"></script>
-    <script src="assets/js/validation.js"></script>
-    <script src="assets/js/jquery.fancybox.js"></script>
-    <script src="assets/js/TweenMax.min.js"></script>
-    <script src="assets/js/appear.js"></script>
-    <script src="assets/js/scrollbar.js"></script>
-    <script src="assets/js/jquery.nice-select.min.js"></script>
-    <script src="assets/js/isotope.js"></script>
-    <script src="assets/js/jquery-ui.js"></script>
-    <script src="assets/js/jquery.bootstrap-touchspin.js"></script>
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/popper.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/owl.js"></script>
+    <script src="/assets/js/wow.js"></script>
+    <script src="/assets/js/validation.js"></script>
+    <script src="/assets/js/jquery.fancybox.js"></script>
+    <script src="/assets/js/TweenMax.min.js"></script>
+    <script src="/assets/js/appear.js"></script>
+    <script src="/assets/js/scrollbar.js"></script>
+    <script src="/assets/js/jquery.nice-select.min.js"></script>
+    <script src="/assets/js/isotope.js"></script>
+    <script src="/assets/js/jquery-ui.js"></script>
+    <script src="/assets/js/jquery.bootstrap-touchspin.js"></script>
 
     <!-- main-js -->
-    <script src="assets/js/script.js"></script>
+    <script src="/assets/js/script.js"></script>
   </body>
   <!-- End of .page_wrapper -->
 </html>

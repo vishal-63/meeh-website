@@ -21,13 +21,15 @@ const razorpayInstance = new Razorpay({
 });
 
 module.exports.create_order = async (req, res) => {
+  const address = JSON.parse(req.body.address);
+  console.log(address);
   const order = await orderController.createDbOrder(
     res.user.id,
     req.body.cart,
-    req.body.address
+    address
   );
 
-  const formattedAddress = `${req.body.address.house_no}, ${req.body.address.street}, ${req.body.address.landmark}, ${req.body.address.city} - ${req.body.address.pincode}, ${req.body.address.state}`;
+  const formattedAddress = `${address.house_no}, ${address.street}, ${address.landmark}, ${address.city} - ${address.pincode}, ${address.state}`;
 
   const user = await User.findById(res.user.id);
   const userDetails = {
@@ -35,7 +37,7 @@ module.exports.create_order = async (req, res) => {
     email: user.email,
     phone_no: user.phone_no,
     shipping_address: {
-      name: `${req.body.address.first_name} ${req.body.address.last_name}`,
+      name: `${address.first_name} ${address.last_name}`,
       address: formattedAddress,
     },
   };
@@ -44,13 +46,11 @@ module.exports.create_order = async (req, res) => {
   const currency = "INR";
   const receipt = order._id;
   const notes = {
-    shipping_name: `${req.body.address.first_name} ${req.body.address.last_name}`,
+    shipping_name: `${address.first_name} ${address.last_name}`,
     shipping_address: formattedAddress,
     sub_total: order.sub_total,
     coupon_discount: order.coupon?.discount,
   };
-
-  console.log(amount);
 
   try {
     razorpayInstance.orders.create(
@@ -58,7 +58,6 @@ module.exports.create_order = async (req, res) => {
       (err, result) => {
         if (!err) {
           const key = process.env.RAZORPAY_KEY;
-          console.log(key);
 
           order.payment_status = "Pending";
           order.shipping_status = "Ordered";
@@ -66,17 +65,16 @@ module.exports.create_order = async (req, res) => {
 
           order
             .save()
-            .then((order) => console.log(order))
+            .then(() => console.log("Order saved"))
             .catch((err) => {
               console.log(err);
               throw new Error(
                 "An error occurred while creating your order. Please try again later!"
               );
             });
-          console.log({ result, key, userDetails });
           res.json({ result, key, userDetails });
         } else {
-          console.log(err);
+          console.log(err, err.message);
           throw new Error(
             "An error occurred while creating your order. Please try again later!"
           );
@@ -127,7 +125,7 @@ module.exports.verify_order = async (req, res) => {
         service: "gmail",
         auth: {
           user: "meehh.com@gmail.com",
-          pass: "erbzccxasokppkla",
+          pass: process.env.GMAIL_APP_PASSWORD,
         },
       });
 
@@ -155,9 +153,9 @@ module.exports.verify_order = async (req, res) => {
         ],
         context: {
           name: user.first_name + " " + user.last_name,
-          orderid:order._id,
-          paymentid:order.razorpay_payment_id,
-          amount:order.grand_total,
+          orderid: order._id,
+          paymentid: order.razorpay_payment_id,
+          amount: order.grand_total,
         },
       };
 
@@ -179,7 +177,8 @@ module.exports.verify_order = async (req, res) => {
       const products = order.products;
       shippingController.wrapper_api(order, email, contact, products);
 
-      res.json({ success: true, message: "Payment has been verified" });
+      // res.json({ success: true, message: "Payment has been verified" });
+      res.redirect("/cart");
     } else {
       res.json({ success: false, message: "Payment verification failed" });
     }
@@ -187,4 +186,4 @@ module.exports.verify_order = async (req, res) => {
     console.log(err);
     res.status(400).send(err.message);
   }
-}
+};

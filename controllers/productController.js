@@ -22,10 +22,8 @@ module.exports.products_get = async (req, res) => {
       productsLoaded: 0,
       cartLength,
     });
-
   } else {
     const categories = await Product.find().distinct("category");
-    console.log(categories);
     const productList = {};
 
     for (let i = 0; i < categories.length; i++) {
@@ -52,11 +50,9 @@ module.exports.products_get_next = async (req, res) => {
     })
       .limit(100)
       .skip(productsLoaded);
-    
+
     console.log(newProducts);
-
-  } else if(req.body.search){
-
+  } else if (req.body.search) {
     console.log(req.body.search);
 
     const con = [];
@@ -68,9 +64,7 @@ module.exports.products_get_next = async (req, res) => {
     newProducts = await Product.find({ $and: con })
       .limit(100)
       .skip(parseInt(req.body.productsLoaded));
-
-
-  }else {
+  } else {
     newProducts = await Product.find().limit(100).skip(productsLoaded);
   }
   res.send({ newProducts });
@@ -96,6 +90,12 @@ module.exports.single_product_get = async (req, res) => {
 
 module.exports.products_get_search = async (req, res) => {
   let userLoggedIn = false;
+  let cartLength = await cartController.get_cart_length(req.cookies.jwt);
+
+  if (req.cookies.jwt) {
+    userLoggedIn = true;
+  }
+
   if (req.query["q"] != null) {
     let cartLength = await cartController.get_cart_length(req.cookies.jwt);
     // const productList = await Product.find({
@@ -117,7 +117,12 @@ module.exports.products_get_search = async (req, res) => {
       .skip(parseInt(req.body.productsLoaded));
     // console.log(productList[0].inventory[0].large_images);
     // const productList = await Product.find({ description:{  } }).limit(100)
-    res.render("products", { productList, userLoggedIn, productsLoaded: 0 ,cartLength});
+    res.render("products", {
+      productList,
+      userLoggedIn,
+      productsLoaded: 0,
+      cartLength,
+    });
   } else {
     res.redirect("/products");
   }
