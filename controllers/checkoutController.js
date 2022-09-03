@@ -15,7 +15,7 @@ module.exports.checkout_get = async (req, res) => {
 
   const cart = user.cart;
 
-  const address = req.cookies["address"];
+  const address = req.cookies.address;
 
   console.log(address);
 
@@ -28,6 +28,28 @@ module.exports.checkout_get = async (req, res) => {
 };
 
 module.exports.checkout_post = async (req, res) => {
-  res.cookie("address", req.body.address, { httpOnly: true });
+  const address = req.body.address;
+  console.log(address);
+  res.cookie("address", address);
   res.redirect("/checkout");
+};
+
+module.exports.checkout_buy_now = async (req, res) => {
+  let userLoggedIn = false;
+  if (req.cookies.jwt) {
+    userLoggedIn = true;
+  }
+
+  const user = await User.findById(res.user.id);
+  const addresses = user.addresses;
+
+  const productToBuy = JSON.parse(req.cookies.product);
+  const product = await Product.findById(productToBuy.id);
+
+  res.render("buy-now", {
+    userLoggedIn,
+    product,
+    quantity: productToBuy.quantity,
+    addresses,
+  });
 };

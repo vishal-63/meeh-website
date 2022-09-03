@@ -127,7 +127,7 @@
                                 <ul>
                                   <% if(userLoggedIn) { %>
                                   <li><a href="/profile">Profile</a></li>
-                                  <li><a href="/orders">Your orders</a></li>
+                                  <li><a href="/profile">Your orders</a></li>
                                   <li><a href="/logout">Logout</a></li>
                                   <% } else { %> 
                                   <li><a href="/login">Log In</a></li>
@@ -188,7 +188,7 @@
           </div><!-- End Mobile Menu -->
 
     <!-- myaccount-section -->
-    <section class="myaccount-section">
+    <section class="myaccount-section login">
       <div class="auto-container d-flex">
         <div class="d-none d-lg-block col-5 p-5 my-auto">
           <img src="/assets/images/icons/login.svg" alt="">
@@ -209,7 +209,12 @@
                 </div>
                 <div class="form-group">
                   <label>Password</label>
-                  <input type="password" name="password" required />
+                  <div class="d-flex align-items-center password-input">
+                    <input type="password" name="password" required />
+                    <span class="mx-2" onclick="togglePasswordShow(this)">
+                      <i class="fas fa-eye ml-auto"></i>
+                    </span>
+                  </div>
                   <div class="password-error"></div>
                 </div>
                 <!-- <div class="form-group">
@@ -222,12 +227,7 @@
                 </div>
               </form>
               <div class="lower-inner centred">
-                <span>or</span>
-                <!-- <ul class="social-links clearfix">
-                  <li>
-                    <div id="google-login-btn"></div>
-                  </li>
-                </ul> -->
+                
                 <p>
                   Don't Have an Account?
                   <a href="/register" class="text-primary">Sign up Now</a>
@@ -268,39 +268,16 @@
 
     <script>
 
+      function togglePasswordShow (e) {
+        const input = e.previousElementSibling
+        const icon = e.children[0]
+        input.type = input.type === "text" ? "password" : "text"
+        icon.classList.toggle("fa-eye")
+        icon.classList.toggle("fa-eye-slash")
+      }
+
       const prevUrl = document.referrer
 
-      // send token recieved from google after user sign up to server to create user
-      // async function handleCredentialResponse(response) {
-      //   const token = response.credential;
-      //   const res = await fetch("/auth/google/sign-up", {
-      //     method: "POST",
-      //     body: JSON.stringify({ token: token }),
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   });
-      //   if (res.ok) {
-      //     location.assign("/products");
-      //   } else {
-      //     const data = await res.json();
-      //     console.log(data);
-      //   }
-      // }
-
-      // inititalize google login button
-      // window.onload = function () {
-      //   google.accounts.id.initialize({
-      //     client_id:
-      //       "649922066604-90k8n6au857isf9oo7og9nhp9f0nhb8a.apps.googleusercontent.com",
-      //     callback: handleCredentialResponse,
-      //   });
-      //   google.accounts.id.renderButton(
-      //     document.getElementById("google-login-btn"),
-      //     { theme: "filled_blue", size: "large", text: "signin_with" } // customization attributes
-      //   );
-      //   google.accounts.id.prompt(); // also display the One Tap dialog
-      // };
 
       // handle user login
       const loginForm = document.querySelector("form.login-form");

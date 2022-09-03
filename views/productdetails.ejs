@@ -114,7 +114,7 @@
                                 <ul>
                                   <% if(userLoggedIn) { %>
                                   <li><a href="/profile">Profile</a></li>
-                                  <li><a href="/orders">Your orders</a></li>
+                                  <li><a href="/profile">Your orders</a></li>
                                   <li><a href="/logout">Logout</a></li>
                                   <% } else { %> 
                                   <li><a href="/login">Log In</a></li>
@@ -328,19 +328,23 @@
                           </div>
                           <div class="btn-box">
                             <% if(userLoggedIn) { %>
-                              <button type="button" class="theme-btn-two" onClick="addToCart('<%= product._id %>')">
-                                Add to cart
+                              <button class="theme-btn-two" onclick="buyNow('<%= product._id %>')">
+                                Buy Now <i class="flaticon-right-arrow"></i>
                               </button>
-                            <% } else { %> 
-                              <button type="button" class="theme-btn-two">
-                                <a href="/login">Add to cart</a>
-                              </button>
-                            <% } %> 
+                            <% } else { %>
+                              <button class="theme-btn-two">
+                                <a href="/login">
+                                  Buy Now <i class="flaticon-right-arrow"></i>
+                                </a>
+                                </button>
+                            <% } %>
                           </div>
 
                           <ul class="info clearfix">
+                            <li onClick="addToCart('<%= product._id %>')"><a><i class="flaticon-shopping-cart"></i></a></li>
                             <li onClick="addWishlist('<%= product._id %>')"><a><i class="flaticon-heart"></i></a></li>
                           </ul>
+                          
                         </div>
                         <div class="other-links">
                           <ul class="clearfix">
@@ -373,7 +377,7 @@
             <div class="tab-btn-box">
               <ul class="tab-btns tab-buttons clearfix">
                 <li class="tab-btn active-btn" data-tab="#tab-1">Description</li>
-                <li class="tab-btn" data-tab="#tab-2">Reviews(<%= product.reviews.length %>)</li>
+                <!-- <li class="tab-btn" data-tab="#tab-2">Reviews(<%= product.reviews.length %>)</li> -->
               </ul>
             </div>
             <div class="tabs-content">
@@ -384,7 +388,7 @@
                   </p>
                 </div>
               </div>
-              <div class="tab" id="tab-2">
+              <!-- <div class="tab" id="tab-2">
                 <div class="review-box">
                   <h5>1 Review for Multi-Way Ultra Crop Top</h5>
                   <div class="review-inner">
@@ -446,7 +450,7 @@
                     </form>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -536,6 +540,20 @@
 
     <%- include('footer')%>
       <script>
+
+        const buyNow = (id) => {
+          const d = new Date();
+          d.setTime(d.getTime() + (24*60*60*1000));
+          let expires = "expires="+ d.toUTCString();
+          const product = {
+            id,
+            quantity: document.querySelector("input#quantity").value,
+          }
+          document.cookie = "product=" + JSON.stringify(product) + ";" + expires + ";path=/";
+          console.log(document.cookie)
+          location.assign("/checkout/buy-now")
+        }
+
         const alert = document.querySelector(".alert > span.text");
 
         let size = null;

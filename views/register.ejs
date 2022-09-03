@@ -127,7 +127,7 @@
                                 <ul>
                                   <% if(userLoggedIn) { %>
                                   <li><a href="/profile">Profile</a></li>
-                                  <li><a href="/orders">Your orders</a></li>
+                                  <li><a href="/profile">Your orders</a></li>
                                   <li><a href="/logout">Logout</a></li>
                                   <% } else { %> 
                                   <li><a href="/login">Log In</a></li>
@@ -190,7 +190,7 @@
    
 
     <!-- myaccount-section -->
-    <section class="myaccount-section">
+    <section class="myaccount-section signup">
       <div class="auto-container">
         <div class="row clearfix justify-content-center">
           <div class="col-lg-12 col-md-12 col-sm-12 inner-column">
@@ -227,17 +227,27 @@
                 </div>
                 <div class="form-group col-md-6">
                   <label>Password</label>
-                  <input type="password" name="password" required />
-
-                  <span class="text-danger password-message"> </span>
+                  <div class="d-flex align-items-center password-input">
+                    <input type="password" name="password" required />
+                    <span class="mx-2" onclick="togglePasswordShow(this)">
+                      <i class="fas fa-eye ml-auto"></i>
+                    </span>
+                  </div>
+                  <span class="text-muted small">Password must contain uppercase and lowercase letters, digits and a symbol min. 8 characters long.</span>
+                  <span class="text-danger password-message"></span>
                 </div>
                 <div class="form-group col-md-6">
                   <label>Confirm Password</label>
-                  <input type="password" name="confirm_password" required />
+                  <div class="d-flex align-items-center password-input">
+                    <input type="password" name="confirm_password" required />
+                    <span class="mx-2" onclick="togglePasswordShow(this)">
+                      <i class="fas fa-eye ml-auto"></i>
+                    </span>
+                  </div>
 
-                  <span class="text-danger confirm_password-message"> </span>
+                  <span class="text-danger confirm_password-message"></span>
                 </div>
-                <div class="form-group col-md-12">
+                <!-- <div class="form-group col-md-12">
                   <div class="custom-controls-stacked">
                     <label class="custom-control material-checkbox">
                       <input type="checkbox" class="material-control-input" />
@@ -247,7 +257,7 @@
                       >
                     </label>
                   </div>
-                </div>
+                </div> -->
                 <div class="form-group col-12 col-sm-4 col-lg-3">
                   <button type="submit" class="theme-btn-two">
                     Sign Up<i class="flaticon-right-1"></i>
@@ -255,12 +265,7 @@
                 </div>
               </form>
               <div class="lower-inner centred">
-                <span>or</span>
-                <!-- <ul class="social-links clearfix">
-                  <li>
-                    <div id="google-login-btn"></div>
-                  </li>
-                </ul> -->
+
                 <p>
                   Already have an account?
                   <a href="/login" class="text-primary">Log In Now</a>
@@ -274,38 +279,14 @@
     <!-- myaccount-section end -->
 
     <script>
-      // send token recieved from google after user sign up to server to create user
-      // async function handleCredentialResponse(response) {
-      //   const token = response.credential;
 
-      //   const res = await fetch("/auth/google/sign-up", {
-      //     method: "POST",
-      //     body: JSON.stringify({ token: token }),
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   });
-      //   if (res.ok) {
-      //     location.assign("/products");
-      //   } else {
-      //     const data = await res.json();
-      //     console.log(data);
-      //   }
-      // }
-
-      // // inititalize google signup button
-      // window.onload = function () {
-      //   google.accounts.id.initialize({
-      //     client_id:
-      //       "649922066604-90k8n6au857isf9oo7og9nhp9f0nhb8a.apps.googleusercontent.com",
-      //     callback: handleCredentialResponse,
-      //   });
-      //   google.accounts.id.renderButton(
-      //     document.getElementById("google-login-btn"),
-      //     { theme: "filled_blue", size: "large", text: "signup_with" } // customization attributes
-      //   );
-      //   google.accounts.id.prompt(); // also display the One Tap dialog
-      // };
+      function togglePasswordShow (e) {
+        const input = e.previousElementSibling
+        const icon = e.children[0]
+        input.type = input.type === "text" ? "password" : "text"
+        icon.classList.toggle("fa-eye")
+        icon.classList.toggle("fa-eye-slash")
+      }
 
       // handle user registration
       const form = document.querySelector("form.signup-form");

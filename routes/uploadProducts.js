@@ -271,34 +271,33 @@
 //   }
 // });
 
-router.get("/changeDescription",async (req,res)=>{
-  const products = await Product.find({
-    category:{$regex: "bookmark", $options: "i"}
-  });
+// router.get("/changeDescription",async (req,res)=>{
+//   const products = await Product.find({
+//     category:{$regex: "bookmark", $options: "i"}
+//   });
 
-  for(let i=0;i<products.length;i++){
-    products[i].description = `${products[i].product_name}|Ultra HD Prints1|Gloss Laminated Finish|Tear Proof|Ideal Size|Handy Feel|Dimensions: 7” * 2” (inch)|Weight: 4gm`;
-    await products[i].save();
-    console.log(`${i+1} out of ${products.length}`);
-  }
-  res.send("Done.");
-})
+//   for(let i=0;i<products.length;i++){
+//     products[i].description = `${products[i].product_name}|Ultra HD Prints1|Gloss Laminated Finish|Tear Proof|Ideal Size|Handy Feel|Dimensions: 7” * 2” (inch)|Weight: 4gm`;
+//     await products[i].save();
+//     console.log(`${i+1} out of ${products.length}`);
+//   }
+//   res.send("Done.");
+// })
 
-router.get("/changeDetails/:id",async (req,res)=>{
-  
-  const product = await Product.findById(req.params.id);
-  console.log(product);
-  
-  res.render("editProducts",{product:product,next:0});
-});
+// router.get("/changeDetails/:id",async (req,res)=>{
 
+//   const product = await Product.findById(req.params.id);
+//   console.log(product);
 
-router.get("/delete/:id", async (req, res) => {
-  console.log(req.params);
+//   res.render("editProducts",{product:product,next:0});
+// });
 
-  await Product.deleteOne({ _id: req.params.id });
+// router.get("/delete/:id", async (req, res) => {
+//   console.log(req.params);
 
-  res.redirect("/editProducts/");
-});
+//   await Product.deleteOne({ _id: req.params.id });
+
+//   res.redirect("/editProducts/");
+// });
 
 // module.exports = router;

@@ -126,9 +126,6 @@
                                   <li><a href="/register">Sign Up</a></li>
                                   <% } %>
                               </ul></li>
-                              <li class="shop-cart">
-                                  <a href="/cart"><i class="flaticon-shopping-cart-1"></i><span><%=cartLength%></span></a>
-                              </li>
                           </ul>
                       </div>
                   </div>
@@ -181,7 +178,6 @@
 
       <!-- cart section -->
 
-      <% if (cart != null && cart.length > 0) { %>
       <!-- page-title -->
       <section class="page-title centred">
         <div
@@ -192,10 +188,10 @@
         ></div>
         <div class="auto-container">
           <div class="content-box">
-            <h1>Cart</h1>
+            <h1>Checkout</h1>
             <ul class="bread-crumb clearfix">
               <li><i class="flaticon-home-1"></i><a href="/">Home</a></li>
-              <li>Cart</li>
+              <li>Checkout</li>
             </ul>
           </div>
         </div>
@@ -203,163 +199,147 @@
       <!-- page-title end -->
 
       <!-- Multistep form -->
-      <div class="container">
-        <div class="row justify-content-center mt-0">
-          <div class="col-12 text-center p-0 mt-3 mb-2">
-            <div class="px-0 pt-4 pb-0 mt-3 mb-3">
-              <div class="mx-0">
-                <div id="msform">
-                  <!-- progressbar -->
-                  <ul id="progressbar">
-                    <li class="active" id="cart">
-                      <i class="flaticon-shopping-cart-1"></i>
-                      Cart
-                    </li>
-                    <li class="active" id="shipping">
-                      <i class="flaticon-location-pin-1"></i>
-                      Shipping
-                    </li>
-                    <li id="payment">
-                      <i class="far fa-payment"></i>
-                      Payment
-                    </li>
-                  </ul>
-                  <fieldset class="checkout-section steps">
-                    <div class="shipping-info">
-                      <form action="/profile/add-new-address" method="post" class="shipping-form d-none">
-                        <h4 class="details-title ml-3">Personal Details</h4>
-                        <div class="row">
-                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
-                            <label>First Name*</label>
-                            <div class="field-input">
-                              <input type="text" required name="first_name" />
-                            </div>
-                          </div>
-                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
-                            <label>Last Name*</label>
-                            <div class="field-input">
-                              <input type="text" required name="last_name" />
-                            </div>
-                          </div>
-                        </div>
-                        <h4 class="details-title ml-3">Address Details</h4>
-                        <div class="row">  
-                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
-                            <label>House No.*</label>
-                            <div class="field-input">
-                              <input type="text" required name="house_no" />
-                            </div>
-                          </div>
-                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
-                            <label>Street*</label>
-                            <div class="field-input">
-                              <input type="text" required name="street" />
-                            </div>
-                          </div>
-                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
-                            <label>Landmark <span>(optional)</span></label>
-                            <div class="field-input">
-                              <input type="text" name="landmark" />
-                            </div>
-                          </div>
-                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
-                            <label>City*</label>
-                            <div class="field-input">
-                              <input type="text" required name="city" />
-                            </div>
-                          </div>
-                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
-                            <label>State*</label>
-                            <div class="field-input">
-                              <input type="text" required name="state" />
-                            </div>
-                          </div>
+      <div class="container-fluid row">
+        <!-- <div class="row justify-content-center mt-0"> -->
+          <div class="col-12 col-lg-6 text-center p-0 mt-3 mb-2">
+            <div class="px-0 pt-4 pb-0 m-3">
+              <div class="shipping-info">
+                <form action="/profile/add-new-address" method="post" class="shipping-form d-none">
+                  <h4 class="details-title ml-3">Personal Details</h4>
+                  <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-12 form-group">
+                      <label>First Name*</label>
+                      <div class="field-input">
+                        <input type="text" required name="first_name" />
+                      </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 form-group">
+                      <label>Last Name*</label>
+                      <div class="field-input">
+                        <input type="text" required name="last_name" />
+                      </div>
+                    </div>
+                  </div>
+                  <h4 class="details-title ml-3">Address Details</h4>
+                  <div class="row">  
+                    <div class="col-lg-4 col-md-6 col-sm-12 form-group">
+                      <label>House No.*</label>
+                      <div class="field-input">
+                        <input type="text" required name="house_no" />
+                      </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 form-group">
+                      <label>Street*</label>
+                      <div class="field-input">
+                        <input type="text" required name="street" />
+                      </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 form-group">
+                      <label>Landmark <span>(optional)</span></label>
+                      <div class="field-input">
+                        <input type="text" name="landmark" />
+                      </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 form-group">
+                      <label>City*</label>
+                      <div class="field-input">
+                        <input type="text" required name="city" />
+                      </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 form-group">
+                      <label>State*</label>
+                      <div class="field-input">
+                        <input type="text" required name="state" />
+                      </div>
+                    </div>
 
-                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
-                            <label>Pin Code*</label>
-                            <div class="field-input">
-                              <input type="text" required name="pincode" />
-                            </div>
-                          </div>
-                        </div>
-                        <button type="cancel" value="Cancel" onclick="showAddressFields()" class="theme-btn-one ml-3">Cancel</button>
-                        <button type="submit" value="Save" class="theme-btn-two ml-3">Save</button>
-                      </form>
-
-                      <h4 class="sub-title">Shipping Details</h4>
-                      <form action="/checkout" method="post">
-                        <input type="text" class="hidden-address" name="address" hidden>
-                        <% if(addresses.length > 0) { %>
-                          <div class="card-columns my-5 addresses">
-                            <% for(let i=0;i<addresses.length;i++) { %>
-                            <div class="option-block card p-4">
-                              <div class="custom-controls-stacked">
-                                <label class="custom-control material-checkbox">
-                                  <input
-                                    type="checkbox"
-                                    class="material-control-input"
-                                    onchange="selectAddress(<%=i%>)"
-                                  />
-                                  <span class="material-control-indicator"></span>
-                                  <h5 class="description"><%= addresses[i].first_name %> <%= addresses[i].last_name %></h5>
-                                  <p>
-                                    <%= addresses[i].house_no %>, <%= addresses[i].street %>, <%= addresses[i].landmark %> <%= addresses[i].landmark && "," %> <%= addresses[i].city %> - <%= addresses[i].pincode %>
-                                    <br> 
-                                    <%= addresses[i].state %>
-                                  </p>
-                                </label>
-                              </div>
-                            </div>
-                          <% } %>
-                        <% } %>
-                        <div class="card add-new-address" onclick="showAddressFields()">
-                          <div class="card-body">
-                            <div class="flaticon-plus"></div>
-                            <div class="card-title">Add new address</div>
-                          </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 form-group">
+                      <label>Pin Code*</label>
+                      <div class="field-input">
+                        <input type="text" required name="pincode" />
+                      </div>
+                    </div>
+                  </div>
+                  <button type="cancel" value="Cancel" onclick="showAddressFields()" class="theme-btn-one ml-3">Cancel</button>
+                  <button type="submit" value="Save" class="theme-btn-two ml-3">Save</button>
+                </form>
+                <div class="shipping-details-container">
+                  <h4 class="sub-title">Shipping Details</h4>
+                  <input type="text" class="hidden-address" name="address" hidden>
+                  <% if(addresses.length > 0) { %>
+                    <div class="card-columns my-5 addresses">
+                      <% for(let i=0;i<addresses.length;i++) { %>
+                        <div class="option-block card p-2 py-lg-3 px-lg-4">
+                          <div class="custom-controls-stacked">
+                          <label class="custom-control material-checkbox">
+                            <input
+                            type="checkbox"
+                              class="material-control-input"
+                              onchange="selectAddress('<%=i%>')"
+                              />
+                              <span class="material-control-indicator"></span>
+                              <h5 class="description"><%= addresses[i].first_name %> <%= addresses[i].last_name %></h5>
+                              <p>
+                              <%= addresses[i].house_no %>, <%= addresses[i].street %>, <%= addresses[i].landmark %> <%= addresses[i].landmark && "," %> <%= addresses[i].city %> - <%= addresses[i].pincode %>
+                              <br> 
+                              <%= addresses[i].state %>
+                            </p>
+                          </label>
                         </div>
                       </div>
-                        <button class="previous theme-btn-one">
-                          <a href="/cart">
-                            <i class="flaticon-left-2"></i>
-                            Go Back
-                          </a>
-                        </button>
-                        <button class="next theme-btn-two shipping-section">
-                          Proceed
-                          <i class="flaticon-right-1"></i>
-                        </button>
-                      </form>
-                  </fieldset>
-                  
+                    <% } %>
+                  <% } %>
+                  <div class="card add-new-address" onclick="showAddressFields()">
+                    <div class="card-body">
+                      <div class="flaticon-plus"></div>
+                      <div class="card-title">Add new address</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+          </div>
+          </div>
+          <div class="col-12 col-lg-6 text-center p-0 mt-3 mb-2">
+            <div class="px-0 pt-4 pb-0 mt-3 mb-3">
+              <div class="order-summary border rounded p-3 mb-4 mx-3">
+                <h3 class="pb-3 mb-2 border-bottom">Order Summary</h3>
+                <div class="order-items">
+                    <div class="item">
+                      <div class="d-flex align-items-center">
+                        <img
+                        src="<%= product.inventory[0].thumbnail_images[0] || product.inventory[0].large_images[0] %>"
+                        alt="Product Image"
+                        />
+                        <div class="text-left">
+                          <div class="product-name text-dark"><%= product.product_name%></div>
+                        </div>
+                      </div>
+                      <div class="quantity ">&times;<%=quantity%></div>
+                      <div class="total_amt ">Rs. <%= quantity * product.price %></div>
+                    </div>
+                </div>
+                <div class="order-total mt-3 text-right">
+                  <div class="sub-total">Sub Total: <span>Rs. <%= quantity * product.price %></span></div>
+                  <!-- <div class="coupon-discount text-primary">- Coupon Discount: <span></span></div>  -->
+                  <div class="">+ Shipping: <span>Rs. 80</span></div>
+                  <div class="grand-total text-dark">Grand Total: <span>Rs. <%= quantity * product.price + 80%></span></div>
+                </div>
+                <div class="shipping-summary">
+                  <h5>Shipping Details</h5>
+                  <div class="name"></div>
+                  <div class="address"></div>
+                </div>
+                <button class="theme-btn-two my-4" id="checkout">Pay now</button>
+              </div>
           </div>
         </div>
       </div>
 
       <!-- page-title end -->
 
-      <% } else { %>
-      <div class="empty-cart container">
-        <img
-          src="\assets\images\icons\empty_cart.svg"
-          alt="Empty Cart Icon"
-          class="icon"
-        />
-        <div class="text">
-          Your shopping cart is empty <i class="far fa-sad-tear"></i>
-        </div>
-        <div class="theme-btn-three">
-          <a href="/products"
-            >Continue Shopping<i class="flaticon-right-1"></i
-          ></a>
-        </div>
-      </div>
-      <% } %>
-
       <!-- cart section end -->
+      </div>
 
       <%- include('footer')%>
     </div>
@@ -382,38 +362,56 @@
 
     <!-- main-js -->
     <script src="/assets/js/script.js"></script>
-    <script src="/assets/js/cart.js"></script>
     
     <script>
-      var clientCart = <%- JSON.stringify(cart) %>
       var addresses = <%- JSON.stringify(addresses) %>
-
-      // Handle shipping address selection
-      let selectedAddress;
+      
+      // dom elements
+      const orderSummarySubtotal = document.querySelector(
+        ".order-summary .order-total .sub-total span"
+      );
+      const orderSummaryCouponDiscount = document.querySelector(
+        ".order-summary .order-total .coupon-discount span"
+      );
+      const orderSummaryGrandtotal = document.querySelector(
+        ".order-summary .order-total .grand-total span"
+      );
+      const shippingNameDiv = document.querySelector(".shipping-summary .name");
+      const shippingAddressDiv = document.querySelector(".shipping-summary .address");
+      
       const addressCheckboxes = [
         ...document.querySelectorAll("input[type='checkbox'].material-control-input"),
       ];
-      const shippingNextBtn = document.querySelector("button.shipping-section.next");
+      const checkoutBtn = document.querySelector("button#checkout");
+      
+      // Handle shipping address selection
+      let selectedAddress;
 
-      if (selectedAddress === undefined) shippingNextBtn.disabled = true;
+      if (selectedAddress === undefined) checkoutBtn.disabled = true;
 
       function selectAddress(index) {
+        console.log(index)
         if (addressCheckboxes[index].checked === true) {
           selectedAddress = addresses[index];
-          console.log(document.querySelector("input.hidden-address"));
+
           document.querySelector("input.hidden-address").value =
             JSON.stringify(selectedAddress);
-          console.log(document.querySelector("input.hidden-address").value);
+
           addressCheckboxes.map((checkbox, i) => {
-            if (i !== index) {
+            if (i+"" !== index) {
               checkbox.disabled = true;
             }
           });
-          shippingNextBtn.disabled = false;
+          checkoutBtn.disabled = false;
+
+          shippingNameDiv.textContent = `${selectedAddress?.first_name} ${selectedAddress?.last_name}`
+          shippingAddressDiv.textContent = `${selectedAddress?.house_no}, ${selectedAddress?.street}, ${selectedAddress?.landmark}, ${selectedAddress?.city}, ${selectedAddress?.state} - ${selectedAddress?.pincode}`
         } else {
           selectedAddress = {};
-          shippingNextBtn.disabled = true;
+          checkoutBtn.disabled = true;
           addressCheckboxes.map((checkbox) => (checkbox.disabled = false));
+          shippingNameDiv.textContent = ``
+          shippingAddressDiv.textContent = ``
         }
       }
 
@@ -422,13 +420,113 @@
         const form = document.querySelector("form.shipping-form");
         form.classList.toggle("d-none");
         if (!form.classList.contains("d-none")) {
-          shippingNextBtn.disabled = true;
+          checkoutBtn.disabled = true;
         }
         document
-          .querySelector("div.card-columns.addresses")
+          .querySelector("div.shipping-details-container")
           .classList.toggle("d-none");
       }
-     
+
+      // initialized from the create-order response
+      let order;
+      let key;
+      let userDetails;
+
+      function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+      }
+
+      document.getElementById("checkout").addEventListener("click", () => createOrder())
+
+      // save order in database and create razorpay order
+      async function createOrder() {
+        console.log("in create order");
+        const productCookie = getCookie("product")
+        console.log(productCookie)
+        console.log(selectedAddress)
+        const res = await fetch("/checkout/create-order", {
+          method: "POST",
+          body: JSON.stringify({ product: productCookie, address: JSON.stringify(selectedAddress), instantBuy: true }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include"
+        });
+        const data = await res.json();
+        console.log(data)
+        if (res.ok) {
+          order = data.result;
+          key = data.key;
+          userDetails = data.userDetails;
+          orderSummarySubtotal.textContent = "Rs. " + order.notes.sub_total;
+          // orderSummaryCouponDiscount.textContent =
+          //   "Rs. " + order.notes.coupon_discount;
+          orderSummaryGrandtotal.textContent = "Rs. " + order.amount / 100;
+          console.log(order.notes)
+          shippingNameDiv.textContent = order.notes.shipping_name;
+          shippingAddressDiv.textContent = order.notes.shipping_address;
+          intializeRazorpay();
+        }
+      }
+
+      var razorpayObject;
+
+      function intializeRazorpay() {
+        const amount = order.amount;
+        const currency = order.currency;
+        const order_id = order.id;
+
+        var options = {
+          key: key,
+          amount: amount,
+          currency: currency,
+          name: "Meehh.com",
+          image: "http://localhost:5000/public/assets/images/logo.png",
+          order_id: order_id,
+          handler: async function (response) {
+            const data = {
+              order_id: response.razorpay_order_id,
+              payment_id: response.razorpay_payment_id,
+            };
+            const res = await fetch("/checkout/verify-order", {
+              method: "POST",
+              body: JSON.stringify(data),
+              headers: {
+                "Content-Type": "application/json",
+                "x-razorpay-signature": response.razorpay_signature,
+              },
+            });
+            // console.log(await res.json());
+          },
+          prefill: {
+            contact: userDetails?.phone_no,
+            name: userDetails?.name,
+            email: userDetails?.email,
+          },
+          notes: {
+            shipping_address: userDetails.shipping_address,
+          },
+          modal: {
+            confirm_close: true,
+          },
+          remember_customer: true,
+          send_sms_hash: true,
+        };
+        razorpayObject = new Razorpay(options);
+
+        razorpayObject.on("payment.failed", function (response) {
+          alert("Sorry, we couln't process your payment successfully!");
+        });
+
+        razorpayObject.open()
+      }
+
+      function openRazorpayModal () {
+        
+      };
+
     </script>
   </body>
 </html>

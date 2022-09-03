@@ -46,7 +46,7 @@ async function getCartData(req, res) {
 }
 
 module.exports.cart_get = async (req, res) => {
-  res.render("newCart", await getCartData(req, res));
+  res.render("cart", await getCartData(req, res));
 };
 
 module.exports.cart_shipping_get = async (req, res) => {

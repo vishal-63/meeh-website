@@ -9228,7 +9228,9 @@ select.list-dt:focus {
 }
 
 .checkout-section .shipping-form .form-group input[type="text"],
-.checkout-section .shipping-form .form-group input[type="email"] {
+.checkout-section .shipping-form .form-group input[type="email"],
+.shipping-info .form-group input[type="text"],
+.shipping-info .form-group input[type="email"] {
   position: relative;
   display: block;
   width: 100%;
@@ -9466,7 +9468,7 @@ select.list-dt:focus {
 }
 
 .checkout-section .payment-info .payment-inner .option-block,
-.checkout-section .shipping-info .option-block {
+.shipping-info .option-block {
   position: relative;
   margin-bottom: 22px;
   text-align: left;
@@ -9697,6 +9699,15 @@ select.list-dt:focus {
   font-size: 15px;
   color: var(--gray-dark);
   transition: all 250ms ease;
+}
+
+.myaccount-section .form-group .password-input {
+  border: 1px solid #e6e6e6;
+}
+
+.myaccount-section.login .form-group input[type="password"],
+.myaccount-section.signup .form-group input[type="password"] {
+  border: none;
 }
 
 .myaccount-section .form-group input:focus {
