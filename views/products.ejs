@@ -116,7 +116,7 @@
                                 <ul>
                                   <% if(userLoggedIn) { %>
                                   <li><a href="/profile">Profile</a></li>
-                                  <li><a href="/orders">Your orders</a></li>
+                                  <li><a href="/profile">Your orders</a></li>
                                   <li><a href="/logout">Logout</a></li>
                                   <% } else { %> 
                                   <li><a href="/login">Log In</a></li>
@@ -294,7 +294,7 @@
                             </ul>
                           </figure>
                           <div class="lower-content">
-                            <a target="_blank" href="/editProducts/changeDetails/<%= productList[category][j]._id %>">
+                            <a href="/products/<%= productList[category][j]._id %>">
                               <%= productList[category][j].product_name %>
                             </a>
                             <span class="price">&#8377; <%= productList[category][j].price %></span>

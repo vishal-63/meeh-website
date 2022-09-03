@@ -119,7 +119,7 @@
                                 <ul>
                                   <% if(userLoggedIn) { %>
                                   <li><a href="/profile">Profile</a></li>
-                                  <li><a href="/orders">Your orders</a></li>
+                                  <li><a href="/profile">Your orders</a></li>
                                   <li><a href="/logout">Logout</a></li>
                                   <% } else { %> 
                                   <li><a href="/login">Log In</a></li>
@@ -219,11 +219,13 @@
                       <i class="flaticon-location-pin-1"></i>
                       Shipping
                     </li>
-                    <li id="payment"><i class="far fa-payment"></i>Payment
+                    <li id="payment">
+                      <i class="far fa-payment"></i>
+                      Payment
                     </li>
                   </ul>
                   <!-- fieldsets -->
-                  <fieldset class="cart-section steps">
+                  <!-- <fieldset class="cart-section steps"> -->
                     <div class="row clearfix">
                       <div
                         class="col-lg-12 col-md-12 col-sm-12 table-column mb-4"
@@ -313,153 +315,12 @@
                       </div>
                     </div>
                     <button name="next" class="next theme-btn-two">
-                      Proceed
+                      <a href="/cart/shipping">
+                        Proceed
+                      </a>
                       <i class="flaticon-right-1"></i>
                     </button>
-                  </fieldset>
-                  <fieldset class="checkout-section steps">
-                    <div class="shipping-info">
-                      <h4 class="sub-title">Shipping Details</h4>
-                      
-                      <% if(addresses.length > 0) { %>
-                        <div class="card-columns my-5 addresses">
-                          <% for(let i=0;i<addresses.length;i++) { %>
-                          <div class="option-block card p-4">
-                            <div class="custom-controls-stacked">
-                              <label class="custom-control material-checkbox">
-                                <input
-                                  type="checkbox"
-                                  class="material-control-input"
-                                  onchange="selectAddress(<%=i%>)"
-                                />
-                                <span class="material-control-indicator"></span>
-                                <h5 class="description"><%= addresses[i].first_name %> <%= addresses[i].last_name %></h5>
-                                <p>
-                                  <%= addresses[i].house_no %>, <%= addresses[i].street %>, <%= addresses[i].landmark %> <%= addresses[i].landmark && "," %> <%= addresses[i].city %> - <%= addresses[i].pincode %>
-                                  <br> 
-                                  <%= addresses[i].state %>
-                                </p>
-                              </label>
-                            </div>
-                          </div>
-                          <% } %>
-                        <% } %>
-                          <div class="card add-new-address" onclick="showAddressFields()">
-                            <div class="card-body">
-                              <div class="flaticon-plus"></div>
-                              <div class="card-title">Add new address</div>
-                            </div>
-                          </div>
-                        </div>
-
-                      <form action="/profile/add-new-address" method="post" class="shipping-form d-none">
-                        <h4 class="details-title ml-3">Personal Details</h4>
-                        <div class="row">
-                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
-                            <label>First Name*</label>
-                            <div class="field-input">
-                              <input type="text" required name="first_name" />
-                            </div>
-                          </div>
-                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
-                            <label>Last Name*</label>
-                            <div class="field-input">
-                              <input type="text" required name="last_name" />
-                            </div>
-                          </div>
-                        </div>
-                        <h4 class="details-title ml-3">Address Details</h4>
-                        <div class="row">  
-                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
-                            <label>House No.*</label>
-                            <div class="field-input">
-                              <input type="text" required name="house_no" />
-                            </div>
-                          </div>
-                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
-                            <label>Street*</label>
-                            <div class="field-input">
-                              <input type="text" required name="street" />
-                            </div>
-                          </div>
-                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
-                            <label>Landmark <span>(optional)</span></label>
-                            <div class="field-input">
-                              <input type="text" name="landmark" />
-                            </div>
-                          </div>
-                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
-                            <label>City*</label>
-                            <div class="field-input">
-                              <input type="text" required name="city" />
-                            </div>
-                          </div>
-                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
-                            <label>State*</label>
-                            <div class="field-input">
-                              <input type="text" required name="state" />
-                            </div>
-                          </div>
-
-                          <div class="col-lg-4 col-md-6 col-sm-12 form-group">
-                            <label>Pin Code*</label>
-                            <div class="field-input">
-                              <input type="text" required name="pincode" />
-                            </div>
-                          </div>
-                        </div>
-                        <input type="submit" value="Save" class="theme-btn-two ml-3">
-                      </form>
-                    </div>
-                    <button class="previous theme-btn-one">
-                      <i class="flaticon-left-2"></i>
-                      Go Back
-                    </button>
-                    <button class="next theme-btn-two shipping-section">
-                      Proceed
-                      <i class="flaticon-right-1"></i>
-                    </button>
-                  </fieldset>
                   
-                  <fieldset class="steps">
-                    <div class="order-summary border rounded p-3 col-md-8 mb-4 mx-auto">
-                      <h3 class="pb-3 mb-2 border-bottom">Order Summary</h3>
-                      <div class="order-items">
-                        <% for(let i=0; i<cart.length; i++) { %>
-                          <div class="item">
-                            <div class="d-flex align-items-center">
-                              <img
-                              src="<%= cart[i].product_id.inventory[0].thumbnail_images[0] || cart[i].product_id.inventory[0].large_images[0] %>"
-                              alt="Product Image"
-                              />
-                              <div class="text-left">
-                                <div class="product-name text-dark"><%= cart[i].product_id.product_name%></div>
-                                <div class="product-specs text-muted"><%= cart[i].selected_size%> <%= cart[i].selected_color%></div>
-                              </div>
-                            </div>
-                            <div class="quantity ">&times;<%=cart[i].quantity%></div>
-                            <div class="total_amt ">Rs. <%= cart[i].quantity * cart[i].product_id.price %></div>
-                          </div>
-                          <% } %>
-                      </div>
-                      <div class="order-total mt-3 text-right">
-                        <div class="sub-total">Sub Total: <span></span></div>
-                        <!-- <div class="coupon-discount text-primary">- Coupon Discount: <span></span></div> -->
-                        <div class="">+ Shipping: <span>Rs. 80</span></div>
-                        <div class="grand-total text-dark">Grand Total: <span></span></div>
-                      </div>
-                      <div class="shipping-summary">
-                        <h5>Shipping Details</h5>
-                        <div class="name"></div>
-                        <div class="address"></div>
-                      </div>
-                      <button class="theme-btn-two my-4" id="checkout">Pay now</button>
-                    </div>
-                    <button class="previous theme-btn-one">
-                      <i class="flaticon-left-2"></i>
-                      Go Back
-                    </button>
-                  </fieldset>
                 </div>
               </div>
             </div>
@@ -480,9 +341,9 @@
           Your shopping cart is empty <i class="far fa-sad-tear"></i>
         </div>
         <div class="theme-btn-three">
-          <a href="/products"
-            >Continue Shopping<i class="flaticon-right-1"></i
-          ></a>
+          <a href="/products">
+            Continue Shopping<i class="flaticon-right-1"></i>
+          </a>
         </div>
       </div>
       <% } %>
@@ -510,11 +371,9 @@
 
     <!-- main-js -->
     <script src="/assets/js/script.js"></script>
-    <script src="/assets/js/cart.js"></script>
     
     <script>
       var clientCart = <%- JSON.stringify(cart) %>
-      var addresses = <%- JSON.stringify(addresses) %>
 
       const subTotals = clientCart.map((item) => {
         return item.quantity * item.product_id.price;
@@ -597,86 +456,6 @@
           location.reload(false);
         }
       }
-
-      // Multi-step code
-$(document).ready(function () {
-  var current_fs, next_fs, previous_fs; //fieldsets
-  var opacity;
-
-  $(".next").click(function () {
-    current_fs = $(this).parent();
-    next_fs = $(this).parent().next();
-
-    if (this.classList.contains("shipping-section")) {
-      createOrder();
-    }
-
-    //Add Class Active
-    $("#progressbar li")
-      .eq($("fieldset.steps").index(next_fs))
-      .addClass("active");
-
-    //show the next fieldset
-    next_fs.show();
-    //hide the current fieldset with style
-    current_fs.animate(
-      { opacity: 0 },
-      {
-        step: function (now) {
-          // for making fielset appear animation
-          opacity = 1 - now;
-
-          current_fs.css({
-            display: "none",
-            position: "relative",
-          });
-          next_fs.css({ opacity: opacity });
-        },
-        duration: 600,
-      }
-    );
-  });
-
-  $(".previous").click(function () {
-    current_fs = $(this).parent();
-    previous_fs = $(this).parent().prev();
-
-    //Remove class active
-    $("#progressbar li")
-      .eq($("fieldset").index(current_fs))
-      .removeClass("active");
-
-    //show the previous fieldset
-    previous_fs.show();
-
-    //hide the current fieldset with style
-    current_fs.animate(
-      { opacity: 0 },
-      {
-        step: function (now) {
-          // for making fielset appear animation
-          opacity = 1 - now;
-
-          current_fs.css({
-            display: "none",
-            position: "relative",
-          });
-          previous_fs.css({ opacity: opacity });
-        },
-        duration: 600,
-      }
-    );
-  });
-
-  $(".radio-group .radio").click(function () {
-    $(this).parent().find(".radio").removeClass("selected");
-    $(this).addClass("selected");
-  });
-
-  $(".submit").click(function () {
-    return false;
-  });
-});
       
     </script>
   </body>

@@ -3,27 +3,46 @@ const Order = require("../models/order");
 const Product = require("../models/product");
 const User = require("../models/user");
 
-module.exports.get_user_orders = async (req,res)=>{
-  const orders = await Order.find({user_id:res.user.id});
+module.exports.get_user_orders = async (req, res) => {
+  const orders = await Order.find({ user_id: res.user.id });
   res.send(orders);
-}
+};
 
-module.exports.createDbOrder = async (userId, cart, address) => {
+module.exports.createDbOrder = async (
+  userId,
+  cart,
+  address,
+  instantBuy,
+  productCookie
+) => {
   try {
     let order = new Order();
     order.user_id = userId;
 
-    const productPromises = cart.map(async function (item, index) {
-      return Product.findById(item.product_id._id).then(function (product) {
-        return {
+    if (instantBuy) {
+      const product = await Product.findById(productCookie.id);
+      order.products = [
+        {
           product_id: product._id,
-          details: item.selected_size + "_" + item.selected_color,
-          quantity: item.quantity,
-          total_amt: item.quantity * (product.price - product.discount),
-        };
+          details: "",
+          quantity: productCookie.quantity,
+          total_amt:
+            productCookie.quantity * (product.price - product.discount),
+        },
+      ];
+    } else {
+      const productPromises = cart.map(async function (item, index) {
+        return Product.findById(item.product_id._id).then(function (product) {
+          return {
+            product_id: product._id,
+            details: item.selected_size + "_" + item.selected_color,
+            quantity: item.quantity,
+            total_amt: item.quantity * (product.price - product.discount),
+          };
+        });
       });
-    });
-    order.products = await Promise.all(productPromises);
+      order.products = await Promise.all(productPromises);
+    }
 
     order.sub_total = order.products.reduce(
       (sum, product) => sum + product.total_amt,

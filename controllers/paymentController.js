@@ -22,11 +22,15 @@ const razorpayInstance = new Razorpay({
 
 module.exports.create_order = async (req, res) => {
   const address = JSON.parse(req.body.address);
-  console.log(address);
+
+  console.log(req.body?.product);
+
   const order = await orderController.createDbOrder(
     res.user.id,
     req.body.cart,
-    address
+    address,
+    req.body.instantBuy,
+    JSON.parse(req.body?.product)
   );
 
   const formattedAddress = `${address.house_no}, ${address.street}, ${address.landmark}, ${address.city} - ${address.pincode}, ${address.state}`;

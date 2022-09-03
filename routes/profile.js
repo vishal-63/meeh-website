@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { requireAuth } = require("../middleware/authMiddleware");
+
+const cartController = require("../controllers/cartController");
 const userController = require("../controllers/userController");
 const passwordController = require("../controllers/passwordController");
 
@@ -18,14 +20,16 @@ router.get("/add-new-address", requireAuth, (req, res) => {
 
 router.post("/add-new-address", requireAuth, userController.save_address);
 
-router.get("/change-password", requireAuth, (req, res) => {
+router.get("/change-password", requireAuth, async (req, res) => {
   let userLoggedIn = false;
   if (req.cookies.jwt) {
     userLoggedIn = true;
   }
+  let cartLength = await cartController.get_cart_length(req.cookies.jwt);
 
-  res.render("changePassword", { userLoggedIn });
+  res.render("changePassword", { userLoggedIn, cartLength });
 });
+
 router.post(
   "/change-password",
   requireAuth,

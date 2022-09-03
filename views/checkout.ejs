@@ -119,7 +119,7 @@
                                 <ul>
                                   <% if(userLoggedIn) { %>
                                   <li><a href="/profile">Profile</a></li>
-                                  <li><a href="/orders">Your orders</a></li>
+                                  <li><a href="/profile">Your orders</a></li>
                                   <li><a href="/logout">Logout</a></li>
                                   <% } else { %> 
                                   <li><a href="/login">Log In</a></li>
@@ -347,7 +347,8 @@
         console.log(address);
         const res = await fetch("/checkout/create-order", {
           method: "POST",
-          body: JSON.stringify({ cart: clientCart, address }),
+          body: JSON.stringify({ cart: clientCart, address, instantBuy: false, product: null }), 
+          // product: null is kept to make the create order call dynamic, as the buy-now page sends product in the same call
           headers: {
             "Content-Type": "application/json",
           },
@@ -383,7 +384,6 @@
           image: "http://localhost:5000/public/assets/images/logo.png",
           order_id: order_id,
           handler: async function (response) {
-            console.log(response);
             const data = {
               order_id: response.razorpay_order_id,
               payment_id: response.razorpay_payment_id,
