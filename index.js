@@ -76,6 +76,11 @@ mongoose
 // Ejs view engine
 app.set("view engine", "ejs");
 
+// maintenance route
+app.get("*", (req, res) => {
+  res.render("maintenance");
+});
+
 // Base route
 app.get("/", async (req, res) => {
   let userLoggedIn = false;
@@ -126,7 +131,7 @@ app.use("/shipping", shippingRouter);
 app.use("/orders", orderRouter);
 
 //admin routes
-app.use("/admin",adminRouter);
+app.use("/admin", adminRouter);
 
 //about us route
 app.get("/about", async (req, res) => {
@@ -137,7 +142,7 @@ app.get("/about", async (req, res) => {
     userLoggedIn = true;
   }
 
-  res.render("index", { userLoggedIn, cartLength });
+  res.render("about", { userLoggedIn, cartLength });
 });
 
 // logout route

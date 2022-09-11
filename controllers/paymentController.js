@@ -182,7 +182,7 @@ module.exports.verify_order = async (req, res) => {
       shippingController.wrapper_api(order, email, contact, products);
 
       // res.json({ success: true, message: "Payment has been verified" });
-      res.redirect("/cart");
+      res.redirect("/profile");
     } else {
       res.json({ success: false, message: "Payment verification failed" });
     }

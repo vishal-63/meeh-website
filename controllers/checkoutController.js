@@ -17,8 +17,6 @@ module.exports.checkout_get = async (req, res) => {
 
   const address = req.cookies.address;
 
-  console.log(address);
-
   res.render("checkout", {
     cart,
     userLoggedIn,
@@ -29,7 +27,6 @@ module.exports.checkout_get = async (req, res) => {
 
 module.exports.checkout_post = async (req, res) => {
   const address = req.body.address;
-  console.log(address);
   res.cookie("address", address);
   res.redirect("/checkout");
 };
