@@ -77,9 +77,9 @@ mongoose
 app.set("view engine", "ejs");
 
 // maintenance route
-app.get("*", (req, res) => {
-  res.render("maintenance");
-});
+// app.get("*", (req, res) => {
+//   res.render("maintenance");
+// });
 
 // Base route
 app.get("/", async (req, res) => {
