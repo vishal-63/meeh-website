@@ -343,8 +343,6 @@
 
       // save order in database and create razorpay order
       async function createOrder() {
-        console.log("in create order");
-        console.log(address);
         const res = await fetch("/checkout/create-order", {
           method: "POST",
           body: JSON.stringify({ cart: clientCart, address, instantBuy: false, product: null }), 
@@ -362,7 +360,6 @@
           // orderSummaryCouponDiscount.textContent =
           //   "Rs. " + order.notes.coupon_discount;
           orderSummaryGrandtotal.textContent = "Rs. " + order.amount / 100;
-          console.log(order.notes)
           shippingNameDiv.textContent = order.notes.shipping_name;
           shippingAddressDiv.textContent = order.notes.shipping_address;
           intializeRazorpay();
