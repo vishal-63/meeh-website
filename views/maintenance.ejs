@@ -10,24 +10,27 @@
     <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon" />
 
     <style>
+      body {
+        overflow: hidden;
+      }
       * {
         padding: 0;
         margin: 0;
       }
       img {
         width: 100vw;
-        height: 99vh;
+        height: 100vh;
       }
     </style>
   </head>
   <body>
-    <img src="/assets/images/maintenance.png" alt="Coming Soon" />
+    <img src="/assets/images/maintenance.jpg" alt="Coming Soon" />
     <script>
       const img = document.querySelector("img");
       const setImg = () => {
         if (window.innerWidth < 540)
-          img.src = "/assets/images/maintenance-mobile.png";
-        else img.src = "/assets/images/maintenance.png";
+          img.src = "/assets/images/maintenance-mobile.jpg";
+        else img.src = "/assets/images/maintenance.jpg";
       };
       document.onload = setImg();
       window.addEventListener("resize", setImg);
