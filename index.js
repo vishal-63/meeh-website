@@ -77,17 +77,20 @@ mongoose
 app.set("view engine", "ejs");
 
 // maintenance route
-app.get("*", (req, res) => {
-  res.render("maintenance");
-});
+// app.get("*", (req, res) => {
+//   res.render("maintenance");
+// });
 
 // Base route
 app.get("/", async (req, res) => {
   let userLoggedIn = false;
-  let cartLength = await cartController.get_cart_length(req.cookies.jwt);
+  let cartLength;
 
   if (req.cookies.jwt) {
     userLoggedIn = true;
+    cartLength = await cartController.get_cart_length(req.cookies.jwt);
+  } else if (req.cookies.cart) {
+    cartLength = JSON.parse(req.cookies.cart).length;
   }
 
   res.render("index", { userLoggedIn, cartLength });

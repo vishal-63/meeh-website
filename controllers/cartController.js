@@ -22,20 +22,34 @@ module.exports.get_cart_length = async (token) => {
   } else return 0;
 };
 
+async function decodeJWT(token) {
+  jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decodedToken) => {
+    if (err) {
+      console.log(err.message);
+    } else {
+      return decodedToken;
+    }
+  });
+}
+
 async function getCartData(req, res) {
   let userLoggedIn = false;
+  let cart;
+
+  let user;
+  let addresses;
+
   if (req.cookies.jwt) {
     userLoggedIn = true;
+    user = await User.findById(decodeJWT(req.cookies.jwt));
+    await user.populate({
+      path: "cart.product_id",
+      model: Product,
+    });
+    addresses = user.addresses || [];
+  } else if (req.cookies.cart) {
+    cart = JSON.parse(req.cookies.cart);
   }
-
-  const user = await User.findById(res.user.id);
-  await user.populate({
-    path: "cart.product_id",
-    model: Product,
-  });
-
-  const cart = user.cart;
-  const addresses = user.addresses;
 
   return {
     cart,
