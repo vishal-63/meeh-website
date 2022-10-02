@@ -438,7 +438,8 @@
     <script src="/assets/js/cart.js"></script>
 
     <script>
-      if (document.referrer === "http://localhost:5000/login") {
+      const { pathname } = new URL(document.referrer);
+      if (pathname === "/login") {
         location.assign("/cart/shipping");
       }
 
