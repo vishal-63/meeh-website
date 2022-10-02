@@ -35,15 +35,16 @@ async function decodeJWT(token) {
 async function getCartData(req, res) {
   let userLoggedIn = false;
 
-  let cart = [];
   let user;
-  let addresses;
+  let cart = [];
+  let addresses = [];
 
   try {
     if (req.cookies.jwt) {
       userLoggedIn = true;
       const { id } = await decodeJWT(req.cookies.jwt);
       user = await User.findById(id);
+      addresses = user.addresses;
     } else if (req.cookies.cart) {
       user = new User();
       cart = JSON.parse(req.cookies.cart);
@@ -57,8 +58,6 @@ async function getCartData(req, res) {
       });
       cart = user.cart;
     }
-
-    addresses = user.addresses || [];
 
     return {
       cart,
