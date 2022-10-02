@@ -90,7 +90,7 @@ module.exports.cart_add_product = async (req, res) => {
   let count = false;
 
   try {
-    const product = await Product.findById({ _id: req.body.id });
+    const product = await Product.findById(req.body.product_id);
     if (product == null || product == undefined) {
       throw new Error({
         message: "The product that user wants to add is not found!",

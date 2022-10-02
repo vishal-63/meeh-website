@@ -313,9 +313,9 @@
           };
           const res = await fetch(url, options);
           if (res.ok) {
-            triggerSuccessAlert("Item added to cart!")
+            updateWishlist(id)
           } else {
-            alert("An error occurred while adding item to the cart. Please try again later.")
+            window.alert("An error occurred while adding item to the cart. Please try again later.")
             console.log(res)
           };
         } else {
@@ -335,8 +335,9 @@
       }
 
       async function updateWishlist(id){
-        const data = id;
+        let data = id;
         if (<%- userLoggedIn %>) {
+          data = {id}
           const url = "/wishlist/deleteWishlist";
           const options = {
             method: 'POST',
@@ -349,7 +350,7 @@
           if(res.ok)
             location.reload(false);
           else
-            alert("An error occurred while deleting item from the wishlist. Please try again later.")
+            window.alert("An error occurred while deleting item from the wishlist. Please try again later.")
         } else {
           const wishlistCookie = getCookie("wishlist")
           wishlistData = JSON.parse(wishlistCookie)

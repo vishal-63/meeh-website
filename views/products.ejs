@@ -358,8 +358,9 @@
       }
 
       async function addWishlist(id) {
-        const data = id;
+        let data = id;
         if (<%- userLoggedIn %>) {
+          data = {id}
           const url = "/wishlist/addWishlist";
           const options = {
             method: "POST",
@@ -372,7 +373,7 @@
           if (res.ok) {
             triggerSuccessAlert("Item added to the wishlist!")
           } else {
-            alert("An error occured while adding item to the wishlist. Please try again later!")
+            window.alert("An error occured while adding item to the wishlist. Please try again later!")
             console.log(res)
           };
         } else {
@@ -507,7 +508,7 @@
           if (res.ok) {
             triggerSuccessAlert("Item added to cart!")
           } else {
-            alert("An error occurred while adding item to the cart. Please try again later.")
+            window.alert("An error occurred while adding item to the cart. Please try again later.")
             console.log(res)
           };
         } else {

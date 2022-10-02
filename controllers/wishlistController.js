@@ -1,3 +1,5 @@
+const jwt = require("jsonwebtoken");
+
 const User = require("../models/user");
 const Product = require("../models/product");
 
@@ -100,8 +102,7 @@ module.exports.delete_wishlist_post = async (req, res) => {
       path: "wishlist",
       model: Product,
     });
-    res.redirect("/");
-    // res.render('wishlist',{wishlist:wishlist});
+    res.send("Success");
   } catch (err) {
     console.log(err.message);
   }
