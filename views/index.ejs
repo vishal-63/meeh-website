@@ -131,7 +131,11 @@
                                   <% } %>
                               </ul></li>
                               <li class="shop-cart">
-                                  <a href="/cart"><i class="flaticon-shopping-cart-1"></i><span><%=cartLength%></span></a>
+                                  <a href="/cart"><i class="flaticon-shopping-cart-1"></i>
+                                    <% if(cartLength > 0) { %>
+                                      <span><%=cartLength%></span>
+                                    <% } %>
+                                  </a>
                               </li>
                           </ul>
                       </div>
@@ -928,7 +932,6 @@
         d.setTime(d.getTime() + (24*60*60*1000));
         let expires = "expires="+ d.toUTCString();
         document.cookie = name + "=" + JSON.stringify(data) + ";" + expires + ";path=/";
-        console.log(document.cookie)
       }
 
       function getCookie(name) {
@@ -948,14 +951,13 @@
       }
 
       async function addWishlist(id) {
-        const data = { id: id };
+        const data = id;
         if (<%- userLoggedIn %>) {
           const url = "/wishlist/addWishlist";
           const options = {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-            // 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: JSON.stringify(data),
           };
@@ -971,7 +973,7 @@
           let wishlistdata = wishlistCookie ? JSON.parse(wishlistCookie) : []
           let productExists = false
           wishlistdata.map((product) => {
-            if (product.id === data.id){
+            if (product === data[0]){
               productExists = true
             }
           })
@@ -983,7 +985,7 @@
       
       async function addToCart(id) {
         const data = {
-          id,
+          product_id: id,
           quantity: 1,
         };
         if (<%- userLoggedIn %>) {
@@ -1007,7 +1009,7 @@
           let cartdata = cartCookie ? JSON.parse(cartCookie) : []
           let productExists = false
           cartdata.map((product) => {
-            if (product.id === data.id){
+            if (product.product_id === data.product_id){
               product.quantity++
               productExists = true
             }

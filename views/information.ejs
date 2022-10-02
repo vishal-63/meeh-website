@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+
+    <title>Meehh.com - Shopping Cart</title>
+
+    <!-- Fav Icon -->
+    <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon" />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Stylesheets -->
+    <link href="/assets/css/font-awesome-all.css" rel="stylesheet" />
+    <link href="/assets/css/flaticon.css" rel="stylesheet" />
+    <link href="/assets/css/owl.css" rel="stylesheet" />
+    <link href="/assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="/assets/css/jquery.fancybox.min.css" rel="stylesheet" />
+    <link href="/assets/css/animate.css" rel="stylesheet" />
+    <link href="/assets/css/jquery-ui.css" rel="stylesheet" />
+    <link href="/assets/css/jquery.bootstrap-touchspin.css" rel="stylesheet" />
+    <link href="/assets/css/nice-select.css" rel="stylesheet" />
+    <link href="/assets/css/color.css" rel="stylesheet" />
+    <link href="/assets/css/style.css" rel="stylesheet" />
+    <link href="/assets/css/responsive.css" rel="stylesheet" />
+
+    <script
+      src="https://checkout.razorpay.com/v1/checkout.js"
+      async
+      defer
+    ></script>
+  </head>
+
+  <!-- page wrapper -->
+  <body>
+    <div class="boxed_wrapper">
+      <!-- search-popup -->
+      <div id="search-popup" class="search-popup">
+        <div class="close-search"><i class="flaticon-close"></i></div>
+        <div class="popup-inner">
+          <div class="overlay-layer"></div>
+          <div class="search-form">
+            <form method="GET" action="/products/search">
+              <div class="form-group">
+                <fieldset>
+                  <input
+                    type="search"
+                    class="form-control"
+                    name="q"
+                    value=""
+                    placeholder="Search Here"
+                    required
+                  />
+                  <input
+                    type="submit"
+                    value="Search Now!"
+                    class="theme-btn style-four"
+                  />
+                </fieldset>
+              </div>
+            </form>
+            <h3>Popular Search Keywords</h3>
+            <ul class="recent-searches">
+              <li><a href="/products?category=bookmark">Bookmark</a></li>
+              <li><a href="/products?category=pop gripper">Pop Grippers</a></li>
+              <li><a href="/products/search?q=friends">Friends</a></li>
+              <li><a href="/products/search?q">Game of Thrones</a></li>
+              <li><a href="/products/search?q=blackpink">Blackpink</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- search-popup end -->
+
+      <!-- main header -->
+      <header class="main-header">
+        <div class="header-lower">
+          <div class="auto-container">
+            <div class="outer-box">
+              <figure class="logo-box">
+                <a href="/"
+                  ><img src="/assets/images/header-logo.png" alt=""
+                /></a>
+              </figure>
+              <div class="menu-area">
+                <!--Mobile Navigation Toggler-->
+                <div class="mobile-nav-toggler">
+                  <i class="icon-bar"></i>
+                  <i class="icon-bar"></i>
+                  <i class="icon-bar"></i>
+                </div>
+                <nav class="main-menu navbar-expand-md navbar-light">
+                  <div
+                    class="collapse navbar-collapse show clearfix"
+                    id="navbarSupportedContent"
+                  >
+                    <ul class="navigation clearfix">
+                      <li class="current">
+                        <a href="/">Home</a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="/products">Shop<span>Hot</span></a>
+                        <ul>
+                          <li>
+                            <a href="/products?category=bookmark">Bookmarks</a>
+                          </li>
+                          <li>
+                            <a href="/products?category=pop gripper"
+                              >Pop Grippers</a
+                            >
+                          </li>
+                          <li>
+                            <a href="/products?category=tote bag">Tote Bags</a>
+                          </li>
+                          <li><a href="/products?category=badge">Badges</a></li>
+                          <li>
+                            <a href="/products?category=a5 dairy">Diaries</a>
+                          </li>
+                          <li>
+                            <a href="/products?category=mousepad">Mousepads</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <!-- <li><a href="/about">About</a></li>     -->
+                      <!-- <li><a href="/blogs">Blog</a></li>  -->
+                      <li><a href="/contact">Contact</a></li>
+                    </ul>
+                  </div>
+                </nav>
+              </div>
+              <ul class="menu-right-content clearfix">
+                <li>
+                  <div class="search-btn">
+                    <button type="button" class="search-toggler">
+                      <i class="flaticon-search"></i>
+                    </button>
+                  </div>
+                </li>
+                <li>
+                  <a href="/wishlist"><i class="flaticon-like"></i></a>
+                </li>
+                <li class="dropdown">
+                  <a><i class="flaticon-user"></i></a>
+                  <ul>
+                    <% if(userLoggedIn) { %>
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/profile">Your orders</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                    <% } else { %>
+                    <li><a href="/login">Log In</a></li>
+                    <li><a href="/register">Sign Up</a></li>
+                    <% } %>
+                  </ul>
+                </li>
+                <li class="shop-cart">
+                  <a href="/cart"
+                    ><i class="flaticon-shopping-cart-1"></i
+                    ><span><%=cartLength%></span></a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!--sticky Header-->
+        <div class="sticky-header">
+          <div class="auto-container">
+            <div class="outer-box clearfix">
+              <div class="logo-box pull-left">
+                <figure class="logo">
+                  <a href="/"
+                    ><img src="/assets/images/small-logo.png" alt=""
+                  /></a>
+                </figure>
+              </div>
+              <div class="menu-area pull-right">
+                <nav class="main-menu clearfix">
+                  <!--Keep This Empty / Menu will come through Javascript-->
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <!-- main-header end -->
+
+      <!-- Mobile Menu  -->
+      <div class="mobile-menu">
+        <div class="menu-backdrop"></div>
+        <div class="close-btn"><i class="fas fa-times"></i></div>
+        <nav class="menu-box">
+          <div class="nav-logo">
+            <a href="/"
+              ><img src="/assets/images/small-logo.png" alt="" title=""
+            /></a>
+          </div>
+          <div class="menu-outer">
+            <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
+          </div>
+          <div class="contact-info">
+            <h4>Contact Info</h4>
+            <ul>
+              <!-- <li>Chicago 12, Melborne City, USA</li> -->
+              <li><a href="tel:+91-9773034478">+91 97730 34478</a></li>
+              <li>
+                <a href="mailto:meehh.com@gmail.com">meehh.com@gmail.com</a>
+              </li>
+            </ul>
+          </div>
+          <div class="social-links">
+            <ul class="clearfix">
+              <li>
+                <a href="/"><span class="fab fa-twitter"></span></a>
+              </li>
+              <li>
+                <a href="/"><span class="fab fa-facebook-square"></span></a>
+              </li>
+              <li>
+                <a href="/"><span class="fab fa-pinterest-p"></span></a>
+              </li>
+              <li>
+                <a href="/"><span class="fab fa-instagram"></span></a>
+              </li>
+              <li>
+                <a href="/"><span class="fab fa-youtube"></span></a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <!-- End Mobile Menu -->
+
+      <!-- cart section -->
+
+      <% if (cart != null && cart.length > 0) { %>
+      <!-- page-title -->
+      <section class="page-title centred">
+        <div
+          class="pattern-layer"
+          style="
+            background-image: url(/assets/images/background/page-title.jpg);
+          "
+        ></div>
+        <div class="auto-container">
+          <div class="content-box">
+            <h1>Cart</h1>
+            <ul class="bread-crumb clearfix">
+              <li><i class="flaticon-home-1"></i><a href="/">Home</a></li>
+              <li>Cart</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <!-- page-title end -->
+
+      <!-- Multistep form -->
+      <div class="container">
+        <div class="row justify-content-center mt-0">
+          <div class="col-12 text-center p-0 mt-3 mb-2">
+            <div class="px-0 pt-4 pb-0 mt-3 mb-3">
+              <div class="mx-0">
+                <div id="msform">
+                  <!-- progressbar -->
+                  <ul id="progressbar">
+                    <li class="active" id="cart">
+                      <i class="flaticon-shopping-cart-1"></i>
+                      Cart
+                    </li>
+                    <li class="active" id="information">
+                      <i class="flaticon-location-pin-1"></i>
+                      Information
+                    </li>
+                    <li id="shipping">
+                      <i class="flaticon-location-pin-1"></i>
+                      Shipping
+                    </li>
+                    <li id="payment">
+                      <i class="far fa-payment"></i>
+                      Payment
+                    </li>
+                  </ul>
+                  <fieldset class="checkout-section steps">
+                    <form
+                      action="/register"
+                      method="POST"
+                      class="signup-form shipping-form"
+                    >
+                      <h4 class="details-title ml-3">Personal Details</h4>
+                      <div class="row">
+                        <div class="col-md-6 col-sm-12 form-group">
+                          <label>First Name*</label>
+                          <div class="field-input">
+                            <input type="text" required name="first_name" />
+                          </div>
+                          <span class="text-danger fname-message"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-12 form-group">
+                          <label>Last Name*</label>
+                          <div class="field-input">
+                            <input type="text" required name="last_name" />
+                          </div>
+                          <span class="text-danger lname-message"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-12 form-group">
+                          <label>Email Address*</label>
+                          <div class="field-input">
+                            <input type="email" required name="email" />
+                          </div>
+                          <span class="text-danger email-message"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-12 form-group">
+                          <label>Phone No.*</label>
+                          <div class="field-input">
+                            <input type="" required name="phone_no" />
+                          </div>
+                          <span class="text-danger phone-message"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-12 form-group">
+                          <label>Password*</label>
+                          <div class="d-flex align-items-center password-input">
+                            <input type="password" name="password" required />
+                            <span
+                              class="mx-2"
+                              onclick="togglePasswordShow(this)"
+                            >
+                              <i class="fas fa-eye ml-auto"></i>
+                            </span>
+                          </div>
+                          <span class="text-muted small">
+                            Password must contain uppercase and lowercase
+                            letters, digits and a symbol min. 8 characters long.
+                          </span>
+                          <span class="text-danger password-message"></span>
+                        </div>
+                        <div class="col-md-6 col-sm-12 form-group">
+                          <label>Confirm Password</label>
+                          <div class="d-flex align-items-center password-input">
+                            <input
+                              type="password"
+                              name="confirm_password"
+                              required
+                            />
+                            <span
+                              class="mx-2"
+                              onclick="togglePasswordShow(this)"
+                            >
+                              <i class="fas fa-eye ml-auto"></i>
+                            </span>
+                          </div>
+                          <span
+                            class="text-danger confirm_password-message"
+                          ></span>
+                        </div>
+                      </div>
+                      <div class="lower-inner centred">
+                        <p>
+                          Already have an account?
+                          <a href="/login" class="text-primary">Log In Now</a>
+                        </p>
+                      </div>
+                      <button class="previous theme-btn-one">
+                        <a href="/cart"> Go Back </a>
+                      </button>
+                      <button
+                        type="submit"
+                        value="Save"
+                        class="theme-btn-two ml-3"
+                      >
+                        Save
+                        <i class="flaticon-right-1"></i>
+                      </button>
+                    </form>
+                  </fieldset>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- page-title end -->
+
+      <% } else { %>
+      <div class="empty-cart container">
+        <img
+          src="\assets\images\icons\empty_cart.svg"
+          alt="Empty Cart Icon"
+          class="icon"
+        />
+        <div class="text">
+          Your shopping cart is empty <i class="far fa-sad-tear"></i>
+        </div>
+        <div class="theme-btn-three">
+          <a href="/products"
+            >Continue Shopping<i class="flaticon-right-1"></i
+          ></a>
+        </div>
+      </div>
+      <% } %>
+
+      <!-- cart section end -->
+
+      <%- include('footer')%>
+    </div>
+    <!-- jequery plugins -->
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/popper.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/owl.js"></script>
+    <script src="/assets/js/wow.js"></script>
+    <script src="/assets/js/validation.js"></script>
+    <script src="/assets/js/jquery.fancybox.js"></script>
+    <script src="/assets/js/TweenMax.min.js"></script>
+    <script src="/assets/js/appear.js"></script>
+    <script src="/assets/js/scrollbar.js"></script>
+    <script src="/assets/js/jquery.nice-select.min.js"></script>
+    <script src="/assets/js/isotope.js"></script>
+    <script src="/assets/js/jquery-ui.js"></script>
+    <script src="/assets/js/jquery.bootstrap-touchspin.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></script>
+
+    <!-- main-js -->
+    <script src="/assets/js/script.js"></script>
+    <script src="/assets/js/cart.js"></script>
+
+    <script>
+      if (document.referrer === "http://localhost:5000/login") {
+        location.assign("/cart/shipping");
+      }
+
+      function togglePasswordShow(e) {
+        const input = e.previousElementSibling;
+        const icon = e.children[0];
+        input.type = input.type === "text" ? "password" : "text";
+        icon.classList.toggle("fa-eye");
+        icon.classList.toggle("fa-eye-slash");
+      }
+
+      // handle user registration
+      const form = document.querySelector("form.signup-form");
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        // get the input values
+        const first_name = form.first_name.value;
+        const last_name = form.last_name.value;
+        const email = form.email.value;
+        const phone_no = form.phone_no.value;
+        const password = form.password.value;
+        const confirm_password = form.confirm_password.value;
+
+        const body = {
+          first_name,
+          last_name,
+          phone_no,
+          email,
+          password,
+          confirm_password,
+        };
+
+        try {
+          const res = await fetch("/register", {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          const data = await res.json();
+          if (res.ok) {
+            location.assign("/cart/shipping");
+          } else {
+            document.querySelector("span.fname-message").textContent =
+              data.errors.first_name;
+            document.querySelector("span.lname-message").textContent =
+              data.errors.last_name;
+            document.querySelector("span.email-message").textContent =
+              data.errors.email;
+            document.querySelector("span.phone-message").textContent =
+              data.errors.phone_no;
+            document.querySelector("span.password-message").textContent =
+              data.errors.password;
+            document.querySelector(
+              "span.confirm_password-message"
+            ).textContent = data.errors.confirm_password;
+          }
+        } catch (err) {}
+      });
+    </script>
+  </body>
+</html>

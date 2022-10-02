@@ -23,7 +23,7 @@ module.exports.get_cart_length = async (token) => {
 };
 
 async function decodeJWT(token) {
-  jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decodedToken) => {
+  return jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decodedToken) => {
     if (err) {
       console.log(err.message);
     } else {
@@ -34,29 +34,43 @@ async function decodeJWT(token) {
 
 async function getCartData(req, res) {
   let userLoggedIn = false;
-  let cart;
 
+  let cart = [];
   let user;
   let addresses;
 
-  if (req.cookies.jwt) {
-    userLoggedIn = true;
-    user = await User.findById(decodeJWT(req.cookies.jwt));
-    await user.populate({
-      path: "cart.product_id",
-      model: Product,
-    });
-    addresses = user.addresses || [];
-  } else if (req.cookies.cart) {
-    cart = JSON.parse(req.cookies.cart);
-  }
+  try {
+    if (req.cookies.jwt) {
+      userLoggedIn = true;
+      const { id } = await decodeJWT(req.cookies.jwt);
+      user = await User.findById(id);
+    } else if (req.cookies.cart) {
+      user = new User();
+      cart = JSON.parse(req.cookies.cart);
+      user.cart = cart;
+    }
 
-  return {
-    cart,
-    userLoggedIn,
-    addresses,
-    cartLength: cart.length,
-  };
+    if (user?.cart) {
+      await user.populate({
+        path: "cart.product_id",
+        model: Product,
+      });
+      cart = user.cart;
+    }
+
+    addresses = user.addresses || [];
+
+    return {
+      cart,
+      userLoggedIn,
+      addresses,
+      cartLength: cart.length,
+    };
+  } catch (err) {
+    console.log("An error occurred");
+    console.log(err);
+    console.log(err.message);
+  }
 }
 
 module.exports.cart_get = async (req, res) => {
@@ -65,6 +79,10 @@ module.exports.cart_get = async (req, res) => {
 
 module.exports.cart_shipping_get = async (req, res) => {
   res.render("shipping", await getCartData(req, res));
+};
+
+module.exports.cart_information_get = async (req, res) => {
+  res.render("information", await getCartData(req, res));
 };
 
 module.exports.cart_add_product = async (req, res) => {
@@ -135,7 +153,6 @@ module.exports.cart_delete_product = async (req, res) => {
 
 module.exports.cart_update_product = async (req, res) => {
   const user = await User.findById(res.user.id);
-  // console.log(user)
 
   try {
     user.cart.map((item) => {

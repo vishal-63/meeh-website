@@ -230,25 +230,16 @@
                       <div class="inner-box">
                         <figure class="image-box">
                             <img
-                            src="<%= productList[i].inventory[0].large_images[0]%>"
+                            src="<%= productList[i].inventory[0].thumbnail_images[0] || productList[i].inventory[0].large_images[0]%>"
                             alt="<%= productList[i].product_name %>"
                             />
                           <ul class="info-list clearfix">
-                            <% if(userLoggedIn) { %>
-                              <li onClick="addWishlist('<%= productList[i]._id %>')">
-                                <a><i class="flaticon-heart"></i></a>
-                              </li>
-                              <li onClick="addToCart('<%= productList[i]._id %>')">
-                                <a>Add to cart</a>
-                              </li>
-                            <% } else { %> 
-                              <li>
-                                <a href="/login"><i class="flaticon-heart"></i></a>
-                              </li>
-                              <li>
-                                <a href="/login">Add to cart</a>
-                              </li>
-                            <% } %> 
+                            <li onClick="addWishlist('<%= productList[i]._id %>')">
+                              <a><i class="flaticon-heart"></i></a>
+                            </li>
+                            <li onClick="addToCart('<%= productList[i]._id %>')">
+                              <a>Add to cart</a>
+                            </li>
                           </ul>
                         </figure>
                         <div class="lower-content">
@@ -272,25 +263,16 @@
                         <div class="inner-box">
                           <figure class="image-box">
                               <img
-                              src="<%= productList[category][j].inventory[0].large_images[0]%>"
+                              src="<%= productList[category][j].inventory[0].thumbnail_images[0] || productList[category][j].inventory[0].large_images[0] %>"
                               alt="<%= productList[category][j].product_name %>"
                               />
                             <ul class="info-list clearfix">
-                              <% if(userLoggedIn) { %>
-                                <li onClick="addWishlist('<%= productList[category][j]._id %>')">
-                                  <a><i class="flaticon-heart"></i></a>
-                                </li>
-                                <li onClick="addToCart('<%= productList[category][j]._id %>')">
-                                  <a>Add to cart</a>
-                                </li>
-                              <% } else { %> 
-                                <li>
-                                  <a href="/login"><i class="flaticon-heart"></i></a>
-                                </li>
-                                <li>
-                                  <a href="/login">Add to cart</a>
-                                </li>
-                              <% } %> 
+                              <li onClick="addWishlist('<%= productList[category][j]._id %>')">
+                                <a><i class="flaticon-heart"></i></a>
+                              </li>
+                              <li onClick="addToCart('<%= productList[category][j]._id %>')">
+                                <a>Add to cart</a>
+                              </li>
                             </ul>
                           </figure>
                           <div class="lower-content">
@@ -352,30 +334,60 @@
     <script>
       const alert = document.querySelector(".alert > span.text");
 
+      function createCookie (name, data) {
+        const d = new Date();
+        d.setTime(d.getTime() + (24*60*60*1000));
+        let expires = "expires="+ d.toUTCString();
+        document.cookie = name + "=" + JSON.stringify(data) + ";" + expires + ";path=/";
+      }
+
+      function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+      }
+
+      function triggerSuccessAlert(text) {
+        document.querySelector(".products-alert").classList.remove("d-none");
+        alert.innerText = text;
+        setTimeout(()=> {
+          document.querySelector(".products-alert").classList.add("d-none");
+          alert.innerText = ""
+        }, 1000)
+        location.reload()
+      }
+
       async function addWishlist(id) {
-        const data = { id: id };
-        const url = "/wishlist/addWishlist";
-        const options = {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          body: JSON.stringify(data),
-        };
-        const res = await fetch(url, options);
-        if (res.ok) {
-          document.querySelector(".products-alert").classList.remove("d-none");
-          alert.innerText = "Item added to the wishlist!";
-          setTimeout(()=> {
-            document.querySelector(".products-alert").classList.add("d-none");
-            alert.innerText = ""
-          }, 1000)
-          location.reload()
+        const data = id;
+        if (<%- userLoggedIn %>) {
+          const url = "/wishlist/addWishlist";
+          const options = {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          };
+          const res = await fetch(url, options);
+          if (res.ok) {
+            triggerSuccessAlert("Item added to the wishlist!")
+          } else {
+            alert("An error occured while adding item to the wishlist. Please try again later!")
+            console.log(res)
+          };
         } else {
-          alert("An error occured while adding item to the wishlist. Please try again later!")
-          console.log(res)
-        };
+          const wishlistCookie = getCookie('wishlist')
+          let wishlistdata = wishlistCookie ? JSON.parse(wishlistCookie) : []
+          let productExists = false
+          wishlistdata.map((product) => {
+            if (product === data[0]){
+              productExists = true
+            }
+          })
+          if(!productExists) wishlistdata = [...wishlistdata, data]
+          createCookie('wishlist', wishlistdata)
+          triggerSuccessAlert("Item added to the wishlist!")
+        }
       }
 
       async function loadMoreProducts() {
@@ -479,30 +491,39 @@
 
       async function addToCart(id) {
         const data = {
-          id,
+          product_id: id,
           quantity: 1,
         };
-        const url = "/cart/addToCart";
-        const options = {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        };
-        const res = await fetch(url, options);
-        if (res.ok) {
-          document.querySelector(".products-alert").classList.remove("d-none");
-          alert.innerText = "Item added to cart!";
-          setTimeout(()=> {
-            document.querySelector(".products-alert").classList.add("d-none");
-            alert.innerText = ""
-          }, 1000)
-          location.reload()
-        } else {
+        if (<%- userLoggedIn %>) {
+          const url = "/cart/addToCart";
+          const options = {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          };
+          const res = await fetch(url, options);
+          if (res.ok) {
+            triggerSuccessAlert("Item added to cart!")
+          } else {
             alert("An error occurred while adding item to the cart. Please try again later.")
             console.log(res)
           };
+        } else {
+          const cartCookie = getCookie('cart')
+          let cartdata = cartCookie ? JSON.parse(cartCookie) : []
+          let productExists = false
+          cartdata.map((product) => {
+            if (product.product_id === data.product_id){
+              product.quantity++
+              productExists = true
+            }
+          })
+          if(!productExists) cartdata = [...cartdata, data]
+          createCookie('cart', cartdata)
+          triggerSuccessAlert("Item added to cart!")
+        }
       }
     </script>
   </body>

@@ -56,6 +56,14 @@ module.exports.login_post = async (req, res) => {
   try {
     const user = await User.login(email, password);
     const jwtToken = createJWT(user._id);
+
+    // if user has cart items in cookie before logging in save the cart to his acc when logging in
+    if (req.cookies.cart) {
+      const cart = JSON.parse(req.cookies.cart);
+      user.cart = cart;
+      await user.save();
+    }
+
     res.cookie("jwt", jwtToken, { httpOnly: true });
     res.status(200).json({ message: "Login successful!" });
   } catch (err) {
@@ -74,14 +82,22 @@ module.exports.signup_post = async (req, res) => {
   const { first_name, last_name, email, phone_no, password, confirm_password } =
     req.body;
 
+  console.log(req.body);
+
   try {
     if (password === confirm_password) {
+      let cart;
+      if (req.cookies.cart) {
+        cart = JSON.parse(req.cookies.cart);
+      }
+
       const user = User({
         first_name,
         last_name,
         email,
         phone_no,
         password,
+        cart,
       });
       await user.save();
       user.password = await User.hashPassword(user.password);

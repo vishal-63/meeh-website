@@ -218,7 +218,10 @@
                     <div class="col-12 col-sm-4 col-md-3">
                       <div class="card">
                         <img 
-                        src="<%= wishlist[i].inventory[0].thumbnail_images[0] && wishlist[i].inventory[0].large_images[0] %>" alt="<%= wishlist[i].product_name %>" class="card-img-top" />
+                          src="<%= wishlist[i].inventory[0].thumbnail_images[0] || wishlist[i].inventory[0].large_images[0] %>" 
+                          alt="<%= wishlist[i].product_name %>"
+                          class="card-img-top" 
+                        />
                         <div class="card-body">
                           <h5 class="card-title"><%= wishlist[i].product_name %></h5>
                           <p class="card-subtitle">&#x20B9;<%= wishlist[i].price%></p>
@@ -271,11 +274,35 @@
     <script>
       const alert = document.querySelector(".alert > span.text");
 
+      function createCookie (name, data) {
+        const d = new Date();
+        d.setTime(d.getTime() + (24*60*60*1000));
+        let expires = "expires="+ d.toUTCString();
+        document.cookie = name + "=" + JSON.stringify(data) + ";" + expires + ";path=/";
+      }
+
+      function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+      }
+
+      function triggerSuccessAlert(text) {
+        document.querySelector(".products-alert").classList.remove("d-none");
+        alert.innerText = text;
+        setTimeout(()=> {
+          document.querySelector(".products-alert").classList.add("d-none");
+          alert.innerText = ""
+        }, 1000)
+        location.reload()
+      }
+
       async function addToCart(id) {
-          const data = {
-            id,
-            quantity: 1,
-          };
+        const data = {
+          product_id: id,
+          quantity: 1,
+        };
+        if (<%- userLoggedIn %>) {
           const url = "/cart/addToCart";
           const options = {
             method: "POST",
@@ -286,22 +313,30 @@
           };
           const res = await fetch(url, options);
           if (res.ok) {
-            updateWishlist(id)
-            document.querySelector(".products-alert").classList.remove("d-none");
-            alert.innerText = "Item added to cart!";
-            setTimeout(()=> {
-              document.querySelector(".products-alert").classList.add("d-none");
-              alert.innerText = ""
-            }, 1000)
-            location.reload()
+            triggerSuccessAlert("Item added to cart!")
           } else {
             alert("An error occurred while adding item to the cart. Please try again later.")
             console.log(res)
           };
+        } else {
+          const cartCookie = getCookie('cart')
+          let cartdata = cartCookie ? JSON.parse(cartCookie) : []
+          let productExists = false
+          cartdata.map((product) => {
+            if (product.product_id === data.product_id){
+              product.quantity++
+              productExists = true
+            }
+          })
+          if(!productExists) cartdata = [...cartdata, data]
+          createCookie('cart', cartdata)
+          updateWishlist(id)
         }
+      }
 
-        async function updateWishlist(id){
-          const data = {id};
+      async function updateWishlist(id){
+        const data = id;
+        if (<%- userLoggedIn %>) {
           const url = "/wishlist/deleteWishlist";
           const options = {
             method: 'POST',
@@ -315,7 +350,14 @@
             location.reload(false);
           else
             alert("An error occurred while deleting item from the wishlist. Please try again later.")
+        } else {
+          const wishlistCookie = getCookie("wishlist")
+          wishlistData = JSON.parse(wishlistCookie)
+          wishlistData = wishlistData.filter((product) => product != id)
+          createCookie("wishlist", wishlistData)
+          triggerSuccessAlert("Item added to cart")
         }
+      }
     </script>
 </body><!-- End of .page_wrapper -->
 </html>

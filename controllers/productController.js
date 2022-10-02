@@ -50,11 +50,7 @@ module.exports.products_get_next = async (req, res) => {
     })
       .limit(100)
       .skip(productsLoaded);
-
-    console.log(newProducts);
   } else if (req.body.search) {
-    console.log(req.body.search);
-
     const con = [];
 
     req.body.search.split(" ").map((text) => {
@@ -104,7 +100,6 @@ module.exports.products_get_search = async (req, res) => {
     //     {product_name: { $regex: req.query['q'], $options: "i" }},
     //   ],
     // }).limit(100);
-    console.log(req.query["q"]);
 
     const con = [];
 

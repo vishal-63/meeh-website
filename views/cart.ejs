@@ -215,6 +215,12 @@
                       <i class="flaticon-shopping-cart-1"></i>
                       Cart
                     </li>
+                    <% if(!userLoggedIn) { %>
+                      <li id="information">
+                        <i class="flaticon-shopping-cart-1"></i>
+                        Information
+                    </li>
+                    <% } %>
                     <li id="shipping">
                       <i class="flaticon-location-pin-1"></i>
                       Shipping
@@ -315,9 +321,15 @@
                       </div>
                     </div>
                     <button name="next" class="next theme-btn-two">
-                      <a href="/cart/shipping">
-                        Proceed
-                      </a>
+                      <% if(!userLoggedIn) { %>
+                        <a href="/cart/information">
+                          Proceed
+                        </a>
+                      <% } else { %>
+                        <a href="/cart/shipping">
+                          Proceed
+                        </a>
+                      <% } %>
                       <i class="flaticon-right-1"></i>
                     </button>
                   

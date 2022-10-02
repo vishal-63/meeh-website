@@ -120,10 +120,8 @@ userSchema.statics.login = async (email, password) => {
 
 userSchema.statics.hashPassword = async (password) => {
   if (password != undefined) {
-    console.log("in pre", password);
     const salt = await bcrypt.genSalt();
     password = await bcrypt.hash(password, salt);
-    console.log("hashed", password);
     return password;
   }
 };

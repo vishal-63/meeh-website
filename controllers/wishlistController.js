@@ -3,26 +3,57 @@ const Product = require("../models/product");
 
 const cartController = require("../controllers/cartController");
 
+async function decodeJWT(token) {
+  return jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decodedToken) => {
+    if (err) {
+      console.log(err.message);
+    } else {
+      return decodedToken;
+    }
+  });
+}
+
 module.exports.wishlist_get = async (req, res) => {
   let userLoggedIn = false;
-  let cartLength = await cartController.get_cart_length(req.cookies.jwt);
 
-  if (req.cookies.jwt) {
-    userLoggedIn = true;
+  let user;
+  let wishlist = [];
+  let cartLength;
+
+  try {
+    if (req.cookies.jwt) {
+      userLoggedIn = true;
+      const { id } = await decodeJWT(req.cookies.jwt);
+      user = await User.findById(id);
+    } else if (req.cookies.wishlist) {
+      user = new User();
+      wishlist = JSON.parse(req.cookies.wishlist);
+      user.wishlist = wishlist;
+    }
+
+    if (user?.wishlist) {
+      await user.populate({
+        path: "wishlist",
+        model: Product,
+      });
+      wishlist = user.wishlist;
+    }
+
+    cartLength = user.cart.length || JSON.parse(req.cookies.cart).length;
+
+    res.render("wishlist", {
+      wishlist,
+      userLoggedIn,
+      cartLength,
+    });
+  } catch (err) {
+    console.log("An error occurred");
+    console.log(err);
+    console.log(err.message);
   }
-
-  const user = await User.findById(res.user.id);
-  await user.populate({
-    path: "wishlist",
-    model: Product,
-  });
-  const wishlist = user.wishlist;
-  res.render("wishlist", { wishlist, userLoggedIn, cartLength });
 };
 
 module.exports.add_wishlist_post = async (req, res) => {
-  console.log(req.body);
-  console.log("hello");
   const user = await User.findById(res.user.id);
 
   await Product.exists({ _id: req.body.id }, (err, result) => {
@@ -32,10 +63,6 @@ module.exports.add_wishlist_post = async (req, res) => {
       } else if (result == null) {
         throw new Error({ message: "Product not found!" });
       } else {
-        // console.log(req.body.id);
-        // console.log(result);
-        // console.log(user.wishlist.includes(req.body.id));
-        // console.log(user.wishlist)
         if (!user.wishlist.includes(req.body.id)) {
           user.wishlist.push(result._id);
           user.save((err, result) => {
@@ -46,10 +73,8 @@ module.exports.add_wishlist_post = async (req, res) => {
             }
           });
 
-          // console.log(0);
           res.status(200).send("success!");
         } else {
-          console.log(1);
           res.status(200).send("Already in your wishlist!");
         }
       }
@@ -58,24 +83,6 @@ module.exports.add_wishlist_post = async (req, res) => {
       res.status(404).send({ error: "Product not found!" });
     }
   });
-
-  // const newWishlist = user.wishlist.filter((product)=>{
-  //     return product._id != req.body.id
-  // });
-  // console.log(newWishlist);
-
-  // user.wishlist = newWishlist;
-  // await user.save();
-
-  // await user.populate({
-  //     path:'wishlist',
-  //     model:Product,
-  // });
-
-  // console.log(user.wishlist);
-
-  // const wishlist = user.wishlist;
-  // res.render('wishlist',{wishlist:wishlist});
 };
 
 module.exports.delete_wishlist_post = async (req, res) => {
@@ -93,8 +100,6 @@ module.exports.delete_wishlist_post = async (req, res) => {
       path: "wishlist",
       model: Product,
     });
-    const wishlist = user.wishlist;
-    console.log(0);
     res.redirect("/");
     // res.render('wishlist',{wishlist:wishlist});
   } catch (err) {

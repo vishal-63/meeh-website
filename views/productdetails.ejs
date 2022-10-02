@@ -550,7 +550,6 @@
             quantity: document.querySelector("input#quantity").value,
           }
           document.cookie = "product=" + JSON.stringify(product) + ";" + expires + ";path=/";
-          console.log(document.cookie)
           location.assign("/checkout/buy-now")
         }
 
@@ -570,7 +569,6 @@
 
         const descTags = document.querySelectorAll("p.product-description + ul")
         const description = '<%=product.description%>'
-        console.log(description)
         const descArray = description.split("|")
         descTags.forEach(tag => {
           descArray.forEach(desc => {
@@ -592,59 +590,97 @@
           }
         }
 
-        async function addWishlist(id) {
-          const data = { id: id };
-          const url = "/wishlist/addWishlist";
-          const options = {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-          };
-          const res = await fetch(url, options);
-          if (res.ok) {
-            document.querySelector(".products-alert").classList.remove("d-none");
-            alert.innerText = "Item added to the wishlist!";
-            setTimeout(()=> {
-              document.querySelector(".products-alert").classList.add("d-none");
-              alert.innerText = ""
-            }, 1000)
-            location.reload()
-          } else {
-            alert("An error occured while adding item to the wishlist. Please try again later!")
-            console.log(res)
-          };
+        function createCookie (name, data) {
+          const d = new Date();
+          d.setTime(d.getTime() + (24*60*60*1000));
+          let expires = "expires="+ d.toUTCString();
+          document.cookie = name + "=" + JSON.stringify(data) + ";" + expires + ";path=/";
         }
 
+        function getCookie(name) {
+          const value = `; ${document.cookie}`;
+          const parts = value.split(`; ${name}=`);
+          if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        function triggerSuccessAlert(text) {
+          document.querySelector(".products-alert").classList.remove("d-none");
+          alert.innerText = text;
+          setTimeout(()=> {
+            document.querySelector(".products-alert").classList.add("d-none");
+            alert.innerText = ""
+          }, 1000)
+          location.reload()
+        }
+
+        async function addWishlist(id) {
+          const data = id;
+          if (<%- userLoggedIn %>) {
+            const url = "/wishlist/addWishlist";
+            const options = {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            };
+            const res = await fetch(url, options);
+            if (res.ok) {
+              triggerSuccessAlert("Item added to the wishlist!")
+            } else {
+              alert("An error occured while adding item to the wishlist. Please try again later!")
+              console.log(res)
+            };
+          } else {
+            const wishlistCookie = getCookie('wishlist')
+            let wishlistdata = wishlistCookie ? JSON.parse(wishlistCookie) : []
+            let productExists = false
+            wishlistdata.map((product) => {
+              if (product === data[0]){
+                productExists = true
+              }
+            })
+            if(!productExists) wishlistdata = [...wishlistdata, data]
+            createCookie('wishlist', wishlistdata)
+            triggerSuccessAlert("Item added to the wishlist!")
+          }
+        }
+        
         async function addToCart(id) {
           const data = {
-            id,
-            quantity: document.querySelector("input#quantity").value,
-            selected_size: size,
-            selected_color: color,
+            product_id: id,
+            quantity: 1,
           };
-          const url = "/cart/addToCart";
-          const options = {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-          };
-          const res = await fetch(url, options);
-          if (res.ok) {
-            document.querySelector(".products-alert").classList.remove("d-none");
-            alert.innerText = "Item added to cart!";
-            setTimeout(()=> {
-              document.querySelector(".products-alert").classList.add("d-none");
-              alert.innerText = ""
-            }, 1000)
-            location.reload()
+          if (<%- userLoggedIn %>) {
+            const url = "/cart/addToCart";
+            const options = {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            };
+            const res = await fetch(url, options);
+            if (res.ok) {
+              triggerSuccessAlert("Item added to cart!")
+            } else {
+              alert("An error occurred while adding item to the cart. Please try again later.")
+              console.log(res)
+            };
           } else {
-            alert("An error occurred while adding item to the cart. Please try again later.")
-            console.log(res)
-          };
+            const cartCookie = getCookie('cart')
+            let cartdata = cartCookie ? JSON.parse(cartCookie) : []
+            let productExists = false
+            cartdata.map((product) => {
+              if (product.product_id === data.product_id){
+                product.quantity++
+                productExists = true
+              }
+            })
+            if(!productExists) cartdata = [...cartdata, data]
+            createCookie('cart', cartdata)
+            triggerSuccessAlert("Item added to cart!")
+          }
         }
       </script>
 
