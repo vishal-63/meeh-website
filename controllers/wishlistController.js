@@ -41,9 +41,11 @@ module.exports.wishlist_get = async (req, res) => {
       wishlist = user.wishlist;
     }
 
-    cartLength = user.cart
+    cartLength = user?.cart
       ? user.cart.length
-      : JSON.parse(req.cookies.cart).length;
+      : req.cookies.cart
+      ? JSON.parse(req.cookies.cart).length
+      : 0;
 
     res.render("wishlist", {
       wishlist,
