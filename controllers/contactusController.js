@@ -47,10 +47,8 @@ module.exports.send_mail = async (req, res) => {
         return console.log(error);
       }
       console.log("Email sent: " + info.response);
-      res.status(200).json({ message: "Login successful!" });
+      res.status(200).json({ message: "Message sent successfully!" });
     });
-
-    res.status(200).json({ message: "Message sent successfully!" });
   } catch (err) {
     console.log(err, err.message);
     res.status(500).json({ err, message: err.message });
