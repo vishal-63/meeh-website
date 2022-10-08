@@ -69,7 +69,11 @@ module.exports.createDbOrder = async (
     //   discount: couponDiscount,
     // };
 
-    order.grand_total = order.sub_total - (order.coupon?.discount || 0) + 80;
+    var total = order.sub_total - (order.coupon?.discount || 0);
+
+    order.shipping_cost = total > 800 ? 0 : 80;
+
+    order.grand_total = total + order.shipping_cost;
     order.shipping_address = address;
 
     return order;

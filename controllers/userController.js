@@ -67,7 +67,7 @@ module.exports.login_post = async (req, res) => {
     res.cookie("jwt", jwtToken, { httpOnly: true });
     res.status(200).json({ message: "Login successful!" });
   } catch (err) {
-    console.log(err);
+    console.log("controller", err);
     res.status(400).json({ error: err.message });
   }
 };
@@ -138,7 +138,10 @@ module.exports.profile_get = async (req, res) => {
     };
   });
 
-  const orders = await Order.find({ user_id: res.user.id });
+  const orders = await Order.find({
+    user_id: res.user.id,
+    payment_status: "Successful",
+  });
   for (let i = 0; i < orders.length; i++) {
     await orders[i].populate({
       path: "products.product_id",

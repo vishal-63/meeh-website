@@ -41,7 +41,9 @@ module.exports.wishlist_get = async (req, res) => {
       wishlist = user.wishlist;
     }
 
-    cartLength = user.cart.length || JSON.parse(req.cookies.cart).length;
+    cartLength = user.cart
+      ? user.cart.length
+      : JSON.parse(req.cookies.cart).length;
 
     res.render("wishlist", {
       wishlist,
@@ -52,6 +54,7 @@ module.exports.wishlist_get = async (req, res) => {
     console.log("An error occurred");
     console.log(err);
     console.log(err.message);
+    res.sendStatus(err.message);
   }
 };
 

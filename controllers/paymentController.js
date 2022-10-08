@@ -52,6 +52,7 @@ module.exports.create_order = async (req, res) => {
     shipping_address: formattedAddress,
     sub_total: order.sub_total,
     coupon_discount: order.coupon?.discount,
+    shipping_cost: order.shipping_cost,
   };
 
   try {
@@ -126,7 +127,7 @@ module.exports.verify_order = async (req, res) => {
       const transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
-          user: "meehh.com@gmail.com",
+          user: process.env.GMAIL_ID,
           pass: process.env.GMAIL_APP_PASSWORD,
         },
       });
@@ -179,8 +180,7 @@ module.exports.verify_order = async (req, res) => {
       const products = order.products;
       shippingController.wrapper_api(order, email, contact, products);
 
-      // res.json({ success: true, message: "Payment has been verified" });
-      res.redirect("/profile");
+      res.sendStatus(200);
     } else {
       res.json({ success: false, message: "Payment verification failed" });
     }

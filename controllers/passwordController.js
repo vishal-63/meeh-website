@@ -35,7 +35,7 @@ module.exports.change_password_post = async (req, res) => {
         user.password = new_password;
         user.save((err, result) => {
           if (err) {
-            throw new Error("Error while saveing new password!");
+            throw new Error("Error while saving new password!");
           } else {
             res.render("changePassword");
           }
@@ -59,7 +59,7 @@ module.exports.forgot_password_post = async (req, res) => {
       const transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
-          user: "meehh.com@gmail.com",
+          user: process.env.GMAIL_ID,
           pass: process.env.GMAIL_APP_PASSWORD,
         },
       });
@@ -75,7 +75,7 @@ module.exports.forgot_password_post = async (req, res) => {
       transporter.use("compile", hbs(handlebarOptions));
 
       const mailOptions = {
-        from: '"Meehh.com" <sdkm7016816547@gmail.com>', // sender address
+        from: '"Meehh.com" <meehhofficial@gmail.com>', // sender address
         to: req.body.email, // list of receivers
         subject: "Welcome!",
         template: "email", // the name of the template file i.e email.handlebars,

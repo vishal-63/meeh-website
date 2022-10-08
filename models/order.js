@@ -81,6 +81,10 @@ const orderSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  shipping_cost: {
+    type: Number,
+    required: true,
+  },
   shipping_address: {
     type: addressSchema,
     required: true,

@@ -101,7 +101,7 @@
                                               <li><a href="/products?category=mousepad">Mousepads</a></li>
                                             </ul>
                                           </li>
-                                          <!-- <li><a href="/about">About</a></li>     -->
+                                          <li><a href="/about">About</a></li>
                                           <!-- <li><a href="/blogs">Blog</a></li>  -->
                                           <li><a href="/contact">Contact</a></li>               
                                       </ul>
@@ -248,8 +248,8 @@
                       </div>
                       <div class="order-total mt-3 text-right">
                         <div class="sub-total">Sub Total: <span></span></div>
-                        <div class="coupon-discount text-primary">- Coupon Discount: <span></span></div> 
-                        <div class="">+ Shipping: <span>Rs. 80</span></div>
+                        <!-- <div class="coupon-discount text-primary">- Coupon Discount: <span>Rs. 0</span></div>  -->
+                        <div class="shipping-cost">+ Shipping: <span>Rs. </span></div>
                         <div class="grand-total text-dark">Grand Total: <span></span></div>
                       </div>
                       <div class="shipping-summary">
@@ -331,6 +331,10 @@
       const orderSummaryGrandtotal = document.querySelector(
         ".order-summary .order-total .grand-total span"
       );
+      const orderSummaryShipping = document.querySelector(
+        ".order-summary .order-total .shipping-cost span"
+      )
+
       const shippingNameDiv = document.querySelector(".shipping-summary .name");
       const shippingAddressDiv = document.querySelector(".shipping-summary .address");
 
@@ -362,6 +366,7 @@
           orderSummaryGrandtotal.textContent = "Rs. " + order.amount / 100;
           shippingNameDiv.textContent = order.notes.shipping_name;
           shippingAddressDiv.textContent = order.notes.shipping_address;
+          orderSummaryShipping.textContent = "Rs. " + order.notes.shipping_cost
           intializeRazorpay();
         }
       }
@@ -393,6 +398,9 @@
                 "x-razorpay-signature": response.razorpay_signature,
               },
             });
+            if (res.ok) {
+              location.assign("/profile")
+            }
           },
           prefill: {
             contact: userDetails?.phone_no,

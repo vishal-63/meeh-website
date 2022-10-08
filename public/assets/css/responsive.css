@@ -453,6 +453,10 @@
 }
 
 @media only screen and (max-width: 767px) {
+  .footer-widget.logo-widget img {
+    max-width: 150px;
+  }
+
   .banner-style-one .owl-dots {
     display: none;
   }

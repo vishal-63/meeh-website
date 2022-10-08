@@ -101,7 +101,7 @@
                                               <li><a href="/products?category=mousepad">Mousepads</a></li>
                                             </ul>
                                           </li>
-                                          <!-- <li><a href="/about">About</a></li>     -->
+                                          <li><a href="/about">About</a></li>
                                           <!-- <li><a href="/blogs">Blog</a></li>  -->
                                           <li><a href="/contact">Contact</a></li>               
                                       </ul>
@@ -309,7 +309,7 @@
                                 Subtotal:<span class="sub-total"></span>
                               </li>
                               <li>
-                                Shipping:<span class="shipping-charge">&#x20B9; 80</span>
+                                Shipping:<span class="shipping-cost"></span>
                               </li>
                               <li>
                                 Order Total:<span class="order-total" ></span>
@@ -390,7 +390,13 @@
       const subTotals = clientCart.map((item) => {
         return item.quantity * item.product_id.price;
       });
-      const grandTotal = [...subTotals, 80]
+      const subTotal = subTotals.reduce((total, num) => {
+        return num + total;
+      }, 0);
+
+      const shippingCost = subTotal > 800 ? 0 : 80
+
+      const grandTotal = [...subTotals, shippingCost]
 
       const subTotalSpan = document.querySelector(
         ".total-cart-box ul.list li span.sub-total"
@@ -398,9 +404,13 @@
       const orderTotalSpan = document.querySelector(
         ".total-cart-box ul.list li span.order-total"
       );
-      subTotalSpan.innerHTML = `&#x20B9; ${subTotals.reduce((total, num) => {
-        return num + total;
-      }, 0)}`;
+
+      const shippingCostSpan = document.querySelector(
+        ".total-cart-box ul.list li span.shipping-cost"
+      );
+
+      subTotalSpan.innerHTML = `&#x20B9; ${subTotal}`
+      shippingCostSpan.innerHTML = `&#x20B9; ${shippingCost}`
       orderTotalSpan.innerHTML = `&#x20B9; ${grandTotal.reduce((total, num) => {
         return num + total;
       }, 0)}`;

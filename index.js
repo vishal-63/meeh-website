@@ -31,7 +31,7 @@ const registerRouter = require("./routes/register");
 const profileRouter = require("./routes/profile");
 const contactRouter = require("./routes/contact");
 const checkoutRouter = require("./routes/checkout");
-const blogRouter = require("./routes/blogs");
+const policyRouter = require("./routes/policyRoutes");
 const googleAuthRouter = require("./routes/googleAuth");
 const imageRouter = require("./routes/imageUpload");
 const productUploadRouter = require("./routes/uploadProducts");
@@ -96,28 +96,6 @@ app.get("/", async (req, res) => {
   res.render("index", { userLoggedIn, cartLength });
 });
 
-app.get("/terms-and-conditions", async (req, res) => {
-  let userLoggedIn = false;
-  let cartLength = await cartController.get_cart_length(req.cookies.jwt);
-
-  if (req.cookies.jwt) {
-    userLoggedIn = true;
-  }
-
-  res.render("termsConditions", { userLoggedIn, cartLength });
-});
-
-app.get("/privacy-policy", async (req, res) => {
-  let userLoggedIn = false;
-  let cartLength = await cartController.get_cart_length(req.cookies.jwt);
-
-  if (req.cookies.jwt) {
-    userLoggedIn = true;
-  }
-
-  res.render("privacyPolicy", { userLoggedIn, cartLength });
-});
-
 //setting routes for each path
 app.use("/login", loginRouter);
 app.use("/cart", cartRouter);
@@ -127,9 +105,10 @@ app.use("/contact", contactRouter);
 app.use("/checkout", checkoutRouter);
 app.use("/wishlist", wishlistRouter);
 app.use("/register", registerRouter);
-// app.use("/blogs", blogRouter);
 app.use("/auth/google", googleAuthRouter);
 app.use("/shipping", shippingRouter);
+app.use("/policy", policyRouter);
+
 //temp for uploading images to database;
 app.use("/orders", orderRouter);
 
@@ -164,90 +143,3 @@ app.get("*", async (req, res) => {
 
   res.render("not-found", { userLoggedIn, cartLength });
 });
-
-// app.get("/productUpdate",async (req,res)=>{
-
-//   const product= await Product.findOne({product_name:"Eraser"});
-//   product.color=["f6f6f6","333333"];
-//   product.size=["S","M","L"];
-//   product.stock={};
-//   for(let s=0;s<product.size.length;s++){
-//     for(let c=0;c<product.color.length;c++){
-//       product.stock[ product.size[s] + "_" + product.color[c] ]=20;
-//     }
-//   }
-
-//   product.save((err,result)=>{
-//     if(err){
-//       console.log(err);
-//     }
-//     else{
-//       console.log(result);
-//     }
-//   })
-//   res.json(product);
-// })
-
-// async function addProducts(){
-//   const userData = await User.findById("62c810f418e0554c9d174bf5");
-//   const productData0 = await Product.findById("62c876ddd9c721e9b84472e1");
-//   const productData1 = await Product.findById("62c8763f78b5e02a4a99f1dc");
-//   const productData2 = await Product.findById("62c87554d1e70669ca1b4499");
-//   // console.log(userData._id);
-//   const wishlistData={
-//     user_id:userData._id,
-//     products:[productData1._id,productData2]
-//   }
-
-//   const wishlist = new Wishlist(wishlistData);
-//   wishlist.save((err,result)=>{
-//     if(err){
-//       console.log(err.message);
-//     }
-//     else{
-//       console.log(result);
-//     }
-//   })
-
-// const product1 = await Product.findById("62c819e5d42faf96057817fa");
-// product1.reviews[0].user_id ="62c81015651761a1db0feeeb";
-// console.log(mongoose.Types.ObjectId("62c81015651761a1db0feeeb"));
-// product1.save((err,result)=>{
-//   if(err){
-//     console.log(err.message);
-//   }
-//   else{
-//     console.log(result);
-//   }
-// });
-// console.log(product1.reviews[0]);
-// }
-// addProducts();
-// addUsers();
-
-// async function test(){
-//   const wishlist = await Wishlist.findOne();
-//   await wishlist.populate('user_id');
-//   console.log(wishlist);
-// }
-// test()
-
-// user ids
-// 62c8106e13a9e64fac4dcffe
-// 62c81015651761a1db0feeeb
-// 62c810dcfd35fb6554585b2b
-
-// product ids
-// 62c87554d1e70669ca1b4499
-// 62c875ab28503cb136482c0c
-// 62c875eba93d01aa26e5a4b8
-// 62c8763f78b5e02a4a99f1dc
-
-async function printUsers() {
-  // await User.deleteOne({ first_name: "Nikharv" });
-  // await User.deleteOne({ first_name: "Shubham" });
-  // await User.deleteOne({ first_name: "Shyam" });
-  // console.log(await User.find());
-}
-
-// printUsers();

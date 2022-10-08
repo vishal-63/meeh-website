@@ -3003,6 +3003,7 @@ div#mCSB_1_container {
 .main-footer .footer-top .contact-widget .info-list {
   position: relative;
   margin-bottom: 15px;
+  width: fit-content;
 }
 
 .footer-social li {
@@ -3656,13 +3657,12 @@ div#mCSB_1_container {
 }
 
 .main-footer.light .footer-top .contact-widget .info-list li {
-  padding-left: 45px;
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
 }
 
 .main-footer.light .footer-top .contact-widget .info-list li i {
-  position: absolute;
-  left: 0px;
-  top: 2px;
   font-size: 30px;
   color: #a6a6a6;
 }

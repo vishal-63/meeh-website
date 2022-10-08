@@ -2,50 +2,52 @@ const hbs = require("nodemailer-express-handlebars");
 const nodemailer = require("nodemailer");
 const path = require("path");
 
-module.exports.send_mail = async (req,res)=>{
-    const {username,email,subject,phone,message} = req.body;
+module.exports.send_mail = async (req, res) => {
+  const { username, email, subject, phone, message } = req.body;
 
-    const transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-          user: "meehh.com@gmail.com",
-          pass: "erbzccxasokppkla",
-        },
-      });
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.GMAIL_ID,
+      pass: process.env.GMAIL_APP_PASSWORD,
+    },
+  });
 
-      const handlebarOptions = {
-        viewEngine: {
-          partialsDir: path.resolve("./views/"),
-          defaultLayout: false,
-        },
-        viewPath: path.resolve("./views/"),
-      };
+  const handlebarOptions = {
+    viewEngine: {
+      partialsDir: path.resolve("./views/"),
+      defaultLayout: false,
+    },
+    viewPath: path.resolve("./views/"),
+  };
 
-      transporter.use("compile",hbs(handlebarOptions));
+  transporter.use("compile", hbs(handlebarOptions));
 
-      const mailOptions = {
-        from:'"Meehh.com" <meehh.com@gmail.com>',
-        to:"dreamworldprints01@gmail.com",
-        subject:"Contact Us Email from Meehh.com",
-        template:"contactus",
-        attachments:[
-          {
-            filename: "logo.png",
-            path: process.cwd() + "/public/assets/images/logo.png",
-            cid: "logo",
-          },
-        ],
-        context:{username,email,subject,phone,message},
-      };
+  const mailOptions = {
+    from: `${username} <${email}>`,
+    to: "meehhofficial@gmail.com",
+    subject: subject,
+    template: "contactus",
+    sender: email,
+    replyTo: email,
+    inReplyTo: subject,
+    attachments: [
+      {
+        filename: "logo.png",
+        path: process.cwd() + "/public/assets/images/logo.png",
+        cid: "logo",
+      },
+    ],
+    context: { username, email, subject, phone, message },
+  };
 
-      transporter.sendMail(mailOptions,(error,info)=>{
-        if(error){
-            return console.log(error);
-        }
-        console.log("Email sent: "+ info.response);
-        res.status(200).send("Message sent successfull.");
-      })
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return console.log(error);
+    }
+    console.log("Email sent: " + info.response);
+    res.status(200).send("Message sent successfull.");
+  });
 
-
-    res.send(req.body);
-}
+  res.redirect("/contact");
+};
