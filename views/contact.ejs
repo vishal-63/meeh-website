@@ -319,10 +319,9 @@
                 "
               ></span>
             </div>
+            <div class="contact-alert"></div>
             <div class="form-inner">
               <form
-                method="post"
-                action="/contact"
                 id="contact-form"
                 class="default-form"
               >
@@ -381,46 +380,6 @@
       </section>
       <!-- contact-section end -->
 
-      <!-- clients-section -->
-      <!-- <section class="clients-section">
-        <div class="auto-container">
-          <div
-            class="clients-carousel owl-carousel owl-theme owl-dots-none owl-nav-none"
-          >
-            <figure class="clients-logo-box">
-              <a href="/"
-                ><img src="/assets/images/clients/clients-logo-1.png" alt=""
-              /></a>
-            </figure>
-            <figure class="clients-logo-box">
-              <a href="/"
-                ><img src="/assets/images/clients/clients-logo-2.png" alt=""
-              /></a>
-            </figure>
-            <figure class="clients-logo-box">
-              <a href="/"
-                ><img src="/assets/images/clients/clients-logo-3.png" alt=""
-              /></a>
-            </figure>
-            <figure class="clients-logo-box">
-              <a href="/"
-                ><img src="/assets/images/clients/clients-logo-4.png" alt=""
-              /></a>
-            </figure>
-            <figure class="clients-logo-box">
-              <a href="/"
-                ><img src="/assets/images/clients/clients-logo-5.png" alt=""
-              /></a>
-            </figure>
-            <figure class="clients-logo-box">
-              <a href="/"
-                ><img src="/assets/images/clients/clients-logo-6.png" alt=""
-              /></a>
-            </figure>
-          </div>
-        </div>
-      </section> -->
-      <!-- clients-section end -->
       <%- include('footer')%>
     <!-- jequery plugins -->
     <script src="/assets/js/jquery.js"></script>
@@ -445,6 +404,61 @@
 
     <!-- main-js -->
     <script src="/assets/js/script.js"></script>
+
+    <script>
+      // handle user registration
+      const form = document.querySelector("form#contact-form");
+      const alert = document.querySelector("div.contact-alert");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        // get the input values
+        const username = form.username.value;
+        const subject = form.subject.value;
+        const email = form.email.value;
+        const phone = form.phone.value;
+        const message = form.message.value;
+
+        const body = {
+          username, subject, email, phone, message
+        };
+
+        try {
+          const res = await fetch("/contact", {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          const data = await res.json();
+          if (res.ok) {
+            alert.textContent = "Message Sent!";
+            alert.classList.remove("hide");
+            alert.classList.add("alert");
+            alert.classList.add("alert-success");
+            setTimeout(() => {
+              alert.textContent = ""
+              alert.classList.add("hide")
+              alert.classList.remove("alert")
+              alert.classList.remove("alert-success")
+              form.username.value = ""
+              form.email.value = ""
+              form.phone.value = ""
+              form.subject.value = ""
+              form.message.value = ""
+            }, 2000);
+          } else {
+            window.alert(JSON.stringify(data))
+            console.log(data.err)
+            console.log(data.message)
+          }
+        } catch (err) {
+          window.alert(JSON.stringify(err))
+        }
+      });
+    </script>
   </body>
   <!-- End of .page_wrapper -->
 </html>
