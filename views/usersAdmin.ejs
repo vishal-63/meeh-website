@@ -1,0 +1,22 @@
+<html>
+    <body>
+        <%if(users.length>0){%>
+            <label>Users</label><br>
+            <%for(let i=0;i<users.length;i++){%>
+                <div>
+                    <a target="_blank" href="/admin/getUser/<%= users[i]._id%>"> Go </a><br>
+                    <label>First Name:</label>
+                    <input value="<%= users[i].first_name%>">
+                    <br>
+                    <label>Last Name:</label>
+                    <input value="<%= users[i].last_name%>">
+                    <br>
+                    <label>Email:</label>
+                    <input value="<%= users[i].email%>">
+                    <br>
+                </div>
+                <br><br>
+            <%}%>
+        <%}%>
+    </body>
+</html>

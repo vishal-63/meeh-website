@@ -1,0 +1,67 @@
+<html>
+    <body>
+
+    <form action="/admin/setProduct" method="POST">
+        <label>Product id</label>
+        <input value="<%= product._id%>" name="id"></input><br>
+
+        <label>Product Name</label>
+        <input value = "<%= product.product_name%>" name="product_name"></input><br>
+
+        <label>Price</label>
+        <input value="<%= product.price%>" name="price"><br>
+
+        <%if(product.color.length >0){%>
+            <label>colors</label>
+
+            <%for(let i=0;i<product.color.length;i++){%>
+                <input value="<%= product.color[i]%>" name="color<%=i%>">
+            <%}%>
+        <%}%>
+        <br>
+
+        
+        <%if(product.size.length >0){%>
+            <label>Sizes</label>
+
+            <%for(let i=0;i<product.size.length;i++){%>
+                <input value="<%= product.size[i]%>">
+            <%}%>
+        <%}%>
+        <br>
+
+        <label>Product Description</label>
+        <textarea name="description"> "<%= product.description%>" </textarea><br>
+
+        <label>Category</label>
+        <input value = "<%= product.category%>" name="category"></input><br>
+        
+        <label>Sub Category</label>
+        <input value = "<%= product.sub_category%>" name="sub_category"></input><br>
+
+        <lable>Is Deleted</lable>
+        <input value="<%= product.is_deleted%>" name="is_deleted"><br>
+
+        <div>
+
+            <%if(product.inventory[0].thumbnail_images.length>0){%>
+            <label>Thumbail Images</label><br>
+                <%for(let i=0;i<product.inventory[0].thumbnail_images.length;i++){%>
+                    <img src="<%= product.inventory[0].thumbnail_images[i]%>">
+                <%}%>    
+            <%}%>
+        </div>
+
+        <div>
+
+            <%if(product.inventory[0].large_images.length>0){%>
+            <label>Large Images</label><br>
+                <%for(let i=0;i<product.inventory[0].large_images.length;i++){%>
+                    <img src="<%= product.inventory[0].large_images[i]%>">
+                <%}%>    
+            <%}%>
+        </div>
+        <input type="submit">
+    </form>
+    </body>
+</html>
