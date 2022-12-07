@@ -1,0 +1,62 @@
+<html>
+    <body>
+        <form action="/admin/setUser" method="POST">
+          
+            <label>_id</label>
+            <input value="<%= user._id%>" name="_id"><br>
+
+            <label>First Name</label>
+            <input value="<%= user.first_name%>" name="first_name"><br>
+            <label>Last Name</label>
+            <input value="<%= user.last_name%>" name="last_name"><br>
+            <label>Email</label>
+            <input value="<%= user.email%>" name="email"><br>
+            <label>Phone Number</label>
+            <input value="<%= user.phone_no%>" name="phone_no"><br>
+            <label>Is deleted</label>
+            <input value="<%= user.is_deleted%>" name="is_deleted"><br>
+
+            <% for(let i=0;i<user.cart.length;i++) { %>
+                <div class="col-lg-3 col-md-6 col-sm-12 shop-block">
+                  <div class="shop-block-one">
+                    <div class="inner-box">
+                      <figure class="image-box">
+                        <img
+                          src="<%= user.cart[i].product_id.inventory[0].large_images[0]%>"
+                          alt="<%= user.cart[i].product_id.product_name %>"
+                        />
+                        <ul class="info-list clearfix">
+                          <li onClick="addWishlist('<%= user.cart[i].product_id._id %>')">
+                            <a><i class="flaticon-heart"></i></a>
+                          </li>
+                          <li onClick="addToCart('<%= user.cart[i].product_id._id %>')">
+                            <a>Add to cart</a>
+                          </li>
+                        </ul>
+                      </figure>
+                      <div class="lower-content">
+                        <% if(isAdmin){%>
+                          
+                          <a target="_blank" href= "/admin/getProduct/<%= user.cart[i].product_id._id %>">
+                            <%= user.cart[i].product_id.product_name %>
+                          </a>
+
+                        <% }else{%>
+                          
+                          <a target="_blank" href= "/products/<%= user.cart[i].product_id._id %>">
+                            <%= user.cart[i].product_id.product_name %>
+                          </a>
+
+                        <%}%>
+                        
+                        <span class="price">&#8377; <%= user.cart[i].product_id.price %></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <% } %>
+
+            <input type="submit" text="update">
+        </form>
+    </body>
+</html>
