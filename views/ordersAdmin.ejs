@@ -225,20 +225,23 @@
             <div class="row clearfix" id="productContainer">
 
                 <% for(let i=0;i<orders.length;i++) {%>
+                  <% if(orders[i]!=null){%>
                     <div style="margin:10px">
-                        <span><b><%=orders[i].user_id.email%></b></span><br>
-                        <span><u><%=orders[i]._id%></span></u></span>
+                        <!-- <span><b><=orders[i].user_id.email></b></span><br> -->
+                        <a href="/admin/getOrder/<%=orders[i]._id %>"><span><u><%=orders[i]._id%></span></u></span></a>
                         <ol>
                             <% for(let j=0;j<orders[i].products.length;j++) {%>
                                 <%if(orders[i].products[j].product_id!=null || orders[i].products[j].product_id!= undefined){%>
                                 <li><%= orders[i].products[j].product_id.product_name %></li>
+                                <!-- <li><img src="<= orders[i].products[j].product_id.inventory.thumbnail_images[0] >"/></li> -->
                                 <%}%>
                             <%}%>
                         </ol>
                         <span><i><%= new Date(orders[i].order_date)%></i></span><br>
                         <span>Grand Total:<%= orders[i].grand_total%></span><br>
                         <span>Sub Total:<%= orders[i].sub_total%></span><br>
-                    </div>
+                      </div>
+                    <%}%>
                 <%}%>
 
             </div>

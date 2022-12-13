@@ -3,30 +3,51 @@ const router = express.Router();
 const adminController = require("../controllers/adminController");
 // const {requireAuth} = require("../middleware/authMiddleware");
 
-
 //product routes
-router.get("/getProducts",adminController.get_products);
-
-router.get("/getProduct/:id",adminController.get_single_product);
+//done
+router.get("/getProducts", adminController.get_products);
+//done
+router.get("/getProduct/:id", adminController.get_single_product);
+router.put("/changeProductState/:id", adminController.change_product_state);
+//done
+router.put("/setProduct/:id", adminController.set_single_product);
+//inprogress
+router.get("/addProduct", adminController.get_add_product);
+//inprogress
+router.post("/addProduct", adminController.post_add_product);
 
 //user routes
-router.get("/getUsers",adminController.get_users);
-
-router.get("getUser/:id",adminController.get_single_user);
+//done
+router.get("/getUsers", adminController.get_users);
+//done
+router.get("/getUser/:id", adminController.get_single_user);
+//done
+router.post("/setUser", adminController.set_single_user);
 
 //order routes
-router.get("/getOrders",adminController.get_orders);
-
-router.get("/getOrder/:id",adminController.get_single_order);
+//done
+router.get("/getOrders", adminController.get_orders);
+//done
+router.get("/getOrder/:id", adminController.get_single_order);
 
 //coupon routes
-router.get("/getCoupons",adminController.get_coupons);
-
-router.get("/getCoupon/:id",adminController.get_single_coupon);
+//done
+router.get("/getCoupons", adminController.get_coupons);
+//done
+router.get("/getCoupon/:id", adminController.get_single_coupon);
+//done
+router.post("/setCoupon", adminController.set_coupons);
+//done
+router.post("/addCoupon", adminController.add_coupon);
 
 //blog routes
-router.get("/getBlogs",adminController.get_blogs);
-
-router.get("/getBlog/:id",adminController.get_single_blog);
+//done
+router.get("/getBlogs", adminController.get_blogs);
+//done
+router.get("/getBlog/:id", adminController.get_single_blog);
+//done
+router.post("/setBlog", adminController.set_single_blog);
+//done
+router.post("/addBlog", adminController.add_single_blog);
 
 module.exports = router;
