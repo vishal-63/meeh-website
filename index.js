@@ -4,9 +4,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
-
-// var livereload = require("livereload");
-// var connectLiveReload = require("connect-livereload");
+const cors = require("cors");
 
 dotenv.config();
 
@@ -16,8 +14,6 @@ require("./models/product");
 // Models
 const Product = require("./models/product");
 const User = require("./models/user");
-// const Wishlist = require("./models/wishlist");
-// const Test = require("./models/test1");
 const Blog = require("./models/blog");
 const Coupon = require("./models/coupon");
 const Order = require("./models/order");
@@ -43,13 +39,16 @@ const cartController = require("./controllers/cartController");
 
 const app = express();
 
-// live reload browser on change in any files
-// const liveReloadServer = livereload.createServer();
-// liveReloadServer.server.once("connection", () => {
-//   setTimeout(() => {
-//     liveReloadServer.refresh("/");
-//   }, 100);
-// });
+// allowing crossorigin request
+app.use(
+  cors({
+    origin: [
+      "http://127.0.0.1:5173",
+      "http://localhost:5173",
+      "meehh-admin.netlify.app",
+    ],
+  })
+);
 
 // Middlewares
 app.use(bodyParser.urlencoded({ extended: false }));

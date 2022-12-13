@@ -13,6 +13,7 @@ module.exports.products_get = async (req, res) => {
   }
 
   if (req.query.category != null) {
+    console.log(req.query.category);
     const productList = await Product.find({
       category: { $regex: req.query.category, $options: "i" },
     }).limit(100);
