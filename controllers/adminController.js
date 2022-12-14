@@ -183,6 +183,8 @@ module.exports.set_single_product = async (req, res) => {
     product.category = updated.category;
     product.sub_category = updated.sub_category || updated.category;
     product.is_deleted = updated.is_deleted;
+    product.inventory.thumbnail_images = updated.thumbnail_images;
+    product.inventory.large_images = updated.large_images;
     product.save(function (err, result) {
       if (err) {
         res.status(500).json({
@@ -202,14 +204,6 @@ module.exports.set_single_product = async (req, res) => {
 };
 
 //in progress
-module.exports.get_add_product = async (req, res) => {
-  if( ! isAdmin(req.body.jwt)){
-    res.send("An error occurred. Please try again later!");
-    return;
-  }
-  res.send("show page for adding a product");
-};
-
 module.exports.post_add_product = async (req, res) => {
   if( ! isAdmin(req.body.jwt)){
     res.send("An error occurred. Please try again later!");
