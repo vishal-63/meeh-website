@@ -3,6 +3,9 @@ const router = express.Router();
 const adminController = require("../controllers/adminController");
 // const {requireAuth} = require("../middleware/authMiddleware");
 
+//login route:-
+router.post("/login",adminController.login);
+
 //product routes
 //done
 router.get("/getProducts", adminController.get_products);

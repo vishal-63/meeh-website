@@ -4,6 +4,7 @@ const User = require("../models/user");
 const Coupon = require("../models/coupon");
 const Blog = require("../models/blog");
 const ImageKit = require("imagekit");
+const jwt = require("jsonwebtoken");
 const fs = require("fs");
 
 //helper
@@ -53,8 +54,77 @@ const handleImageUpload = async (folderPath, fileName) => {
   return links;
 };
 
+
+//jwt helper
+const createJWT = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET_KEY);
+};
+
+const isAdmin = (req)=>{
+  //getting jwt from user req
+  const token = req.body.jwt;
+
+  if(token){
+    jwt.verify(token,process.env.JWT_SECRET_KEY,(err,decodedToken)=>{
+      if(err){
+        console.log(err.message);
+        false;
+      }
+      else{
+        const user = decodedToken.id;
+        if(!user.is_admin){
+          console.log(err.message);
+          return false;
+        }
+        else{
+          return true;
+        }
+      }
+    })
+  }
+  return false;
+}
+
+//authentication
+
+module.exports.login = async (req,res)=>{
+  const { email, password } = req.body;
+  console.log(email,password);
+  try {
+    const user = await User.login(email, password);
+    
+    if(!user.is_admin){
+      console.log("controller", err);
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    const jwtToken = createJWT(user._id);
+
+    const data = {
+      user_info:[user._id,
+        user.first_name,
+        user.last_name,],
+      jwt:jwtToken,
+    }
+
+    // res.cookie("jwt", jwtToken, { httpOnly: true });
+    // res.status(200).json({ message: "Login successful!" });
+
+    //sending data of admin with jwt token;
+    res.json({data:data,"redirect":"To dashboard"});
+
+  } catch (err) {
+    console.log("controller", err);
+    res.status(400).json({ error: err.message });
+  }
+}
+
 //products
 module.exports.get_products = async (req, res) => {
+  if( ! isAdmin(req.body.jwt)){
+    res.send("An error occurred. Please try again later!");
+    return;
+  }
   const category = req.query.category;
   let products;
   if (category) {
@@ -67,6 +137,10 @@ module.exports.get_products = async (req, res) => {
 };
 
 module.exports.change_product_state = async (req, res) => {
+  if( ! isAdmin(req.body.jwt)){
+    res.send("An error occurred. Please try again later!");
+    return;
+  }
   try {
     const product = await Product.findById(req.params.id);
     product.is_deleted = !product.is_deleted;
@@ -79,6 +153,10 @@ module.exports.change_product_state = async (req, res) => {
 };
 
 module.exports.get_single_product = async (req, res) => {
+  if( ! isAdmin(req.body.jwt)){
+    res.send("An error occurred. Please try again later!");
+    return;
+  }
   try {
     const product = await Product.findById(req.params.id);
     res.json(product);
@@ -90,6 +168,10 @@ module.exports.get_single_product = async (req, res) => {
 };
 
 module.exports.set_single_product = async (req, res) => {
+  if( ! isAdmin(req.body.jwt)){
+    res.send("An error occurred. Please try again later!");
+    return;
+  }
   const updated = req.body;
   const product = await Product.findById(req.params.id);
   console.log(req.body);
@@ -121,10 +203,18 @@ module.exports.set_single_product = async (req, res) => {
 
 //in progress
 module.exports.get_add_product = async (req, res) => {
+  if( ! isAdmin(req.body.jwt)){
+    res.send("An error occurred. Please try again later!");
+    return;
+  }
   res.send("show page for adding a product");
 };
 
 module.exports.post_add_product = async (req, res) => {
+  if( ! isAdmin(req.body.jwt)){
+    res.send("An error occurred. Please try again later!");
+    return;
+  }
   const data = req.body;
   console.log(data);
   //call imagekit and get links to images of thumbnail and larges images
@@ -202,7 +292,7 @@ module.exports.set_single_user = async (req, res) => {
   user.phone_no = updated.phone_no;
   user.is_deleted = updated.is_deleted;
   await user.save();
-  res.send(await User.findById(req.body._id));
+  res.json(await User.findById(req.body._id));
 };
 
 //orders
