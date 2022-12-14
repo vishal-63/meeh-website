@@ -169,38 +169,44 @@ module.exports.get_single_product = async (req, res) => {
 
 
 module.exports.set_single_product = async (req, res) => {
-  if( ! isAdmin(req.body.jwt)){
-    res.send("An error occurred. Please try again later!");
-    return;
+  try{
+    if( ! isAdmin(req.body.jwt)){
+      res.send("An error occurred. Please try again later!");
+      return;
+    }
+    const updated = req.body;
+    const product = await Product.findById(req.params.id);
+    console.log(req.body);
+    if (product) {
+      product.product_name = updated.product_name;
+      product.description = updated.description;
+      product.price = updated.price;
+      product.discount = updated.discount;
+      product.category = updated.category;
+      product.sub_category = updated.sub_category || updated.category;
+      product.is_deleted = updated.is_deleted;
+      product.inventory.thumbnail_images = updated.thumbnail_images;
+      product.inventory.large_images = updated.large_images;
+      product.save(function (err, result) {
+        if (err) {
+          res.status(500).json({
+            error: err.message,
+            message:
+              "An error has occurred while saving the product. Please try again later!",
+          });
+        } else {
+          console.log("Product updated");
+          console.log(result);
+          res.status(201).json({ message: "Product updated successfully!" });
+        }
+      });
+    } else {
+      res.status(404).json({ message: "Product not found!" });
+    }
   }
-  const updated = req.body;
-  const product = await Product.findById(req.params.id);
-  console.log(req.body);
-  if (product) {
-    product.product_name = updated.product_name;
-    product.description = updated.description;
-    product.price = updated.price;
-    product.discount = updated.discount;
-    product.category = updated.category;
-    product.sub_category = updated.sub_category || updated.category;
-    product.is_deleted = updated.is_deleted;
-    product.inventory.thumbnail_images = updated.thumbnail_images;
-    product.inventory.large_images = updated.large_images;
-    product.save(function (err, result) {
-      if (err) {
-        res.status(500).json({
-          error: err.message,
-          message:
-            "An error has occurred while saving the product. Please try again later!",
-        });
-      } else {
-        console.log("Product updated");
-        console.log(result);
-        res.status(201).json({ message: "Product updated successfully!" });
-      }
-    });
-  } else {
-    res.status(404).json({ message: "Product not found!" });
+  catch(err){
+    console.log("controller", err);
+    res.status(400).json({ error: err.message });
   }
 };
 
