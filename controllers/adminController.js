@@ -167,6 +167,7 @@ module.exports.get_single_product = async (req, res) => {
   }
 };
 
+
 module.exports.set_single_product = async (req, res) => {
   if( ! isAdmin(req.body.jwt)){
     res.send("An error occurred. Please try again later!");
@@ -204,6 +205,14 @@ module.exports.set_single_product = async (req, res) => {
 };
 
 //in progress
+module.exports.get_add_product = async (req, res) => {
+  if( ! isAdmin(req.body.jwt)){
+    res.send("An error occurred. Please try again later!");
+    return;
+  }
+  res.send("show page for adding a product");
+};
+
 module.exports.post_add_product = async (req, res) => {
   if( ! isAdmin(req.body.jwt)){
     res.send("An error occurred. Please try again later!");
