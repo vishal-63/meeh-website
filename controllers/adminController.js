@@ -19,13 +19,33 @@ const notFound = async (req, res) => {
 
 //image kit helper
 
-const uploadToImageKit1 = async (largeImgBuffer, fileName) => {
-  const imageKit = new ImageKit({
-    publicKey: process.env.IMAGE_KIT_PUBLIC_KEY,
-    privateKey: process.env.IMAGE_KIT_SECRET_KEY,
-    urlEndpoint: process.env.IMAGE_KIT_ENDPOINT,
-  });
+const imageKit = new ImageKit({
+  publicKey: process.env.IMAGE_KIT_PUBLIC_KEY,
+  privateKey: process.env.IMAGE_KIT_SECRET_KEY,
+  urlEndpoint: process.env.IMAGE_KIT_ENDPOINT,
+});
 
+module.exports.imagekitAuth = async (req, res) => {
+  var result = imageKit.getAuthenticationParameters();
+  res.json(result);
+};
+
+module.exports.delete_image = async (req, res) => {
+  const fileId = req.body.fileId;
+  console.log(req.body);
+  imageKit.deleteFile(fileId, function (error, result) {
+    if (error) {
+      console.log(error);
+      res.status(501).json({
+        error: err.message,
+        message:
+          "An error occurred while deleting the image. Please try again later!",
+      });
+    } else res.status(200).json({ message: "Image deleted successfully!" });
+  });
+};
+
+const uploadToImageKit1 = async (largeImgBuffer, fileName) => {
   try {
     const result = await imageKit.upload({
       file: largeImgBuffer,
