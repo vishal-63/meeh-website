@@ -3,8 +3,14 @@ const router = express.Router();
 const adminController = require("../controllers/adminController");
 // const {requireAuth} = require("../middleware/authMiddleware");
 
+
+//login route:-
+router.post("/login",adminController.login);
+
+
 router.get("/imagekit-auth", adminController.imagekitAuth);
 router.put("/deleteImage", adminController.delete_image);
+
 
 //product routes
 //done

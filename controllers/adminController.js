@@ -4,6 +4,7 @@ const User = require("../models/user");
 const Coupon = require("../models/coupon");
 const Blog = require("../models/blog");
 const ImageKit = require("imagekit");
+const jwt = require("jsonwebtoken");
 const fs = require("fs");
 
 //helper
@@ -73,8 +74,78 @@ const handleImageUpload = async (folderPath, fileName) => {
   return links;
 };
 
+
+//jwt helper
+const createJWT = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET_KEY);
+};
+
+const isAdmin = (req)=>{
+  //getting jwt from user req
+  const token = req.body.jwt;
+
+  if(token){
+    jwt.verify(token,process.env.JWT_SECRET_KEY,(err,decodedToken)=>{
+      if(err){
+        console.log(err.message);
+        false;
+      }
+      else{
+        const user = decodedToken.id;
+        if(!user.is_admin){
+          console.log(err.message);
+          return false;
+        }
+        else{
+          return true;
+        }
+      }
+    })
+  }
+  return false;
+}
+
+//authentication
+
+module.exports.login = async (req,res)=>{
+  const { email, password } = req.body;
+  console.log(email,password);
+  try {
+    const user = await User.login(email, password);
+    
+    if(!user.is_admin){
+      console.log("controller", err);
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    const jwtToken = createJWT(user._id);
+
+    const data = {
+      user_info:[user._id,
+        user.first_name,
+        user.last_name,],
+      jwt:jwtToken,
+    }
+
+    // res.cookie("jwt", jwtToken, { httpOnly: true });
+    // res.status(200).json({ message: "Login successful!" });
+
+    //sending data of admin with jwt token;
+    res.json({data:data,"redirect":"To dashboard"});
+
+  } catch (err) {
+    console.log("controller", err);
+    res.status(400).json({ error: err.message });
+  }
+}
+
 //products
 module.exports.get_products = async (req, res) => {
+  try{
+  if( ! isAdmin(req.body.jwt)){
+    res.send("An error occurred. Please try again later!");
+    return;
+  }
   const category = req.query.category;
   let products;
   if (category) {
@@ -84,10 +155,20 @@ module.exports.get_products = async (req, res) => {
   } else products = await Product.find();
 
   res.json(products);
+}
+catch(err){
+  console.log("controller", err);
+  res.status(400).json({ error: err.message });
+}
 };
 
 module.exports.change_product_state = async (req, res) => {
+  
   try {
+    if( ! isAdmin(req.body.jwt)){
+      res.send("An error occurred. Please try again later!");
+      return;
+    }
     const product = await Product.findById(req.params.id);
     product.is_deleted = !product.is_deleted;
     await product.save();
@@ -99,7 +180,12 @@ module.exports.change_product_state = async (req, res) => {
 };
 
 module.exports.get_single_product = async (req, res) => {
+  
   try {
+    if( ! isAdmin(req.body.jwt)){
+      res.send("An error occurred. Please try again later!");
+      return;
+    }
     const product = await Product.findById(req.params.id);
     res.json(product);
   } catch (err) {
@@ -109,42 +195,70 @@ module.exports.get_single_product = async (req, res) => {
   }
 };
 
+
 module.exports.set_single_product = async (req, res) => {
-  const updated = req.body;
-  const product = await Product.findById(req.params.id);
-  console.log(req.body);
-  if (product) {
-    product.product_name = updated.product_name;
-    product.description = updated.description;
-    product.price = updated.price;
-    product.discount = updated.discount;
-    product.category = updated.category;
-    product.sub_category = updated.sub_category || updated.category;
-    product.is_deleted = updated.is_deleted;
-    product.save(function (err, result) {
-      if (err) {
-        res.status(500).json({
-          error: err.message,
-          message:
-            "An error has occurred while saving the product. Please try again later!",
-        });
-      } else {
-        console.log("Product updated");
-        console.log(result);
-        res.status(201).json({ message: "Product updated successfully!" });
-      }
-    });
-  } else {
-    res.status(404).json({ message: "Product not found!" });
+  try{
+    if( ! isAdmin(req.body.jwt)){
+      res.send("An error occurred. Please try again later!");
+      return;
+    }
+    const updated = req.body;
+    const product = await Product.findById(req.params.id);
+    console.log(req.body);
+    if (product) {
+      product.product_name = updated.product_name;
+      product.description = updated.description;
+      product.price = updated.price;
+      product.discount = updated.discount;
+      product.category = updated.category;
+      product.sub_category = updated.sub_category || updated.category;
+      product.is_deleted = updated.is_deleted;
+      product.inventory.thumbnail_images = updated.thumbnail_images;
+      product.inventory.large_images = updated.large_images;
+      product.save(function (err, result) {
+        if (err) {
+          res.status(500).json({
+            error: err.message,
+            message:
+              "An error has occurred while saving the product. Please try again later!",
+          });
+        } else {
+          console.log("Product updated");
+          console.log(result);
+          res.status(201).json({ message: "Product updated successfully!" });
+        }
+      });
+    } else {
+      res.status(404).json({ message: "Product not found!" });
+    }
+  }
+  catch(err){
+    console.log("controller", err);
+    res.status(400).json({ error: err.message });
   }
 };
 
 //in progress
 module.exports.get_add_product = async (req, res) => {
+  try{
+  if( ! isAdmin(req.body.jwt)){
+    res.send("An error occurred. Please try again later!");
+    return;
+  }
   res.send("show page for adding a product");
+}
+catch(err){
+  console.log("controller", err);
+  res.status(400).json({ error: err.message });
+}
 };
 
 module.exports.post_add_product = async (req, res) => {
+  try{
+  if( ! isAdmin(req.body.jwt)){
+    res.send("An error occurred. Please try again later!");
+    return;
+  }
   const data = req.body;
   console.log(data);
   //call imagekit and get links to images of thumbnail and larges images
@@ -189,18 +303,37 @@ module.exports.post_add_product = async (req, res) => {
       res.status(201).json({ message: "Product added successfully!" });
     }
   });
+}
+catch(err){
+  console.log("controller", err);
+  res.status(400).json({ error: err.message });
+}
 };
 
 //users
 module.exports.get_users = async (req, res) => {
+  try{
+    if( ! isAdmin(req.body.jwt)){
+      res.send("An error occurred. Please try again later!");
+      return;
+    }
   const users = await User.find();
   console.log("users requested");
   res.json(users);
   // res.render("usersAdmin",{users});
+  }
+  catch(err){
+    console.log("controller", err);
+    res.status(400).json({ error: err.message });
+  }
 };
 
 module.exports.get_single_user = async (req, res) => {
   try {
+    if( ! isAdmin(req.body.jwt)){
+      res.send("An error occurred. Please try again later!");
+      return;
+    }
     const user = await User.findById(req.params.id);
     await user.populate({
       path: "cart.product_id",
@@ -214,6 +347,11 @@ module.exports.get_single_user = async (req, res) => {
 };
 
 module.exports.set_single_user = async (req, res) => {
+  try{
+    if( ! isAdmin(req.body.jwt)){
+      res.send("An error occurred. Please try again later!");
+      return;
+    }
   const updated = req.body;
   const user = await User.findById(req.body._id);
   user.first_name = updated.first_name;
@@ -222,11 +360,21 @@ module.exports.set_single_user = async (req, res) => {
   user.phone_no = updated.phone_no;
   user.is_deleted = updated.is_deleted;
   await user.save();
-  res.send(await User.findById(req.body._id));
+  res.json(await User.findById(req.body._id));
+  }
+  catch(err){
+    console.log("controller", err);
+    res.status(400).json({ error: err.message });
+  }
 };
 
 //orders
 module.exports.get_orders = async (req, res) => {
+  try{
+    if( ! isAdmin(req.body.jwt)){
+      res.send("An error occurred. Please try again later!");
+      return;
+    }
   const orders = await Order.find({ payment_status: "Successful" });
   for (let i = 0; i < orders.length; i++) {
     await orders[i].populate({
@@ -247,11 +395,19 @@ module.exports.get_orders = async (req, res) => {
   // console.log(orders[0].products[1].product_id.inventory.thumbnail_images[0]);
   // res.send(orders);
   res.json(orders);
+}  catch (err) {
+  console.log("controller", err);
+  res.status(400).json({ error: err.message });
+}
 };
 
 module.exports.get_single_order = async (req, res) => {
   console.log(req.params.id);
   try {
+    if( ! isAdmin(req.body.jwt)){
+      res.send("An error occurred. Please try again later!");
+      return;
+    }
     const order = await Order.findById(req.params.id);
     await order.populate({
       path: "products.product_id",
@@ -270,12 +426,25 @@ module.exports.get_single_order = async (req, res) => {
 
 //coupons
 module.exports.get_coupons = async (req, res) => {
+  try{
+    if( ! isAdmin(req.body.jwt)){
+      res.send("An error occurred. Please try again later!");
+      return;
+    }
   const coupons = await Coupon.find();
   res.send(coupons);
+  }catch (err) {
+    console.log("controller", err);
+    res.status(400).json({ error: err.message });
+  }
 };
 
 module.exports.get_single_coupon = async (req, res) => {
   try {
+    if( ! isAdmin(req.body.jwt)){
+      res.send("An error occurred. Please try again later!");
+      return;
+    }
     const coupon = await Coupon.findById(req.params.id);
     console.log(coupon);
     res.send(coupon);
@@ -285,42 +454,82 @@ module.exports.get_single_coupon = async (req, res) => {
 };
 
 module.exports.set_coupons = async (req, res) => {
-  const coupon = await Coupon.findById(req.body.id);
-  const updated = req.body;
-  coupon.coupon_code = updated.coupon_code;
-  coupon.amount = updated.amount;
-  coupon.is_deleted = updated.is_deleted;
-  await coupon.save();
-  res.send(await Coupon.findById(req.body.id));
+  try{
+    if( ! isAdmin(req.body.jwt)){
+      res.send("An error occurred. Please try again later!");
+      return;
+    }
+    const coupon = await Coupon.findById(req.body.id);
+    const updated = req.body;
+    coupon.coupon_code = updated.coupon_code;
+    coupon.amount = updated.amount;
+    coupon.is_deleted = updated.is_deleted;
+    await coupon.save();
+    res.send(await Coupon.findById(req.body.id));
+  }
+  catch(err){
+    console.log("controller", err);
+    res.status(400).json({ error: err.message });
+  }
 };
 
 module.exports.add_coupon = async (req, res) => {
-  const coupon = new Coupon({
-    coupon_code: req.coupon_code,
-    amount: req.amount,
-    is_deleted: req.is_deleted,
-  });
-  await coupon.save();
-  res.send("Created New Coupon!");
+  try{
+    if( ! isAdmin(req.body.jwt)){
+      res.send("An error occurred. Please try again later!");
+      return;
+    }
+    const coupon = new Coupon({
+      coupon_code: req.coupon_code,
+      amount: req.amount,
+      is_deleted: req.is_deleted,
+    });
+    await coupon.save();
+    res.send("Created New Coupon!");
+  }
+  catch(err){
+    console.log("controller", err);
+    res.status(400).json({ error: err.message });
+  }
 };
 
 //blogs
 module.exports.get_blogs = async (req, res) => {
-  const blogs = await Blog.find();
-  res.send(blogs);
+  try{
+    if( ! isAdmin(req.body.jwt)){
+      res.send("An error occurred. Please try again later!");
+      return;
+    }
+    const blogs = await Blog.find();
+    res.send(blogs);
+  }
+  catch(err){
+    console.log("controller", err);
+    res.status(400).json({ error: err.message });
+  }
 };
 
 module.exports.get_single_blog = async (req, res) => {
   try {
+    if( ! isAdmin(req.body.jwt)){
+      res.send("An error occurred. Please try again later!");
+      return;
+    }
     const blog = await Blog.findById(req.params.id);
     console.log(blog);
     res.send(blog);
-  } catch (err) {
-    notFound(req, res);
+  } catch(err){
+    console.log("controller", err);
+    res.status(400).json({ error: err.message });
   }
 };
 
 module.exports.set_single_blog = async (req, res) => {
+  try {
+    if( ! isAdmin(req.body.jwt)){
+      res.send("An error occurred. Please try again later!");
+      return;
+    }
   const blog = await Blog.findById(req.body.id);
   const updated = req.body;
   blog.title = updated.title;
@@ -329,9 +538,18 @@ module.exports.set_single_blog = async (req, res) => {
   blog.is_deleted = updated.is_deleted;
   await blog.save();
   res.send(await Blog.findById(req.body.id));
+  }catch(err){
+    console.log("controller", err);
+    res.status(400).json({ error: err.message });
+  }
 };
 
 module.exports.add_single_blog = async (req, res) => {
+  try {
+    if( ! isAdmin(req.body.jwt)){
+      res.send("An error occurred. Please try again later!");
+      return;
+    }
   const blog = new Blog({
     title: req.body.title,
     content: req.body.content,
@@ -340,4 +558,8 @@ module.exports.add_single_blog = async (req, res) => {
   });
   await blog.save();
   res.send("Created a new Blog!");
+  }catch(err){
+    console.log("controller", err);
+    res.status(400).json({ error: err.message });
+  }
 };
