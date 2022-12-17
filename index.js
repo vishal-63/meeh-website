@@ -37,16 +37,16 @@ const cartController = require("./controllers/cartController");
 
 const app = express();
 
+corsOptions = {
+  origin: [
+    "http://127.0.0.1:5173",
+    "https://meehh-admin.netlify.app",
+    "meehh-admin.netlify.app",
+  ],
+};
+
 // allowing crossorigin request
-app.use(
-  cors({
-    origin: [
-      "http://127.0.0.1:5173",
-      "http://localhost:5173",
-      "https://meehh-admin.netlify.app/",
-    ],
-  })
-);
+app.use(cors(corsOptions));
 
 // Middlewares
 app.use(bodyParser.urlencoded({ extended: false }));
