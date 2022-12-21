@@ -49,6 +49,7 @@ async function getCartData(req, res) {
       user = new User();
       cart = JSON.parse(req.cookies.cart);
       user.cart = cart;
+      console.log(user.cart);
     }
 
     if (user?.cart) {
@@ -57,6 +58,7 @@ async function getCartData(req, res) {
         model: Product,
       });
       cart = user.cart;
+      console.log(cart);
     }
 
     return {
@@ -77,6 +79,7 @@ module.exports.cart_get = async (req, res) => {
 };
 
 module.exports.cart_shipping_get = async (req, res) => {
+  console.log("cart get");
   res.render("shipping", await getCartData(req, res));
 };
 
@@ -87,7 +90,8 @@ module.exports.cart_information_get = async (req, res) => {
 module.exports.cart_add_product = async (req, res) => {
   const user = await User.findById(res.user.id);
   let count = false;
-
+  console.log("adding to cart");
+  console.log(user);
   try {
     const product = await Product.findById(req.body.product_id);
     if (product == null || product == undefined) {
@@ -119,6 +123,7 @@ module.exports.cart_add_product = async (req, res) => {
         throw new Error({ message: "Failed to add product to cart!" });
       }
     });
+    console.log("added to cart");
     res.status(200).send("success!");
   } catch (err) {
     console.log(err.message);
@@ -128,7 +133,7 @@ module.exports.cart_add_product = async (req, res) => {
 
 module.exports.cart_delete_product = async (req, res) => {
   const user = await User.findById(res.user.id);
-
+  console.log("deleting cart");
   try {
     const newCart = user.cart.filter((item) => {
       return item._id != req.body.id;
@@ -152,7 +157,8 @@ module.exports.cart_delete_product = async (req, res) => {
 
 module.exports.cart_update_product = async (req, res) => {
   const user = await User.findById(res.user.id);
-
+  console.log(req.body);
+  console.log(user);
   try {
     user.cart.map((item) => {
       if (item._id == req.body.id) {
@@ -169,7 +175,8 @@ module.exports.cart_update_product = async (req, res) => {
         console.log(err.message);
         res.status(500).send(err.message);
       } else {
-        res.status(200).send(result.cart);
+        console.log(result.cart);
+        res.status(200).json(result.cart);
       }
     });
   } catch (err) {

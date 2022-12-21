@@ -234,11 +234,11 @@ module.exports.wrapper_api = async (dbOrder, email, contact, products) => {
     data: data,
   };
 
-  axios(config)
-    .then(function (response) {
-      console.log(response.data);
-    })
-    .catch(function (error) {
-      console.log("shiprocket error", error.message);
-    });
+  let order_id;
+  const res = await axios(config);
+  if (res.statusText === "OK") order_id = res.data.payload.order_id;
+  else console.log("shiprocket error", error.message);
+
+  console.log(order_id);
+  return order_id;
 };

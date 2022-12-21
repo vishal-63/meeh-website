@@ -367,6 +367,8 @@ module.exports.get_orders = async (req, res) => {
       orders[i].total_quantity = totalQuantity;
     }
 
+    console.log(orders);
+
     // console.log(orders[0].products[1].product_id.inventory.thumbnail_images[0]);
     // res.send(orders);
     res.json(orders);

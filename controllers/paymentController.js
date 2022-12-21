@@ -106,12 +106,6 @@ module.exports.verify_order = async (req, res) => {
       order.razorpay_payment_id = payment_id;
       order.payment_status = "Successful";
 
-      order.save((err, order) => {
-        if (err) {
-          console.log(err);
-        }
-      });
-
       const user = await User.findById(order.user_id);
       user.cart = [];
       user.save();
@@ -178,7 +172,19 @@ module.exports.verify_order = async (req, res) => {
         model: Product,
       });
       const products = order.products;
-      shippingController.wrapper_api(order, email, contact, products);
+
+      const shiprocket_order_id = await shippingController.wrapper_api(
+        order,
+        email,
+        contact,
+        products
+      );
+      order.shiprocket_order_id = shiprocket_order_id;
+      order.save((err, order) => {
+        if (err) {
+          console.log(err);
+        }
+      });
 
       res.sendStatus(200);
     } else {
