@@ -3,10 +3,13 @@ const jwt = require("jsonwebtoken");
 const Product = require("../models/product");
 const User = require("../models/user");
 const cartController = require("../controllers/cartController");
+const categoryController = require("../controllers/categoryController");
 
 module.exports.products_get = async (req, res) => {
   let userLoggedIn = false;
   let cartLength = await cartController.get_cart_length(req.cookies.jwt);
+
+  const categories = await categoryController.getCategories();
 
   if (req.cookies.jwt) {
     userLoggedIn = true;
@@ -22,6 +25,7 @@ module.exports.products_get = async (req, res) => {
       userLoggedIn,
       productsLoaded: 0,
       cartLength,
+      categories,
     });
   } else {
     const categories = await Product.find().distinct("category");
@@ -37,6 +41,7 @@ module.exports.products_get = async (req, res) => {
       userLoggedIn,
       productsLoaded: 0,
       cartLength,
+      categories,
     });
   }
 };
@@ -71,6 +76,8 @@ module.exports.single_product_get = async (req, res) => {
   let userLoggedIn = false;
   let cartLength = await cartController.get_cart_length(req.cookies.jwt);
 
+  const categories = await categoryController.getCategories();
+
   if (req.cookies.jwt) {
     userLoggedIn = true;
   }
@@ -82,12 +89,19 @@ module.exports.single_product_get = async (req, res) => {
     model: User,
   });
 
-  res.render("productdetails", { product, userLoggedIn, cartLength });
+  res.render("productdetails", {
+    product,
+    categories,
+    userLoggedIn,
+    cartLength,
+  });
 };
 
 module.exports.products_get_search = async (req, res) => {
   let userLoggedIn = false;
   let cartLength = await cartController.get_cart_length(req.cookies.jwt);
+
+  const categories = await categoryController.getCategories();
 
   if (req.cookies.jwt) {
     userLoggedIn = true;
@@ -118,6 +132,7 @@ module.exports.products_get_search = async (req, res) => {
       userLoggedIn,
       productsLoaded: 0,
       cartLength,
+      categories,
     });
   } else {
     res.redirect("/products");
@@ -131,7 +146,7 @@ module.exports.products_get_search = async (req, res) => {
 //     userLoggedIn = true;
 //   }
 
-//   const productList = await Product.find( { category : { $regex : "a5 dairy" , "$options" : "i"} } );
+//   const productList = await Product.find( { category : { $regex : "a5 Diary" , "$options" : "i"} } );
 //   console.log(productList.length);
 
 //   // productList[0].price = 250;

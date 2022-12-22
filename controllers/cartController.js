@@ -3,6 +3,8 @@ const jwt = require("jsonwebtoken");
 const Product = require("../models/product");
 const User = require("../models/user");
 
+const categoryController = require("../controllers/categoryController");
+
 module.exports.get_cart_length = async (token) => {
   if (token) {
     const decodedToken = jwt.verify(
@@ -39,6 +41,8 @@ async function getCartData(req, res) {
   let cart = [];
   let addresses = [];
 
+  const categories = await categoryController.getCategories();
+
   try {
     if (req.cookies.jwt) {
       userLoggedIn = true;
@@ -49,7 +53,6 @@ async function getCartData(req, res) {
       user = new User();
       cart = JSON.parse(req.cookies.cart);
       user.cart = cart;
-      console.log(user.cart);
     }
 
     if (user?.cart) {
@@ -58,13 +61,13 @@ async function getCartData(req, res) {
         model: Product,
       });
       cart = user.cart;
-      console.log(cart);
     }
 
     return {
       cart,
       userLoggedIn,
       addresses,
+      categories,
       cartLength: cart.length,
     };
   } catch (err) {
@@ -79,7 +82,6 @@ module.exports.cart_get = async (req, res) => {
 };
 
 module.exports.cart_shipping_get = async (req, res) => {
-  console.log("cart get");
   res.render("shipping", await getCartData(req, res));
 };
 

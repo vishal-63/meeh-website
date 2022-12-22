@@ -45,6 +45,11 @@ router.put("/setCoupon/:id", adminController.set_coupons);
 //done
 router.post("/addCoupon", adminController.add_coupon);
 
+// category routes
+router.get("/getCategories", adminController.get_categories);
+router.post("/updateCategory", adminController.update_category);
+router.post("/deleteCategory", adminController.delete_category);
+
 //blog routes
 //done
 router.get("/getBlogs", adminController.get_blogs);

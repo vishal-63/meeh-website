@@ -96,13 +96,10 @@
                                             <a href="/">Home</a>
                                           </li>
                                           <li class="dropdown"><a href="/products">Shop<span>Hot</span></a>
-                                              <ul>
-                                              <li><a href="/products?category=bookmark">Bookmarks</a></li>
-                                              <li><a href="/products?category=pop gripper">Pop Grippers</a></li>
-                                              <li><a href="/products?category=tote bag">Tote Bags</a></li>
-                                              <li><a href="/products?category=badge">Badges</a></li>
-                                              <li><a href="/products?category=a5 dairy">Diaries</a></li>
-                                              <li><a href="/products?category=mousepad">Mousepads</a></li>
+                                            <ul>
+                                              <% for(let i=0;i<categories.length;i++) { %>
+                            <li><a href="/products?category=<%= categories[i].category_name%>"><%= categories[i].category_name%></a></li>
+                          <% } %>
                                             </ul>
                                           </li>
                                           <li><a href="/about">About</a></li>    
@@ -330,7 +327,7 @@
                 data-wow-duration="1500ms"
               >
                 <figure class="image-box">
-                  <img src="https://ik.imagekit.io/meehh/A5_DAIRY2_sdR81jKVj" alt="Diaries" />
+                  <img src="https://ik.imagekit.io/meehh/A5_Diary2_sdR81jKVj" alt="Diaries" />
                 </figure>
                 <h5><a href="/products?category=a5 diary">Diaries</a></h5>
               </div>
@@ -399,7 +396,7 @@
                   <div class="inner-box">
                     <figure class="image-box">
                       <a href="/products/62e4343b4a2ded526cbc8294">
-                        <img src="https://ik.imagekit.io/meehh/A5_DAIRY2_sdR81jKVj" alt="Find Joy in the Journey - A5 Diary" />
+                        <img src="https://ik.imagekit.io/meehh/A5_Diary2_sdR81jKVj" alt="Find Joy in the Journey - A5 Diary" />
                       </a>
                       <ul class="info-list clearfix">
                         <li onClick="addWishlist('62e4343b4a2ded526cbc8294')">

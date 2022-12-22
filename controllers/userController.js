@@ -2,6 +2,7 @@ const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 
 const cartController = require("../controllers/cartController");
+const categoryController = require("../controllers/categoryController");
 const Order = require("../models/order");
 const Product = require("../models/product");
 
@@ -43,12 +44,13 @@ const handleErrors = (err) => {
 module.exports.login_get = async (req, res) => {
   let userLoggedIn = false;
   let cartLength = await cartController.get_cart_length(req.cookies.jwt);
+  const categories = await categoryController.getCategories();
 
   if (req.cookies.jwt) {
     userLoggedIn = true;
   }
 
-  res.render("login", { userLoggedIn, cartLength });
+  res.render("login", { userLoggedIn, categories, cartLength });
 };
 
 module.exports.login_post = async (req, res) => {
@@ -121,6 +123,8 @@ module.exports.profile_get = async (req, res) => {
   let userLoggedIn = false;
   let cartLength = await cartController.get_cart_length(req.cookies.jwt);
 
+  const categories = await categoryController.getCategories();
+
   if (req.cookies.jwt) {
     userLoggedIn = true;
   }
@@ -156,6 +160,7 @@ module.exports.profile_get = async (req, res) => {
     user: { first_name, last_name, phone_no, email, addresses },
     orders,
     cartLength,
+    categories,
   });
 };
 

@@ -101,12 +101,9 @@
                                           </li>
                                           <li class="dropdown"><a href="/products">Shop<span>Hot</span></a>
                                               <ul>
-                                              <li><a href="/products?category=bookmark">Bookmarks</a></li>
-                                              <li><a href="/products?category=pop gripper">Pop Grippers</a></li>
-                                              <li><a href="/products?category=tote bag">Tote Bags</a></li>
-                                              <li><a href="/products?category=badge">Badges</a></li>
-                                              <li><a href="/products?category=a5 dairy">Diaries</a></li>
-                                              <li><a href="/products?category=mousepad">Mousepads</a></li>
+                                              <% for(let i=0;i<categories.length;i++) { %>
+                                                  <li><a href="/products?category=<%= categories[i].category_name%>"><%= categories[i].category_name%></a></li>
+                                                <% } %>
                                             </ul>
                                           </li>
                                           <li><a href="/about">About</a></li>
@@ -217,9 +214,9 @@
                   </div>
                   <div class="password-error"></div>
                 </div>
-                <!-- <div class="form-group">
+                <div class="form-group">
                   <a href="#" class="recover-password" data-toggle="modal" data-target="#recoverPasswordModal">Forgot password?</a>
-                </div> -->
+                </div>
                 <div class="form-group col-12 col-sm-4 col-lg-12 pl-0">
                   <button class="theme-btn-two">
                     Log In<i class="flaticon-right-1"></i>
@@ -276,7 +273,7 @@
         icon.classList.toggle("fa-eye-slash")
       }
 
-      const prevUrl = document.referrer
+      const prevUrl = document.referrer.includes('reset-password') ? '/' : document.referrer
 
 
       // handle user login
@@ -332,6 +329,7 @@
             "Content-Type": "application/json"
           }
         })
+        if (res.ok) alert(await res.text())
       }
     </script>
 

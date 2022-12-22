@@ -6,6 +6,7 @@ const Blog = require("../models/blog");
 const ImageKit = require("imagekit");
 const jwt = require("jsonwebtoken");
 const fs = require("fs");
+const Category = require("../models/category");
 
 //helper
 const notFound = async (req, res) => {
@@ -367,8 +368,6 @@ module.exports.get_orders = async (req, res) => {
       orders[i].total_quantity = totalQuantity;
     }
 
-    console.log(orders);
-
     // console.log(orders[0].products[1].product_id.inventory.thumbnail_images[0]);
     // res.send(orders);
     res.json(orders);
@@ -379,7 +378,6 @@ module.exports.get_orders = async (req, res) => {
 };
 
 module.exports.get_single_order = async (req, res) => {
-  console.log(req.params.id);
   try {
     if (!isAdmin(req.headers.authorization)) {
       res.status(502).json({ message: "Invalid authorization" });
@@ -423,7 +421,6 @@ module.exports.get_single_coupon = async (req, res) => {
       return;
     }
     const coupon = await Coupon.findById(req.params.id);
-    console.log(coupon);
     res.send(coupon);
   } catch (err) {
     notFound(req, res);
@@ -457,7 +454,6 @@ module.exports.set_coupons = async (req, res) => {
     }
     const coupon = await Coupon.findById(req.params.id);
     const updated = req.body;
-    console.log(coupon, req.body, req.params.id);
     coupon.coupon_code = updated.coupon_code;
     coupon.amount = updated.amount;
     coupon.percentage = updated.percentage;
@@ -473,7 +469,6 @@ module.exports.set_coupons = async (req, res) => {
         });
       } else {
         console.log("Coupon updated");
-        console.log(result);
         res.status(201).json({ message: "Coupon updated successfully!" });
       }
     });
@@ -493,7 +488,6 @@ module.exports.add_coupon = async (req, res) => {
       res.status(502).json({ message: "Invalid authorization" });
       return;
     }
-    console.log(req.body);
     const coupon = new Coupon({
       coupon_code: req.body.coupon_code,
       amount: req.body.amount,
@@ -518,6 +512,89 @@ module.exports.add_coupon = async (req, res) => {
     res.status(400).json({
       error: err.message,
       message: "An error occurred. Please try again later.",
+    });
+  }
+};
+
+//categories
+module.exports.get_categories = async (req, res) => {
+  try {
+    if (!isAdmin(req.headers.authorization)) {
+      res.status(502).json({ message: "Invalid authorization" });
+      return;
+    }
+    const categories = await Category.find();
+    res.json(categories);
+  } catch (err) {
+    console.log("controller", err);
+    res.status(400).json({ error: err.message });
+  }
+};
+
+module.exports.update_category = async (req, res) => {
+  try {
+    if (!isAdmin(req.headers.authorization)) {
+      res.status(502).json({ message: "Invalid authorization" });
+      return;
+    }
+
+    let category;
+    const id = req.body.category_id;
+
+    if (id) category = await Category.findById(id);
+    else category = new Category();
+
+    category.category_name = req.body.category_name;
+    category.save((err, result) => {
+      if (err) {
+        console.log(err, err.message);
+        res.status(500).json({
+          message:
+            "An error occurred while saving the category. Please try again later!",
+          error: err.message,
+        });
+      } else {
+        console.log(result);
+        res.status(201).json({ message: "Category saved!" });
+      }
+    });
+  } catch (err) {
+    console.log("controller", err);
+    res.status(400).json({
+      message:
+        "An error occurred while saving the category. Please try again later!",
+      error: err.message,
+    });
+  }
+};
+
+module.exports.delete_category = async (req, res) => {
+  try {
+    if (!isAdmin(req.headers.authorization)) {
+      res.status(502).json({ message: "Invalid authorization" });
+      return;
+    }
+
+    const id = req.body.category_id;
+    Category.findByIdAndDelete(id, (err, result) => {
+      if (err) {
+        console.log(err, err.message);
+        res.status(500).json({
+          message:
+            "An error occurred while deleting the category. Please try again later!",
+          error: err.message,
+        });
+      } else {
+        console.log(result);
+        res.status(201).json({ message: "Category deleted!" });
+      }
+    });
+  } catch (err) {
+    console.log("controller", err);
+    res.status(400).json({
+      message:
+        "An error occurred while deleting the category. Please try again later!",
+      error: err.message,
     });
   }
 };

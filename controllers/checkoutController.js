@@ -1,8 +1,12 @@
 const User = require("../models/user");
 const Product = require("../models/product");
 
+const categoryController = require("../controllers/categoryController");
+
 module.exports.checkout_get = async (req, res) => {
   let userLoggedIn = false;
+  const categories = await categoryController.getCategories();
+
   if (req.cookies.jwt) {
     userLoggedIn = true;
   }
@@ -20,6 +24,7 @@ module.exports.checkout_get = async (req, res) => {
   res.render("checkout", {
     cart,
     userLoggedIn,
+    categories,
     cartLength: cart.length,
     address,
   });
@@ -33,6 +38,8 @@ module.exports.checkout_post = async (req, res) => {
 
 module.exports.checkout_buy_now = async (req, res) => {
   let userLoggedIn = false;
+  const categories = await categoryController.getCategories();
+
   if (req.cookies.jwt) {
     userLoggedIn = true;
   }
@@ -48,5 +55,6 @@ module.exports.checkout_buy_now = async (req, res) => {
     product,
     quantity: productToBuy.quantity,
     addresses,
+    categories,
   });
 };

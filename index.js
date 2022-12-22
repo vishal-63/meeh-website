@@ -11,13 +11,6 @@ dotenv.config();
 //require models
 require("./models/product");
 
-// Models
-const Product = require("./models/product");
-const User = require("./models/user");
-const Blog = require("./models/blog");
-const Coupon = require("./models/coupon");
-const Order = require("./models/order");
-
 // Routes
 const loginRouter = require("./routes/login");
 const cartRouter = require("./routes/cart");
@@ -34,6 +27,7 @@ const orderRouter = require("./routes/order.js");
 const adminRouter = require("./routes/adminRoutes.js");
 
 const cartController = require("./controllers/cartController");
+const categoryController = require("./controllers/categoryController");
 
 const app = express();
 
@@ -83,6 +77,8 @@ app.get("/", async (req, res) => {
   let userLoggedIn = false;
   let cartLength;
 
+  const categories = await categoryController.getCategories();
+
   if (req.cookies.jwt) {
     userLoggedIn = true;
     cartLength = await cartController.get_cart_length(req.cookies.jwt);
@@ -90,7 +86,7 @@ app.get("/", async (req, res) => {
     cartLength = JSON.parse(req.cookies.cart).length;
   }
 
-  res.render("index", { userLoggedIn, cartLength });
+  res.render("index", { userLoggedIn, categories, cartLength });
 });
 
 //setting routes for each path
@@ -117,11 +113,13 @@ app.get("/about", async (req, res) => {
   let userLoggedIn = false;
   let cartLength = await cartController.get_cart_length(req.cookies.jwt);
 
+  const categories = await categoryController.getCategories();
+
   if (req.cookies.jwt) {
     userLoggedIn = true;
   }
 
-  res.render("about", { userLoggedIn, cartLength });
+  res.render("about", { userLoggedIn, categories, cartLength });
 });
 
 // logout route
@@ -134,9 +132,10 @@ app.get("/logout", (req, res) => {
 app.get("*", async (req, res) => {
   let userLoggedIn = false;
   let cartLength = await cartController.get_cart_length(req.cookies.jwt);
+  const categories = await categoryController.getCategories();
   if (req.cookies.jwt) {
     userLoggedIn = true;
   }
 
-  res.render("not-found", { userLoggedIn, cartLength });
+  res.render("not-found", { userLoggedIn, categories, cartLength });
 });
