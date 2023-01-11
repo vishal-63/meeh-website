@@ -14,9 +14,7 @@ module.exports.products_get = async (req, res) => {
   if (req.cookies.jwt) {
     userLoggedIn = true;
   }
-
-  if (req.query.category != null) {
-    console.log(req.query.category);
+  if (req.query.category != null && req.query.category != undefined) {
     const productList = await Product.find({
       category: { $regex: req.query.category, $options: "i" },
     }).limit(100);
@@ -28,12 +26,11 @@ module.exports.products_get = async (req, res) => {
       categories,
     });
   } else {
-    const categories = await Product.find().distinct("category");
     const productList = {};
 
     for (let i = 0; i < categories.length; i++) {
-      productList[categories[i]] = await Product.find({
-        category: { $regex: categories[i], $options: "i" },
+      productList[categories[i].category_name] = await Product.find({
+        category: { $regex: categories[i].category_name, $options: "i" },
       }).limit(8);
     }
     res.render("products", {

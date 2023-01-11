@@ -45,6 +45,7 @@ module.exports.create_order = async (req, res) => {
   };
 
   const amount = order.grand_total * 100;
+  console.log(amount);
   const currency = "INR";
   const receipt = order._id;
   const notes = {
@@ -86,7 +87,7 @@ module.exports.create_order = async (req, res) => {
     );
   } catch (err) {
     res.status(500);
-    res.send(err.message);
+    res.json({ error: err.message });
   }
 };
 

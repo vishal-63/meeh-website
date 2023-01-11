@@ -28,6 +28,7 @@ const adminRouter = require("./routes/adminRoutes.js");
 
 const cartController = require("./controllers/cartController");
 const categoryController = require("./controllers/categoryController");
+const Product = require("./models/product");
 
 const app = express();
 

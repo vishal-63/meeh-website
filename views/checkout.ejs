@@ -365,6 +365,8 @@
           shippingAddressDiv.textContent = order.notes.shipping_address;
           orderSummaryShipping.textContent = "Rs. " + order.notes.shipping_cost
           intializeRazorpay();
+        } else {
+          console.log(data.error)
         }
       }
 

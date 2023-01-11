@@ -27,17 +27,24 @@ module.exports.createDbOrder = async (
           details: "",
           quantity: productCookie.quantity,
           total_amt:
-            productCookie.quantity * (product.price - product.discount),
+            productCookie.quantity * (product.price - (product.discount || 0)),
         },
       ];
     } else {
+      console.log(cart);
       const productPromises = cart.map(async function (item, index) {
         return Product.findById(item.product_id._id).then(function (product) {
+          console.log(
+            product.price,
+            product.discount,
+            product.price - (product.discount || 0)
+          );
           return {
             product_id: product._id,
             details: item.selected_size + "_" + item.selected_color,
             quantity: item.quantity,
-            total_amt: item.quantity * (product.price - product.discount),
+            total_amt:
+              item.quantity * (product.price - (product.discount || 0)),
           };
         });
       });
@@ -48,6 +55,8 @@ module.exports.createDbOrder = async (
       (sum, product) => sum + product.total_amt,
       0
     );
+
+    console.log(order.sub_total);
 
     // let couponDiscount = 0;
 
@@ -74,8 +83,14 @@ module.exports.createDbOrder = async (
     order.shipping_cost = total > 800 ? 0 : 80;
 
     order.grand_total = total + order.shipping_cost;
+    console.log(
+      order.grand_total,
+      total + order.shipping_cost,
+      order.sub_total
+    );
     order.shipping_address = address;
 
+    console.log(order);
     return order;
   } catch (err) {
     console.log(err);

@@ -136,24 +136,25 @@ module.exports.cart_add_product = async (req, res) => {
 module.exports.cart_delete_product = async (req, res) => {
   const user = await User.findById(res.user.id);
   console.log("deleting cart");
+  console.log(req.body, req.body.id);
   try {
     const newCart = user.cart.filter((item) => {
-      return item._id != req.body.id;
+      return item.product_id != req.body.id;
     });
 
     user.cart = newCart;
     await user.save();
+    console.log(user.cart);
 
     user.populate({
       path: "cart.product_id",
       model: Product,
     });
 
-    const cart = user.cart;
     res.status(200).send({ message: "Product deleted from cart" });
   } catch (err) {
     console.log(err.message);
-    res.status(400).send(err.message);
+    res.status(500).send(err.message);
   }
 };
 
