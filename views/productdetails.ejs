@@ -565,7 +565,8 @@
         }
 
         const descTags = document.querySelectorAll("p.product-description + ul")
-        const description = '<%=product.description%>'
+        const description = '<%=product.description%>'.replace("\n", "").replace("*", "")
+        console.log(description)
         const descArray = description.split("|")
         descTags.forEach(tag => {
           descArray.forEach(desc => {

@@ -241,6 +241,31 @@ module.exports.set_single_product = async (req, res) => {
   }
 };
 
+module.exports.delete_product = async (req, res) => {
+  try {
+    if (!isAdmin(req.headers.authorization)) {
+      res.status(502).json({ message: "Invalid authorization" });
+      return;
+    }
+
+    Product.deleteOne({ _id: req.params.id })
+      .then(function () {
+        res.status(200).send("Product deleted successfully!");
+      })
+      .catch(function (err) {
+        console.log(err, err.message);
+        res
+          .status(401)
+          .send(
+            "An error occurred while deleting the product. Please try again later."
+          );
+      });
+  } catch (err) {
+    console.log("controller", err);
+    res.status(500).send("Internal server error!");
+  }
+};
+
 module.exports.post_add_product = async (req, res) => {
   try {
     if (!isAdmin(req.headers.authorization)) {
