@@ -1,7 +1,7 @@
 <html>
     <body>
 
-    <form action="/admin/setProduct" method="POST">
+    <form action="/admin/setProduct/<%= product._id%>" method="POST">
         <label>Product id</label>
         <input value="<%= product._id%>" name="id"></input><br>
 

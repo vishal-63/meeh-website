@@ -162,12 +162,13 @@ module.exports.change_product_state = async (req, res) => {
 module.exports.get_single_product = async (req, res) => {
   
   try {
-    if( ! isAdmin(req.body.jwt)){
-      res.send("An error occurred. Please try again later!");
-      return;
-    }
+    // if( ! isAdmin(req)){
+    //   res.send("An error occurred. Please try again later!");
+    //   return;
+    // }
     const product = await Product.findById(req.params.id);
-    res.json(product);
+    // res.json(product);
+    res.render("singleProductAdmin",{product});
   } catch (err) {
     console.log(err);
     res.json({ error: err.message });
@@ -178,10 +179,10 @@ module.exports.get_single_product = async (req, res) => {
 
 module.exports.set_single_product = async (req, res) => {
   try{
-    if( ! isAdmin(req.body.jwt)){
-      res.send("An error occurred. Please try again later!");
-      return;
-    }
+    // if( ! isAdmin(req.body.jwt)){
+    //   res.send("An error occurred. Please try again later!");
+    //   return;
+    // }
     const updated = req.body;
     const product = await Product.findById(req.params.id);
     console.log(req.body);

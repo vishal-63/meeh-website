@@ -13,7 +13,7 @@ router.get("/getProducts", adminController.get_products);
 router.get("/getProduct/:id", adminController.get_single_product);
 router.put("/changeProductState/:id", adminController.change_product_state);
 //done
-router.put("/setProduct/:id", adminController.set_single_product);
+router.post("/setProduct/:id", adminController.set_single_product);
 //inprogress
 router.get("/addProduct", adminController.get_add_product);
 //inprogress

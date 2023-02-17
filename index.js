@@ -35,6 +35,10 @@ const adminRouter = require("./routes/adminRoutes.js");
 
 const cartController = require("./controllers/cartController");
 
+//temp use only for image upload
+const productUploadRouter = require("./routes/uploadProducts");
+
+
 const app = express();
 
 // allowing crossorigin request
@@ -106,7 +110,9 @@ app.use("/auth/google", googleAuthRouter);
 app.use("/shipping", shippingRouter);
 app.use("/policy", policyRouter);
 
-//temp for uploading images to database;
+//temp for uploading images links to database;
+app.use("/imageUpload",productUploadRouter);
+
 app.use("/orders", orderRouter);
 
 //admin routes
