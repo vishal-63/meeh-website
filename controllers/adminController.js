@@ -189,7 +189,8 @@ module.exports.get_single_product = async (req, res) => {
       return;
     }
     const product = await Product.findById(req.params.id);
-    res.json(product);
+    // res.json(product);
+    res.render("singleProductAdmin",{product});
   } catch (err) {
     console.log(err);
     res.json({ error: err.message });

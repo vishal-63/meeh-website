@@ -17,7 +17,9 @@ module.exports.products_get = async (req, res) => {
   if (req.query.category != null && req.query.category != undefined) {
     const productList = await Product.find({
       category: { $regex: req.query.category, $options: "i" },
+      is_deleted:false 
     }).limit(100);
+    console.log(productList);
     res.render("products", {
       productList,
       userLoggedIn,
@@ -31,8 +33,10 @@ module.exports.products_get = async (req, res) => {
     for (let i = 0; i < categories.length; i++) {
       productList[categories[i].category_name] = await Product.find({
         category: { $regex: categories[i].category_name, $options: "i" },
+        is_deleted:false 
       }).limit(8);
     }
+    console.log(productList[0]);
     res.render("products", {
       productList,
       userLoggedIn,
@@ -50,6 +54,7 @@ module.exports.products_get_next = async (req, res) => {
   if (req.body.category) {
     newProducts = await Product.find({
       category: { $regex: req.body.category, $options: "i" },
+      is_deleted:false 
     })
       .limit(100)
       .skip(productsLoaded);
@@ -60,12 +65,13 @@ module.exports.products_get_next = async (req, res) => {
       con.push({ description: { $regex: text, $options: "i" } });
     });
 
-    newProducts = await Product.find({ $and: con })
+    newProducts = await Product.find({ $and: con ,is_deleted:false })
       .limit(100)
       .skip(parseInt(req.body.productsLoaded));
   } else {
     newProducts = await Product.find().limit(100).skip(productsLoaded);
   }
+  console.log(newProducts);
   res.send({ newProducts });
 };
 
@@ -119,11 +125,12 @@ module.exports.products_get_search = async (req, res) => {
       con.push({ description: { $regex: text, $options: "i" } });
     });
 
-    const productList = await Product.find({ $and: con })
+    const productList = await Product.find({ $and: con,is_deleted:false })
       .limit(100)
       .skip(parseInt(req.body.productsLoaded));
     // console.log(productList[0].inventory[0].large_images);
     // const productList = await Product.find({ description:{  } }).limit(100)
+    console.log(productList);
     res.render("products", {
       productList,
       userLoggedIn,
