@@ -96,13 +96,10 @@
                                             <a href="/">Home</a>
                                           </li>
                                           <li class="dropdown"><a href="/products">Shop<span>Hot</span></a>
-                                              <ul>
-                                              <li><a href="/products?category=bookmark">Bookmarks</a></li>
-                                              <li><a href="/products?category=pop gripper">Pop Grippers</a></li>
-                                              <li><a href="/products?category=tote bag">Tote Bags</a></li>
-                                              <li><a href="/products?category=badge">Badges</a></li>
-                                              <li><a href="/products?category=a5 dairy">Diaries</a></li>
-                                              <li><a href="/products?category=mousepad">Mousepads</a></li>
+                                            <ul>
+                                              <% for(let i=0;i<categories.length;i++) { %>
+                                                <li><a href="/products?category=<%= categories[i].category_name%>"><%= categories[i].category_name%></a></li>
+                                              <% } %>
                                             </ul>
                                           </li>
                                           <li><a href="/about">About</a></li>    
@@ -330,7 +327,7 @@
                 data-wow-duration="1500ms"
               >
                 <figure class="image-box">
-                  <img src="https://ik.imagekit.io/meehh/A5_DAIRY2_sdR81jKVj" alt="Diaries" />
+                  <img src="https://ik.imagekit.io/meehh/A5_DAIRY9_8cf9AwrHuk" alt="Diaries" />
                 </figure>
                 <h5><a href="/products?category=a5 diary">Diaries</a></h5>
               </div>
@@ -399,7 +396,7 @@
                   <div class="inner-box">
                     <figure class="image-box">
                       <a href="/products/62e4343b4a2ded526cbc8294">
-                        <img src="https://ik.imagekit.io/meehh/A5_DAIRY2_sdR81jKVj" alt="Find Joy in the Journey - A5 Diary" />
+                        <img src="https://ik.imagekit.io/meehh/A5_DAIRY2_0ryq0i1UoX" alt="Find Joy in the Journey - A5 Diary" />
                       </a>
                       <ul class="info-list clearfix">
                         <li onClick="addWishlist('62e4343b4a2ded526cbc8294')">
@@ -474,20 +471,20 @@
                 <div class="shop-block-one">
                   <div class="inner-box">
                     <figure class="image-box">
-                      <a href="/products/62f260efdea092a0bad129f0">
+                      <a href="/products/62e25cc23c6c2c6047fac7f2">
                         <img src="https://ik.imagekit.io/meehh/POPSOKET4_dgrYz3t0u" alt="Avengers - Pop Gripper" />
                       </a>
                       <ul class="info-list clearfix">
-                        <li onClick="addWishlist('62f260efdea092a0bad129f0')">
+                        <li onClick="addWishlist('62e25cc23c6c2c6047fac7f2')">
                           <a><i class="flaticon-heart"></i></a>
                         </li>
-                        <li onClick="addToCart('62f260efdea092a0bad129f0')">
+                        <li onClick="addToCart('62e25cc23c6c2c6047fac7f2')">
                           <a>Add to cart</a>
                         </li>
                       </ul>
                     </figure>
                     <div class="lower-content">
-                      <a href="/products/62f260efdea092a0bad129f0">Avengers - Pop Gripper</a>
+                      <a href="/products/62e25cc23c6c2c6047fac7f2">Avengers - Pop Gripper</a>
                       <span class="price">&#x20B9; 200</span>
                     </div>
                   </div>

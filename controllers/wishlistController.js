@@ -4,6 +4,7 @@ const User = require("../models/user");
 const Product = require("../models/product");
 
 const cartController = require("../controllers/cartController");
+const categoryController = require("../controllers/categoryController");
 
 async function decodeJWT(token) {
   return jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decodedToken) => {
@@ -17,6 +18,7 @@ async function decodeJWT(token) {
 
 module.exports.wishlist_get = async (req, res) => {
   let userLoggedIn = false;
+  const categories = await categoryController.getCategories();
 
   let user;
   let wishlist = [];
@@ -51,6 +53,7 @@ module.exports.wishlist_get = async (req, res) => {
       wishlist,
       userLoggedIn,
       cartLength,
+      categories,
     });
   } catch (err) {
     console.log("An error occurred");

@@ -45,6 +45,7 @@ module.exports.create_order = async (req, res) => {
   };
 
   const amount = order.grand_total * 100;
+  console.log(amount);
   const currency = "INR";
   const receipt = order._id;
   const notes = {
@@ -86,7 +87,7 @@ module.exports.create_order = async (req, res) => {
     );
   } catch (err) {
     res.status(500);
-    res.send(err.message);
+    res.json({ error: err.message });
   }
 };
 
@@ -105,12 +106,6 @@ module.exports.verify_order = async (req, res) => {
       const order = await Order.findOne({ razorpay_order_id: order_id });
       order.razorpay_payment_id = payment_id;
       order.payment_status = "Successful";
-
-      order.save((err, order) => {
-        if (err) {
-          console.log(err);
-        }
-      });
 
       const user = await User.findById(order.user_id);
       user.cart = [];
@@ -178,7 +173,19 @@ module.exports.verify_order = async (req, res) => {
         model: Product,
       });
       const products = order.products;
-      shippingController.wrapper_api(order, email, contact, products);
+
+      const shiprocket_order_id = await shippingController.wrapper_api(
+        order,
+        email,
+        contact,
+        products
+      );
+      order.shiprocket_order_id = shiprocket_order_id;
+      order.save((err, order) => {
+        if (err) {
+          console.log(err);
+        }
+      });
 
       res.sendStatus(200);
     } else {

@@ -3,6 +3,8 @@ const jwt = require("jsonwebtoken");
 const Product = require("../models/product");
 const User = require("../models/user");
 
+const categoryController = require("../controllers/categoryController");
+
 module.exports.get_cart_length = async (token) => {
   if (token) {
     const decodedToken = jwt.verify(
@@ -39,6 +41,8 @@ async function getCartData(req, res) {
   let cart = [];
   let addresses = [];
 
+  const categories = await categoryController.getCategories();
+
   try {
     if (req.cookies.jwt) {
       userLoggedIn = true;
@@ -63,6 +67,7 @@ async function getCartData(req, res) {
       cart,
       userLoggedIn,
       addresses,
+      categories,
       cartLength: cart.length,
     };
   } catch (err) {
@@ -87,7 +92,8 @@ module.exports.cart_information_get = async (req, res) => {
 module.exports.cart_add_product = async (req, res) => {
   const user = await User.findById(res.user.id);
   let count = false;
-
+  console.log("adding to cart");
+  console.log(user);
   try {
     const product = await Product.findById(req.body.product_id);
     if (product == null || product == undefined) {
@@ -119,6 +125,7 @@ module.exports.cart_add_product = async (req, res) => {
         throw new Error({ message: "Failed to add product to cart!" });
       }
     });
+    console.log("added to cart");
     res.status(200).send("success!");
   } catch (err) {
     console.log(err.message);
@@ -128,31 +135,33 @@ module.exports.cart_add_product = async (req, res) => {
 
 module.exports.cart_delete_product = async (req, res) => {
   const user = await User.findById(res.user.id);
-
+  console.log("deleting cart");
+  console.log(req.body, req.body.id);
   try {
     const newCart = user.cart.filter((item) => {
-      return item._id != req.body.id;
+      return item.product_id != req.body.id;
     });
 
     user.cart = newCart;
     await user.save();
+    console.log(user.cart);
 
     user.populate({
       path: "cart.product_id",
       model: Product,
     });
 
-    const cart = user.cart;
     res.status(200).send({ message: "Product deleted from cart" });
   } catch (err) {
     console.log(err.message);
-    res.status(400).send(err.message);
+    res.status(500).send(err.message);
   }
 };
 
 module.exports.cart_update_product = async (req, res) => {
   const user = await User.findById(res.user.id);
-
+  console.log(req.body);
+  console.log(user);
   try {
     user.cart.map((item) => {
       if (item._id == req.body.id) {
@@ -169,7 +178,8 @@ module.exports.cart_update_product = async (req, res) => {
         console.log(err.message);
         res.status(500).send(err.message);
       } else {
-        res.status(200).send(result.cart);
+        console.log(result.cart);
+        res.status(200).json(result.cart);
       }
     });
   } catch (err) {

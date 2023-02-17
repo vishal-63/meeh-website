@@ -1,10 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const adminController = require("../controllers/adminController");
-// const {requireAuth} = require("../middleware/authMiddleware");
+const cors = require("cors");
 
 //login route:-
-router.post("/login",adminController.login);
+router.post("/login", adminController.login);
+
+router.get("/imagekit-auth", adminController.imagekitAuth);
+router.put("/deleteImage", adminController.delete_image);
 
 //product routes
 //done
@@ -14,8 +17,6 @@ router.get("/getProduct/:id", adminController.get_single_product);
 router.put("/changeProductState/:id", adminController.change_product_state);
 //done
 router.post("/setProduct/:id", adminController.set_single_product);
-//inprogress
-router.get("/addProduct", adminController.get_add_product);
 //inprogress
 router.post("/addProduct", adminController.post_add_product);
 
@@ -39,9 +40,15 @@ router.get("/getCoupons", adminController.get_coupons);
 //done
 router.get("/getCoupon/:id", adminController.get_single_coupon);
 //done
-router.post("/setCoupon", adminController.set_coupons);
+router.put("/changeCouponState/:id", adminController.change_coupon_state);
+router.put("/setCoupon/:id", adminController.set_coupons);
 //done
 router.post("/addCoupon", adminController.add_coupon);
+
+// category routes
+router.get("/getCategories", adminController.get_categories);
+router.post("/updateCategory", adminController.update_category);
+router.post("/deleteCategory", adminController.delete_category);
 
 //blog routes
 //done

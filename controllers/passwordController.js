@@ -3,6 +3,9 @@ const jwt = require("jsonwebtoken");
 const path = require("path");
 const bcrypt = require("bcrypt");
 
+const categoryController = require("../controllers/categoryController");
+const cartController = require("../controllers/cartController");
+
 //for mailing apis;
 const hbs = require("nodemailer-express-handlebars");
 const nodemailer = require("nodemailer");
@@ -29,18 +32,21 @@ module.exports.change_password_post = async (req, res) => {
   try {
     if (user == null || user == undefined) {
       throw new Error("User not found!");
-    } else {
-      const passwordMatched = bcrypt.compare(old_password, user.password);
-      if (passwordMatched && new_password == confirm_password) {
-        user.password = new_password;
-        user.save((err, result) => {
-          if (err) {
-            throw new Error("Error while saving new password!");
-          } else {
-            res.render("changePassword");
-          }
-        });
-      }
+    }
+
+    const passwordMatched = bcrypt.compare(old_password, user.password);
+
+    if (passwordMatched && new_password == confirm_password) {
+      user.password = await User.hashPassword(new_password);
+      console.log(user.password);
+      user.save((err, result) => {
+        if (err) {
+          throw new Error("Error while saving new password!");
+        } else {
+          console.log("password saved");
+          res.redirect("/profile");
+        }
+      });
     }
   } catch (err) {
     console.log(err);
@@ -89,13 +95,12 @@ module.exports.forgot_password_post = async (req, res) => {
         context: {
           name: user.first_name,
           link:
-            "http://localhost:5000/profile/forgot-password?token=" + emailToken, // replace {{company}} with My Company
+            "http://localhost:5000/profile/reset-password?token=" + emailToken, // replace {{company}} with My Company
         },
       };
 
       console.log(
-        "http://localhost:5000/profile/resetForgottenPassword?token=" +
-          emailToken
+        "http://localhost:5000/profile/reset-password?token=" + emailToken
       );
 
       transporter.sendMail(mailOptions, function (error, info) {
@@ -117,26 +122,37 @@ module.exports.forgot_password_post = async (req, res) => {
 module.exports.reset_forgotten_password_get = async (req, res) => {
   console.log(req.query.token);
   const email = jwt.verify(req.query.token, process.env.JWT_SECRET_KEY);
+  let userLoggedIn = false;
+  if (req.cookies.jwt) {
+    userLoggedIn = true;
+  }
+  const categories = await categoryController.getCategories();
+  let cartLength = await cartController.get_cart_length(req.cookies.jwt);
+
   //send email in cookie
   console.log(email);
-  res.render("resetForgottenPassword", { email: email.id });
+  res.render("changePassword", {
+    categories,
+    email: email.id,
+    userLoggedIn,
+    cartLength,
+  });
 };
 
 module.exports.reset_forgotten_password_post = async (req, res) => {
   try {
-    const email = null;
-    const { new_password, confirm_password } = req.body;
+    const { new_password, confirm_password, email } = req.body;
 
     //find user by email;
     if (new_password == confirm_password) {
       const user = await User.findOne({ email: email });
-      user.password = req.body.password;
+      user.password = await User.hashPassword(new_password);
+      console.log(user.password);
       user.save((err, result) => {
         if (err) {
           throw new Error("Failed to update password!");
         } else {
-          forgot_password.delete();
-          console.log(result);
+          console.log("password saved");
           res.redirect("/login");
         }
       });

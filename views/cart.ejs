@@ -93,12 +93,9 @@
                                           </li>
                                           <li class="dropdown"><a href="/products">Shop<span>Hot</span></a>
                                               <ul>
-                                              <li><a href="/products?category=bookmark">Bookmarks</a></li>
-                                              <li><a href="/products?category=pop gripper">Pop Grippers</a></li>
-                                              <li><a href="/products?category=tote bag">Tote Bags</a></li>
-                                              <li><a href="/products?category=badge">Badges</a></li>
-                                              <li><a href="/products?category=a5 dairy">Diaries</a></li>
-                                              <li><a href="/products?category=mousepad">Mousepads</a></li>
+                                              <% for(let i=0;i<categories.length;i++) { %>
+                                                  <li><a href="/products?category=<%= categories[i].category_name%>"><%= categories[i].category_name%></a></li>
+                                                <% } %>
                                             </ul>
                                           </li>
                                           <li><a href="/about">About</a></li>
@@ -256,7 +253,7 @@
                                   <div class="column-box">
                                     <div
                                       class="remove-btn"
-                                      onClick="deleteFromCart('<%= cart[i]._id %>', this)"
+                                      onClick="deleteFromCart('<%= cart[i].product_id._id %>', this)"
                                     >
                                       <i class="flaticon-close"></i>
                                     </div>
@@ -281,7 +278,7 @@
                                   <div class="item-quantity">
                                     <input
                                       value="<%=cart[i].quantity%>"
-                                      id="<%=cart[i]._id%>%>"
+                                      id="<%=cart[i].product_id._id%>"
                                       class="quantity-spinner"
                                       type="text"
                                       name="quantity"
@@ -436,45 +433,83 @@
         };
       }
 
+      function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+      }
+
+      function createCookie (name, data) {
+        const d = new Date();
+        d.setTime(d.getTime() + (24*60*60*1000));
+        let expires = "expires="+ d.toUTCString();
+        document.cookie = name + "=" + JSON.stringify(data) + ";" + expires + ";path=/";
+      }
+
       async function deleteFromCart(id, e) {
-        const data = { id };
-        const url = "/cart/deleteFromCart";
-        const options = {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          body: JSON.stringify(data),
-        };
-        const res = await fetch(url, options);
-        if (!res.ok)
-          alert(
-            "An error occurred while updating your cart. Please try again later!"
-          );
-        else location.reload(false);
+        if (<%- userLoggedIn %>) {
+          const data = { id };
+          const url = "/cart/deleteFromCart";
+          const options = {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          };
+          const res = await fetch(url, options);
+          if (!res.ok)
+            alert(
+              "An error occurred while updating your cart. Please try again later!"
+            );
+          else location.reload(false);
+        } else {
+          const cartCookie = getCookie('cart')
+          let cartdata = cartCookie ? JSON.parse(cartCookie) : []
+          let productExists = false
+          console.log(id)
+          cartdata = cartdata.filter((product) => (product.product_id !== id))
+          createCookie('cart', cartdata)
+          location.reload(false)
+        }
       }
 
       async function updateCart(id, quantity) {
-        const data = { id, quantity };
-        const url = "/cart/updateCart";
-        const options = {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        };
-        const res = await fetch(url, options);
-        if (!res.ok) {
-          alert(
-            "An error occurred while updating your cart. Please try again later!"
-          );
-          quantity > 0
-            ? document.getElementById(id).value--
-            : document.getElementById(id).value++;
+        if (<%- userLoggedIn %>) {
+          const data = { id, quantity };
+          const url = "/cart/updateCart";
+          const options = {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          };
+          const res = await fetch(url, options);
+          if (!res.ok) {
+            alert(
+              "An error occurred while updating your cart. Please try again later!"
+            );
+            quantity > 0
+              ? document.getElementById(id).value--
+              : document.getElementById(id).value++;
+          } else {
+            console.log(await res.text())
+            // location.reload(false);
+          }
         } else {
-          location.reload(false);
+          const cartCookie = getCookie('cart')
+          let cartdata = cartCookie ? JSON.parse(cartCookie) : []
+          let productExists = false
+          cartdata.map((product) => {
+            if (product.product_id === id){
+              product.quantity = product.quantity + quantity
+              productExists = true
+            }
+          })
+          // if(!productExists) cartdata = [...cartdata, data]
+          createCookie('cart', cartdata)
+          location.reload(false)
         }
       }
       

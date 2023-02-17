@@ -98,6 +98,7 @@ const orderSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  shiprocket_order_id: String,
 });
 
 const Order = mongoose.model("orders", orderSchema);
