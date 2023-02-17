@@ -189,8 +189,7 @@ module.exports.get_single_product = async (req, res) => {
       return;
     }
     const product = await Product.findById(req.params.id);
-    // res.json(product);
-    res.render("singleProductAdmin",{product});
+    res.json(product);
   } catch (err) {
     console.log(err);
     res.json({ error: err.message });
@@ -299,7 +298,6 @@ module.exports.get_users = async (req, res) => {
     const users = await User.find();
     console.log("users requested");
     res.json(users);
-    // res.render("usersAdmin",{users});
   } catch (err) {
     console.log("controller", err);
     res.status(400).json({ error: err.message });
@@ -318,7 +316,7 @@ module.exports.get_single_user = async (req, res) => {
       model: Product,
     });
     console.log(user);
-    res.render("singleUserAdmin", { user, isAdmin: true });
+    res.json(user);
   } catch (err) {
     notFound(req, res);
   }
