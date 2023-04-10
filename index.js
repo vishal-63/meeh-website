@@ -33,7 +33,6 @@ const Product = require("./models/product");
 //temp use only for image upload
 const productUploadRouter = require("./routes/uploadProducts");
 
-
 const app = express();
 
 corsOptions = {
@@ -108,7 +107,7 @@ app.use("/shipping", shippingRouter);
 app.use("/policy", policyRouter);
 
 //temp for uploading images links to database;
-app.use("/imageUpload",productUploadRouter);
+app.use("/imageUpload", productUploadRouter);
 
 app.use("/orders", orderRouter);
 
